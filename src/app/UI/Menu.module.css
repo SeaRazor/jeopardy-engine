@@ -1,0 +1,264 @@
+.navbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #F8F4EC;
+  padding: 0.5rem 0;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 10;
+  min-height: 70px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  height: 60px; /* Increased height to match menu */
+  /* Add some vertical padding */
+}
+
+.logoImage {
+  height: 100%;
+  width: auto;
+  max-width: 200px; /* Prevent it from getting too wide */
+  object-fit: contain;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3)); /* Optional: Add subtle glow */
+}
+
+.authSection {
+  margin-left: auto;
+  padding-left: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.loginButton, .logoutButton, .mobileLogin, .mobileLogout {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: #333;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.loginButton:hover, .logoutButton:hover, .mobileLogin:hover, .mobileLogout:hover {
+  background-color: rgba(0, 112, 243, 0.05);
+  color: #0070f3;
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #f0f0f0;
+}
+
+.userName {
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+.mobileLogin, .mobileLogout {
+  width: 100%;
+  justify-content: flex-start;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0;
+  text-align: left;
+}
+
+.mobileLogin:hover, .mobileLogout:hover {
+  background-color: rgba(0, 112, 243, 0.08);
+}
+
+@media (max-width: 768px) {
+  .authSection {
+    display: none;
+  }
+}
+
+.loginLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: all 0.2s;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+}
+
+.loginLink:hover {
+  background-color: rgba(0, 112, 243, 0.05);
+}
+
+.loginLink:hover, .loginLink.active {
+  color: #0070f3;
+}
+
+.loginLink.active {
+  font-weight: 600;
+}
+.menuList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+}
+
+.menuListItem {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.2s, background-color 0.2s;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+}
+
+.menuItem:hover {
+  background-color: rgba(0, 112, 243, 0.05);
+  color: #0070f3;
+}
+
+.menuIcon {
+  font-size: 1.1rem;
+}
+
+.menuItemActive {
+  color: #0070f3;
+  font-weight: 600;
+}
+
+.mobileMenuItemActive {
+  color: #0070f3;
+  font-weight: 600;
+}
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.bar {
+  width: 28px;
+  height: 3px;
+  background: #333;
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+.mobileMenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 200px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 0 0 8px 8px;
+  padding: 1rem 0;
+  list-style: none;
+  z-index: 20;
+}
+.mobileMenu li {
+  padding: 0.5rem 1.5rem;
+}
+
+.mobileMenu li a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+}
+
+.mobileMenu .icon {
+  width: 1.25rem;
+  display: flex;
+  justify-content: center;
+}
+.mobileMenu li a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+.mobileMenu li a:hover {
+  color: #0070f3;
+}
+@media (max-width: 768px) {
+  .menuList {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .navbar {
+    position: relative;
+  }
+
+  .mobileMenu {
+    display: block;
+  }
+
+  .logo {
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 769px) {
+  .hamburger {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: none !important;
+  }
+}
