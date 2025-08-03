@@ -1,0 +1,86 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modal {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transform: scale(0.95);
+  opacity: 0;
+  animation: modal-appear 0.3s forwards ease-out;
+}
+
+@keyframes modal-appear {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--color-foreground);
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--color-secondary-text);
+  transition: color 0.2s ease;
+}
+
+.closeButton:hover {
+  color: var(--color-foreground);
+}
+
+.content {
+  flex-grow: 1;
+}
+
+/* Dark mode adjustments */
+html.dark .modal {
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1);
+}
+
+html.dark .title {
+  color: var(--color-foreground);
+}
+
+html.dark .closeButton {
+  color: var(--color-secondary-text);
+}
+
+html.dark .closeButton:hover {
+  color: var(--color-foreground);
+}

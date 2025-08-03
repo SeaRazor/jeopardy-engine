@@ -12,6 +12,7 @@ import {
 } from 'react-icons/fa';
 import LoginModal from './LoginModal/LoginModal';
 import { isAuthenticated, getCurrentUser, logout } from '../util/auth';
+import ThemeSwitcher from './ThemeSwitcher'; // Import the ThemeSwitcher
 import styles from './Menu.module.css';
 
 const menuItems = [
@@ -76,6 +77,7 @@ export default function Menu() {
         ))}
       </ul>
       <div className={styles.authSection}>
+        <ThemeSwitcher /> {/* Add the ThemeSwitcher here */}
         {user ? (
           <div className={styles.userMenu}>
             <div className={styles.userInfo}>
@@ -133,6 +135,10 @@ export default function Menu() {
               </Link>
             </li>
           ))}
+          {/* Add ThemeSwitcher to mobile menu as well */}
+          <li>
+            <ThemeSwitcher />
+          </li>
           {user ? (
             <li>
               <button 

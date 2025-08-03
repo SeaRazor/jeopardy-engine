@@ -1,0 +1,17 @@
+.switcherButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-foreground);
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+
+.switcherButton:hover {
+  color: var(--primary-color);
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+}

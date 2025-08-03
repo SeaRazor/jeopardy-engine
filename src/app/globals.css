@@ -1,7 +1,115 @@
-/* Minimal global styles */
+/* === Modern Color & Style Overhaul === */
+
+/* 1. CSS Variables: The heart of our new color scheme */
+:root {
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Base Palette - Light Mode */
+  --color-background: #f8f9fa; /* Very light gray, almost white */
+  --color-foreground: #212529; /* Dark, readable text */
+  --color-secondary-text: #6c757d; /* For less important text */
+  --color-border: #e9ecef;
+  --color-shadow: rgba(0, 0, 0, 0.05);
+
+  /* Card Specifics - Light Mode */
+  --card-bg: #ffffff;
+  --card-border: #e9ecef;
+
+  /* Input Specifics - Light Mode */
+  --input-bg: #ffffff;
+  --input-border: #ced4da;
+  --input-focus-shadow: rgba(0, 123, 255, 0.2);
+
+  /* Primary Action (e.g., main buttons, active states) - Light Mode */
+  --primary-color: #007bff; /* A vibrant, modern blue */
+  --primary-hover-color: #0056b3;
+  --primary-text-color: #ffffff;
+
+  /* Secondary Action (e.g., clear filters button) - Light Mode */
+  --secondary-button-bg: #ffffff;
+  --secondary-button-border: #ced4da;
+  --secondary-button-text: #6c757d;
+  --secondary-button-hover-bg: #f8f9fa;
+  --secondary-button-hover-border: #adb5bd;
+  --secondary-button-hover-text: #212529;
+
+  /* Status/Label Colors - Light Mode */
+  --status-planned-color: #ffc107;
+  --status-planned-bg: rgba(255, 193, 7, 0.1);
+  --status-ongoing-color: #28a745;
+  --status-ongoing-bg: rgba(40, 167, 69, 0.1);
+  --status-finished-color: #6c757d;
+  --status-finished-bg: rgba(108, 117, 125, 0.1);
+
+  /* Type Label Colors - Light Mode */
+  --type-si-bg: #007bff; /* Same as primary for consistency */
+  --type-ek-bg: #198754; /* A nice, modern green */
+}
+
+/* Base Palette - Dark Mode */
+html.dark {
+  --color-background: #1a1a1a; /* A deep, comfortable dark */
+  --color-foreground: #f8f9fa; /* Light, readable text */
+  --color-secondary-text: #adb5bd;
+  --color-border: #444444;
+  --color-shadow: rgba(255, 255, 255, 0.05);
+
+  /* Card Specifics - Dark Mode */
+  --card-bg: #2c2c2c;
+  --card-border: #444444;
+
+  /* Input Specifics - Dark Mode */
+  --input-bg: #333333;
+  --input-border: #555555;
+  --input-focus-shadow: rgba(13, 110, 253, 0.3);
+
+  /* Primary Action - Dark Mode */
+  --primary-color: #0d6efd;
+  --primary-color-rgb: 13, 110, 253;
+  --primary-hover-color: #3d8bfd;
+  --primary-text-color: #ffffff;
+
+  /* Secondary Action - Dark Mode */
+  --secondary-button-bg: #333333;
+  --secondary-button-border: #555555;
+  --secondary-button-text: #adb5bd;
+  --secondary-button-hover-bg: #444444;
+  --secondary-button-hover-border: #6c757d;
+  --secondary-button-hover-text: #f8f9fa;
+
+  /* Status/Label Colors - Dark Mode */
+  --status-planned-color: #ffca2c;
+  --status-planned-bg: rgba(255, 202, 44, 0.15);
+  --status-ongoing-color: #32cd32;
+  --status-ongoing-bg: rgba(50, 205, 50, 0.15);
+  --status-finished-color: #adb5bd;
+  --status-finished-bg: rgba(173, 181, 189, 0.15);
+
+  /* Type Label Colors - Dark Mode */
+  --type-si-bg: #0d6efd;
+  --type-ek-bg: #20c997; /* A slightly brighter green for dark mode */
+}
+
+/* 2. Foundational Body Styles */
 body {
   margin: 0;
   padding: 20px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  line-height: 1.5;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--color-foreground);
 }

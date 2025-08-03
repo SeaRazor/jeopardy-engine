@@ -1,0 +1,179 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 2rem auto;
+  color: var(--color-foreground);
+}
+
+.form h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  color: var(--color-foreground);
+  text-align: center;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-weight: 500;
+  color: var(--color-foreground);
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="date"],
+.formGroup input[type="number"],
+.formGroup select {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--input-bg);
+  color: var(--color-foreground);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formGroup select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236c757d' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 1.25em 1.25em;
+  padding-right: 2.5rem; /* Make space for the arrow */
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--input-focus-shadow);
+}
+
+.inputError {
+  border-color: #dc3545 !important; /* Red border for error */
+}
+
+.errorText {
+  color: #dc3545; /* Red text for error messages */
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.actions button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.actions button[type="submit"] {
+  background-color: var(--primary-color);
+  color: var(--primary-text-color);
+  border: 1px solid var(--primary-color);
+}
+
+.actions button[type="submit"]:hover:not(:disabled) {
+  background-color: var(--primary-hover-color);
+  border-color: var(--primary-hover-color);
+}
+
+.actions button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.actions button[type="button"] {
+  background-color: var(--secondary-button-bg);
+  color: var(--secondary-button-text);
+  border: 1px solid var(--secondary-button-border);
+}
+
+.actions button[type="button"]:hover:not(:disabled) {
+  background-color: var(--secondary-button-hover-bg);
+  color: var(--secondary-button-hover-text);
+  border-color: var(--secondary-button-hover-border);
+}
+
+.error {
+  color: #dc3545; /* Red for errors */
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* Dark mode adjustments */
+html.dark .form {
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+html.dark .form h2,
+html.dark .formGroup label {
+  color: var(--color-foreground);
+}
+
+html.dark .formGroup input,
+html.dark .formGroup select {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--color-foreground);
+}
+
+html.dark .formGroup input:focus,
+html.dark .formGroup select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--input-focus-shadow);
+}
+
+html.dark .inputError {
+  border-color: #ff6b6b !important; /* Lighter red for dark mode error */
+}
+
+html.dark .errorText {
+  color: #ff6b6b; /* Lighter red for dark mode error messages */
+}
+
+html.dark .actions button[type="submit"] {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+html.dark .actions button[type="submit"]:hover:not(:disabled) {
+  background-color: var(--primary-hover-color);
+  border-color: var(--primary-hover-color);
+}
+
+html.dark .actions button[type="button"] {
+  background-color: var(--secondary-button-bg);
+  color: var(--secondary-button-text);
+  border-color: var(--secondary-button-border);
+}
+
+html.dark .actions button[type="button"]:hover:not(:disabled) {
+  background-color: var(--secondary-button-hover-bg);
+  color: var(--secondary-button-hover-text);
+  border-color: var(--secondary-button-hover-border);
+}
+
+html.dark .error {
+  color: #ff6b6b; /* Lighter red for dark mode errors */
+}

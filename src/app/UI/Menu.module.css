@@ -3,28 +3,28 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #F8F4EC;
+  background-color: var(--color-background);
   padding: 0.5rem 0;
   box-sizing: border-box;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 8px var(--color-shadow);
   position: relative;
   z-index: 10;
   min-height: 70px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 .logo {
   display: flex;
   align-items: center;
   margin-right: auto;
-  height: 60px; /* Increased height to match menu */
-  /* Add some vertical padding */
+  height: 60px;
 }
 
 .logoImage {
   height: 100%;
   width: auto;
-  max-width: 200px; /* Prevent it from getting too wide */
+  max-width: 200px;
   object-fit: contain;
-  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3)); /* Optional: Add subtle glow */
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.1));
 }
 
 .authSection {
@@ -32,6 +32,7 @@
   padding-left: 1rem;
   display: flex;
   align-items: center;
+  gap: 1rem; /* Space between theme switcher and auth buttons */
 }
 
 .loginButton, .logoutButton, .mobileLogin, .mobileLogout {
@@ -40,7 +41,7 @@
   gap: 0.5rem;
   background: none;
   border: none;
-  color: #333;
+  color: var(--color-foreground);
   font-weight: 500;
   cursor: pointer;
   padding: 0.5rem 0.75rem;
@@ -50,8 +51,8 @@
 }
 
 .loginButton:hover, .logoutButton:hover, .mobileLogin:hover, .mobileLogout:hover {
-  background-color: rgba(0, 112, 243, 0.05);
-  color: #0070f3;
+  background-color: rgba(var(--primary-color-rgb), 0.05);
+  color: var(--primary-color);
 }
 
 .userMenu {
@@ -71,7 +72,8 @@
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  background-color: #f0f0f0;
+  background-color: var(--card-bg);
+  border: 2px solid var(--primary-color);
 }
 
 .userName {
@@ -81,6 +83,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 120px;
+  color: var(--color-foreground);
 }
 
 .mobileLogin, .mobileLogout {
@@ -92,7 +95,7 @@
 }
 
 .mobileLogin:hover, .mobileLogout:hover {
-  background-color: rgba(0, 112, 243, 0.08);
+  background-color: rgba(var(--primary-color-rgb), 0.08);
 }
 
 @media (max-width: 768px) {
@@ -106,7 +109,7 @@
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
-  color: #333;
+  color: var(--color-foreground);
   font-weight: 500;
   transition: all 0.2s;
   padding: 0.5rem 0.75rem;
@@ -114,11 +117,11 @@
 }
 
 .loginLink:hover {
-  background-color: rgba(0, 112, 243, 0.05);
+  background-color: rgba(var(--primary-color-rgb), 0.05);
 }
 
 .loginLink:hover, .loginLink.active {
-  color: #0070f3;
+  color: var(--primary-color);
 }
 
 .loginLink.active {
@@ -145,7 +148,7 @@
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
-  color: #333;
+  color: var(--color-foreground);
   font-weight: 500;
   transition: color 0.2s, background-color 0.2s;
   padding: 0.5rem 0.75rem;
@@ -153,8 +156,8 @@
 }
 
 .menuItem:hover {
-  background-color: rgba(0, 112, 243, 0.05);
-  color: #0070f3;
+  background-color: rgba(var(--primary-color-rgb), 0.05);
+  color: var(--primary-color);
 }
 
 .menuIcon {
@@ -162,12 +165,12 @@
 }
 
 .menuItemActive {
-  color: #0070f3;
+  color: var(--primary-color);
   font-weight: 600;
 }
 
 .mobileMenuItemActive {
-  color: #0070f3;
+  color: var(--primary-color);
   font-weight: 600;
 }
 .hamburger {
@@ -185,7 +188,7 @@
 .bar {
   width: 28px;
   height: 3px;
-  background: #333;
+  background: var(--color-foreground);
   margin: 4px 0;
   border-radius: 2px;
   transition: 0.3s;
@@ -196,8 +199,8 @@
   top: 100%;
   left: 0;
   width: 200px;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  background: var(--color-background);
+  box-shadow: 0 2px 8px var(--color-shadow);
   border-radius: 0 0 8px 8px;
   padding: 1rem 0;
   list-style: none;
@@ -220,12 +223,12 @@
   justify-content: center;
 }
 .mobileMenu li a {
-  color: #333;
+  color: var(--color-foreground);
   text-decoration: none;
   font-weight: 500;
 }
 .mobileMenu li a:hover {
-  color: #0070f3;
+  color: var(--primary-color);
 }
 @media (max-width: 768px) {
   .menuList {

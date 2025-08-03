@@ -1,0 +1,40 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.addTournamentButton {
+  background-color: var(--primary-color);
+  color: var(--primary-text-color);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.addTournamentButton:hover {
+  background-color: var(--primary-hover-color);
+}
+
+/* Dark mode adjustments */
+html.dark .addTournamentButton {
+  background-color: var(--primary-color);
+}
+
+html.dark .addTournamentButton:hover {
+  background-color: var(--primary-hover-color);
+}

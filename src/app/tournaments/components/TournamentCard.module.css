@@ -1,0 +1,123 @@
+.tournamentCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 220px; /* Adjust this value as needed to fit content comfortably */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.name {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-foreground);
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden;    /* Hide overflow content */
+  text-overflow: ellipsis; /* Add ellipsis for truncated text */
+}
+
+.typeLabel {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  color: var(--primary-text-color);
+}
+
+.СИ {
+  background-color: var(--type-si-bg);
+}
+
+.ЭК {
+  background-color: var(--type-ek-bg);
+}
+
+.details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dates {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-secondary-text);
+}
+
+.status {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  display: inline-block;
+  border: 1px solid transparent;
+}
+
+.planned {
+  color: var(--status-planned-color);
+  background-color: var(--status-planned-bg);
+  border-color: var(--status-planned-color);
+}
+
+.ongoing {
+  color: var(--status-ongoing-color);
+  background-color: var(--status-ongoing-bg);
+  border-color: var(--status-ongoing-color);
+}
+
+.finished {
+  color: var(--status-finished-color);
+  background-color: var(--status-finished-bg);
+  border-color: var(--status-finished-color);
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--card-border);
+  font-size: 0.875rem;
+  color: var(--color-secondary-text);
+}
+
+.schema {
+  font-weight: 500;
+}
+
+.participants {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.actions {
+  margin-top: auto; /* Pushes button to the bottom */
+  padding-top: 1rem;
+  border-top: 1px solid var(--card-border);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.detailsButton {
+  background-color: var(--primary-color);
+  color: var(--primary-text-color);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.detailsButton:hover {
+  background-color: var(--primary-hover-color);
+}
