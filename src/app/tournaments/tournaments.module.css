@@ -7,7 +7,7 @@
 .controls {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 1rem;
   margin-bottom: 1.5rem;
   flex-wrap: wrap;

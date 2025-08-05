@@ -1,0 +1,92 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px var(--color-shadow);
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  
+  .cardName {
+    font-size: 1.1rem;
+    font-weight: 500;
+    flex-grow: 1;
+  }
+
+.deleteIcon {
+    visibility: hidden;
+    color: var(--color-secondary-text);
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+.card:hover .deleteIcon {
+    visibility: visible;
+}
+
+@media (hover: none) {
+    .deleteIcon {
+        visibility: visible;
+    }
+}
+
+.deleteIcon:hover {
+    color: #dc3545;
+}
+  
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  
+  .filterInput {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: var(--input-bg);
+    color: var(--color-foreground);
+  }
+  
+  .addButton {
+    background-color: var(--primary-color);
+    color: var(--primary-text-color);
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .addButton:hover {
+    background-color: var(--primary-hover-color);
+  }
+  
