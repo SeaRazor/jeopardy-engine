@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaPlus } from 'react-icons/fa';
 import styles from './Players.module.css';
 import AddPersonModal from './AddPersonModal';
 import ConfirmationDialog from '../UI/ConfirmationDialog';
@@ -79,9 +79,6 @@ export default function Persons() {
           onChange={(e) => setFilter(e.target.value)}
           className={styles.filterInput}
         />
-        <button onClick={() => setIsModalOpen(true)} className={styles.addButton}>
-          Add Person
-        </button>
       </div>
       {isLoading ? (
         <p>Loading...</p>
@@ -111,6 +108,9 @@ export default function Persons() {
         onConfirm={() => handleDeletePerson(personToDelete)}
         message="Are you sure you want to delete this person?"
       />
+      <button onClick={() => setIsModalOpen(true)} className="fab">
+        <FaPlus />
+      </button>
     </div>
   );
 }

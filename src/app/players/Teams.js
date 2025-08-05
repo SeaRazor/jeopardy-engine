@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaPlus } from 'react-icons/fa';
 import styles from './Players.module.css';
 import AddTeamModal from './AddTeamModal';
 import ConfirmationDialog from '../UI/ConfirmationDialog';
@@ -77,9 +77,6 @@ export default function Teams() {
           onChange={(e) => setFilter(e.target.value)}
           className={styles.filterInput}
         />
-        <button onClick={() => setIsModalOpen(true)} className={styles.addButton}>
-          Add Team
-        </button>
       </div>
       {isLoading ? (
         <p>Loading...</p>
@@ -107,6 +104,9 @@ export default function Teams() {
         onConfirm={() => handleDeleteTeam(teamToDelete)}
         message="Are you sure you want to delete this team?"
       />
+      <button onClick={() => setIsModalOpen(true)} className="fab">
+        <FaPlus />
+      </button>
     </div>
   );
 }

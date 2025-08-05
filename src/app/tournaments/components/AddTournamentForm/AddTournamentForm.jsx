@@ -98,65 +98,67 @@ export default function AddTournamentForm({ onClose }) {
         />
         {errors.name && <p className={styles.errorText}>{errors.name}</p>}
       </div>
-      <div className={styles.formGroup}>
-        <label htmlFor="startDate">Дата начала</label>
-        <input
-          type="date"
-          id="startDate"
-          name="startDate"
-          value={formData.startDate}
-          onChange={handleChange}
-          className={errors.startDate ? styles.inputError : ''}
-        />
-        {errors.startDate && <p className={styles.errorText}>{errors.startDate}</p>}
-      </div>
-      <div className={styles.formGroup}>
-        <label htmlFor="endDate">Дата окончания</label>
-        <input
-          type="date"
-          id="endDate"
-          name="endDate"
-          value={formData.endDate}
-          onChange={handleChange}
-          className={errors.endDate ? styles.inputError : ''}
-        />
-        {errors.endDate && <p className={styles.errorText}>{errors.endDate}</p>}
-      </div>
-      <div className={styles.formGroup}>
-        <label htmlFor="type">Тип турнира</label>
-        <select
-          id="type"
-          name="type"
-          value={formData.type}
-          onChange={handleChange}
-          className={errors.type ? styles.inputError : ''}
-        >
-          <option value="">Выберите тип</option>
-          {types?.map((type) => (
-            <option key={type.id} value={type.name}>
-              {type.name}
-            </option>
-          ))}
-        </select>
-        {errors.type && <p className={styles.errorText}>{errors.type}</p>}
-      </div>
-      <div className={styles.formGroup}>
-        <label htmlFor="schema">Схема турнира</label>
-        <select
-          id="schema"
-          name="schema"
-          value={formData.schema}
-          onChange={handleChange}
-          className={errors.schema ? styles.inputError : ''}
-        >
-          <option value="">Выберите схему</option>
-          {schemes?.map((schema) => (
-            <option key={schema.id} value={schema.name}>
-              {schema.name}
-            </option>
-          ))}
-        </select>
-        {errors.schema && <p className={styles.errorText}>{errors.schema}</p>}
+      <div className={styles.grid}>
+        <div className={styles.formGroup}>
+          <label htmlFor="startDate">Дата начала</label>
+          <input
+            type="date"
+            id="startDate"
+            name="startDate"
+            value={formData.startDate}
+            onChange={handleChange}
+            className={errors.startDate ? styles.inputError : ''}
+          />
+          {errors.startDate && <p className={styles.errorText}>{errors.startDate}</p>}
+        </div>
+        <div className={styles.formGroup}>
+          <label htmlFor="endDate">Дата окончания</label>
+          <input
+            type="date"
+            id="endDate"
+            name="endDate"
+            value={formData.endDate}
+            onChange={handleChange}
+            className={errors.endDate ? styles.inputError : ''}
+          />
+          {errors.endDate && <p className={styles.errorText}>{errors.endDate}</p>}
+        </div>
+        <div className={styles.formGroup}>
+          <label htmlFor="type">Тип турнира</label>
+          <select
+            id="type"
+            name="type"
+            value={formData.type}
+            onChange={handleChange}
+            className={errors.type ? styles.inputError : ''}
+          >
+            <option value="">Выберите тип</option>
+            {types?.map((type) => (
+              <option key={type.id} value={type.name}>
+                {type.name}
+              </option>
+            ))}
+          </select>
+          {errors.type && <p className={styles.errorText}>{errors.type}</p>}
+        </div>
+        <div className={styles.formGroup}>
+          <label htmlFor="schema">Схема турнира</label>
+          <select
+            id="schema"
+            name="schema"
+            value={formData.schema}
+            onChange={handleChange}
+            className={errors.schema ? styles.inputError : ''}
+          >
+            <option value="">Выберите схему</option>
+            {schemes?.map((schema) => (
+              <option key={schema.id} value={schema.name}>
+                {schema.name}
+              </option>
+            ))}
+          </select>
+          {errors.schema && <p className={styles.errorText}>{errors.schema}</p>}
+        </div>
       </div>
       <div className={styles.formGroup}>
         <label htmlFor="participants">Количество участников</label>

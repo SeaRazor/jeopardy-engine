@@ -39,6 +39,32 @@
     flex-grow: 1;
   }
 
+.email {
+    font-size: 0.9rem;
+    color: var(--color-secondary-text);
+}
+
+.deleteIcon {
+    visibility: hidden;
+    color: var(--color-secondary-text);
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+.card:hover .deleteIcon {
+    visibility: visible;
+}
+
+@media (hover: none) {
+    .deleteIcon {
+        visibility: visible;
+    }
+}
+
+.deleteIcon:hover {
+    color: #dc3545;
+}
+
 .deleteIcon {
     visibility: hidden;
     color: var(--color-secondary-text);
@@ -73,20 +99,5 @@
     font-size: 1rem;
     background-color: var(--input-bg);
     color: var(--color-foreground);
-  }
-  
-  .addButton {
-    background-color: var(--primary-color);
-    color: var(--primary-text-color);
-    border: none;
-    padding: 0.5rem 1.5rem;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  .addButton:hover {
-    background-color: var(--primary-hover-color);
   }
   

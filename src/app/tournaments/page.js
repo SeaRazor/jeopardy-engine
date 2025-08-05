@@ -2,6 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { useState, useMemo } from 'react';
+import { FaPlus } from 'react-icons/fa';
 import TournamentCard from './components/TournamentCard';
 import TournamentFilters from './components/TournamentFilters/TournamentFilters';
 import AddTournamentForm from './components/AddTournamentForm/AddTournamentForm';
@@ -59,9 +60,6 @@ export default function TournamentsPage() {
           onFilterChange={handleFilterChange}
           onClear={clearFilters}
         />
-        <button onClick={() => setIsFormOpen(true)} className={styles.addTournamentButton}>
-          Добавить турнир
-        </button>
       </div>
       <div className={styles.grid}>
         {filteredTournaments.length > 0 ? (
@@ -72,6 +70,10 @@ export default function TournamentsPage() {
           <p>Нет турниров, соответствующих фильтрам.</p>
         )}
       </div>
+
+      <button onClick={() => setIsFormOpen(true)} className="fab">
+        <FaPlus />
+      </button>
 
       <Modal isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} title="Добавить турнир">
         <AddTournamentForm onClose={() => setIsFormOpen(false)} />
