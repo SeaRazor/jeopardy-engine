@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "name": "Своя игра",
+    "participantType": "player"
+  },
+  {
+    "id": 2,
+    "name": "Эрудит-квартет",
+    "participantType": "team"
+  }
+]

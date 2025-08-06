@@ -6,6 +6,7 @@ import { FaTrash, FaPlus } from 'react-icons/fa';
 import styles from './Players.module.css';
 import AddPersonModal from './AddPersonModal';
 import ConfirmationDialog from '../UI/ConfirmationDialog';
+import PersonCard from './components/PersonCard';
 
 const generateColor = () => {
   const colors = ['#e57373', '#81c784', '#64b5f6', '#ffb74d', '#9575cd', '#f06292', '#4db6ac', '#7986cb', '#a1887f', '#dce775'];
@@ -85,15 +86,7 @@ export default function Persons() {
       ) : (
         <div className={styles.grid}>
           {filteredPersons.map((person) => (
-            <div key={person.id} className={styles.card}>
-              <div className={styles.avatar} style={{ backgroundColor: person.color }}>
-                {person.firstName[0]}{person.lastName[0]}
-              </div>
-              <span className={styles.cardName}>
-                {person.firstName} {person.lastName}
-              </span>
-              <FaTrash className={styles.deleteIcon} onClick={() => setPersonToDelete(person.id)} />
-            </div>
+            <PersonCard key={person.id} person={person} onDelete={() => setPersonToDelete(person.id)} />
           ))}
         </div>
       )}

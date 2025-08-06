@@ -1,23 +1,16 @@
-const colors = [
-    '#f56a00', '#7265e6', '#ffbf00', '#00a2ae',
-    '#f56a00', '#1890ff', '#f5222d', '#52c41a',
-    '#faad14', '#2f54eb', '#722ed1', '#eb2f96'
-];
+import { FaTrash } from 'react-icons/fa';
+import styles from '../Players.module.css';
 
-export default function TeamCard({ team }) {
-    const avatar = team.name.substring(0, 2).toUpperCase();
-    const avatarColor = colors[team.id % colors.length];
+const TeamCard = ({ team, onDelete }) => {
+  return (
+    <div className={styles.card}>
+      <div className={styles.avatar} style={{ backgroundColor: team.color }}>
+        {team.name.substring(0, 2).toUpperCase()}
+      </div>
+      <div className={styles.cardName}>{team.name}</div>
+      <FaTrash className={styles.deleteIcon} onClick={onDelete} />
+    </div>
+  );
+};
 
-    return (
-        <div className="card">
-            <div className="cardBody">
-                <div className="avatar" style={{ backgroundColor: avatarColor }}>
-                    {avatar}
-                </div>
-                <div className="cardName">
-                    {team.name}
-                </div>
-            </div>
-        </div>
-    );
-}
+export default TeamCard;

@@ -1,0 +1,109 @@
+{
+  "id": 1,
+  "schemeName": "Double Elimination",
+  "participantsNum": 64,
+  "stages": [
+    {
+      "bottomGameWinnersNum": 2,
+      "bottomGameParticipantsNum": 4,
+      "description": "Все продолжают играть",
+      "id": 1,
+      "name": "Квалификация",
+      "order": 1,
+      "topGameParticipantsNum": 4,
+      "topGameWinnersNum": 2
+    },
+    {
+      "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+      "id": 2,
+      "name": "Топ-64",
+      "order": 2,
+      "bottomGameWinnersNum": 2,
+      "bottomGameParticipantsNum": 4,
+      "topGameParticipantsNum": 4,
+      "topGameWinnersNum": 2,
+      "gameDraws": [
+        {
+          "id": 1,
+          "draw": {
+            "positions": [
+              {
+                "position": 1,
+                "stageId": 1,
+                "place": 1,
+                "gameId": 1
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+      "id": 3,
+      "name": "Топ-48",
+      "order": 3,
+      "bottomGameWinnersNum": 2,
+      "bottomGameParticipantsNum": 4,
+      "topGameParticipantsNum": 4,
+      "topGameWinnersNum": 2
+    },
+    {
+      "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+      "id": 4,
+      "name": "Топ-32",
+      "order": 4,
+      "bottomGameWinnersNum": 2,
+      "bottomGameParticipantsNum": 4,
+      "topGameParticipantsNum": 4,
+      "topGameWinnersNum": 2
+    },
+    {
+      "bottomGameWinnersNum": 2,
+      "bottomGameParticipantsNum": 4,
+      "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+      "id": 5,
+      "name": "Топ-20",
+      "order": 5,
+      "topGameParticipantsNum": 4,
+      "topGameWinnersNum": 3
+    },
+    {
+      "bottomGameParticipantsNum": 3,
+      "bottomGameWinnersNum": 2,
+      "description": "Вылетают третьи места жёлтых боёв",
+      "id": 6,
+      "name": "Топ-12",
+      "order": 6,
+      "topGameParticipantsNum": 3,
+      "topGameWinnersNum": 1
+    },
+    {
+      "bottomGameParticipantsNum": 4,
+      "bottomGameWinnersNum": 2,
+      "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+      "id": 7,
+      "name": "Топ-9",
+      "order": 7,
+      "topGameParticipantsNum": 0,
+      "topGameWinnersNum": 0
+    },
+    {
+      "bottomGameWinnersNum": 3,
+      "bottomGameParticipants": 4,
+      "description": "Финал нижней сетки. Вылетает четвёртое место жёлтого боя",
+      "id": 8,
+      "name": "Топ-5",
+      "order": 8,
+      "topGameParticipantsNum": 0,
+      "topGameWinnersNum": 0
+    },
+    {
+      "description": "Грандфинал",
+      "id": 9,
+      "isFinal": true,
+      "name": "Топ-4",
+      "order": 9
+    }
+  ]
+}

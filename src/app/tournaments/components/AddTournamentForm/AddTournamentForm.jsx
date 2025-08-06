@@ -11,7 +11,7 @@ export default function AddTournamentForm({ onClose }) {
     startDate: '',
     endDate: '',
     type: '',
-    schema: '',
+    schema: {},
     participants: 0,
   });
   const [errors, setErrors] = useState({});
@@ -40,8 +40,7 @@ export default function AddTournamentForm({ onClose }) {
     if (!formData.startDate) newErrors.startDate = 'Дата начала обязательна.';
     if (!formData.endDate) newErrors.endDate = 'Дата окончания обязательна.';
     if (!formData.type) newErrors.type = 'Тип турнира обязателен.';
-    if (!formData.schema) newErrors.schema = 'Схема турнира обязательна.';
-    if (formData.participants <= 0) newErrors.participants = 'Количество участников должно быть больше 0.';
+    if (!formData.schema.id) newErrors.schema = 'Схема турнира обязательна.';
     if (formData.startDate && formData.endDate && new Date(formData.startDate) > new Date(formData.endDate)) {
       newErrors.endDate = 'Дата окончания не может быть раньше даты начала.';
     }
@@ -71,10 +70,21 @@ export default function AddTournamentForm({ onClose }) {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: name === 'participants' ? Number(value) : value,
+      [name]: value,
     }));
     // Clear error for the field being changed
     setErrors((prevErrors) => ({ ...prevErrors, [name]: undefined }));
+  };
+
+  const handleSchemeChange = (e) => {
+    const schemeId = Number(e.target.value);
+    const selectedScheme = schemes.find(s => s.id === schemeId);
+    setFormData(prevData => ({
+      ...prevData,
+      schema: selectedScheme,
+      participants: selectedScheme ? selectedScheme.participantsNum : 0,
+    }));
+    setErrors(prevErrors => ({ ...prevErrors, schema: undefined }));
   };
 
   const handleSubmit = (e) => {
@@ -86,19 +96,21 @@ export default function AddTournamentForm({ onClose }) {
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <div className={styles.formGroup}>
-        <label htmlFor="name">Название турнира</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          className={errors.name ? styles.inputError : ''}
-        />
-        {errors.name && <p className={styles.errorText}>{errors.name}</p>}
-      </div>
       <div className={styles.grid}>
+        <div className={styles.fullWidth}>
+          <div className={styles.formGroup}>
+            <label htmlFor="name">Название турнира</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className={errors.name ? styles.inputError : ''}
+            />
+            {errors.name && <p className={styles.errorText}>{errors.name}</p>}
+          </div>
+        </div>
         <div className={styles.formGroup}>
           <label htmlFor="startDate">Дата начала</label>
           <input
@@ -146,32 +158,19 @@ export default function AddTournamentForm({ onClose }) {
           <select
             id="schema"
             name="schema"
-            value={formData.schema}
-            onChange={handleChange}
+            value={formData.schema.id}
+            onChange={handleSchemeChange}
             className={errors.schema ? styles.inputError : ''}
           >
             <option value="">Выберите схему</option>
             {schemes?.map((schema) => (
-              <option key={schema.id} value={schema.name}>
-                {schema.name}
+              <option key={schema.id} value={schema.id}>
+                {schema.schemeName} ({schema.participantsNum} participants)
               </option>
             ))}
           </select>
           {errors.schema && <p className={styles.errorText}>{errors.schema}</p>}
         </div>
-      </div>
-      <div className={styles.formGroup}>
-        <label htmlFor="participants">Количество участников</label>
-        <input
-          type="number"
-          id="participants"
-          name="participants"
-          value={formData.participants}
-          onChange={handleChange}
-          min="0"
-          className={errors.participants ? styles.inputError : ''}
-        />
-        {errors.participants && <p className={styles.errorText}>{errors.participants}</p>}
       </div>
       <div className={styles.actions}>
         <button type="submit" disabled={addTournamentMutation.isPending}>

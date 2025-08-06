@@ -1,0 +1,74 @@
+{
+  "id": 2,
+  "schemeName": "Double Elimination",
+  "participantsNum": 32,
+  "stages": [
+    {
+      "bottomGameWinnersNum": 2,
+      "bottomGameParticipantsNum": 4,
+      "description": "Все продолжают играть",
+      "id": 1,
+      "name": "Квалификация",
+      "order": 1,
+      "topGameParticipantsNum": 4,
+      "topGameWinnersNum": 2
+    },
+    {
+      "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+      "id": 2,
+      "name": "Топ-32",
+      "order": 2,
+      "bottomGameWinnersNum": 2,
+      "bottomGameParticipantsNum": 4,
+      "topGameParticipantsNum": 4,
+      "topGameWinnersNum": 2
+    },
+    {
+      "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+      "id": 3,
+      "name": "Топ-24",
+      "order": 3,
+      "bottomGameWinnersNum": 2,
+      "bottomGameParticipantsNum": 4,
+      "topGameParticipantsNum": 0,
+      "topGameWinnersNum": 0
+    },
+    {
+      "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+      "id": 4,
+      "name": "Топ-16",
+      "order": 4,
+      "bottomGameWinnersNum": 2,
+      "bottomGameParticipantsNum": 4,
+      "topGameParticipantsNum": 4,
+      "topGameWinnersNum": 2
+    },
+    {
+      "bottomGameWinnersNum": 2,
+      "bottomGameParticipantsNum": 4,
+      "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+      "id": 5,
+      "name": "Топ-12",
+      "order": 5,
+      "topGameParticipantsNum": 0,
+      "topGameWinnersNum": 0
+    },
+    {
+      "bottomGameParticipantsNum": 0,
+      "bottomGameWinnersNum": 0,
+      "description": "Предфинал",
+      "id": 6,
+      "name": "Топ-8",
+      "order": 6,
+      "topGameParticipantsNum": 4,
+      "topGameWinnersNum": 2
+    },
+    {
+      "description": "Грандфинал",
+      "id": 7,
+      "isFinal": true,
+      "name": "Финал",
+      "order": 7
+    }
+  ]
+}

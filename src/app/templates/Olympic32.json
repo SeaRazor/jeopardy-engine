@@ -1,0 +1,46 @@
+{
+  "id": 3,
+  "schemeName": "Олимпийская",
+  "participantsNum": 32,
+  "stages": [
+    {
+      "description": "Топ-32",
+      "id": 1,
+      "name": "Проходят первые два места",
+      "order": 1,
+      "topGameParticipantsNum": 4,
+      "topGameWinnersNum": 2
+    },
+    {
+      "description": "Проходят первые два места",
+      "id": 2,
+      "name": "1/8 финала",
+      "order": 2,
+      "topGameParticipantsNum": 4,
+      "topGameWinnersNum": 2
+    },
+    {
+      "description": "Проходят первые два места",
+      "id": 3,
+      "name": "Четверьфиналы",
+      "order": 3,
+      "topGameParticipantsNum": 4,
+      "topGameWinnersNum": 2
+    },
+    {
+      "description": "Проходят первые два места",
+      "id": 4,
+      "name": "Полуфиналы",
+      "order": 4,
+      "topGameParticipantsNum": 4,
+      "topGameWinnersNum": 2
+    },
+    {
+      "description": "Финал четырех",
+      "id": 5,
+      "isFinal": true,
+      "name": "Финал",
+      "order": 5
+    }
+  ]
+}

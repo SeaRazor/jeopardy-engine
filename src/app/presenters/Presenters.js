@@ -6,6 +6,7 @@ import { FaTrash, FaPlus } from 'react-icons/fa';
 import styles from '../players/Players.module.css';
 import AddPresenterModal from './AddPresenterModal';
 import ConfirmationDialog from '../UI/ConfirmationDialog';
+import PresenterCard from './PresenterCard';
 
 const generateColor = () => {
   const colors = ['#e57373', '#81c784', '#64b5f6', '#ffb74d', '#9575cd', '#f06292', '#4db6ac', '#7986cb', '#a1887f', '#dce775'];
@@ -87,17 +88,9 @@ export default function Presenters() {
         <p>Loading...</p>
       ) : (
         <div className={styles.grid}>
+
           {filteredPresenters.map((presenter) => (
-            <div key={presenter.id} className={styles.card}>
-              <div className={styles.avatar} style={{ backgroundColor: presenter.color }}>
-                {presenter.firstName[0]}{presenter.lastName[0]}
-              </div>
-              <div className={styles.cardName}>
-                {presenter.firstName} {presenter.lastName}
-                <div className={styles.email}>{presenter.email}</div>
-              </div>
-              <FaTrash className={styles.deleteIcon} onClick={() => setPresenterToDelete(presenter)} />
-            </div>
+            <PresenterCard key={presenter.id} presenter={presenter} onDelete={() => setPresenterToDelete(presenter)} />
           ))}
         </div>
       )}

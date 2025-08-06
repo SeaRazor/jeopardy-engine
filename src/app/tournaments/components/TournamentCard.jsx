@@ -36,9 +36,9 @@ export default function TournamentCard({ tournament }) {
         </span>
       </div>
       <div className={styles.meta}>
-        <span className={styles.schema}>{schema}</span>
+        <div className={styles.schema}>{schema.schemeName}</div>
         <span className={styles.participants}>
-          <FaUsers /> {participants}
+          <FaUsers /> {participants.length} / {schema.participantsNum}
         </span>
       </div>
       <div className={styles.actions}>

@@ -90,6 +90,10 @@ html.dark {
   --type-ek-bg: #20c997; /* A slightly brighter green for dark mode */
 }
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 /* 2. Foundational Body Styles */
 body {
   margin: 0;

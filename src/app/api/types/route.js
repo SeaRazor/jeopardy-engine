@@ -1,11 +1,10 @@
-// In: /src/app/api/types/route.js
-
 import { NextResponse } from 'next/server';
 
+const types = [
+    { id: 1, name: 'SI' },
+    { id: 2, name: 'EK' },
+];
+
 export async function GET() {
-  const types = [
-    { id: '1', name: 'Своя игра' },
-    { id: '2', name: 'Эрудит-Квартет' },
-  ];
-  return NextResponse.json(types);
+    return NextResponse.json(types);
 }

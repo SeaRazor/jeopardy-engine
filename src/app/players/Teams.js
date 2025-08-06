@@ -6,6 +6,7 @@ import { FaTrash, FaPlus } from 'react-icons/fa';
 import styles from './Players.module.css';
 import AddTeamModal from './AddTeamModal';
 import ConfirmationDialog from '../UI/ConfirmationDialog';
+import TeamCard from './components/TeamCard';
 
 const generateColor = () => {
   const colors = ['#e57373', '#81c784', '#64b5f6', '#ffb74d', '#9575cd', '#f06292', '#4db6ac', '#7986cb', '#a1887f', '#dce775'];
@@ -83,13 +84,7 @@ export default function Teams() {
       ) : (
         <div className={styles.grid}>
           {filteredTeams.map((team) => (
-            <div key={team.id} className={styles.card}>
-              <div className={styles.avatar} style={{ backgroundColor: team.color }}>
-                {team.name.substring(0, 2).toUpperCase()}
-              </div>
-              <span className={styles.cardName}>{team.name}</span>
-              <FaTrash className={styles.deleteIcon} onClick={() => setTeamToDelete(team.id)} />
-            </div>
+            <TeamCard key={team.id} team={team} onDelete={() => setTeamToDelete(team.id)} />
           ))}
         </div>
       )}
