@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaPlus, FaTimes } from 'react-icons/fa';
 import styles from './AddPlayerForm.module.css';
 import Modal from '../UI/Modal';
 
@@ -25,8 +26,12 @@ const AddTeamModal = ({ isOpen, onClose, onAddTeam }) => {
           />
         </div>
         <div className={styles.actions}>
-          <button type="submit" className={styles.addButton}>Add Team</button>
-          <button type="button" onClick={onClose} className={styles.cancelButton}>Cancel</button>
+          <button type="submit" className={styles.addButton} title="Add Team">
+            <FaPlus /> <span className={styles.buttonText}>Add Team</span>
+          </button>
+          <button type="button" onClick={onClose} className={styles.cancelButton} title="Cancel">
+            <FaTimes /> <span className={styles.buttonText}>Cancel</span>
+          </button>
         </div>
       </form>
     </Modal>

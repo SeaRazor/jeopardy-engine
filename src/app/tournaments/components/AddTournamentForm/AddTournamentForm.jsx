@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
+import { FaPlus, FaTimes } from 'react-icons/fa';
 import styles from './AddTournamentForm.module.css';
 
 export default function AddTournamentForm({ onClose }) {
@@ -173,11 +174,11 @@ export default function AddTournamentForm({ onClose }) {
         </div>
       </div>
       <div className={styles.actions}>
-        <button type="submit" disabled={addTournamentMutation.isPending}>
-          {addTournamentMutation.isPending ? 'Добавление...' : 'Добавить турнир'}
+        <button type="submit" disabled={addTournamentMutation.isPending} title={addTournamentMutation.isPending ? 'Добавление...' : 'Добавить турнир'}>
+          <FaPlus /> <span className={styles.buttonText}>{addTournamentMutation.isPending ? 'Добавление...' : 'Добавить турнир'}</span>
         </button>
-        <button type="button" onClick={onClose} disabled={addTournamentMutation.isPending}>
-          Отмена
+        <button type="button" onClick={onClose} disabled={addTournamentMutation.isPending} title="Отмена">
+          <FaTimes /> <span className={styles.buttonText}>Отмена</span>
         </button>
       </div>
       {addTournamentMutation.isError && (

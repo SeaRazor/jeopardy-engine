@@ -17,6 +17,9 @@
     border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
   
   .confirmButton {
@@ -27,5 +30,25 @@
     border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .buttonText {
+    display: inline;
+  }
+
+  @media (max-width: 768px) {
+    .buttonText {
+      display: none;
+    }
+    
+    .cancelButton,
+    .confirmButton {
+      padding: 0.5rem;
+      min-width: 44px;
+      justify-content: center;
+    }
   }
   

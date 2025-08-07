@@ -72,6 +72,10 @@
   color: var(--secondary-button-text);
   cursor: pointer;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
 }
 
 .clearButton:hover {
@@ -80,10 +84,19 @@
   background-color: var(--secondary-button-hover-bg);
 }
 
+.buttonText {
+  display: inline;
+}
+
 @media (max-width: 768px) {
   .clearButton {
     width: 100%;
-    padding: 0.875rem 1.5rem;
+    padding: 0.5rem;
     font-size: 16px;
+    min-width: 44px;
+  }
+
+  .buttonText {
+    display: none;
   }
 }

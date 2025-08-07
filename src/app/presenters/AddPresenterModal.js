@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { FaPlus, FaTimes } from 'react-icons/fa';
 import Modal from '../UI/Modal';
 import styles from './AddPresenterForm.module.css';
 
@@ -59,11 +60,11 @@ export default function AddPresenterModal({ isOpen, onClose, onAddPresenter }) {
         />
       </div>
       <div className={styles.actions}>
-        <button onClick={onClose} className={styles.cancelButton}>
-          Cancel
+        <button onClick={onClose} className={styles.cancelButton} title="Cancel">
+          <FaTimes /> <span className={styles.buttonText}>Cancel</span>
         </button>
-        <button onClick={handleSubmit} className={styles.addButton}>
-          Add
+        <button onClick={handleSubmit} className={styles.addButton} title="Add">
+          <FaPlus /> <span className={styles.buttonText}>Add</span>
         </button>
       </div>
     </Modal>

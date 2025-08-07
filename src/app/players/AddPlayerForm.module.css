@@ -34,6 +34,9 @@
     border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
   
   .addButton {
@@ -44,8 +47,30 @@
     border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
   
+  .buttonText {
+    display: inline;
+  }
+
+  @media (max-width: 768px) {
+    .buttonText {
+      display: none;
+    }
+    
+    .addButton,
+    .cancelButton {
+      padding: 0.5rem;
+      min-width: 44px;
+      justify-content: center;
+      display: flex;
+      align-items: center;
+    }
+  }
+
   .error {
     color: #dc3545;
     margin-bottom: 1rem;

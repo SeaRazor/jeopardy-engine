@@ -1,0 +1,311 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.header h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  color: var(--color-foreground);
+}
+
+.tournamentInfo {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.tournamentInfo p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-secondary-text);
+}
+
+.status {
+  color: var(--status-ongoing-color);
+  font-weight: 600;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--color-secondary-text);
+}
+
+.emptyState h3 {
+  margin-bottom: 1rem;
+  color: var(--color-foreground);
+}
+
+.podium {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 1rem;
+  margin: 3rem 0;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, var(--card-bg) 0%, var(--color-background) 100%);
+  border-radius: 16px;
+  border: 1px solid var(--card-border);
+}
+
+.podiumItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.podiumPlace {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s;
+  min-width: 180px;
+}
+
+.podiumPlace:hover {
+  transform: translateY(-5px);
+}
+
+.podiumPlace.first {
+  border-color: #ffd700;
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.podiumPlace.second {
+  border-color: #c0c0c0;
+  box-shadow: 0 6px 20px rgba(192, 192, 192, 0.2);
+}
+
+.podiumPlace.third {
+  border-color: #cd7f32;
+  box-shadow: 0 4px 15px rgba(205, 127, 50, 0.2);
+}
+
+.podiumIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.goldIcon {
+  color: #ffd700;
+}
+
+.silverIcon {
+  color: #c0c0c0;
+}
+
+.bronzeIcon {
+  color: #cd7f32;
+}
+
+.podiumInfo h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: var(--color-foreground);
+}
+
+.podiumInfo p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-secondary-text);
+  font-weight: 600;
+}
+
+.podiumBar {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover-color));
+  color: var(--primary-text-color);
+  font-weight: 700;
+  font-size: 1.5rem;
+  padding: 1rem;
+  border-radius: 8px 8px 0 0;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+}
+
+.podiumItem:nth-child(1) .podiumBar {
+  height: 80px; /* Second place */
+  background: linear-gradient(135deg, #c0c0c0, #a8a8a8);
+}
+
+.podiumItem:nth-child(2) .podiumBar {
+  height: 100px; /* First place */
+  background: linear-gradient(135deg, #ffd700, #e6c200);
+}
+
+.podiumItem:nth-child(3) .podiumBar {
+  height: 60px; /* Third place */
+  background: linear-gradient(135deg, #cd7f32, #b8722d);
+}
+
+.table {
+  margin-top: 3rem;
+}
+
+.tableHeader {
+  margin-bottom: 1rem;
+}
+
+.tableHeader h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--color-foreground);
+}
+
+.tableContent {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 80px 1fr 100px 120px 120px;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--card-border);
+  transition: background-color 0.2s;
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.tableRow:not(:first-child):hover {
+  background-color: var(--color-background);
+}
+
+.tableRow:first-child {
+  background-color: var(--primary-color);
+  color: var(--primary-text-color);
+  font-weight: 600;
+}
+
+.firstPlace {
+  background-color: rgba(255, 215, 0, 0.1);
+  border-left: 4px solid #ffd700;
+}
+
+.secondPlace {
+  background-color: rgba(192, 192, 192, 0.1);
+  border-left: 4px solid #c0c0c0;
+}
+
+.thirdPlace {
+  background-color: rgba(205, 127, 50, 0.1);
+  border-left: 4px solid #cd7f32;
+}
+
+.tableCell {
+  font-size: 0.9rem;
+}
+
+.place {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.placeNumber {
+  font-weight: 700;
+  color: var(--color-secondary-text);
+}
+
+.points {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.matches {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: var(--color-secondary-text);
+}
+
+.winRate {
+  font-weight: 600;
+  color: var(--status-ongoing-color);
+}
+
+@media (max-width: 768px) {
+  .tournamentInfo {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .podium {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .podiumItem {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .podiumItem:nth-child(2) {
+    order: -1; /* Put first place at top on mobile */
+  }
+  
+  .podiumBar {
+    width: 100%;
+    height: 60px !important;
+  }
+  
+  .tableRow {
+    grid-template-columns: 60px 1fr 80px;
+    gap: 0.5rem;
+  }
+  
+  .tableRow .tableCell:nth-child(4),
+  .tableRow .tableCell:nth-child(5) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.5rem;
+  }
+  
+  .podiumPlace {
+    padding: 1rem;
+    min-width: unset;
+  }
+  
+  .podiumIcon {
+    font-size: 2rem;
+  }
+  
+  .podiumInfo h4 {
+    font-size: 1rem;
+  }
+  
+  .tableRow {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .place {
+    font-size: 1rem;
+  }
+}

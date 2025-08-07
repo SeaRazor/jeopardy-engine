@@ -1,5 +1,6 @@
 'use client';
 
+import { FaBroom } from 'react-icons/fa';
 import styles from './TournamentFilters.module.css';
 
 export default function TournamentFilters({ filters, onFilterChange, onClear }) {
@@ -39,8 +40,8 @@ export default function TournamentFilters({ filters, onFilterChange, onClear }) 
         <option value="Идет">Идет</option>
         <option value="Закончен">Закончен</option>
       </select>
-      <button onClick={onClear} className={styles.clearButton}>
-        Очистить все
+      <button onClick={onClear} className={styles.clearButton} title="Очистить все">
+        <FaBroom /> <span className={styles.buttonText}>Очистить все</span>
       </button>
     </div>
   );

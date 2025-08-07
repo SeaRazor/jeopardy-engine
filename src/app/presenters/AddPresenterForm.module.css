@@ -71,3 +71,51 @@
   color: var(--secondary-button-hover-text);
   border-color: var(--secondary-button-hover-border);
 }
+
+.addButton {
+  background-color: var(--primary-color);
+  color: var(--primary-text-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cancelButton {
+  background-color: var(--secondary-button-bg);
+  color: var(--secondary-button-text);
+  border: 1px solid var(--secondary-button-border);
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.buttonText {
+  display: inline;
+}
+
+@media (max-width: 768px) {
+  .buttonText {
+    display: none;
+  }
+  
+  .addButton,
+  .cancelButton {
+    padding: 0.5rem;
+    min-width: 44px;
+    justify-content: center;
+  }
+}
+
+.error {
+  color: #dc3545;
+  margin-bottom: 1rem;
+}

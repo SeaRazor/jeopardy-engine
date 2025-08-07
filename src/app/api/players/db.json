@@ -542,5 +542,11 @@
     "playerType": "person",
     "firstName": "FirstName33",
     "lastName": "LastName33"
+  },
+  {
+    "firstName": "Новый",
+    "lastName": "игрок",
+    "id": "me1sxwx3y1lspufs7",
+    "playerType": "person"
   }
 ]

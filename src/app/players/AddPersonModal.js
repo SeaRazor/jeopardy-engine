@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaPlus, FaTimes } from 'react-icons/fa';
 import styles from './AddPlayerForm.module.css';
 import Modal from '../UI/Modal';
 
@@ -36,8 +37,12 @@ const AddPersonModal = ({ isOpen, onClose, onAddPerson }) => {
           />
         </div>
         <div className={styles.actions}>
-          <button type="submit" className={styles.addButton}>Add Person</button>
-          <button type="button" onClick={onClose} className={styles.cancelButton}>Cancel</button>
+          <button type="submit" className={styles.addButton} title="Add Person">
+            <FaPlus /> <span className={styles.buttonText}>Add Person</span>
+          </button>
+          <button type="button" onClick={onClose} className={styles.cancelButton} title="Cancel">
+            <FaTimes /> <span className={styles.buttonText}>Cancel</span>
+          </button>
         </div>
       </form>
     </Modal>

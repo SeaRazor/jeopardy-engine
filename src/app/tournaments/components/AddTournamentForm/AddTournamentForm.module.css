@@ -83,6 +83,9 @@
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .actions button[type="submit"] {
@@ -117,4 +120,20 @@
   color: #dc3545; /* Red for errors */
   margin-top: 1rem;
   text-align: center;
+}
+
+.buttonText {
+  display: inline;
+}
+
+@media (max-width: 768px) {
+  .buttonText {
+    display: none;
+  }
+  
+  .actions button {
+    padding: 0.5rem;
+    min-width: 44px;
+    justify-content: center;
+  }
 }

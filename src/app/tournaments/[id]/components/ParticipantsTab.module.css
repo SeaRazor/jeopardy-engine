@@ -1,0 +1,660 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  color: var(--color-foreground);
+}
+
+.info p {
+  margin: 0;
+  color: var(--color-secondary-text);
+  font-size: 0.9rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.shuffleButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--secondary-button-bg);
+  color: var(--secondary-button-text);
+  border: 1px solid var(--secondary-button-border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.buttonText {
+  display: inline;
+}
+
+.shuffleButton:hover {
+  background-color: var(--secondary-button-hover-bg);
+  color: var(--secondary-button-hover-text);
+}
+
+.saveButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.saveButton:hover:not(:disabled) {
+  background-color: #218838;
+  transform: translateY(-1px);
+}
+
+.saveButton:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.saveButton.success {
+  background-color: #28a745;
+  animation: successPulse 0.3s ease-in-out;
+}
+
+.clearButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.clearButton:hover {
+  background-color: #c82333;
+  transform: translateY(-1px);
+}
+
+@keyframes successPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.poolsContainer {
+  position: relative;
+}
+
+.pools {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+
+.pool {
+  background-color: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.pool:hover {
+  box-shadow: 0 4px 12px var(--color-shadow);
+  transform: translateY(-2px);
+}
+
+/* Color coding for pools */
+.pool.gold {
+  border-color: #ffd700;
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 215, 0, 0.03) 100%);
+}
+
+.pool.gold:hover {
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.2);
+}
+
+.pool.silver {
+  border-color: #c0c0c0;
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(192, 192, 192, 0.03) 100%);
+}
+
+.pool.silver:hover {
+  box-shadow: 0 4px 20px rgba(192, 192, 192, 0.2);
+}
+
+.pool.bronze {
+  border-color: #cd7f32;
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(205, 127, 50, 0.03) 100%);
+}
+
+.pool.bronze:hover {
+  box-shadow: 0 4px 20px rgba(205, 127, 50, 0.2);
+}
+
+.pool.blue {
+  border-color: #4a90e2;
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(74, 144, 226, 0.03) 100%);
+}
+
+.pool.blue:hover {
+  box-shadow: 0 4px 20px rgba(74, 144, 226, 0.2);
+}
+
+.poolHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.clickableHeader {
+  cursor: default;
+}
+
+.toggleButton {
+  display: none;
+}
+
+/* Desktop - normal behavior */
+@media (min-width: 601px) {
+  .participants {
+    max-height: none !important;
+    opacity: 1 !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+.poolHeader h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--color-foreground);
+}
+
+.count {
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.countGold {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #8b6914;
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.countSilver {
+  background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+  color: #606060;
+  border-color: rgba(192, 192, 192, 0.3);
+}
+
+.countBronze {
+  background: linear-gradient(135deg, #cd7f32, #e8a667);
+  color: #7a4c1e;
+  border-color: rgba(205, 127, 50, 0.3);
+}
+
+.countBlue {
+  background: linear-gradient(135deg, #4a90e2, #74aaed);
+  color: #2c5680;
+  border-color: rgba(74, 144, 226, 0.3);
+}
+
+.addButton {
+  background-color: var(--primary-color);
+  color: var(--primary-text-color);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.addButton:hover:not(:disabled) {
+  background-color: var(--primary-hover-color);
+  transform: scale(1.05);
+}
+
+.addButton:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.toggleButton {
+  background: transparent;
+  border: none;
+  color: var(--color-secondary-text);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggleButton:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: var(--color-foreground);
+}
+
+.participants {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 120px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.participants.collapsed {
+  max-height: 0;
+  min-height: 0;
+  margin-bottom: 0;
+  opacity: 0;
+}
+
+.participants.expanded {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.participant {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background-color: var(--color-background);
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  transition: all 0.2s;
+  cursor: grab;
+  user-select: none;
+}
+
+.participant:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--input-focus-shadow);
+}
+
+.participant:active {
+  cursor: grabbing;
+}
+
+.participant.dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.pool.dragOver {
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(74, 144, 226, 0.1) 100%);
+  border-color: #4a90e2;
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(74, 144, 226, 0.2);
+}
+
+.emptyState.dropZone {
+  background-color: rgba(74, 144, 226, 0.05);
+  border: 2px dashed #4a90e2;
+  color: #4a90e2;
+  font-weight: 600;
+}
+
+.name {
+  font-weight: 500;
+  color: var(--color-foreground);
+}
+
+.removeButton {
+  background: transparent;
+  border: none;
+  color: var(--color-secondary-text);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+
+.removeButton:hover {
+  color: #dc3545;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  color: var(--color-secondary-text);
+  font-style: italic;
+  text-align: center;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section h4 {
+  margin: 0 0 1rem 0;
+  color: var(--color-foreground);
+}
+
+.manualAdd {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--input-bg);
+  color: var(--color-foreground);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--input-focus-shadow);
+}
+
+.addManualButton {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color);
+  color: var(--primary-text-color);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.addManualButton:hover:not(:disabled) {
+  background-color: var(--primary-hover-color);
+}
+
+.addManualButton:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+
+.playersList {
+  max-height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.playerItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  background-color: var(--card-bg);
+  transition: border-color 0.2s;
+}
+
+.playerItem:hover {
+  border-color: var(--primary-color);
+}
+
+.playerDisabled {
+  opacity: 0.6;
+  background-color: var(--color-background);
+}
+
+.playerDisabled:hover {
+  border-color: var(--card-border);
+}
+
+.addedLabel {
+  color: var(--color-secondary-text);
+  font-size: 0.8rem;
+  font-style: italic;
+  padding: 0.5rem 1rem;
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+}
+
+.selectButton {
+  padding: 0.5rem 1rem;
+  background-color: var(--secondary-button-bg);
+  color: var(--secondary-button-text);
+  border: 1px solid var(--secondary-button-border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.selectButton:hover:not(:disabled) {
+  background-color: var(--secondary-button-hover-bg);
+  color: var(--secondary-button-hover-text);
+}
+
+.selectButton:disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  border-color: #ddd;
+  cursor: not-allowed;
+}
+
+.emptyList {
+  text-align: center;
+  color: var(--color-secondary-text);
+  font-style: italic;
+  padding: 2rem;
+}
+
+/* Tablets and medium screens */
+@media (max-width: 1024px) {
+  .pools {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .actions {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .shuffleButton,
+  .saveButton,
+  .clearButton {
+    flex: 1;
+    min-width: 44px;
+    padding: 0.5rem;
+    justify-content: center;
+  }
+  
+  .buttonText {
+    display: none;
+  }
+  
+  .pools {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .pool {
+    margin: 0;
+  }
+  
+}
+
+/* Mobile phones - Accordion layout */
+@media (max-width: 600px) {
+  .pools {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .pool {
+    margin: 0;
+  }
+  
+  .clickableHeader {
+    cursor: pointer;
+    margin: -1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+  }
+  
+  .clickableHeader:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+  
+  .toggleButton {
+    display: flex;
+  }
+  
+  .headerContent {
+    gap: 0.75rem;
+  }
+  
+  .headerActions {
+    gap: 0.25rem;
+  }
+  
+  .addButton {
+    width: 28px;
+    height: 28px;
+    font-size: 0.7rem;
+  }
+  
+  .toggleButton {
+    padding: 0.4rem;
+    font-size: 0.8rem;
+  }
+  
+  .participants.collapsed {
+    margin-top: 0;
+  }
+  
+  .participants.expanded {
+    margin-top: 1rem;
+  }
+  
+  .manualAdd {
+    flex-direction: column;
+  }
+  
+  /* Mobile drag and drop improvements */
+  .participant {
+    touch-action: none;
+    padding: 1rem 0.75rem;
+  }
+  
+  .participant.dragging {
+    opacity: 0.7;
+    transform: scale(0.98) rotate(2deg);
+    z-index: 1000;
+  }
+  
+  .pool.dragOver {
+    transform: none;
+    border-width: 3px;
+    border-style: dashed;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.5rem;
+  }
+  
+  .pool {
+    padding: 1rem;
+  }
+  
+  .participant {
+    padding: 0.5rem;
+  }
+  
+  .playerItem {
+    padding: 0.5rem;
+  }
+}
