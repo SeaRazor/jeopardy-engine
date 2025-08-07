@@ -6,7 +6,7 @@ import { FaPlus } from 'react-icons/fa';
 import TournamentCard from './components/TournamentCard';
 import TournamentFilters from './components/TournamentFilters/TournamentFilters';
 import AddTournamentForm from './components/AddTournamentForm/AddTournamentForm';
-import Modal from '../UI/Modal/Modal'; // Import the Modal component
+import Modal from '../UI/Modal';
 import styles from './tournaments.module.css';
 import { getTournamentStatus } from '../util/tournament';
 

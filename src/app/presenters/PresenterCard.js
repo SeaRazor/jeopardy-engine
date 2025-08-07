@@ -1,5 +1,5 @@
 import { FaTrash } from 'react-icons/fa';
-import styles from '../players/Players.module.css';
+import styles from './Presenters.module.css';
 
 const PresenterCard = ({ presenter, onDelete }) => {
   return (

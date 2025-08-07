@@ -1,45 +1,36 @@
-'use client';
-
-import { useState } from 'react';
+import React, { useState } from 'react';
+import styles from './AddPlayerForm.module.css';
 import Modal from '../UI/Modal';
-import styles from './AddPlayerModal.module.css';
 
-export default function AddTeamModal({ isOpen, onClose, onAddTeam }) {
+const AddTeamModal = ({ isOpen, onClose, onAddTeam }) => {
   const [name, setName] = useState('');
-  const [error, setError] = useState('');
 
-  const handleSubmit = () => {
-    if (!name.trim()) {
-      setError('Team name is required.');
-      return;
-    }
-    onAddTeam({ name });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onAddTeam({ name, playerType: 'team' });
     setName('');
-    setError('');
     onClose();
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <h2>Add New Team</h2>
-      {error && <p className={styles.error}>{error}</p>}
-      <div className={styles.formGroup}>
-        <label htmlFor="name">Team Name</label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </div>
-      <div className={styles.actions}>
-        <button onClick={onClose} className={styles.cancelButton}>
-          Cancel
-        </button>
-        <button onClick={handleSubmit} className={styles.addButton}>
-          Add
-        </button>
-      </div>
+    <Modal isOpen={isOpen} onClose={onClose} title="Add New Team">
+      <form onSubmit={handleSubmit}>
+        <div className={styles.formGroup}>
+          <input
+            type="text"
+            placeholder="Team Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <div className={styles.actions}>
+          <button type="submit" className={styles.addButton}>Add Team</button>
+          <button type="button" onClick={onClose} className={styles.cancelButton}>Cancel</button>
+        </div>
+      </form>
     </Modal>
   );
-}
+};
+
+export default AddTeamModal;

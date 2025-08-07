@@ -1,64 +1,62 @@
 import { NextResponse } from 'next/server';
+import path from 'path';
+import fs from 'fs/promises';
+import { generateId } from '../../util/idGenerator';
 
-let persons = [
-  { id: 1, firstName: 'John', lastName: 'Doe', color: '#e57373' },
-  { id: 2, firstName: 'Jane', lastName: 'Smith', color: '#81c784' },
-];
+const dbPath = path.join(process.cwd(), 'src', 'app', 'api', 'players', 'db.json');
 
-let teams = [
-  { id: 1, name: 'The Winners', color: '#e57373' },
-  { id: 2, name: 'The Best', color: '#81c784' },
-];
+async function readData() {
+  try {
+    const data = await fs.readFile(dbPath, 'utf-8');
+    return JSON.parse(data);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      return []; // Return empty array if file doesn't exist
+    }
+    throw error;
+  }
+}
+
+async function writeData(data) {
+  await fs.writeFile(dbPath, JSON.stringify(data, null, 2));
+}
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const type = searchParams.get('type');
+  const players = await readData();
 
-  if (type === 'persons') {
-    return NextResponse.json(persons);
+  if (type === 'person') {
+    return NextResponse.json(players.filter(p => p.playerType === 'person'));
   }
 
-  if (type === 'teams') {
-    return NextResponse.json(teams);
+  if (type === 'team') {
+    return NextResponse.json(players.filter(p => p.playerType === 'team'));
   }
 
-  return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
+  return NextResponse.json(players);
 }
 
 export async function POST(request) {
   const { searchParams } = new URL(request.url);
   const type = searchParams.get('type');
   const body = await request.json();
+  const players = await readData();
 
-  if (type === 'persons') {
-    const newPerson = { ...body, id: Date.now() };
-    persons.push(newPerson);
-    return NextResponse.json(newPerson);
-  }
+  const newPlayer = { ...body, id: generateId(), playerType: type };
+  players.push(newPlayer);
+  await writeData(players);
 
-  if (type === 'teams') {
-    const newTeam = { ...body, id: Date.now() };
-    teams.push(newTeam);
-    return NextResponse.json(newTeam);
-  }
-
-  return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
+  return NextResponse.json(newPlayer);
 }
 
 export async function DELETE(request) {
   const { searchParams } = new URL(request.url);
-  const type = searchParams.get('type');
   const id = searchParams.get('id');
+  const players = await readData();
 
-  if (type === 'persons') {
-    persons = persons.filter((p) => p.id !== parseInt(id));
-    return NextResponse.json({ success: true });
-  }
+  const filteredPlayers = players.filter((p) => p.id !== id);
+  await writeData(filteredPlayers);
 
-  if (type === 'teams') {
-    teams = teams.filter((t) => t.id !== parseInt(id));
-    return NextResponse.json({ success: true });
-  }
-
-  return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
+  return NextResponse.json({ success: true });
 }

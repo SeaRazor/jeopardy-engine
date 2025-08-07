@@ -1,8 +1,20 @@
 .filtersContainer {
   display: flex;
   gap: 1rem;
-  /*margin-bottom: 1.5rem;*/
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (max-width: 768px) {
+  .filtersContainer {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0 0.5rem;
+  }
 }
 
 .input, .select {
@@ -35,7 +47,19 @@
   background-position: right 0.75rem center;
   background-repeat: no-repeat;
   background-size: 1.25em 1.25em;
-  padding-right: 2.5rem; /* Make space for the arrow */
+  padding-right: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .input, .select {
+    width: 100%;
+    min-width: unset;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+  
+  .input {
+    order: -1; /* Search input first on mobile */
+  }
 }
 
 .clearButton {
@@ -54,4 +78,12 @@
   border-color: var(--secondary-button-hover-border);
   color: var(--secondary-button-hover-text);
   background-color: var(--secondary-button-hover-bg);
+}
+
+@media (max-width: 768px) {
+  .clearButton {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    font-size: 16px;
+  }
 }

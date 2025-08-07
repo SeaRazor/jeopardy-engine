@@ -10,7 +10,6 @@ import {
   FaUserCircle,
   FaSignOutAlt
 } from 'react-icons/fa';
-import LoginModal from './LoginModal/LoginModal';
 import { isAuthenticated, getCurrentUser, logout } from '../util/auth';
 import ThemeSwitcher from './ThemeSwitcher'; // Import the ThemeSwitcher
 import styles from './Menu.module.css';
@@ -111,11 +110,6 @@ export default function Menu() {
           </button>
         )}
       </div>
-      <LoginModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)}
-        onLoginSuccess={handleLoginSuccess}
-      />
       <button className={styles.hamburger} onClick={() => setOpen(!open)} aria-label="Open menu">
         <span className={styles.bar}></span>
         <span className={styles.bar}></span>

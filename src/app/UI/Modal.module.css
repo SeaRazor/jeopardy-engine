@@ -4,7 +4,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,10 +13,47 @@
   
   .modal {
     background-color: var(--card-bg);
-    padding: 2rem;
     border-radius: 8px;
     width: 100%;
     max-width: 500px;
-    box-shadow: 0 4px 20px var(--color-shadow);
+    box-shadow: 0 5px 25px var(--color-shadow);
+    display: flex;
+    flex-direction: column;
   }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: var(--color-background);
+  border-bottom: 1px solid var(--color-border);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-foreground);
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--color-secondary-text);
+  padding: 0.5rem;
+  line-height: 1;
+}
+
+.closeButton:hover {
+  color: var(--color-foreground);
+}
+
+.content {
+  padding: 1.5rem;
+}
   

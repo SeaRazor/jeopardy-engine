@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Modal from '../UI/Modal';
-import styles from '../players/AddPlayerModal.module.css';
+import styles from './AddPresenterForm.module.css';
 
 export default function AddPresenterModal({ isOpen, onClose, onAddPresenter }) {
   const [firstName, setFirstName] = useState('');

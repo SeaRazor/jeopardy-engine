@@ -19,13 +19,13 @@ export default function TournamentCard({ tournament }) {
 
   return (
     <Card className={styles.tournamentCard}>
+      {type && (
+        <div className={`${styles.typeLabel} ${styles[typeLabel]}`}>
+          {typeLabel}
+        </div>
+      )}
       <div className={styles.header}>
         <h3 className={styles.name}>{name}</h3>
-        {type && (
-          <div className={`${styles.typeLabel} ${styles[typeLabel]}`}>
-            {typeLabel}
-          </div>
-        )}
       </div>
       <div className={styles.details}>
         <p className={styles.dates}>
