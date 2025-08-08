@@ -41,6 +41,18 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
   // Calculate total participants and promoted
   const totalParticipants = (stage.topGameParticipantsNum || 0) + (stage.bottomGameParticipantsNum || 0);
   const totalPromoted = (stage.topGameWinnersNum || 0) + (stage.bottomGameWinnersNum || 0);
+  
+  // Calculate bracket game counts for double elimination tournaments
+  const getGameCounts = () => {
+    if (tournament?.schema?.schemeName !== 'Double Elimination') return null;
+    
+    const upperGames = games.filter(game => game.bracketType === 'upper').length;
+    const lowerGames = games.filter(game => game.bracketType === 'lower').length;
+    
+    return { upperGames, lowerGames };
+  };
+  
+  const bracketGameCounts = getGameCounts();
 
   return (
     <div className={styles.container}>
@@ -80,9 +92,26 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
       <div className={styles.gamesSection}>
         <div className={styles.gamesSectionHeader}>
           <h3>Бои стадии</h3>
-          <span className={styles.gamesCount}>
-            {gamesLoading ? 'Загрузка...' : `${games.length} боев`}
-          </span>
+          <div className={styles.gamesCount}>
+            {gamesLoading ? (
+              'Загрузка...'
+            ) : bracketGameCounts ? (
+              <div className={styles.bracketInfo}>
+                {bracketGameCounts.upperGames > 0 && (
+                  <span className={styles.upperCount}>
+                    верхняя сетка: {bracketGameCounts.upperGames} боев
+                  </span>
+                )}
+                {bracketGameCounts.lowerGames > 0 && (
+                  <span className={styles.lowerCount}>
+                    нижняя сетка: {bracketGameCounts.lowerGames} боев
+                  </span>
+                )}
+              </div>
+            ) : (
+              `${games.length} боев`
+            )}
+          </div>
         </div>
 
         {gamesLoading && (
@@ -112,6 +141,7 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
               <GameCard 
                 key={game.id} 
                 game={game} 
+                stage={stage}
                 showActions={true}
                 onEdit={(game) => console.log('Edit game:', game)}
               />

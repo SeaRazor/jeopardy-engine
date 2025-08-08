@@ -19,6 +19,26 @@
   font-weight: 600;
 }
 
+/* Double Elimination Specific Styles */
+.doubleElimCard {
+  /* Base style for double elimination cards */
+}
+
+.doubleElimCard[data-bracket="upper"] {
+  border-left: 6px solid #ff6b35 !important; /* Orange for upper bracket */
+  border-top: 1px solid var(--card-border) !important;
+  border-right: 1px solid var(--card-border) !important;  
+  border-bottom: 1px solid var(--card-border) !important;
+}
+
+.doubleElimCard[data-bracket="lower"] {
+  border-left: 6px solid #ffd700 !important; /* Gold for lower bracket */
+  border-top: 1px solid var(--card-border) !important;
+  border-right: 1px solid var(--card-border) !important;
+  border-bottom: 1px solid var(--card-border) !important;
+}
+
+
 /* Header */
 .header {
   display: flex;
@@ -72,6 +92,98 @@
   background: var(--primary-color);
   color: var(--primary-text-color);
   border-color: var(--primary-color);
+}
+
+.saveButton {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #28a745;
+  border-radius: 6px;
+  background: #28a745;
+  color: white;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.saveButton:hover:not(:disabled) {
+  background: #218838;
+  border-color: #218838;
+}
+
+.saveButton:disabled {
+  background: #6c757d;
+  border-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.cancelButton {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #6c757d;
+  border-radius: 6px;
+  background: #6c757d;
+  color: white;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.cancelButton:hover {
+  background: #545b62;
+  border-color: #545b62;
+}
+
+/* Edit Form Styles */
+.editForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.formGroup label {
+  color: var(--color-foreground);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.input,
+.select {
+  padding: 0.5rem;
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  background: var(--card-bg);
+  color: var(--color-foreground);
+  font-size: 0.8rem;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb, 0, 123, 255), 0.1);
+}
+
+.participantsEdit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.noParticipants {
+  padding: 1rem;
+  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.05);
+  border: 1px dashed rgba(var(--primary-color-rgb, 0, 123, 255), 0.2);
+  border-radius: 6px;
+  text-align: center;
+  color: var(--color-secondary-text);
+  font-size: 0.85rem;
 }
 
 /* Presenter */
@@ -129,6 +241,14 @@
 .participant:hover {
   background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.02);
   border-color: rgba(var(--primary-color-rgb, 0, 123, 255), 0.2);
+}
+
+.participantWinner {
+  border-left: 4px solid #28a745 !important; /* Green for winners */
+}
+
+.participantEliminated {
+  border-left: 4px solid #dc3545 !important; /* Red for eliminated */
 }
 
 .participantRank {
@@ -207,51 +327,473 @@
   min-width: 120px;
 }
 
+.extraResultInline {
+  margin-left: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--color-secondary-text);
+  font-weight: 400;
+}
+
+
+.participantEditRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.02);
+}
+
+.participantEditInfo {
+  display: flex;
+  align-items: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(var(--card-border), 0.3);
+}
+
+.editParticipantName {
+  font-weight: 500;
+  color: var(--color-foreground);
+  font-size: 0.9rem;
+}
+
+.participantEditControls {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.participantEditControls .formGroup {
+  flex: 1;
+  min-width: 0;
+}
+
+.pointsInput {
+  padding: 0.4rem;
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  background: var(--card-bg);
+  color: var(--color-foreground);
+  font-size: 0.8rem;
+  width: 100%;
+  max-width: 80px;
+}
+
+.extraInput {
+  padding: 0.4rem;
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  background: var(--card-bg);
+  color: var(--color-foreground);
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.pointsInput:focus,
+.extraInput:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb, 0, 123, 255), 0.1);
+}
+
+.removeParticipantContainer {
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 0.1rem;
+}
+
+.removeParticipantButton {
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.removeParticipantButton:hover {
+  background: #c82333;
+}
+
+.removeParticipantButton:active {
+  background: #bd2130;
+}
+
+.addPlayerSection {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border: 2px dashed var(--card-border);
+  border-radius: 6px;
+  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.02);
+}
+
+.addPlayerLabel {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-foreground);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.addPlayerControls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.maxPlayersReached {
+  color: var(--color-secondary-text);
+  font-size: 0.85rem;
+  font-style: italic;
+  padding: 0.5rem;
+  background: rgba(var(--color-secondary-text), 0.1);
+  border-radius: 4px;
+  text-align: center;
+  flex: 1;
+}
+
+/* Mobile Accordion Styles */
+.mobileAccordionHeader {
+  display: none; /* Hidden on desktop */
+}
+
+.desktopCardTitle {
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.desktopCardTitle h4 {
+  margin: 0;
+  color: var(--color-foreground);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.accordionContent {
+  /* Default visible on desktop */
+}
+
+.contentExpanded {
+  /* Visible state */
+}
+
+.contentCollapsed {
+  /* Hidden state for mobile */
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
-  .cardTitle h4 {
-    font-size: 1rem;
+  .gameCard {
+    min-height: auto;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
   }
 
+  /* Hide desktop title, show mobile accordion */
+  .desktopCardTitle {
+    display: none;
+  }
+
+  .mobileAccordionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.05);
+    border-bottom: 1px solid var(--card-border);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .mobileAccordionHeader:hover {
+    background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.08);
+  }
+
+  .accordionTitleSection {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .accordionTitle {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0 0 0.2rem 0;
+    color: var(--color-foreground);
+  }
+
+  .accordionSummary {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--color-secondary-text);
+  }
+
+  .accordionLocation {
+    flex-shrink: 0;
+  }
+
+  .accordionParticipants {
+    flex-shrink: 0;
+  }
+
+  .accordionToggle {
+    margin-left: 0.75rem;
+    color: var(--primary-color);
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+  }
+
+  .expanded .accordionToggle {
+    transform: rotate(180deg);
+  }
+
+  /* Accordion content animation */
+  .accordionContent {
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    overflow: hidden;
+  }
+
+  .contentCollapsed {
+    max-height: 0;
+    opacity: 0;
+    padding: 0;
+  }
+
+  .contentExpanded {
+    max-height: 2000px; /* Large enough for any content */
+    opacity: 1;
+    padding: 0.75rem;
+  }
+
+  /* Mobile header - stack everything */
   .header {
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
+    align-items: stretch;
+    margin-bottom: 0.5rem;
   }
 
+  .gameInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .dateTime,
+  .location {
+    font-size: 0.75rem;
+    gap: 0.3rem;
+  }
+
+  .icon {
+    font-size: 0.7rem;
+  }
+
+  /* Mobile buttons - full width */
   .actions {
-    align-self: stretch;
+    display: flex;
+    gap: 0.4rem;
+    width: 100%;
   }
 
-  .editButton {
+  .editButton,
+  .saveButton,
+  .cancelButton {
+    flex: 1;
+    padding: 0.6rem;
+    font-size: 0.75rem;
     text-align: center;
+    min-height: 40px; /* Touch-friendly height */
   }
 
-  .presenter {
-    padding: 0.4rem 0.6rem;
+  /* Edit form mobile */
+  .editForm {
+    gap: 0.4rem;
   }
 
-  .presenterName {
+  .formGroup {
+    gap: 0.3rem;
+  }
+
+  .formGroup label {
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+
+  .input,
+  .select {
+    padding: 0.5rem;
     font-size: 0.8rem;
+    min-height: 40px; /* Touch-friendly */
+    border-radius: 6px;
+  }
+
+  /* Presenter mobile */
+  .presenter {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    gap: 0.3rem;
+  }
+
+  /* Participants header mobile */
+  .participantsHeader {
+    font-size: 0.8rem;
+    padding-bottom: 0.4rem;
+    gap: 0.3rem;
+  }
+
+  /* Participants list - completely redesigned for mobile */
+  .participantsList {
+    gap: 0.3rem;
   }
 
   .participant {
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     padding: 0.5rem;
+    gap: 0.5rem;
+    border-radius: 6px;
+    min-height: auto;
   }
 
   .participantRank {
-    min-width: 1.5rem;
+    min-width: 2rem;
+    flex-shrink: 0;
+  }
+
+  .rankNumber {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .goldTrophy,
+  .silverMedal,
+  .bronzeMedal {
+    font-size: 0.9rem;
+  }
+
+  .participantInfo {
+    flex: 1;
+    min-width: 0; /* Allow text truncation */
+  }
+
+  .participantName {
+    font-size: 0.8rem;
+    line-height: 1.3;
+    font-weight: 500;
+    /* Truncate long names */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .participantScore {
-    order: -1;
-    margin-left: auto;
+    flex-shrink: 0;
+    text-align: right;
   }
 
-  .extraResult {
-    flex: 1 0 100%;
-    margin-top: 0.25rem;
-    min-width: auto;
+  .points {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .extraResultInline {
+    font-size: 0.7rem;
+    margin-left: 0.2rem;
+  }
+
+  /* Edit mode mobile - completely redesigned */
+  .participantsEdit {
+    gap: 0.4rem;
+  }
+
+  .participantEditRow {
+    background: rgba(var(--card-border), 0.05);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 0.6rem;
+    gap: 0.5rem;
+  }
+
+  .participantEditInfo {
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(var(--card-border), 0.3);
+    margin-bottom: 0.4rem;
+  }
+
+  .editParticipantName {
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .participantEditControls {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 0.5rem;
+    align-items: end;
+  }
+
+  .participantEditControls .formGroup {
+    min-width: 0;
+  }
+
+  .pointsInput,
+  .extraInput {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    min-height: 36px;
+    width: 100%;
+  }
+
+  .pointsInput {
+    text-align: center;
+  }
+
+  .removeParticipantContainer {
+    padding-bottom: 0;
+  }
+
+  .removeParticipantButton {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+  }
+
+  /* Add player section mobile */
+  .addPlayerSection {
+    margin-top: 0.6rem;
+    padding: 0.6rem;
+    border-radius: 8px;
+  }
+
+  .addPlayerLabel {
+    font-size: 0.75rem;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+  }
+
+  .addPlayerControls .select {
+    width: 100%;
+    min-height: 40px;
+  }
+
+  .maxPlayersReached {
+    font-size: 0.75rem;
+    padding: 0.6rem;
+    border-radius: 6px;
+    text-align: center;
   }
 }

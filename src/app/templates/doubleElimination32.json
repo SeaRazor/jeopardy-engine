@@ -64,11 +64,21 @@
       "topGameWinnersNum": 2
     },
     {
-      "description": "Грандфинал",
+      "bottomGameParticipantsNum": 0,
+      "bottomGameWinnersNum": 0,
+      "description": "Финал нижней сетки",
       "id": 7,
+      "name": "Топ-6",
+      "order": 7,
+      "topGameParticipantsNum": 4,
+      "topGameWinnersNum": 2
+    },
+    {
+      "description": "Грандфинал",
+      "id": 8,
       "isFinal": true,
       "name": "Финал",
-      "order": 7
+      "order": 8
     }
   ]
 }

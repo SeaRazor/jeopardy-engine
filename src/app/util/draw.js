@@ -23,6 +23,12 @@ const drawDoubleEliminationTournament = (tournamentDetails, drawPlayers) => {
     let seed3Participants = participants.filter(p => p.basket == 3);
     let seed4Participants = participants.filter(p => p.basket == 4);
 
+    // Generate letter sequence for double elimination (А, Б, В, Г, etc.)
+    const getGameLetter = (index) => {
+        const baseCharCode = 0x0410; // Russian А
+        return String.fromCharCode(baseCharCode + index);
+    };
+
     [...Array(numberOfGames)].map((index, i) => {
         const randomFromBasket1 = getRandomArrayElement(seed1Participants);
         const randomFromBasket2 = getRandomArrayElement(seed2Participants);
@@ -31,15 +37,19 @@ const drawDoubleEliminationTournament = (tournamentDetails, drawPlayers) => {
         const newGame = {
             id: i + 1,
             number: i + 1,
+            gameLetter: getGameLetter(i), // Double elimination specific
+            bracketType: 'upper', // Start all in upper bracket
+            bracketPosition: i + 1,
             isTop: true,
             isFinished: false,
             isDrawCompleted: drawPlayers,
+            tournamentType: 'DoubleElimination', // Type identifier
             players: drawPlayers
                 ? [
-                    {playerId: randomFromBasket1.id},
-                    {playerId: randomFromBasket2.id},
-                    {playerId: randomFromBasket3.id},
-                    {playerId: randomFromBasket4.id},
+                    {playerId: randomFromBasket1.id, bracketStatus: 'upper'},
+                    {playerId: randomFromBasket2.id, bracketStatus: 'upper'},
+                    {playerId: randomFromBasket3.id, bracketStatus: 'upper'},
+                    {playerId: randomFromBasket4.id, bracketStatus: 'upper'},
                 ]
                 : []
         };
@@ -48,8 +58,6 @@ const drawDoubleEliminationTournament = (tournamentDetails, drawPlayers) => {
         seed2Participants = seed2Participants.filter(p => p.id != randomFromBasket2.id);
         seed3Participants = seed3Participants.filter(p => p.id != randomFromBasket3.id);
         seed4Participants = seed4Participants.filter(p => p.id != randomFromBasket4.id);
-
-
     });
     return games;
 };
@@ -76,6 +84,7 @@ const drawOlympicTournament = (tournamentDetails, drawPlayers) => {
             isTop: true,
             isFinished: false,
             isDrawCompleted: drawPlayers,
+            tournamentType: 'Olympic', // Type identifier
             players: drawPlayers
                 ? [
                     {playerId: randomFromBasket1.id},

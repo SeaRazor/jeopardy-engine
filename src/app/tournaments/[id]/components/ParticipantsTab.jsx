@@ -370,6 +370,10 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
   const createGames = async () => {
     setIsCreatingGames(true);
     try {
+      // Determine tournament type
+      const isDoubleElimination = tournament?.schema?.schemeName === 'Double Elimination';
+      const isOlympic = tournament?.schema?.schemeName === 'Олимпийская';
+      
       // Convert participants from poolId format to basket format for draw function
       const participantsWithBaskets = seedPools.flatMap(pool => 
         pool.participants.map(participant => ({
@@ -398,6 +402,7 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
           // For first stage, use games from drawTournament
           if (stage.order === 1) {
             for (const game of games) {
+              // Create base game data
               const gameData = {
                 gameDate: new Date().toISOString(),
                 gamePlace: `Арена ${game.number}`,
@@ -409,6 +414,15 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
                   extraResult: ""
                 }))
               };
+
+              // Add tournament-type specific data
+              if (isDoubleElimination) {
+                gameData.bracketType = game.bracketType;
+                gameData.bracketPosition = game.bracketPosition;
+                gameData.tournamentType = 'DoubleElimination';
+              } else if (isOlympic) {
+                gameData.tournamentType = 'Olympic';
+              }
 
               const url = `/api/tournaments/${tournament.id}/stages/${stage.id}/games`;
               
@@ -425,31 +439,108 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
               totalGamesCreated++;
             }
           } else {
-            // For other stages, create empty placeholder games
-            const stageGamesCount = calculateGamesForStage(stage, tournament.schema.participantsNum);
-            
-            for (let i = 1; i <= stageGamesCount; i++) {
-              const gameData = {
-                gameDate: new Date().toISOString(),
-                gamePlace: `Арена ${i}`,
-                presenterId: 1,
-                stageOrder: i, // Order within the stage
-                participants: [] // Empty participants for future stages
-              };
-
-              const url = `/api/tournaments/${tournament.id}/stages/${stage.id}/games`;
+            // For other stages, create games based on tournament type
+            if (isDoubleElimination) {
+              // Double elimination: use direct game counts from schema
+              let upperGamesCount = stage.topBracketGameNum || 0;
+              let lowerGamesCount = stage.bottomBracketGamesNum || 0;
               
-              const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(gameData),
-              });
-
-              if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`Failed to create game: ${response.status} ${errorText}`);
+              // Final stage always has 1 game regardless of bracket counts
+              if (stage.isFinal && upperGamesCount === 0 && lowerGamesCount === 0) {
+                upperGamesCount = 1;
               }
-              totalGamesCreated++;
+              
+              // Create upper bracket games (жёлтые бои)
+              for (let i = 1; i <= upperGamesCount; i++) {
+                const gameData = {
+                  gameDate: new Date().toISOString(),
+                  gamePlace: `Арена ${i}`,
+                  presenterId: 1,
+                  stageOrder: i,
+                  participants: [],
+                  tournamentType: 'DoubleElimination'
+                };
+
+                // Only add bracket type for non-final stages
+                if (!stage.isFinal) {
+                  gameData.bracketType = 'upper';
+                  gameData.bracketPosition = i;
+                }
+
+                const url = `/api/tournaments/${tournament.id}/stages/${stage.id}/games`;
+                
+                const response = await fetch(url, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(gameData),
+                });
+
+                if (!response.ok) {
+                  const errorText = await response.text();
+                  throw new Error(`Failed to create upper bracket game: ${response.status} ${errorText}`);
+                }
+                totalGamesCreated++;
+              }
+
+              // Create lower bracket games (красные бои)
+              for (let i = 1; i <= lowerGamesCount; i++) {
+                const gameData = {
+                  gameDate: new Date().toISOString(),
+                  gamePlace: `Арена ${upperGamesCount + i}`,
+                  presenterId: 1,
+                  stageOrder: upperGamesCount + i,
+                  participants: [],
+                  tournamentType: 'DoubleElimination'
+                };
+
+                // Only add bracket type for non-final stages
+                if (!stage.isFinal) {
+                  gameData.bracketType = 'lower';
+                  gameData.bracketPosition = i;
+                }
+
+                const url = `/api/tournaments/${tournament.id}/stages/${stage.id}/games`;
+                
+                const response = await fetch(url, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(gameData),
+                });
+
+                if (!response.ok) {
+                  const errorText = await response.text();
+                  throw new Error(`Failed to create lower bracket game: ${response.status} ${errorText}`);
+                }
+                totalGamesCreated++;
+              }
+            } else {
+              // Olympic: create simple placeholder games
+              const stageGamesCount = calculateGamesForStage(stage, tournament.schema.participantsNum);
+              
+              for (let i = 1; i <= stageGamesCount; i++) {
+                const gameData = {
+                  gameDate: new Date().toISOString(),
+                  gamePlace: `Арена ${i}`,
+                  presenterId: 1,
+                  stageOrder: i,
+                  participants: [],
+                  tournamentType: 'Olympic'
+                };
+
+                const url = `/api/tournaments/${tournament.id}/stages/${stage.id}/games`;
+                
+                const response = await fetch(url, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(gameData),
+                });
+
+                if (!response.ok) {
+                  const errorText = await response.text();
+                  throw new Error(`Failed to create game: ${response.status} ${errorText}`);
+                }
+                totalGamesCreated++;
+              }
             }
           }
         }

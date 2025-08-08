@@ -43,6 +43,40 @@
   font-weight: 500;
 }
 
+.bracketInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.upperCount {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.6rem;
+  background: linear-gradient(135deg, #ff6b35, #ff8c42);
+  color: white;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 4px rgba(255, 107, 53, 0.3);
+}
+
+.lowerCount {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.6rem;
+  background: linear-gradient(135deg, #ffd700, #ffed4a);
+  color: #1a1a1a;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+  box-shadow: 0 2px 4px rgba(255, 215, 0, 0.4);
+}
+
 .detail strong {
   color: var(--color-secondary-text);
   font-weight: 600;
@@ -75,6 +109,15 @@
   color: var(--color-secondary-text);
   font-size: 0.9rem;
   font-weight: 500;
+}
+
+.gamesCount .bracketInfo {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  margin-top: 0;
+  font-size: 0.85rem;
+  align-items: center;
 }
 
 .gamesGrid {

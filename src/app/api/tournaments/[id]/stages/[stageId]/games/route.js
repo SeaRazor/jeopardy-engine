@@ -54,6 +54,31 @@ export async function POST(request, { params }) {
     tournamentId: parseInt(tournamentId),
     stageId: parseInt(stageId)
   };
+
+  // Add Double Elimination specific validation and defaults
+  if (gameData.tournamentType === 'DoubleElimination') {
+    // Validate double elimination specific fields
+    if (gameData.gameLetter && typeof gameData.gameLetter !== 'string') {
+      return NextResponse.json(
+        { error: 'gameLetter must be a string' }, 
+        { status: 400 }
+      );
+    }
+    
+    if (gameData.bracketType && !['upper', 'lower'].includes(gameData.bracketType)) {
+      return NextResponse.json(
+        { error: 'bracketType must be "upper" or "lower"' }, 
+        { status: 400 }
+      );
+    }
+
+    // Only set defaults for double elimination if bracketType is explicitly provided
+    // Final games should not have bracket properties
+    if (gameData.hasOwnProperty('bracketType')) {
+      newGame.bracketType = newGame.bracketType || 'upper';
+      newGame.bracketPosition = newGame.bracketPosition || 1;
+    }
+  }
   
   // Validate required fields
   if (!newGame.gameDate || !newGame.gamePlace || !newGame.presenterId) {
