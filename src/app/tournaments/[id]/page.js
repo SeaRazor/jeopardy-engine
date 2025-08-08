@@ -3,12 +3,13 @@
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { FaArrowLeft, FaCalendarAlt, FaInfoCircle, FaSitemap, FaUsers, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaCalendarAlt, FaInfoCircle, FaSitemap, FaUsers, FaChevronDown, FaChevronUp, FaChevronRight } from 'react-icons/fa';
 import Link from 'next/link';
 import TournamentTabs from './components/TournamentTabs';
 import ParticipantsTab from './components/ParticipantsTab';
 import BracketTab from './components/BracketTab';
 import ResultsTab from './components/ResultsTab';
+import StageTab from './components/StageTab';
 import { getTournamentStatus, getTypeLabel } from '../../util/tournament';
 import styles from './TournamentDetail.module.css';
 
@@ -53,13 +54,16 @@ export default function TournamentDetailPage() {
   return (
     <div className="container">
       <div className={styles.header}>
-        <div className={styles.breadcrumb}>
-          <Link href="/tournaments" className={styles.backLink}>
-            <FaArrowLeft /> Турниры
-          </Link>
-        </div>
-        
-        <div className={styles.tournamentInfo}>
+        <div className={styles.pageHeader}>
+          <div className={styles.breadcrumbTrail}>
+            <Link href="/tournaments" className={styles.breadcrumbLink}>
+              Турниры
+            </Link>
+            <span className={styles.breadcrumbSeparator}>
+              <FaChevronRight />
+            </span>
+            <span className={styles.currentPage}>{tournament.name}</span>
+          </div>
           <div className={styles.titleSection}>
             <h1 className={styles.title}>{tournament.name}</h1>
             {tournament.type && (
@@ -68,6 +72,9 @@ export default function TournamentDetailPage() {
               </div>
             )}
           </div>
+        </div>
+        
+        <div className={styles.tournamentInfo}>
           
           <div className={styles.infoHeader} onClick={() => setIsInfoExpanded(!isInfoExpanded)}>
             <span className={styles.detailsTitle}>Подробная информация</span>
@@ -139,12 +146,17 @@ export default function TournamentDetailPage() {
         {activeTab === 'results' && (
           <ResultsTab tournament={tournament} />
         )}
-        {activeTab.startsWith('stage-') && (
-          <div className={styles.stagePlaceholder}>
-            <h3>Стадия турнира</h3>
-            <p>Здесь будет отображаться информация о стадии турнира</p>
-          </div>
-        )}
+        {activeTab.startsWith('stage-') && (() => {
+          const stageIndex = parseInt(activeTab.replace('stage-', ''));
+          const stage = tournament?.schema?.stages?.[stageIndex];
+          return (
+            <StageTab 
+              stage={stage} 
+              stageIndex={stageIndex}
+              tournament={tournament} 
+            />
+          );
+        })()}
       </div>
     </div>
   );

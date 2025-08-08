@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaPlus, FaTimes } from 'react-icons/fa';
 import styles from './AddPlayerForm.module.css';
 import Modal from '../UI/Modal';

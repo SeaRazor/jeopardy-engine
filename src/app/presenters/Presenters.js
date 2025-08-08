@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { FaTrash, FaPlus } from 'react-icons/fa';
+import { FaPlus } from 'react-icons/fa';
 import styles from './Presenters.module.css';
 import AddPresenterModal from './AddPresenterModal';
 import ConfirmationDialog from '../UI/ConfirmationDialog';

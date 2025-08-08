@@ -7,7 +7,6 @@ import {
   FaUsers,
   FaMicrophone,
   FaSignInAlt,
-  FaUserCircle,
   FaSignOutAlt
 } from 'react-icons/fa';
 import { isAuthenticated, getCurrentUser, logout } from '../util/auth';

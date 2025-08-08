@@ -1,23 +1,82 @@
 .header {
+  margin-top: 1.5rem;
   margin-bottom: 2rem;
 }
 
-.breadcrumb {
+.pageHeader {
   margin-bottom: 1.5rem;
 }
 
-.backLink {
-  display: inline-flex;
+.breadcrumbTrail {
+  display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
   color: var(--color-secondary-text);
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.2s;
 }
 
-.backLink:hover {
+.breadcrumbLink {
+  color: var(--color-secondary-text);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.breadcrumbLink:hover {
   color: var(--primary-color);
+  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.08);
+}
+
+.breadcrumbSeparator {
+  font-size: 0.75rem;
+  color: var(--color-border);
+  margin: 0 0.25rem;
+  opacity: 0.6;
+}
+
+.currentPage {
+  color: var(--color-foreground);
+  font-weight: 600;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .header {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .pageHeader {
+    margin-bottom: 1rem;
+  }
+  
+  .breadcrumbTrail {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .breadcrumbLink {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.8rem;
+  }
+  
+  .breadcrumbSeparator {
+    font-size: 0.7rem;
+    margin: 0 0.2rem;
+  }
+  
+  .currentPage {
+    max-width: 200px;
+    font-size: 0.8rem;
+  }
 }
 
 .tournamentInfo {

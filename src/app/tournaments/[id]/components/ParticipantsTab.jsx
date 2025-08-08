@@ -5,6 +5,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { FaPlus, FaTrash, FaRandom, FaSave, FaBroom, FaCheck, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import Modal from '../../../UI/Modal';
 import ConfirmationDialog from '../../../UI/ConfirmationDialog';
+import { useToast } from '../../../util/ToastContext';
 import styles from './ParticipantsTab.module.css';
 
 const fetchAvailablePlayers = async (type) => {
@@ -16,6 +17,7 @@ const fetchAvailablePlayers = async (type) => {
 
 const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
   const queryClient = useQueryClient();
+  const { showError } = useToast();
   const [seedPools, setSeedPools] = useState([
     { id: 1, name: 'Корзина 1', participants: [], color: 'gold' },
     { id: 2, name: 'Корзина 2', participants: [], color: 'silver' },
@@ -97,7 +99,7 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
     if (!canAddToPool(poolId)) {
       const maxPerPool = getMaxParticipantsPerPool();
       const maxTotal = tournament?.schema?.participantsNum || 0;
-      alert(`Невозможно добавить участника. Максимум в корзине: ${maxPerPool}, максимум в турнире: ${maxTotal}`);
+      showError(`Невозможно добавить участника. Максимум в корзине: ${maxPerPool}, максимум в турнире: ${maxTotal}`);
       return;
     }
 
@@ -125,7 +127,7 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
     if (!canAddToPool(selectedPool)) {
       const maxPerPool = getMaxParticipantsPerPool();
       const maxTotal = tournament?.schema?.participantsNum || 0;
-      alert(`Невозможно добавить участника. Максимум в корзине: ${maxPerPool}, максимум в турнире: ${maxTotal}`);
+      showError(`Невозможно добавить участника. Максимум в корзине: ${maxPerPool}, максимум в турнире: ${maxTotal}`);
       return;
     }
 
@@ -158,7 +160,7 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
       
     } catch (error) {
       console.error('Error adding manual participant:', error);
-      alert('Ошибка при сохранении участника в базу данных');
+      showError('Ошибка при сохранении участника в базу данных');
     }
   };
 
@@ -189,7 +191,7 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
       setHasUnsavedChanges(true);
     } catch (error) {
       console.error('Error shuffling participants:', error);
-      alert('Ошибка при загрузке участников из базы данных');
+      showError('Ошибка при загрузке участников из базы данных');
     }
   };
 
@@ -329,7 +331,7 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
       const maxPerPool = getMaxParticipantsPerPool();
       
       if (targetPool && targetPool.participants.length >= maxPerPool) {
-        alert(`Корзина заполнена. Максимум участников в корзине: ${maxPerPool}`);
+        showError(`Корзина заполнена. Максимум участников в корзине: ${maxPerPool}`);
         return;
       }
 
