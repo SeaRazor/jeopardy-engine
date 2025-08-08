@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { FaPlus, FaTrash, FaRandom, FaSave, FaBroom, FaCheck, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaPlus, FaTrash, FaRandom, FaSave, FaBroom, FaCheck, FaChevronDown, FaChevronUp, FaGamepad } from 'react-icons/fa';
 import Modal from '../../../UI/Modal';
 import ConfirmationDialog from '../../../UI/ConfirmationDialog';
 import { useToast } from '../../../util/ToastContext';
+import { drawTournament } from '../../../util/draw';
 import styles from './ParticipantsTab.module.css';
 
 const fetchAvailablePlayers = async (type) => {
@@ -15,9 +16,22 @@ const fetchAvailablePlayers = async (type) => {
   return res.json();
 };
 
+const calculateGamesForStage = (stage, totalParticipants) => {
+  // For Olympic system, calculate based on stage progression
+  // Each stage eliminates players, reducing the number of games needed
+  const participantsPerGame = stage.topGameParticipantsNum || 4;
+  
+  // Estimate participants for this stage based on elimination pattern
+  // This is a simplified calculation - in real implementation you'd track actual progression
+  const stageMultiplier = Math.pow(0.5, stage.order - 1); // Each stage roughly halves participants
+  const approximateParticipants = Math.max(4, Math.floor(totalParticipants * stageMultiplier));
+  
+  return Math.max(1, Math.floor(approximateParticipants / participantsPerGame));
+};
+
 const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
   const queryClient = useQueryClient();
-  const { showError } = useToast();
+  const { showError, showSuccess } = useToast();
   const [seedPools, setSeedPools] = useState([
     { id: 1, name: 'Корзина 1', participants: [], color: 'gold' },
     { id: 2, name: 'Корзина 2', participants: [], color: 'silver' },
@@ -35,6 +49,7 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
   const [expandedPools, setExpandedPools] = useState({ 1: true });
   const [draggedItem, setDraggedItem] = useState(null);
   const [dragOverPool, setDragOverPool] = useState(null);
+  const [isCreatingGames, setIsCreatingGames] = useState(false);
 
   const participantType = tournament?.type === 'Эрудит-квартет' ? 'team' : 'person';
   
@@ -352,6 +367,106 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
     }
   };
 
+  const createGames = async () => {
+    setIsCreatingGames(true);
+    try {
+      // Convert participants from poolId format to basket format for draw function
+      const participantsWithBaskets = seedPools.flatMap(pool => 
+        pool.participants.map(participant => ({
+          ...participant,
+          basket: pool.id // Convert poolId to basket for draw function
+        }))
+      );
+
+      // Prepare tournament details for draw function
+      const tournamentForDraw = {
+        ...tournament,
+        schema: tournament.schema.schemeName, // Draw function expects string, not object
+        participants: participantsWithBaskets,
+        participantsNum: tournament.schema.participantsNum
+      };
+
+      // Call drawTournament function
+      const games = drawTournament(tournamentForDraw, false);
+
+      // Create games for all stages
+      if (games.length > 0 && tournament.schema.stages.length > 0) {
+        let totalGamesCreated = 0;
+        
+        // Create games for each stage
+        for (const stage of tournament.schema.stages) {
+          // For first stage, use games from drawTournament
+          if (stage.order === 1) {
+            for (const game of games) {
+              const gameData = {
+                gameDate: new Date().toISOString(),
+                gamePlace: `Арена ${game.number}`,
+                presenterId: 1,
+                stageOrder: game.number, // Order within the stage
+                participants: (game.players || []).map(player => ({
+                  playerId: player.playerId,
+                  points: 0,
+                  extraResult: ""
+                }))
+              };
+
+              const url = `/api/tournaments/${tournament.id}/stages/${stage.id}/games`;
+              
+              const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(gameData),
+              });
+
+              if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Failed to create game: ${response.status} ${errorText}`);
+              }
+              totalGamesCreated++;
+            }
+          } else {
+            // For other stages, create empty placeholder games
+            const stageGamesCount = calculateGamesForStage(stage, tournament.schema.participantsNum);
+            
+            for (let i = 1; i <= stageGamesCount; i++) {
+              const gameData = {
+                gameDate: new Date().toISOString(),
+                gamePlace: `Арена ${i}`,
+                presenterId: 1,
+                stageOrder: i, // Order within the stage
+                participants: [] // Empty participants for future stages
+              };
+
+              const url = `/api/tournaments/${tournament.id}/stages/${stage.id}/games`;
+              
+              const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(gameData),
+              });
+
+              if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Failed to create game: ${response.status} ${errorText}`);
+              }
+              totalGamesCreated++;
+            }
+          }
+        }
+
+        // Show success message
+        showSuccess(`${totalGamesCreated} боев созданы для всех ${tournament.schema.stages.length} стадий! Добавьте участников в каждый бой.`);
+      } else {
+        showError('Не удалось создать бои. Проверьте количество участников.');
+      }
+    } catch (error) {
+      console.error('Error creating games:', error);
+      showError('Ошибка при создании боев');
+    } finally {
+      setIsCreatingGames(false);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -375,6 +490,25 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
               <><FaCheck /> <span className={styles.buttonText}>Сохранено</span></>
             ) : (
               <><FaSave /> <span className={styles.buttonText}>Сохранить</span></>
+            )}
+          </button>
+          <button 
+            onClick={createGames}
+            disabled={isCreatingGames || getTotalParticipants() === 0 || hasUnsavedChanges}
+            className={`${styles.createGamesButton} ${hasUnsavedChanges ? styles.requiresSave : ''}`}
+            title={
+              hasUnsavedChanges 
+                ? "Сохраните участников перед созданием боев" 
+                : getTotalParticipants() === 0
+                ? "Добавьте участников для создания боев"
+                : "Создать пустые бои для турнира"
+            }
+            type="button"
+          >
+            {isCreatingGames ? (
+              <>Создаём бои...</>
+            ) : (
+              <><FaGamepad /> <span className={styles.buttonText}>Создать бои</span></>
             )}
           </button>
           <button onClick={handleClear} className={styles.clearButton} title="Очистить все">

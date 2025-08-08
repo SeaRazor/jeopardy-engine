@@ -1,5 +1,6 @@
 .container {
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 .stageInfo {
@@ -46,6 +47,89 @@
   color: var(--color-secondary-text);
   font-weight: 600;
   margin: 0;
+}
+
+/* Games Section */
+.gamesSection {
+  margin-top: 2rem;
+  padding: 0 2rem;
+}
+
+.gamesSectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.gamesSectionHeader h3 {
+  margin: 0;
+  color: var(--color-foreground);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.gamesCount {
+  color: var(--color-secondary-text);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.gamesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1.5rem;
+}
+
+.loading,
+.error,
+.noGames {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem;
+  color: var(--color-secondary-text);
+  text-align: center;
+}
+
+.loading p,
+.error p,
+.noGames p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.noGames p:last-child {
+  color: var(--color-secondary-text);
+  opacity: 0.7;
+  font-size: 0.8rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .gamesSection {
+    padding: 0 1rem;
+  }
+  
+  .gamesGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .gamesSectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .loading,
+  .error,
+  .noGames {
+    padding: 2rem 1rem;
+  }
 }
 
 /* Error Message */

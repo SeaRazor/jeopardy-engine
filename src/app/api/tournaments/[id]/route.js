@@ -1,14 +1,33 @@
 import { NextResponse } from 'next/server';
-import { initialTournaments } from '../InitialTournaments';
+import fs from 'fs';
+import path from 'path';
 
-// Mock tournament data - in a real app this would come from a database
-let mockTournaments = [...initialTournaments];
+const dbPath = path.join(process.cwd(), 'src/app/api/tournaments/db.json');
+
+function readTournaments() {
+  try {
+    const data = fs.readFileSync(dbPath, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading tournaments db.json:', error);
+    return [];
+  }
+}
+
+function writeTournaments(tournaments) {
+  try {
+    fs.writeFileSync(dbPath, JSON.stringify(tournaments, null, 2));
+  } catch (error) {
+    console.error('Error writing tournaments db.json:', error);
+  }
+}
 
 export async function GET(request, { params }) {
   const { id } = params;
   const tournamentId = parseInt(id);
   
-  const tournament = mockTournaments.find(t => t.id === tournamentId);
+  const tournaments = readTournaments();
+  const tournament = tournaments.find(t => t.id === tournamentId);
   
   if (!tournament) {
     return NextResponse.json({ error: 'Tournament not found' }, { status: 404 });
@@ -22,13 +41,15 @@ export async function PUT(request, { params }) {
   const tournamentId = parseInt(id);
   const updates = await request.json();
   
-  const tournamentIndex = mockTournaments.findIndex(t => t.id === tournamentId);
+  const tournaments = readTournaments();
+  const tournamentIndex = tournaments.findIndex(t => t.id === tournamentId);
   
   if (tournamentIndex === -1) {
     return NextResponse.json({ error: 'Tournament not found' }, { status: 404 });
   }
   
-  mockTournaments[tournamentIndex] = { ...mockTournaments[tournamentIndex], ...updates };
+  tournaments[tournamentIndex] = { ...tournaments[tournamentIndex], ...updates };
+  writeTournaments(tournaments);
   
-  return NextResponse.json(mockTournaments[tournamentIndex]);
+  return NextResponse.json(tournaments[tournamentIndex]);
 }

@@ -1,0 +1,238 @@
+[
+  {
+    "id": 1,
+    "tournamentId": 1,
+    "stageId": 1,
+    "gameDate": "2025-01-16T14:00:00Z",
+    "gamePlace": "Главная арена",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "p8lrjns2xgkxbjrmj5sr08",
+        "points": 45,
+        "extraResult": "Лучший по скорости ответов"
+      },
+      {
+        "playerId": "udbq5tcjbciyeoibwz7eg",
+        "points": 32,
+        "extraResult": ""
+      },
+      {
+        "playerId": "et3rdyuy78rbkektiwm68d",
+        "points": 28,
+        "extraResult": ""
+      },
+      {
+        "playerId": "213q2ebumnk6xcjoejfml2",
+        "points": 15,
+        "extraResult": ""
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "tournamentId": 1,
+    "stageId": 1,
+    "gameDate": "2025-01-16T16:00:00Z",
+    "gamePlace": "Арена 2",
+    "presenterId": 2,
+    "participants": [
+      {
+        "playerId": "dp1n31ygko8ycfl13y7dtp",
+        "points": 52,
+        "extraResult": "Максимальный счет дня"
+      },
+      {
+        "playerId": "q566o181jgxbsa375cog",
+        "points": 41,
+        "extraResult": ""
+      },
+      {
+        "playerId": "q2jzpqpfwua77pzbg0rvgr",
+        "points": 38,
+        "extraResult": ""
+      },
+      {
+        "playerId": "yar87hummw8hbzt2ivrbn7",
+        "points": 29,
+        "extraResult": ""
+      }
+    ]
+  },
+  {
+    "gameDate": "2025-08-08T14:24:14.751Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 1,
+    "participants": [],
+    "id": 3,
+    "gameNumber": 1,
+    "tournamentId": 3,
+    "stageId": 1
+  },
+  {
+    "gameDate": "2025-08-08T14:24:14.835Z",
+    "gamePlace": "Арена 2",
+    "presenterId": 1,
+    "stageOrder": 2,
+    "participants": [],
+    "id": 4,
+    "gameNumber": 2,
+    "tournamentId": 3,
+    "stageId": 1
+  },
+  {
+    "gameDate": "2025-08-08T14:24:14.885Z",
+    "gamePlace": "Арена 3",
+    "presenterId": 1,
+    "stageOrder": 3,
+    "participants": [],
+    "id": 5,
+    "gameNumber": 3,
+    "tournamentId": 3,
+    "stageId": 1
+  },
+  {
+    "gameDate": "2025-08-08T14:24:14.933Z",
+    "gamePlace": "Арена 4",
+    "presenterId": 1,
+    "stageOrder": 4,
+    "participants": [],
+    "id": 6,
+    "gameNumber": 4,
+    "tournamentId": 3,
+    "stageId": 1
+  },
+  {
+    "gameDate": "2025-08-08T14:24:14.981Z",
+    "gamePlace": "Арена 5",
+    "presenterId": 1,
+    "stageOrder": 5,
+    "participants": [],
+    "id": 7,
+    "gameNumber": 5,
+    "tournamentId": 3,
+    "stageId": 1
+  },
+  {
+    "gameDate": "2025-08-08T14:24:15.030Z",
+    "gamePlace": "Арена 6",
+    "presenterId": 1,
+    "stageOrder": 6,
+    "participants": [],
+    "id": 8,
+    "gameNumber": 6,
+    "tournamentId": 3,
+    "stageId": 1
+  },
+  {
+    "gameDate": "2025-08-08T14:24:15.080Z",
+    "gamePlace": "Арена 7",
+    "presenterId": 1,
+    "stageOrder": 7,
+    "participants": [],
+    "id": 9,
+    "gameNumber": 7,
+    "tournamentId": 3,
+    "stageId": 1
+  },
+  {
+    "gameDate": "2025-08-08T14:24:15.131Z",
+    "gamePlace": "Арена 8",
+    "presenterId": 1,
+    "stageOrder": 8,
+    "participants": [],
+    "id": 10,
+    "gameNumber": 8,
+    "tournamentId": 3,
+    "stageId": 1
+  },
+  {
+    "gameDate": "2025-08-08T14:24:15.179Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 1,
+    "participants": [],
+    "id": 11,
+    "gameNumber": 9,
+    "tournamentId": 3,
+    "stageId": 2
+  },
+  {
+    "gameDate": "2025-08-08T14:24:15.229Z",
+    "gamePlace": "Арена 2",
+    "presenterId": 1,
+    "stageOrder": 2,
+    "participants": [],
+    "id": 12,
+    "gameNumber": 10,
+    "tournamentId": 3,
+    "stageId": 2
+  },
+  {
+    "gameDate": "2025-08-08T14:24:15.278Z",
+    "gamePlace": "Арена 3",
+    "presenterId": 1,
+    "stageOrder": 3,
+    "participants": [],
+    "id": 13,
+    "gameNumber": 11,
+    "tournamentId": 3,
+    "stageId": 2
+  },
+  {
+    "gameDate": "2025-08-08T14:24:15.329Z",
+    "gamePlace": "Арена 4",
+    "presenterId": 1,
+    "stageOrder": 4,
+    "participants": [],
+    "id": 14,
+    "gameNumber": 12,
+    "tournamentId": 3,
+    "stageId": 2
+  },
+  {
+    "gameDate": "2025-08-08T14:24:15.380Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 1,
+    "participants": [],
+    "id": 15,
+    "gameNumber": 13,
+    "tournamentId": 3,
+    "stageId": 3
+  },
+  {
+    "gameDate": "2025-08-08T14:24:15.428Z",
+    "gamePlace": "Арена 2",
+    "presenterId": 1,
+    "stageOrder": 2,
+    "participants": [],
+    "id": 16,
+    "gameNumber": 14,
+    "tournamentId": 3,
+    "stageId": 3
+  },
+  {
+    "gameDate": "2025-08-08T14:24:15.476Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 1,
+    "participants": [],
+    "id": 17,
+    "gameNumber": 15,
+    "tournamentId": 3,
+    "stageId": 4
+  },
+  {
+    "gameDate": "2025-08-08T14:24:15.526Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 1,
+    "participants": [],
+    "id": 18,
+    "gameNumber": 16,
+    "tournamentId": 3,
+    "stageId": 5
+  }
+]

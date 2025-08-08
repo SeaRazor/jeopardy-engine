@@ -105,6 +105,47 @@
   transform: translateY(-1px);
 }
 
+.createGamesButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #6f42c1;
+  color: white;
+  border: 1px solid #6f42c1;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.createGamesButton:hover:not(:disabled) {
+  background-color: #5a2d91;
+  transform: translateY(-1px);
+}
+
+.createGamesButton:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.createGamesButton.requiresSave {
+  background-color: #ffc107;
+  color: #212529;
+  border-color: #ffc107;
+}
+
+.createGamesButton.requiresSave:disabled {
+  background-color: #ffc107;
+  color: #212529;
+  opacity: 0.7;
+}
+
 @keyframes successPulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }
@@ -540,11 +581,17 @@
   
   .shuffleButton,
   .saveButton,
-  .clearButton {
+  .clearButton,
+  .createGamesButton {
     flex: 1;
     min-width: 44px;
     padding: 0.5rem;
     justify-content: center;
+  }
+  
+  .createGamesButton.requiresSave {
+    background-color: #ffc107;
+    color: #212529;
   }
   
   .buttonText {

@@ -1,0 +1,457 @@
+[
+  {
+    "id": 1,
+    "name": "Своя игра Double Elimination 64",
+    "startDate": "2025-01-15",
+    "endDate": "2025-01-25",
+    "type": "Своя игра",
+    "schema": {
+      "id": 1,
+      "schemeName": "Double Elimination",
+      "participantsNum": 64,
+      "stages": [
+        {
+          "bottomGameWinnersNum": 2,
+          "bottomGameParticipantsNum": 4,
+          "description": "Все продолжают играть",
+          "id": 1,
+          "name": "Квалификация",
+          "order": 1,
+          "topGameParticipantsNum": 4,
+          "topGameWinnersNum": 2
+        },
+        {
+          "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+          "id": 2,
+          "name": "Топ-64",
+          "order": 2,
+          "bottomGameWinnersNum": 2,
+          "bottomGameParticipantsNum": 4,
+          "topGameParticipantsNum": 4,
+          "topGameWinnersNum": 2
+        },
+        {
+          "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+          "id": 3,
+          "name": "Топ-48",
+          "order": 3,
+          "bottomGameWinnersNum": 2,
+          "bottomGameParticipantsNum": 4,
+          "topGameParticipantsNum": 4,
+          "topGameWinnersNum": 2
+        },
+        {
+          "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+          "id": 4,
+          "name": "Топ-32",
+          "order": 4,
+          "bottomGameWinnersNum": 2,
+          "bottomGameParticipantsNum": 4,
+          "topGameParticipantsNum": 4,
+          "topGameWinnersNum": 2
+        },
+        {
+          "bottomGameWinnersNum": 2,
+          "bottomGameParticipantsNum": 4,
+          "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+          "id": 5,
+          "name": "Топ-20",
+          "order": 5,
+          "topGameParticipantsNum": 4,
+          "topGameWinnersNum": 3
+        },
+        {
+          "bottomGameParticipantsNum": 3,
+          "bottomGameWinnersNum": 2,
+          "description": "Вылетают третьи места жёлтых боёв",
+          "id": 6,
+          "name": "Топ-12",
+          "order": 6,
+          "topGameParticipantsNum": 3,
+          "topGameWinnersNum": 1
+        },
+        {
+          "bottomGameParticipantsNum": 4,
+          "bottomGameWinnersNum": 2,
+          "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+          "id": 7,
+          "name": "Топ-9",
+          "order": 7,
+          "topGameParticipantsNum": 0,
+          "topGameWinnersNum": 0
+        },
+        {
+          "bottomGameWinnersNum": 3,
+          "bottomGameParticipants": 4,
+          "description": "Финал нижней сетки. Вылетает четвёртое место жёлтого боя",
+          "id": 8,
+          "name": "Топ-5",
+          "order": 8,
+          "topGameParticipantsNum": 0,
+          "topGameWinnersNum": 0
+        },
+        {
+          "description": "Грандфинал",
+          "id": 9,
+          "isFinal": true,
+          "name": "Топ-4",
+          "order": 9
+        }
+      ]
+    },
+    "participants": []
+  },
+  {
+    "id": 2,
+    "name": "Эрудит-квартет Double Elimination 32",
+    "startDate": "2025-01-15",
+    "endDate": "2025-01-25",
+    "type": "Эрудит-квартет",
+    "schema": {
+      "id": 2,
+      "schemeName": "Double Elimination",
+      "participantsNum": 32,
+      "stages": [
+        {
+          "bottomGameWinnersNum": 2,
+          "bottomGameParticipantsNum": 4,
+          "description": "Все продолжают играть",
+          "id": 1,
+          "name": "Квалификация",
+          "order": 1,
+          "topGameParticipantsNum": 4,
+          "topGameWinnersNum": 2
+        },
+        {
+          "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+          "id": 2,
+          "name": "Топ-32",
+          "order": 2,
+          "bottomGameWinnersNum": 2,
+          "bottomGameParticipantsNum": 4,
+          "topGameParticipantsNum": 4,
+          "topGameWinnersNum": 2
+        },
+        {
+          "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+          "id": 3,
+          "name": "Топ-24",
+          "order": 3,
+          "bottomGameWinnersNum": 2,
+          "bottomGameParticipantsNum": 4,
+          "topGameParticipantsNum": 0,
+          "topGameWinnersNum": 0
+        },
+        {
+          "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+          "id": 4,
+          "name": "Топ-16",
+          "order": 4,
+          "bottomGameWinnersNum": 2,
+          "bottomGameParticipantsNum": 4,
+          "topGameParticipantsNum": 4,
+          "topGameWinnersNum": 2
+        },
+        {
+          "bottomGameWinnersNum": 2,
+          "bottomGameParticipantsNum": 4,
+          "description": "Вылетают третьи и четвёртые места жёлтых боёв",
+          "id": 5,
+          "name": "Топ-12",
+          "order": 5,
+          "topGameParticipantsNum": 0,
+          "topGameWinnersNum": 0
+        },
+        {
+          "bottomGameParticipantsNum": 0,
+          "bottomGameWinnersNum": 0,
+          "description": "Предфинал",
+          "id": 6,
+          "name": "Топ-8",
+          "order": 6,
+          "topGameParticipantsNum": 4,
+          "topGameWinnersNum": 2
+        },
+        {
+          "description": "Грандфинал",
+          "id": 7,
+          "isFinal": true,
+          "name": "Финал",
+          "order": 7
+        }
+      ]
+    },
+    "participants": []
+  },
+  {
+    "id": 3,
+    "name": "Своя игра Олимпийская 32",
+    "startDate": "2025-01-15",
+    "endDate": "2025-01-25",
+    "type": "Своя игра",
+    "schema": {
+      "id": 3,
+      "schemeName": "Олимпийская",
+      "participantsNum": 32,
+      "stages": [
+        {
+          "description": "Топ-32",
+          "id": 1,
+          "name": "1/8 финала",
+          "order": 1,
+          "topGameParticipantsNum": 4,
+          "topGameWinnersNum": 2
+        },
+        {
+          "description": "Проходят первые два места",
+          "id": 2,
+          "name": "Четверьфиналы",
+          "order": 2,
+          "topGameParticipantsNum": 4,
+          "topGameWinnersNum": 2
+        },
+        {
+          "description": "Проходят первые два места",
+          "id": 3,
+          "name": "Полуфиналы",
+          "order": 3,
+          "topGameParticipantsNum": 4,
+          "topGameWinnersNum": 2
+        },
+        {
+          "description": "Финал",
+          "id": 4,
+          "isFinal": true,
+          "name": "Финал",
+          "order": 4
+        }
+      ]
+    },
+    "participants": [
+      {
+        "id": "3nf6tmqfsw7toa4gubsp4",
+        "playerType": "person",
+        "firstName": "FirstName62",
+        "lastName": "LastName62",
+        "poolId": 1
+      },
+      {
+        "id": "bixietw5iebv3s9uox4b0g",
+        "playerType": "person",
+        "firstName": "FirstName27",
+        "lastName": "LastName27",
+        "poolId": 1
+      },
+      {
+        "id": "qh1l3ut6qxunkm864njl",
+        "playerType": "person",
+        "firstName": "FirstName11",
+        "lastName": "LastName11",
+        "poolId": 1
+      },
+      {
+        "id": "a3b556wy16pkxjtxmur85s",
+        "playerType": "person",
+        "firstName": "FirstName55",
+        "lastName": "LastName55",
+        "poolId": 1
+      },
+      {
+        "id": "uhq554w66f8acpd210ufe",
+        "playerType": "person",
+        "firstName": "FirstName38",
+        "lastName": "LastName38",
+        "poolId": 1
+      },
+      {
+        "id": "p8lrjns2xgkxbjrmj5sr08",
+        "playerType": "person",
+        "firstName": "FirstName2",
+        "lastName": "LastName2",
+        "poolId": 1
+      },
+      {
+        "id": "4jpqi2d1j7a4jy91lo6wl3",
+        "playerType": "person",
+        "firstName": "FirstName9",
+        "lastName": "LastName9",
+        "poolId": 1
+      },
+      {
+        "id": "osz5hc4pxnmgg5etrbt9xm",
+        "playerType": "person",
+        "firstName": "FirstName63",
+        "lastName": "LastName63",
+        "poolId": 1
+      },
+      {
+        "id": "ekaxxgd6gjixk7lkdhaisc",
+        "playerType": "person",
+        "firstName": "FirstName51",
+        "lastName": "LastName51",
+        "poolId": 2
+      },
+      {
+        "id": "l8v4lc5bqsd98xpqve8tm7",
+        "playerType": "person",
+        "firstName": "FirstName7",
+        "lastName": "LastName7",
+        "poolId": 2
+      },
+      {
+        "id": "1kqu05spruzt1f9w6rccj",
+        "playerType": "person",
+        "firstName": "FirstName58",
+        "lastName": "LastName58",
+        "poolId": 2
+      },
+      {
+        "id": "cwbkvqbghl4yk9pjaow3",
+        "playerType": "person",
+        "firstName": "FirstName46",
+        "lastName": "LastName46",
+        "poolId": 2
+      },
+      {
+        "id": "163flh9l5kpil18mgsnv0nk",
+        "playerType": "person",
+        "firstName": "FirstName14",
+        "lastName": "LastName14",
+        "poolId": 2
+      },
+      {
+        "id": "kd0kljllygi8mn2eemj7p4",
+        "playerType": "person",
+        "firstName": "FirstName39",
+        "lastName": "LastName39",
+        "poolId": 2
+      },
+      {
+        "id": "kabym1bvlzit0zfhna4rbg",
+        "playerType": "person",
+        "firstName": "FirstName15",
+        "lastName": "LastName15",
+        "poolId": 2
+      },
+      {
+        "id": "tqfjgx46h5eeq1fhooko3k",
+        "playerType": "person",
+        "firstName": "FirstName18",
+        "lastName": "LastName18",
+        "poolId": 2
+      },
+      {
+        "id": "213q2ebumnk6xcjoejfml2",
+        "playerType": "person",
+        "firstName": "FirstName20",
+        "lastName": "LastName20",
+        "poolId": 3
+      },
+      {
+        "id": "udbq5tcjbciyeoibwz7eg",
+        "playerType": "person",
+        "firstName": "FirstName64",
+        "lastName": "LastName64",
+        "poolId": 3
+      },
+      {
+        "id": "aqtbfhaxg8enbur9zm54",
+        "playerType": "person",
+        "firstName": "FirstName36",
+        "lastName": "LastName36",
+        "poolId": 3
+      },
+      {
+        "id": "hd116h7akvo28rb5hil66r",
+        "playerType": "person",
+        "firstName": "FirstName17",
+        "lastName": "LastName17",
+        "poolId": 3
+      },
+      {
+        "id": "ribea9t5rphlaqlaobek",
+        "playerType": "person",
+        "firstName": "FirstName33",
+        "lastName": "LastName33",
+        "poolId": 3
+      },
+      {
+        "id": "et3rdyuy78rbkektiwm68d",
+        "playerType": "person",
+        "firstName": "FirstName57",
+        "lastName": "LastName57",
+        "poolId": 3
+      },
+      {
+        "id": "g32rybnoyfmmxhvhm1kv4",
+        "playerType": "person",
+        "firstName": "FirstName3",
+        "lastName": "LastName3",
+        "poolId": 3
+      },
+      {
+        "id": "q566o181jgxbsa375cog",
+        "playerType": "person",
+        "firstName": "FirstName52",
+        "lastName": "LastName52",
+        "poolId": 3
+      },
+      {
+        "id": "rxjigb8s3bk5e8f4wfskt",
+        "playerType": "person",
+        "firstName": "FirstName41",
+        "lastName": "LastName41",
+        "poolId": 4
+      },
+      {
+        "id": "tv0hxavswblb0bhh78fhgv",
+        "playerType": "person",
+        "firstName": "FirstName10",
+        "lastName": "LastName10",
+        "poolId": 4
+      },
+      {
+        "id": "ulv4g3ky6x82buramzofii",
+        "playerType": "person",
+        "firstName": "FirstName34",
+        "lastName": "LastName34",
+        "poolId": 4
+      },
+      {
+        "id": "ktwez8mw1s22yr0ta5sq1h",
+        "playerType": "person",
+        "firstName": "FirstName60",
+        "lastName": "LastName60",
+        "poolId": 4
+      },
+      {
+        "id": "se5nb3ka1qkrzz396ev35q",
+        "playerType": "person",
+        "firstName": "FirstName19",
+        "lastName": "LastName19",
+        "poolId": 4
+      },
+      {
+        "id": "9w5e62prxpm958cso1n6a",
+        "playerType": "person",
+        "firstName": "FirstName43",
+        "lastName": "LastName43",
+        "poolId": 4
+      },
+      {
+        "id": "9rrekkana350ujqm3luy7",
+        "playerType": "person",
+        "firstName": "FirstName42",
+        "lastName": "LastName42",
+        "poolId": 4
+      },
+      {
+        "firstName": "Ручной",
+        "lastName": "Ввод",
+        "id": "me2ldsg23242j1jxx",
+        "playerType": "person",
+        "poolId": 4
+      }
+    ]
+  }
+]
