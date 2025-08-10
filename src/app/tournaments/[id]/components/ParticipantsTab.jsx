@@ -393,6 +393,15 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
       // Call drawTournament function
       const games = drawTournament(tournamentForDraw, false);
 
+      // Set the gameCreationMethod flag on the tournament
+      const updatedTournament = {
+        ...tournament,
+        gameCreationMethod: 'emptyGames'
+      };
+
+      // Save the updated tournament with gameCreationMethod flag
+      await saveTournamentMutation.mutateAsync(updatedTournament);
+
       // Create games for all stages
       if (games.length > 0 && tournament.schema.stages.length > 0) {
         let totalGamesCreated = 0;

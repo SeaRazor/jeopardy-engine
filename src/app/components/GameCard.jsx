@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { FaCalendarAlt, FaMapMarkerAlt, FaMicrophone, FaUsers, FaTrophy, FaMedal, FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import { useState, useEffect, useRef } from 'react';
+import { FaCalendarAlt, FaMapMarkerAlt, FaMicrophone, FaUsers, FaTrophy, FaMedal, FaArrowUp, FaArrowDown, FaEllipsisV, FaEdit, FaCheck, FaPlay } from 'react-icons/fa';
 import Card from '../UI/Card/Card';
 import styles from './GameCard.module.css';
 
-export default function GameCard({ game, stage, showActions = false, onEdit, onDelete }) {
+export default function GameCard({ game, stage, showActions = false, onEdit, onDelete, playerManagementState }) {
   const [presenter, setPresenter] = useState(null);
   const [players, setPlayers] = useState([]);
   const [currentGame, setCurrentGame] = useState(game);
@@ -20,11 +20,29 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
   const [availablePresenters, setAvailablePresenters] = useState([]);
   const [availablePlayers, setAvailablePlayers] = useState([]);
   const [isSaving, setIsSaving] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+  const desktopMenuRef = useRef(null);
   
   // Update local state when prop changes
   useEffect(() => {
     setCurrentGame(game);
   }, [game]);
+  
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if ((menuRef.current && !menuRef.current.contains(event.target)) &&
+          (desktopMenuRef.current && !desktopMenuRef.current.contains(event.target))) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   
   // Determine tournament type and final status
   const isDoubleElimination = currentGame.tournamentType === 'DoubleElimination';
@@ -272,6 +290,34 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
     setIsExpanded(!isExpanded);
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleMenuItemClick = (action) => {
+    setIsMenuOpen(false);
+    
+    switch (action) {
+      case 'edit':
+        if (playerManagementState && !playerManagementState.canEdit) {
+          alert(playerManagementState.restrictionReason || 'Редактирование недоступно');
+          return;
+        }
+        handleEditClick();
+        break;
+      case 'finish':
+        // TODO: Implement finish functionality
+        console.log('Finish game:', currentGame.id);
+        break;
+      case 'play':
+        // TODO: Implement play functionality
+        console.log('Play game:', currentGame.id);
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleSave = async () => {
     setIsSaving(true);
     try {
@@ -357,34 +403,114 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
             </span>
           </div>
         </div>
-        <div className={styles.accordionToggle}>
-          {isExpanded ? <FaArrowUp /> : <FaArrowDown />}
+        <div className={styles.accordionHeaderActions}>
+          {showActions && !isEditing && (
+            <div className={styles.menuContainer} ref={menuRef} onClick={(e) => e.stopPropagation()}>
+              <button onClick={toggleMenu} className={styles.menuButton}>
+                <FaEllipsisV />
+              </button>
+              {isMenuOpen && (
+                <div className={styles.popupMenu}>
+                  <button 
+                    className={`${styles.menuItem} ${playerManagementState && !playerManagementState.canEdit ? styles.menuItemDisabled : ''}`}
+                    onClick={() => handleMenuItemClick('edit')}
+                    disabled={playerManagementState && !playerManagementState.canEdit}
+                    title={playerManagementState && !playerManagementState.canEdit ? playerManagementState.restrictionReason : undefined}
+                  >
+                    <FaEdit className={styles.menuIcon} />
+                    <span>Редактировать</span>
+                  </button>
+                  <button 
+                    className={styles.menuItem} 
+                    onClick={() => handleMenuItemClick('finish')}
+                  >
+                    <FaCheck className={styles.menuIcon} />
+                    <span>Закончить</span>
+                  </button>
+                  <button 
+                    className={styles.menuItem} 
+                    onClick={() => handleMenuItemClick('play')}
+                  >
+                    <FaPlay className={styles.menuIcon} />
+                    <span>Играть</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+          <div className={styles.accordionToggle}>
+            {isExpanded ? <FaArrowUp /> : <FaArrowDown />}
+          </div>
         </div>
       </div>
 
       {/* Desktop Card Title */}
       <div className={styles.desktopCardTitle}>
-        <h4>{isFinalStage ? 'Финал' : `Бой ${currentGame.gameNumber || currentGame.id}`}</h4>
+        <div className={styles.desktopTitleContent}>
+          <h4>{isFinalStage ? 'Финал' : `Бой ${currentGame.gameNumber || currentGame.id}`}</h4>
+          {showActions && !isEditing && (
+            <div className={styles.menuContainer} ref={desktopMenuRef}>
+              <button onClick={toggleMenu} className={styles.menuButton}>
+                <FaEllipsisV />
+              </button>
+              {isMenuOpen && (
+                <div className={styles.popupMenu}>
+                  <button 
+                    className={`${styles.menuItem} ${playerManagementState && !playerManagementState.canEdit ? styles.menuItemDisabled : ''}`}
+                    onClick={() => handleMenuItemClick('edit')}
+                    disabled={playerManagementState && !playerManagementState.canEdit}
+                    title={playerManagementState && !playerManagementState.canEdit ? playerManagementState.restrictionReason : undefined}
+                  >
+                    <FaEdit className={styles.menuIcon} />
+                    <span>Редактировать</span>
+                  </button>
+                  <button 
+                    className={styles.menuItem} 
+                    onClick={() => handleMenuItemClick('finish')}
+                  >
+                    <FaCheck className={styles.menuIcon} />
+                    <span>Закончить</span>
+                  </button>
+                  <button 
+                    className={styles.menuItem} 
+                    onClick={() => handleMenuItemClick('play')}
+                  >
+                    <FaPlay className={styles.menuIcon} />
+                    <span>Играть</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Expandable Content */}
       <div className={`${styles.accordionContent} ${isExpanded ? styles.contentExpanded : styles.contentCollapsed}`}>
 
-      {/* Game Header */}
-      <div className={styles.header}>
-        <div className={styles.gameInfo}>
-          {!isEditing ? (
-            <>
-              <div className={styles.dateTime}>
-                <FaCalendarAlt className={styles.icon} />
-                <span>{formatDate(currentGame.gameDate)}</span>
+      {/* Game Info Section - Compact */}
+      <div className={styles.gameInfoSection}>
+        {!isEditing ? (
+          <div className={styles.gameInfoInline}>
+            <div className={styles.dateTime}>
+              <FaCalendarAlt className={styles.icon} />
+              <span>{formatDate(currentGame.gameDate)}</span>
+            </div>
+            <div className={styles.location}>
+              <FaMapMarkerAlt className={styles.icon} />
+              <span>{currentGame.gamePlace}</span>
+            </div>
+            {presenter && (
+              <div className={styles.presenter}>
+                <FaMicrophone className={styles.icon} />
+                <span>
+                  {presenter.firstName} {presenter.lastName}
+                </span>
               </div>
-              <div className={styles.location}>
-                <FaMapMarkerAlt className={styles.icon} />
-                <span>{currentGame.gamePlace}</span>
-              </div>
-            </>
-          ) : (
+            )}
+          </div>
+        ) : (
+          <div className={styles.editSection}>
             <div className={styles.editForm}>
               <div className={styles.formGroup}>
                 <label>Место проведения:</label>
@@ -404,57 +530,34 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
                   className={styles.input}
                 />
               </div>
+              <div className={styles.formGroup}>
+                <label>Ведущий:</label>
+                <select
+                  value={editForm.presenterId}
+                  onChange={(e) => handleFormChange('presenterId', e.target.value)}
+                  className={styles.select}
+                >
+                  <option value="">Выберите ведущего</option>
+                  {availablePresenters.map(presenter => (
+                    <option key={presenter.id} value={presenter.id}>
+                      {presenter.firstName} {presenter.lastName}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-          )}
-        </div>
-        {showActions && !isEditing && (
-          <div className={styles.actions}>
-            <button onClick={handleEditClick} className={styles.editButton}>
-              Редактировать
-            </button>
-          </div>
-        )}
-        {isEditing && (
-          <div className={styles.actions}>
-            <button onClick={handleSave} disabled={isSaving} className={styles.saveButton}>
-              {isSaving ? 'Сохранение...' : 'Сохранить'}
-            </button>
-            <button onClick={handleCancelEdit} className={styles.cancelButton}>
-              Отмена
-            </button>
+            <div className={styles.editActions}>
+              <button onClick={handleSave} disabled={isSaving} className={styles.saveButton}>
+                {isSaving ? 'Сохранение...' : 'Сохранить'}
+              </button>
+              <button onClick={handleCancelEdit} className={styles.cancelButton}>
+                Отмена
+              </button>
+            </div>
           </div>
         )}
       </div>
 
-      {/* Presenter Info */}
-      {!isEditing && presenter && (
-        <div className={styles.presenter}>
-          <FaMicrophone className={styles.icon} />
-          <span className={styles.presenterName}>
-            {presenter.firstName} {presenter.lastName}
-          </span>
-        </div>
-      )}
-      {isEditing && (
-        <div className={styles.presenter}>
-          <FaMicrophone className={styles.icon} />
-          <div className={styles.formGroup}>
-            <label>Ведущий:</label>
-            <select
-              value={editForm.presenterId}
-              onChange={(e) => handleFormChange('presenterId', e.target.value)}
-              className={styles.select}
-            >
-              <option value="">Выберите ведущего</option>
-              {availablePresenters.map(presenter => (
-                <option key={presenter.id} value={presenter.id}>
-                  {presenter.firstName} {presenter.lastName}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-      )}
 
       {/* Participants */}
       <div className={styles.participants}>

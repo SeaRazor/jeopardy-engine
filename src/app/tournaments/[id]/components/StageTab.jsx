@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { FaUsers, FaTrophy, FaInfoCircle } from 'react-icons/fa';
 import GameCard from '../../../components/GameCard';
+import { getPlayerManagementState } from '../../../util/playerManagementUtils';
 import styles from './StageTab.module.css';
 
 const fetchStageGames = async (tournamentId, stageId) => {
@@ -53,6 +54,9 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
   };
   
   const bracketGameCounts = getGameCounts();
+
+  // Get player management permissions for this stage
+  const playerManagementState = getPlayerManagementState(tournament, stage.order);
 
   return (
     <div className={styles.container}>
@@ -144,6 +148,7 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
                 stage={stage}
                 showActions={true}
                 onEdit={(game) => console.log('Edit game:', game)}
+                playerManagementState={playerManagementState}
               />
             ))}
           </div>

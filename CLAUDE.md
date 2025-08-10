@@ -3,10 +3,10 @@
 # Apply changes
 - apply css changes automatically
 - always ask before apply other changes
-# Application purposes
+# Application description
 - Application to handle tournaments. 
 - Each tournament has schema, participants (persons or teams) and stages
-- Stages consist of games.
+- Stages consist of games. 
 - Games consist of themes.
 - Theme consists of 5 questions with the value from 10 to 50.
 - If player answers correctly, it adds question value to his score. If not correctly, score is decreased.

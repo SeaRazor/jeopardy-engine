@@ -2,7 +2,7 @@
   min-height: 200px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 /* Card Title */
@@ -47,25 +47,111 @@
   gap: 1rem;
 }
 
+/* Game Info Section - Compact Horizontal Layout */
+.gameInfoSection {
+  margin-bottom: 0.5rem;
+}
+
 .gameInfo {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
   flex-grow: 1;
+  padding: 0.4rem 0;
+  line-height: 1.3;
 }
 
 .dateTime,
 .location {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.3rem;
   color: var(--color-foreground);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+/* Add visual separators between info items (except the first one) */
+.gameInfo .location::before,
+.gameInfo .presenter::before {
+  content: '•';
+  color: var(--color-secondary-text);
+  margin-right: 0.75rem;
+  font-weight: bold;
+  opacity: 0.6;
+}
+
+/* Alternative ultra-compact 2-column grid layout */
+.gameInfoCompact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  padding: 0.4rem 0;
+  line-height: 1.3;
+}
+
+.gameInfoCompact .dateTime,
+.gameInfoCompact .location,
+.gameInfoCompact .presenter {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--color-foreground);
+  font-size: 0.8rem;
+  grid-column: span 1;
+}
+
+/* For single row layout when only 2 items */
+.gameInfoCompact .presenter:only-child,
+.gameInfoCompact .dateTime:nth-child(2):last-child,
+.gameInfoCompact .location:nth-child(2):last-child {
+  grid-column: span 2;
+}
+
+/* Remove separators in grid layout */
+.gameInfoCompact .location::before,
+.gameInfoCompact .presenter::before {
+  display: none;
+}
+
+/* Single-line ultra-compact layout with pipe separators */
+.gameInfoInline {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.gameInfoInline .dateTime,
+.gameInfoInline .location,
+.gameInfoInline .presenter {
+  display: contents;
+}
+
+.gameInfoInline .icon {
+  color: var(--primary-color);
+  font-size: 0.7rem;
+  margin-right: 0.2rem;
+}
+
+.gameInfoInline .location::before,
+.gameInfoInline .presenter::before {
+  content: '|';
+  color: var(--color-secondary-text);
+  margin: 0 0.4rem;
+  font-weight: normal;
+  opacity: 0.5;
 }
 
 .icon {
   color: var(--primary-color);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   opacity: 0.8;
   flex-shrink: 0;
 }
@@ -74,6 +160,123 @@
 .actions {
   display: flex;
   gap: 0.5rem;
+}
+
+/* Modern Popup Menu */
+.menuContainer {
+  position: relative;
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  background: var(--card-bg);
+  color: var(--color-foreground);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.menuButton:hover {
+  background: var(--primary-color);
+  color: var(--primary-text-color);
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.menuButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.popupMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  animation: menuFadeIn 0.2s ease-out forwards;
+  transform-origin: top right;
+}
+
+@keyframes menuFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  color: var(--color-foreground);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  border-bottom: 1px solid rgba(var(--card-border-rgb, 229, 229, 229), 0.5);
+}
+
+.menuItem:last-child {
+  border-bottom: none;
+}
+
+.menuItem:hover {
+  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.08);
+  color: var(--primary-color);
+  transform: translateX(2px);
+}
+
+.menuItem:active {
+  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.12);
+  transform: translateX(1px);
+}
+
+.menuIcon {
+  margin-right: 12px;
+  font-size: 0.875rem;
+  width: 16px;
+  text-align: center;
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
+}
+
+.menuItem:hover .menuIcon {
+  opacity: 1;
+}
+
+.menuItemDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.menuItemDisabled:hover {
+  background: none !important;
+  transform: none !important;
+  color: inherit !important;
 }
 
 .editButton {
@@ -190,17 +393,10 @@
 .presenter {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.05);
-  border: 1px solid rgba(var(--primary-color-rgb, 0, 123, 255), 0.15);
-  border-radius: 6px;
-}
-
-.presenterName {
+  gap: 0.3rem;
   color: var(--color-foreground);
-  font-weight: 500;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  flex-shrink: 0;
 }
 
 /* Participants */
@@ -466,9 +662,21 @@
 }
 
 .desktopCardTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid var(--card-border);
   padding-bottom: 0.75rem;
   margin-bottom: 0.5rem;
+  gap: 1rem;
+}
+
+.desktopTitleContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
 }
 
 .desktopCardTitle h4 {
@@ -476,6 +684,7 @@
   color: var(--color-foreground);
   font-size: 1.1rem;
   font-weight: 600;
+  flex-shrink: 0;
 }
 
 .accordionContent {
@@ -547,11 +756,18 @@
     flex-shrink: 0;
   }
 
+  .accordionHeaderActions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
   .accordionToggle {
-    margin-left: 0.75rem;
     color: var(--primary-color);
     font-size: 0.8rem;
     transition: transform 0.3s ease;
+    margin-left: 0;
   }
 
   .expanded .accordionToggle {
@@ -584,27 +800,124 @@
     margin-bottom: 0.5rem;
   }
 
+  /* Compact game info section for mobile */
+  .gameInfoSection {
+    margin-bottom: 0.5rem;
+  }
+
   .gameInfo {
     display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.3rem 0;
+    line-height: 1.2;
   }
 
   .dateTime,
   .location {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
+    gap: 0.2rem;
+    flex-shrink: 0;
+  }
+
+  /* Adjust separators for mobile */
+  .gameInfo .location::before,
+  .gameInfo .presenter::before {
+    margin-right: 0.5rem;
+    font-size: 0.6rem;
+  }
+
+  /* Mobile compact grid layout */
+  .gameInfoCompact {
+    grid-template-columns: 1fr;
     gap: 0.3rem;
+    padding: 0.3rem 0;
+  }
+
+  .gameInfoCompact .dateTime,
+  .gameInfoCompact .location,
+  .gameInfoCompact .presenter {
+    font-size: 0.7rem;
+    gap: 0.2rem;
+    grid-column: span 1;
+  }
+
+  /* Mobile inline layout */
+  .gameInfoInline {
+    gap: 0.3rem;
+    font-size: 0.65rem;
+    padding: 0.25rem 0;
+    flex-wrap: wrap;
+  }
+
+  .gameInfoInline .icon {
+    font-size: 0.6rem;
+    margin-right: 0.15rem;
+  }
+
+  .gameInfoInline .location::before,
+  .gameInfoInline .presenter::before {
+    margin: 0 0.3rem;
   }
 
   .icon {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
   }
 
-  /* Mobile buttons - full width */
-  .actions {
+  /* Mobile edit buttons */
+  .editActions {
     display: flex;
     gap: 0.4rem;
     width: 100%;
+    justify-content: stretch;
+  }
+
+  /* Mobile menu button */
+  .menuContainer {
+    position: relative;
+  }
+
+  .menuButton {
+    width: 40px;
+    height: 40px;
+    min-height: 40px; /* Touch-friendly height */
+    border-radius: 10px;
+    font-size: 0.9rem;
+  }
+
+  .popupMenu {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    min-width: 200px;
+    border-radius: 16px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2), 0 6px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(15px);
+  }
+
+  .menuItem {
+    padding: 16px 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    min-height: 50px; /* Touch-friendly */
+    border-bottom: 1px solid rgba(var(--card-border-rgb, 229, 229, 229), 0.3);
+  }
+
+  .menuItem:hover {
+    transform: none; /* Remove transform on mobile for better performance */
+    background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.1);
+  }
+
+  .menuItem:active {
+    background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.15);
+    transform: none;
+  }
+
+  .menuIcon {
+    margin-right: 16px;
+    font-size: 1rem;
+    width: 18px;
   }
 
   .editButton,
@@ -615,6 +928,13 @@
     font-size: 0.75rem;
     text-align: center;
     min-height: 40px; /* Touch-friendly height */
+  }
+
+  .editActions .saveButton,
+  .editActions .cancelButton {
+    flex: 1;
+    min-height: 40px;
+    border-radius: 8px;
   }
 
   /* Edit form mobile */
@@ -641,9 +961,9 @@
 
   /* Presenter mobile */
   .presenter {
-    padding: 0.5rem;
-    font-size: 0.75rem;
-    gap: 0.3rem;
+    font-size: 0.7rem;
+    gap: 0.2rem;
+    flex-shrink: 0;
   }
 
   /* Participants header mobile */
