@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { FaUsers, FaTrophy, FaInfoCircle } from 'react-icons/fa';
+import { FaUsers, FaTrophy, FaInfoCircle, FaFilter, FaTimes } from 'react-icons/fa';
 import GameCard from '../../../components/GameCard';
 import { getPlayerManagementState } from '../../../util/playerManagementUtils';
 import styles from './StageTab.module.css';
@@ -14,6 +14,12 @@ const fetchStageGames = async (tournamentId, stageId) => {
 };
 
 const StageTab = ({ stage, stageIndex, tournament }) => {
+  // Filtering state
+  const [filters, setFilters] = useState({
+    bracketType: 'all', // 'all', 'upper', 'lower'
+    status: 'all' // 'all', 'ongoing', 'completed'
+  });
+
   if (!stage) {
     return (
       <div className={styles.container}>
@@ -32,12 +38,54 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
   });
 
   // Sort games by stageOrder and gameNumber for proper display
-  const games = gamesData.sort((a, b) => {
+  const allGames = gamesData.sort((a, b) => {
     if (a.stageOrder && b.stageOrder) {
       return a.stageOrder - b.stageOrder;
     }
     return (a.gameNumber || a.id) - (b.gameNumber || b.id);
   });
+
+  // Helper function to check if game is completed
+  const isGameCompleted = (game) => {
+    if (!game.participants || game.participants.length === 0) return false;
+    if (game.completed === true) return true;
+    
+    const allResolved = game.participants.every(p => p.resolved || !p.sourceReference);
+    const hasResults = game.participants.some(p => p.points !== 0 || p.extraResult);
+    
+    return allResolved && hasResults;
+  };
+
+  // Apply filters to games
+  const filteredGames = allGames.filter(game => {
+    // Bracket type filter
+    if (filters.bracketType !== 'all') {
+      if (filters.bracketType === 'upper' && game.bracketType !== 'upper') return false;
+      if (filters.bracketType === 'lower' && game.bracketType !== 'lower') return false;
+    }
+
+    // Status filter
+    if (filters.status !== 'all') {
+      const completed = isGameCompleted(game);
+      if (filters.status === 'completed' && !completed) return false;
+      if (filters.status === 'ongoing' && completed) return false;
+    }
+
+    return true;
+  });
+
+  const games = filteredGames;
+
+  // Filter functions
+  const handleFilterChange = (filterType, value) => {
+    setFilters(prev => ({ ...prev, [filterType]: value }));
+  };
+
+  const clearFilters = () => {
+    setFilters({ bracketType: 'all', status: 'all' });
+  };
+
+  const hasActiveFilters = filters.bracketType !== 'all' || filters.status !== 'all';
 
   // Calculate total participants and promoted
   const totalParticipants = (stage.topGameParticipantsNum || 0) + (stage.bottomGameParticipantsNum || 0);
@@ -47,10 +95,18 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
   const getGameCounts = () => {
     if (tournament?.schema?.schemeName !== 'Double Elimination') return null;
     
-    const upperGames = games.filter(game => game.bracketType === 'upper').length;
-    const lowerGames = games.filter(game => game.bracketType === 'lower').length;
+    const upperGames = allGames.filter(game => game.bracketType === 'upper').length;
+    const lowerGames = allGames.filter(game => game.bracketType === 'lower').length;
+    const filteredUpperGames = games.filter(game => game.bracketType === 'upper').length;
+    const filteredLowerGames = games.filter(game => game.bracketType === 'lower').length;
     
-    return { upperGames, lowerGames };
+    return { 
+      upperGames, 
+      lowerGames, 
+      filteredUpperGames, 
+      filteredLowerGames,
+      isFiltered: hasActiveFilters
+    };
   };
   
   const bracketGameCounts = getGameCounts();
@@ -103,17 +159,68 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
               <div className={styles.bracketInfo}>
                 {bracketGameCounts.upperGames > 0 && (
                   <span className={styles.upperCount}>
-                    верхняя сетка: {bracketGameCounts.upperGames} боев
+                    верхняя сетка: {bracketGameCounts.isFiltered ? bracketGameCounts.filteredUpperGames : bracketGameCounts.upperGames} 
+                    {bracketGameCounts.isFiltered && ` из ${bracketGameCounts.upperGames}`} боев
                   </span>
                 )}
                 {bracketGameCounts.lowerGames > 0 && (
                   <span className={styles.lowerCount}>
-                    нижняя сетка: {bracketGameCounts.lowerGames} боев
+                    нижняя сетка: {bracketGameCounts.isFiltered ? bracketGameCounts.filteredLowerGames : bracketGameCounts.lowerGames}
+                    {bracketGameCounts.isFiltered && ` из ${bracketGameCounts.lowerGames}`} боев
                   </span>
                 )}
               </div>
             ) : (
-              `${games.length} боев`
+              `${hasActiveFilters ? `${games.length} из ${allGames.length}` : games.length} боев`
+            )}
+          </div>
+        </div>
+
+        {/* Filters */}
+        <div className={styles.filtersSection}>
+          <div className={styles.filters}>
+            <div className={styles.filterGroup}>
+              <FaFilter className={styles.filterIcon} />
+              <span className={styles.filterLabel}>Фильтры:</span>
+            </div>
+            
+            {tournament?.schema?.schemeName === 'Double Elimination' && (
+              <div className={styles.filterGroup}>
+                <label className={styles.filterLabel}>Сетка:</label>
+                <select 
+                  value={filters.bracketType} 
+                  onChange={(e) => handleFilterChange('bracketType', e.target.value)}
+                  className={styles.filterSelect}
+                >
+                  <option value="all">Все</option>
+                  <option value="upper">Верхняя</option>
+                  <option value="lower">Нижняя</option>
+                </select>
+              </div>
+            )}
+            
+            <div className={styles.filterGroup}>
+              <label className={styles.filterLabel}>Статус:</label>
+              <select 
+                value={filters.status} 
+                onChange={(e) => handleFilterChange('status', e.target.value)}
+                className={styles.filterSelect}
+              >
+                <option value="all">Все</option>
+                <option value="ongoing">Идут</option>
+                <option value="completed">Завершены</option>
+              </select>
+            </div>
+            
+            {hasActiveFilters && (
+              <button 
+                onClick={clearFilters} 
+                className={styles.clearFiltersButton}
+                title="Очистить фильтры"
+              >
+                <FaTimes />
+                <span>Очистить</span>
+              </button>
             )}
           </div>
         </div>

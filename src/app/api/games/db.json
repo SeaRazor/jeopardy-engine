@@ -1,440 +1,1486 @@
 [
   {
-    "gameDate": "2025-08-08T15:20:00.000Z",
-    "gamePlace": "Комната 101",
+    "gameDate": "2025-08-10",
+    "gamePlace": "TBD",
     "presenterId": 1,
-    "stageOrder": 1,
     "participants": [
       {
-        "playerId": "dp1n31ygko8ycfl13y7dtp",
-        "points": 280,
-        "extraResult": ""
+        "playerId": "tc463k1gptxnicjhlbz9",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
       },
       {
-        "playerId": "hd116h7akvo28rb5hil66r",
-        "points": 100,
-        "extraResult": ""
+        "playerId": "u37jyk9t7z2nk3n02gr3t",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
       },
       {
-        "playerId": "rart1uvl3jqgpu6zwpvc",
-        "points": -30,
-        "extraResult": ""
+        "playerId": "j0nft2skoxcqaha8025u9g",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
       },
       {
-        "playerId": "9w5e62prxpm958cso1n6a",
-        "points": 100,
-        "extraResult": ""
+        "playerId": "kd0kljllygi8mn2eemj7p4",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
       }
     ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "А",
     "bracketType": "upper",
     "bracketPosition": 1,
-    "tournamentType": "DoubleElimination",
     "id": 1,
     "gameNumber": 1,
     "tournamentId": 4,
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-08T20:00:00.000Z",
-    "gamePlace": "Арена 2",
+    "gameDate": "2025-08-10",
+    "gamePlace": "TBD",
     "presenterId": 1,
-    "stageOrder": 2,
     "participants": [
       {
-        "playerId": "p8lrjns2xgkxbjrmj5sr08",
+        "playerId": "q566o181jgxbsa375cog",
+        "sourceReference": null,
         "points": 0,
-        "extraResult": ""
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "tqfjgx46h5eeq1fhooko3k",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "rart1uvl3jqgpu6zwpvc",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "354pu44fhm671pvk112hs",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
       }
     ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Б",
     "bracketType": "upper",
     "bracketPosition": 2,
-    "tournamentType": "DoubleElimination",
     "id": 2,
     "gameNumber": 2,
     "tournamentId": 4,
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-08T20:00:44.059Z",
-    "gamePlace": "Арена 3",
+    "gameDate": "2025-08-10",
+    "gamePlace": "TBD",
     "presenterId": 1,
-    "stageOrder": 3,
-    "participants": [],
+    "participants": [
+      {
+        "playerId": "hd116h7akvo28rb5hil66r",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "2c218w7sq157hxugueu9ty",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "qh1l3ut6qxunkm864njl",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "g32rybnoyfmmxhvhm1kv4",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "В",
     "bracketType": "upper",
     "bracketPosition": 3,
-    "tournamentType": "DoubleElimination",
     "id": 3,
     "gameNumber": 3,
     "tournamentId": 4,
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-08T20:00:44.110Z",
-    "gamePlace": "Арена 4",
+    "gameDate": "2025-08-10",
+    "gamePlace": "TBD",
     "presenterId": 1,
-    "stageOrder": 4,
-    "participants": [],
+    "participants": [
+      {
+        "playerId": "p8lrjns2xgkxbjrmj5sr08",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "9w5e62prxpm958cso1n6a",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "udbq5tcjbciyeoibwz7eg",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "5h9dbmp9s1e2hcbv6h25ig",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Г",
     "bracketType": "upper",
     "bracketPosition": 4,
-    "tournamentType": "DoubleElimination",
     "id": 4,
     "gameNumber": 4,
     "tournamentId": 4,
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-08T20:00:44.160Z",
-    "gamePlace": "Арена 5",
+    "gameDate": "2025-08-10",
+    "gamePlace": "TBD",
     "presenterId": 1,
-    "stageOrder": 5,
-    "participants": [],
+    "participants": [
+      {
+        "playerId": "ktwez8mw1s22yr0ta5sq1h",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "idd8uufbl48o6kijgq9jr",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "kabym1bvlzit0zfhna4rbg",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "aqtbfhaxg8enbur9zm54",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Д",
     "bracketType": "upper",
     "bracketPosition": 5,
-    "tournamentType": "DoubleElimination",
     "id": 5,
     "gameNumber": 5,
     "tournamentId": 4,
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-08T20:00:44.213Z",
-    "gamePlace": "Арена 6",
+    "gameDate": "2025-08-10",
+    "gamePlace": "TBD",
     "presenterId": 1,
-    "stageOrder": 6,
-    "participants": [],
+    "participants": [
+      {
+        "playerId": "213q2ebumnk6xcjoejfml2",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "npcxnswtm5rvytec5i4xn",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "qj48n33nkxpa061pymkttt",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "ribea9t5rphlaqlaobek",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Е",
     "bracketType": "upper",
     "bracketPosition": 6,
-    "tournamentType": "DoubleElimination",
     "id": 6,
     "gameNumber": 6,
     "tournamentId": 4,
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-08T20:00:44.262Z",
-    "gamePlace": "Арена 7",
+    "gameDate": "2025-08-10",
+    "gamePlace": "TBD",
     "presenterId": 1,
-    "stageOrder": 7,
-    "participants": [],
+    "participants": [
+      {
+        "playerId": "osz5hc4pxnmgg5etrbt9xm",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "rxjigb8s3bk5e8f4wfskt",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "cwbkvqbghl4yk9pjaow3",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "hpuka7ww5ilejbcbtz0lhg",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Ж",
     "bracketType": "upper",
     "bracketPosition": 7,
-    "tournamentType": "DoubleElimination",
     "id": 7,
     "gameNumber": 7,
     "tournamentId": 4,
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-08T20:00:44.315Z",
-    "gamePlace": "Арена 8",
+    "gameDate": "2025-08-10",
+    "gamePlace": "TBD",
     "presenterId": 1,
-    "stageOrder": 8,
-    "participants": [],
+    "participants": [
+      {
+        "playerId": "dp1n31ygko8ycfl13y7dtp",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "163flh9l5kpil18mgsnv0nk",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "8hy4p75idxnzzkenwhitg",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "yfh4myn55c5i1f5kext3q",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "З",
     "bracketType": "upper",
     "bracketPosition": 8,
-    "tournamentType": "DoubleElimination",
     "id": 8,
     "gameNumber": 8,
     "tournamentId": 4,
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-08T20:00:44.365Z",
+    "gameDate": "2025-08-10T13:40:46.985Z",
     "gamePlace": "Арена 1",
     "presenterId": 1,
     "stageOrder": 1,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.1.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.2.2",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.3.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.4.2",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
     "bracketType": "upper",
     "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
     "id": 9,
     "gameNumber": 9,
     "tournamentId": 4,
     "stageId": 2
   },
   {
-    "gameDate": "2025-08-08T20:00:44.417Z",
+    "gameDate": "2025-08-10T13:40:47.035Z",
     "gamePlace": "Арена 2",
     "presenterId": 1,
     "stageOrder": 2,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.3.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.4.2",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.5.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.6.2",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
     "bracketType": "upper",
     "bracketPosition": 2,
+    "tournamentType": "DoubleElimination",
     "id": 10,
     "gameNumber": 10,
     "tournamentId": 4,
     "stageId": 2
   },
   {
-    "gameDate": "2025-08-08T20:00:44.467Z",
+    "gameDate": "2025-08-10T13:40:47.086Z",
     "gamePlace": "Арена 3",
     "presenterId": 1,
     "stageOrder": 3,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.5.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.6.2",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.7.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.8.2",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
     "bracketType": "upper",
     "bracketPosition": 3,
+    "tournamentType": "DoubleElimination",
     "id": 11,
     "gameNumber": 11,
     "tournamentId": 4,
     "stageId": 2
   },
   {
-    "gameDate": "2025-08-08T20:00:44.522Z",
+    "gameDate": "2025-08-10T13:40:47.137Z",
     "gamePlace": "Арена 4",
     "presenterId": 1,
     "stageOrder": 4,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.7.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.8.2",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.9.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.10.2",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
     "bracketType": "upper",
     "bracketPosition": 4,
+    "tournamentType": "DoubleElimination",
     "id": 12,
     "gameNumber": 12,
     "tournamentId": 4,
     "stageId": 2
   },
   {
-    "gameDate": "2025-08-08T20:00:44.604Z",
+    "gameDate": "2025-08-10T13:40:47.187Z",
     "gamePlace": "Арена 5",
     "presenterId": 1,
     "stageOrder": 5,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.1.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.2.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.3.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.4.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
     "bracketType": "lower",
     "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
     "id": 13,
     "gameNumber": 13,
     "tournamentId": 4,
     "stageId": 2
   },
   {
-    "gameDate": "2025-08-08T20:00:44.654Z",
+    "gameDate": "2025-08-10T13:40:47.239Z",
     "gamePlace": "Арена 6",
     "presenterId": 1,
     "stageOrder": 6,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.3.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.4.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.5.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.6.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
     "bracketType": "lower",
     "bracketPosition": 2,
+    "tournamentType": "DoubleElimination",
     "id": 14,
     "gameNumber": 14,
     "tournamentId": 4,
     "stageId": 2
   },
   {
-    "gameDate": "2025-08-08T20:00:44.706Z",
+    "gameDate": "2025-08-10T13:40:47.294Z",
     "gamePlace": "Арена 7",
     "presenterId": 1,
     "stageOrder": 7,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.5.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.6.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.7.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.8.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
     "bracketType": "lower",
     "bracketPosition": 3,
+    "tournamentType": "DoubleElimination",
     "id": 15,
     "gameNumber": 15,
     "tournamentId": 4,
     "stageId": 2
   },
   {
-    "gameDate": "2025-08-08T20:00:44.763Z",
+    "gameDate": "2025-08-10T13:40:47.344Z",
     "gamePlace": "Арена 8",
     "presenterId": 1,
     "stageOrder": 8,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.7.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.8.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.9.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.10.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
     "bracketType": "lower",
     "bracketPosition": 4,
+    "tournamentType": "DoubleElimination",
     "id": 16,
     "gameNumber": 16,
     "tournamentId": 4,
     "stageId": 2
   },
   {
-    "gameDate": "2025-08-08T20:00:44.812Z",
+    "gameDate": "2025-08-10T13:40:47.392Z",
     "gamePlace": "Арена 1",
     "presenterId": 1,
     "stageOrder": 1,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "2.1.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.1.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.0.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.1.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
     "bracketType": "lower",
     "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
     "id": 17,
     "gameNumber": 17,
     "tournamentId": 4,
     "stageId": 3
   },
   {
-    "gameDate": "2025-08-08T20:00:44.866Z",
+    "gameDate": "2025-08-10T13:40:47.443Z",
     "gamePlace": "Арена 2",
     "presenterId": 1,
     "stageOrder": 2,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "2.2.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.2.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.1.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.2.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
     "bracketType": "lower",
     "bracketPosition": 2,
+    "tournamentType": "DoubleElimination",
     "id": 18,
     "gameNumber": 18,
     "tournamentId": 4,
     "stageId": 3
   },
   {
-    "gameDate": "2025-08-08T20:00:44.914Z",
+    "gameDate": "2025-08-10T13:40:47.493Z",
     "gamePlace": "Арена 3",
     "presenterId": 1,
     "stageOrder": 3,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "2.3.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.3.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.2.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.3.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
     "bracketType": "lower",
     "bracketPosition": 3,
+    "tournamentType": "DoubleElimination",
     "id": 19,
     "gameNumber": 19,
     "tournamentId": 4,
     "stageId": 3
   },
   {
-    "gameDate": "2025-08-08T20:00:44.967Z",
+    "gameDate": "2025-08-10T13:40:47.543Z",
     "gamePlace": "Арена 4",
     "presenterId": 1,
     "stageOrder": 4,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "2.4.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.4.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.3.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.4.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
     "bracketType": "lower",
     "bracketPosition": 4,
+    "tournamentType": "DoubleElimination",
     "id": 20,
     "gameNumber": 20,
     "tournamentId": 4,
     "stageId": 3
   },
   {
-    "gameDate": "2025-08-08T20:00:45.016Z",
+    "gameDate": "2025-08-10T13:40:47.593Z",
     "gamePlace": "Арена 1",
     "presenterId": 1,
     "stageOrder": 1,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "2.1.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.2.2",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.3.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.4.2",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
     "bracketType": "upper",
     "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
     "id": 21,
     "gameNumber": 21,
     "tournamentId": 4,
     "stageId": 4
   },
   {
-    "gameDate": "2025-08-08T20:00:45.068Z",
+    "gameDate": "2025-08-10T13:40:47.644Z",
     "gamePlace": "Арена 2",
     "presenterId": 1,
     "stageOrder": 2,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "2.3.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.4.2",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.5.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "2.6.2",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
     "bracketType": "upper",
     "bracketPosition": 2,
+    "tournamentType": "DoubleElimination",
     "id": 22,
     "gameNumber": 22,
     "tournamentId": 4,
     "stageId": 4
   },
   {
-    "gameDate": "2025-08-08T20:00:45.119Z",
+    "gameDate": "2025-08-10T13:40:47.698Z",
     "gamePlace": "Арена 3",
     "presenterId": 1,
     "stageOrder": 3,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "3.1.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "3.1.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "3.0.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "3.1.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
     "bracketType": "lower",
     "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
     "id": 23,
     "gameNumber": 23,
     "tournamentId": 4,
     "stageId": 4
   },
   {
-    "gameDate": "2025-08-08T20:00:45.172Z",
+    "gameDate": "2025-08-10T13:40:47.747Z",
     "gamePlace": "Арена 4",
     "presenterId": 1,
     "stageOrder": 4,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "3.2.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "3.2.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "3.1.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "3.2.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
     "bracketType": "lower",
     "bracketPosition": 2,
+    "tournamentType": "DoubleElimination",
     "id": 24,
     "gameNumber": 24,
     "tournamentId": 4,
     "stageId": 4
   },
   {
-    "gameDate": "2025-08-08T20:00:45.223Z",
+    "gameDate": "2025-08-10T13:40:47.797Z",
     "gamePlace": "Арена 1",
     "presenterId": 1,
     "stageOrder": 1,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "4.1.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "4.1.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "4.0.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "4.1.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
     "bracketType": "lower",
     "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
     "id": 25,
     "gameNumber": 25,
     "tournamentId": 4,
     "stageId": 5
   },
   {
-    "gameDate": "2025-08-08T20:00:45.277Z",
+    "gameDate": "2025-08-10T13:40:47.850Z",
     "gamePlace": "Арена 2",
     "presenterId": 1,
     "stageOrder": 2,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "4.2.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "4.2.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "4.1.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "4.2.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
     "bracketType": "lower",
     "bracketPosition": 2,
+    "tournamentType": "DoubleElimination",
     "id": 26,
     "gameNumber": 26,
     "tournamentId": 4,
     "stageId": 5
   },
   {
-    "gameDate": "2025-08-08T20:00:45.365Z",
+    "gameDate": "2025-08-10T13:40:47.903Z",
     "gamePlace": "Арена 1",
     "presenterId": 1,
     "stageOrder": 1,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "4.1.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "4.2.2",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "4.3.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "4.4.2",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
     "bracketType": "upper",
     "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
     "id": 27,
     "gameNumber": 27,
     "tournamentId": 4,
     "stageId": 6
   },
   {
-    "gameDate": "2025-08-08T20:00:45.418Z",
+    "gameDate": "2025-08-10T13:40:47.953Z",
     "gamePlace": "Арена 2",
     "presenterId": 1,
     "stageOrder": 2,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "5.1.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "5.1.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "5.0.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "5.1.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
     "bracketType": "lower",
     "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
     "id": 28,
     "gameNumber": 28,
     "tournamentId": 4,
     "stageId": 6
   },
   {
-    "gameDate": "2025-08-08T20:00:45.469Z",
+    "gameDate": "2025-08-10T13:40:48.003Z",
     "gamePlace": "Арена 1",
     "presenterId": 1,
     "stageOrder": 1,
-    "participants": [],
-    "tournamentType": "DoubleElimination",
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "6.1.3",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "6.1.4",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "6.0.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "6.1.1",
+        "points": 0,
+        "extraResult": "",
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
     "bracketType": "lower",
     "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
     "id": 29,
     "gameNumber": 29,
     "tournamentId": 4,
     "stageId": 7
   },
   {
-    "gameDate": "2025-08-08T20:00:45.523Z",
-    "gamePlace": "Арена 1",
+    "gameDate": "2025-08-10T13:40:48.055Z",
+    "gamePlace": "Финальная арена",
     "presenterId": 1,
     "stageOrder": 1,
     "participants": [],

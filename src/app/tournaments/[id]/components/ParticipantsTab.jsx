@@ -7,6 +7,8 @@ import Modal from '../../../UI/Modal';
 import ConfirmationDialog from '../../../UI/ConfirmationDialog';
 import { useToast } from '../../../util/ToastContext';
 import { drawTournament } from '../../../util/draw';
+import { createProgressionEngine } from '../../../util/progressionEngine';
+import { createResolvedParticipant } from '../../../util/referenceSystem';
 import styles from './ParticipantsTab.module.css';
 
 const fetchAvailablePlayers = async (type) => {
@@ -50,13 +52,75 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
   const [draggedItem, setDraggedItem] = useState(null);
   const [dragOverPool, setDragOverPool] = useState(null);
   const [isCreatingGames, setIsCreatingGames] = useState(false);
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [gamesExist, setGamesExist] = useState(false);
 
   const participantType = tournament?.type === 'Эрудит-квартет' ? 'team' : 'person';
+
+  // Check if games exist for this tournament
+  const checkExistingGames = async () => {
+    if (!tournament?.id || !tournament?.schema?.stages) return;
+    
+    try {
+      let hasGames = false;
+      
+      for (const stage of tournament.schema.stages) {
+        const response = await fetch(`/api/tournaments/${tournament.id}/stages/${stage.id}/games`);
+        if (response.ok) {
+          const games = await response.json();
+          if (games.length > 0) {
+            hasGames = true;
+            break;
+          }
+        }
+      }
+      
+      setGamesExist(hasGames);
+    } catch (error) {
+      console.error('Error checking existing games:', error);
+    }
+  };
+
+  // Delete all existing games for the tournament
+  const deleteAllGames = async () => {
+    if (!tournament?.id || !tournament?.schema?.stages) return 0;
+    
+    let deletedCount = 0;
+    
+    try {
+      for (const stage of tournament.schema.stages) {
+        const response = await fetch(`/api/tournaments/${tournament.id}/stages/${stage.id}/games`);
+        if (response.ok) {
+          const games = await response.json();
+          
+          for (const game of games) {
+            const deleteResponse = await fetch(`/api/tournaments/${tournament.id}/stages/${stage.id}/games/${game.id}`, {
+              method: 'DELETE'
+            });
+            
+            if (deleteResponse.ok) {
+              deletedCount++;
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error deleting games:', error);
+      throw error;
+    }
+    
+    return deletedCount;
+  };
   
   const { data: availablePlayers = [] } = useQuery({
     queryKey: ['players', participantType],
     queryFn: () => fetchAvailablePlayers(participantType),
   });
+
+  // Check for existing games when tournament loads
+  useEffect(() => {
+    checkExistingGames();
+  }, [tournament?.id, tournament?.schema?.stages]);
 
   // Initialize with tournament participants
   useEffect(() => {
@@ -367,12 +431,19 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
     }
   };
 
-  const createGames = async () => {
-    setIsCreatingGames(true);
+  const drawTournamentGames = async () => {
+    setIsDrawing(true);
     try {
-      // Determine tournament type
-      const isDoubleElimination = tournament?.schema?.schemeName === 'Double Elimination';
-      const isOlympic = tournament?.schema?.schemeName === 'Олимпийская';
+      // Delete existing games if any
+      if (gamesExist) {
+        const deletedCount = await deleteAllGames();
+        if (deletedCount > 0) {
+          showSuccess(`Удалено ${deletedCount} существующих боев перед проведением жеребьевки`);
+        }
+      }
+
+      // Create progression engine for this tournament
+      const progressionEngine = createProgressionEngine(tournament);
       
       // Convert participants from poolId format to basket format for draw function
       const participantsWithBaskets = seedPools.flatMap(pool => 
@@ -382,7 +453,111 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
         }))
       );
 
-      // Prepare tournament details for draw function
+      if (participantsWithBaskets.length === 0) {
+        showError('Добавьте участников для проведения жеребьевки');
+        return;
+      }
+
+      // Validate that we have participants in all pools for first stage
+      const requiredPools = 4;
+      const filledPools = seedPools.filter(pool => pool.participants.length > 0).length;
+      if (filledPools < requiredPools) {
+        showError(`Для жеребьевки необходимы участники во всех ${requiredPools} корзинах`);
+        return;
+      }
+
+      // Use existing drawTournament function with automatic player assignment
+      const tournamentDetails = {
+        schema: tournament.schema?.schemeName || 'Double Elimination',
+        participants: participantsWithBaskets,
+        participantsNum: participantsWithBaskets.length
+      };
+
+      // Draw games for stage 1 with automatic player assignment
+      const firstStageGames = drawTournament(tournamentDetails, true); // true = drawPlayers
+
+      let totalGamesCreated = 0;
+
+      // Process each stage
+      for (const stage of tournament.schema.stages) {
+        if (stage.order === 1) {
+          // Stage 1: Use draw function results with resolved participants
+          totalGamesCreated += await createFirstStageGamesFromDraw(firstStageGames, stage, tournament);
+        } else {
+          // Later stages: Use progression system with references
+          totalGamesCreated += await createProgressiveStageGames(stage, tournament, progressionEngine);
+        }
+      }
+
+      // Update games existence status
+      setGamesExist(true);
+
+      // Show success message
+      const stageText = tournament.schema.stages.length === 1 ? 'стадии' : 'стадий';
+      showSuccess(
+        `Жеребьевка завершена! ${totalGamesCreated} боев созданы для всех ${tournament.schema.stages.length} ${stageText}! ` +
+        `Игроки автоматически распределены из разных корзин.`
+      );
+    } catch (error) {
+      console.error('Error during tournament draw:', error);
+      showError('Ошибка при проведении жеребьевки: ' + error.message);
+    } finally {
+      setIsDrawing(false);
+    }
+  };
+
+  // Create first stage games from draw results with automatic player assignment
+  const createFirstStageGamesFromDraw = async (drawnGames, stage, tournament) => {
+    let gamesCreated = 0;
+    
+    for (const drawnGame of drawnGames) {
+      const gamePayload = {
+        gameDate: new Date().toISOString().split('T')[0],
+        gamePlace: 'TBD',
+        presenterId: 1,
+        participants: drawnGame.players.map(player => createResolvedParticipant(player.playerId, 0)),
+        tournamentType: drawnGame.tournamentType
+      };
+
+      // Add Double Elimination specific properties
+      if (drawnGame.tournamentType === 'DoubleElimination') {
+        gamePayload.gameLetter = drawnGame.gameLetter;
+        gamePayload.bracketType = drawnGame.bracketType;
+        gamePayload.bracketPosition = drawnGame.bracketPosition;
+      }
+
+      const response = await fetch(`/api/tournaments/${tournament.id}/stages/${stage.id}/games`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(gamePayload),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Failed to create stage ${stage.order} game: ${response.status} ${JSON.stringify(errorData)}`);
+      }
+
+      gamesCreated++;
+    }
+    
+    return gamesCreated;
+  };
+
+  const createGames = async () => {
+    setIsCreatingGames(true);
+    try {
+      // Create progression engine for this tournament
+      const progressionEngine = createProgressionEngine(tournament);
+      
+      // Convert participants from poolId format to basket format for draw function
+      const participantsWithBaskets = seedPools.flatMap(pool => 
+        pool.participants.map(participant => ({
+          ...participant,
+          basket: pool.id // Convert poolId to basket for draw function
+        }))
+      );
+
+      // Prepare tournament details for draw function (for stage 1 only)
       const tournamentForDraw = {
         ...tournament,
         schema: tournament.schema.schemeName, // Draw function expects string, not object
@@ -390,180 +565,197 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
         participantsNum: tournament.schema.participantsNum
       };
 
-      // Call drawTournament function
-      const games = drawTournament(tournamentForDraw, false);
+      // Generate first stage games using existing draw function
+      const firstStageGames = drawTournament(tournamentForDraw, false);
 
-      // Set the gameCreationMethod flag on the tournament
+      // Set the gameCreationMethod flag and add progression metadata
       const updatedTournament = {
         ...tournament,
-        gameCreationMethod: 'emptyGames'
+        gameCreationMethod: 'emptyGames',
+        progressionMetadata: progressionEngine.generateProgressionMetadata()
       };
 
-      // Save the updated tournament with gameCreationMethod flag
+      // Save the updated tournament with gameCreationMethod and progression metadata
       await saveTournamentMutation.mutateAsync(updatedTournament);
 
-      // Create games for all stages
-      if (games.length > 0 && tournament.schema.stages.length > 0) {
+      // Create games for all stages using progressive system
+      if (firstStageGames.length > 0 && tournament.schema.stages.length > 0) {
         let totalGamesCreated = 0;
         
-        // Create games for each stage
+        // Process each stage
         for (const stage of tournament.schema.stages) {
-          // For first stage, use games from drawTournament
           if (stage.order === 1) {
-            for (const game of games) {
-              // Create base game data
-              const gameData = {
-                gameDate: new Date().toISOString(),
-                gamePlace: `Арена ${game.number}`,
-                presenterId: 1,
-                stageOrder: game.number, // Order within the stage
-                participants: (game.players || []).map(player => ({
-                  playerId: player.playerId,
-                  points: 0,
-                  extraResult: ""
-                }))
-              };
-
-              // Add tournament-type specific data
-              if (isDoubleElimination) {
-                gameData.bracketType = game.bracketType;
-                gameData.bracketPosition = game.bracketPosition;
-                gameData.tournamentType = 'DoubleElimination';
-              } else if (isOlympic) {
-                gameData.tournamentType = 'Olympic';
-              }
-
-              const url = `/api/tournaments/${tournament.id}/stages/${stage.id}/games`;
-              
-              const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(gameData),
-              });
-
-              if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`Failed to create game: ${response.status} ${errorText}`);
-              }
-              totalGamesCreated++;
-            }
+            // Stage 1: Use draw function results with resolved participants
+            totalGamesCreated += await createFirstStageGames(firstStageGames, stage, tournament);
           } else {
-            // For other stages, create games based on tournament type
-            if (isDoubleElimination) {
-              // Double elimination: use direct game counts from schema
-              let upperGamesCount = stage.topBracketGameNum || 0;
-              let lowerGamesCount = stage.bottomBracketGamesNum || 0;
-              
-              // Final stage always has 1 game regardless of bracket counts
-              if (stage.isFinal && upperGamesCount === 0 && lowerGamesCount === 0) {
-                upperGamesCount = 1;
-              }
-              
-              // Create upper bracket games (жёлтые бои)
-              for (let i = 1; i <= upperGamesCount; i++) {
-                const gameData = {
-                  gameDate: new Date().toISOString(),
-                  gamePlace: `Арена ${i}`,
-                  presenterId: 1,
-                  stageOrder: i,
-                  participants: [],
-                  tournamentType: 'DoubleElimination'
-                };
-
-                // Only add bracket type for non-final stages
-                if (!stage.isFinal) {
-                  gameData.bracketType = 'upper';
-                  gameData.bracketPosition = i;
-                }
-
-                const url = `/api/tournaments/${tournament.id}/stages/${stage.id}/games`;
-                
-                const response = await fetch(url, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(gameData),
-                });
-
-                if (!response.ok) {
-                  const errorText = await response.text();
-                  throw new Error(`Failed to create upper bracket game: ${response.status} ${errorText}`);
-                }
-                totalGamesCreated++;
-              }
-
-              // Create lower bracket games (красные бои)
-              for (let i = 1; i <= lowerGamesCount; i++) {
-                const gameData = {
-                  gameDate: new Date().toISOString(),
-                  gamePlace: `Арена ${upperGamesCount + i}`,
-                  presenterId: 1,
-                  stageOrder: upperGamesCount + i,
-                  participants: [],
-                  tournamentType: 'DoubleElimination'
-                };
-
-                // Only add bracket type for non-final stages
-                if (!stage.isFinal) {
-                  gameData.bracketType = 'lower';
-                  gameData.bracketPosition = i;
-                }
-
-                const url = `/api/tournaments/${tournament.id}/stages/${stage.id}/games`;
-                
-                const response = await fetch(url, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(gameData),
-                });
-
-                if (!response.ok) {
-                  const errorText = await response.text();
-                  throw new Error(`Failed to create lower bracket game: ${response.status} ${errorText}`);
-                }
-                totalGamesCreated++;
-              }
-            } else {
-              // Olympic: create simple placeholder games
-              const stageGamesCount = calculateGamesForStage(stage, tournament.schema.participantsNum);
-              
-              for (let i = 1; i <= stageGamesCount; i++) {
-                const gameData = {
-                  gameDate: new Date().toISOString(),
-                  gamePlace: `Арена ${i}`,
-                  presenterId: 1,
-                  stageOrder: i,
-                  participants: [],
-                  tournamentType: 'Olympic'
-                };
-
-                const url = `/api/tournaments/${tournament.id}/stages/${stage.id}/games`;
-                
-                const response = await fetch(url, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(gameData),
-                });
-
-                if (!response.ok) {
-                  const errorText = await response.text();
-                  throw new Error(`Failed to create game: ${response.status} ${errorText}`);
-                }
-                totalGamesCreated++;
-              }
-            }
+            // Later stages: Use progression system with references
+            totalGamesCreated += await createProgressiveStageGames(stage, tournament, progressionEngine);
           }
         }
 
+        // Update games existence status
+        setGamesExist(true);
+
         // Show success message
-        showSuccess(`${totalGamesCreated} боев созданы для всех ${tournament.schema.stages.length} стадий! Добавьте участников в каждый бой.`);
+        const stageText = tournament.schema.stages.length === 1 ? 'стадии' : 'стадий';
+        showSuccess(
+          `${totalGamesCreated} боев созданы для всех ${tournament.schema.stages.length} ${stageText}! ` +
+          `Стадия 1 готова к игре. Последующие стадии будут автоматически заполнены по результатам.`
+        );
       } else {
         showError('Не удалось создать бои. Проверьте количество участников.');
       }
     } catch (error) {
       console.error('Error creating games:', error);
-      showError('Ошибка при создании боев');
+      showError(`Ошибка при создании боев: ${error.message}`);
     } finally {
       setIsCreatingGames(false);
+    }
+  };
+
+  // Create first stage games with resolved participants
+  const createFirstStageGames = async (games, stage, tournament) => {
+    let gamesCreated = 0;
+    
+    for (const game of games) {
+      // Convert draw results to resolved participants
+      const participants = (game.players || []).map(player => 
+        createResolvedParticipant(player.playerId)
+      );
+
+      const gameData = {
+        gameDate: new Date().toISOString(),
+        gamePlace: `Арена ${game.number}`,
+        presenterId: 1,
+        stageOrder: game.number,
+        participants: participants,
+        tournamentType: tournament.schema.schemeName === 'Double Elimination' ? 'DoubleElimination' : 'Olympic'
+      };
+
+      // Add bracket information for Double Elimination
+      if (tournament.schema.schemeName === 'Double Elimination') {
+        gameData.bracketType = game.bracketType || 'upper';
+        gameData.bracketPosition = game.bracketPosition || game.number;
+      }
+
+      const response = await fetch(`/api/tournaments/${tournament.id}/stages/${stage.id}/games`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(gameData),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to create stage 1 game: ${response.status} ${errorText}`);
+      }
+      
+      gamesCreated++;
+    }
+    
+    return gamesCreated;
+  };
+
+  // Create progressive stage games with participant references
+  const createProgressiveStageGames = async (stage, tournament, progressionEngine) => {
+    let gamesCreated = 0;
+    const isDoubleElimination = tournament.schema.schemeName === 'Double Elimination';
+    
+    if (isDoubleElimination) {
+      // Create upper bracket games
+      const upperGamesCount = stage.topBracketGameNum || 0;
+      for (let i = 1; i <= upperGamesCount; i++) {
+        // Generate participants with references using progression engine
+        const participantsWithReferences = progressionEngine.generateGameParticipants(stage.order, i - 1, 'upper');
+        
+        const gameData = {
+          gameDate: new Date().toISOString(),
+          gamePlace: `Арена ${i}`,
+          presenterId: 1,
+          stageOrder: i,
+          participants: participantsWithReferences,
+          bracketType: stage.isFinal ? null : 'upper',
+          bracketPosition: stage.isFinal ? null : i,
+          tournamentType: 'DoubleElimination'
+        };
+
+        await createProgressiveGame(gameData, stage, tournament);
+        gamesCreated++;
+      }
+
+      // Create lower bracket games
+      const lowerGamesCount = stage.bottomBracketGamesNum || 0;
+      for (let i = 1; i <= lowerGamesCount; i++) {
+        // Generate participants with references using progression engine
+        const participantsWithReferences = progressionEngine.generateGameParticipants(stage.order, i - 1, 'lower');
+        
+        const gameData = {
+          gameDate: new Date().toISOString(),
+          gamePlace: `Арена ${upperGamesCount + i}`,
+          presenterId: 1,
+          stageOrder: upperGamesCount + i,
+          participants: participantsWithReferences,
+          bracketType: stage.isFinal ? null : 'lower',
+          bracketPosition: stage.isFinal ? null : i,
+          tournamentType: 'DoubleElimination'
+        };
+
+        await createProgressiveGame(gameData, stage, tournament);
+        gamesCreated++;
+      }
+
+      // Handle final stage (1 game if no brackets specified)
+      if (stage.isFinal && upperGamesCount === 0 && lowerGamesCount === 0) {
+        // Generate participants with references using progression engine
+        const participantsWithReferences = progressionEngine.generateGameParticipants(stage.order, 0, null);
+        
+        const gameData = {
+          gameDate: new Date().toISOString(),
+          gamePlace: 'Финальная арена',
+          presenterId: 1,
+          stageOrder: 1,
+          participants: participantsWithReferences,
+          tournamentType: 'DoubleElimination'
+        };
+
+        await createProgressiveGame(gameData, stage, tournament);
+        gamesCreated++;
+      }
+    } else {
+      // Olympic: Simple progression
+      const gamesCount = calculateGamesForStage(stage, tournament.schema.participantsNum);
+      
+      for (let i = 1; i <= gamesCount; i++) {
+        // Generate participants with references using progression engine
+        const participantsWithReferences = progressionEngine.generateGameParticipants(stage.order, i - 1, null);
+        
+        const gameData = {
+          gameDate: new Date().toISOString(),
+          gamePlace: `Арена ${i}`,
+          presenterId: 1,
+          stageOrder: i,
+          participants: participantsWithReferences,
+          tournamentType: 'Olympic'
+        };
+
+        await createProgressiveGame(gameData, stage, tournament);
+        gamesCreated++;
+      }
+    }
+    
+    return gamesCreated;
+  };
+
+  // Helper function to create a single progressive game
+  const createProgressiveGame = async (gameData, stage, tournament) => {
+    const response = await fetch(`/api/tournaments/${tournament.id}/stages/${stage.id}/games`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(gameData),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to create stage ${stage.order} game: ${response.status} ${errorText}`);
     }
   };
 
@@ -594,10 +786,12 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
           </button>
           <button 
             onClick={createGames}
-            disabled={isCreatingGames || getTotalParticipants() === 0 || hasUnsavedChanges}
-            className={`${styles.createGamesButton} ${hasUnsavedChanges ? styles.requiresSave : ''}`}
+            disabled={isCreatingGames || isDrawing || getTotalParticipants() === 0 || hasUnsavedChanges || gamesExist}
+            className={`${styles.createGamesButton} ${hasUnsavedChanges ? styles.requiresSave : ''} ${gamesExist ? styles.gamesExist : ''}`}
             title={
-              hasUnsavedChanges 
+              gamesExist
+                ? "Бои уже созданы. Используйте 'Жеребьевка' для пересоздания с новым распределением игроков"
+                : hasUnsavedChanges 
                 ? "Сохраните участников перед созданием боев" 
                 : getTotalParticipants() === 0
                 ? "Добавьте участников для создания боев"
@@ -609,6 +803,27 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
               <>Создаём бои...</>
             ) : (
               <><FaGamepad /> <span className={styles.buttonText}>Создать бои</span></>
+            )}
+          </button>
+          <button 
+            onClick={drawTournamentGames}
+            disabled={isCreatingGames || isDrawing || getTotalParticipants() === 0 || hasUnsavedChanges}
+            className={`${styles.drawButton} ${hasUnsavedChanges ? styles.requiresSave : ''}`}
+            title={
+              hasUnsavedChanges 
+                ? "Сохраните участников перед проведением жеребьевки" 
+                : getTotalParticipants() === 0
+                ? "Добавьте участников для проведения жеребьевки"
+                : gamesExist
+                ? "Удалить существующие бои и провести новую жеребьевку с автоматическим распределением игроков из разных корзин"
+                : "Провести жеребьевку и автоматически распределить игроков из разных корзин"
+            }
+            type="button"
+          >
+            {isDrawing ? (
+              <>Жеребьевка...</>
+            ) : (
+              <><FaRandom /> <span className={styles.buttonText}>{gamesExist ? 'Пережеребьевка' : 'Жеребьевка'}</span></>
             )}
           </button>
           <button onClick={handleClear} className={styles.clearButton} title="Очистить все">

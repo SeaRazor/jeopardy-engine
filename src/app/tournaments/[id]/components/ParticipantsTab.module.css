@@ -134,6 +134,47 @@
   transform: none;
 }
 
+.drawButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #17a2b8;
+  color: white;
+  border: 1px solid #17a2b8;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.drawButton:hover:not(:disabled) {
+  background-color: #138496;
+  transform: translateY(-1px);
+}
+
+.drawButton:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.drawButton.requiresSave {
+  background-color: #ffc107;
+  color: #212529;
+  border-color: #ffc107;
+}
+
+.drawButton.requiresSave:disabled {
+  background-color: #ffc107;
+  color: #212529;
+  opacity: 0.7;
+}
+
 .createGamesButton.requiresSave {
   background-color: #ffc107;
   color: #212529;
@@ -144,6 +185,18 @@
   background-color: #ffc107;
   color: #212529;
   opacity: 0.7;
+}
+
+.createGamesButton.gamesExist {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.createGamesButton.gamesExist:disabled {
+  background-color: #28a745;
+  border-color: #28a745;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 @keyframes successPulse {
@@ -582,7 +635,8 @@
   .shuffleButton,
   .saveButton,
   .clearButton,
-  .createGamesButton {
+  .createGamesButton,
+  .drawButton {
     flex: 1;
     min-width: 44px;
     padding: 0.5rem;
@@ -592,6 +646,11 @@
   .createGamesButton.requiresSave {
     background-color: #ffc107;
     color: #212529;
+  }
+  
+  .createGamesButton.gamesExist {
+    background-color: #28a745;
+    border-color: #28a745;
   }
   
   .buttonText {

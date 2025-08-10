@@ -64,6 +64,9 @@ export default function TournamentDetailPage() {
             </span>
             <span className={styles.currentPage}>{tournament.name}</span>
           </div>
+        </div>
+        
+        <div className={styles.tournamentInfo}>
           <div className={styles.titleSection}>
             <h1 className={styles.title}>{tournament.name}</h1>
             {tournament.type && (
@@ -72,9 +75,6 @@ export default function TournamentDetailPage() {
               </div>
             )}
           </div>
-        </div>
-        
-        <div className={styles.tournamentInfo}>
           
           <div className={styles.infoHeader} onClick={() => setIsInfoExpanded(!isInfoExpanded)}>
             <span className={styles.detailsTitle}>Подробная информация</span>

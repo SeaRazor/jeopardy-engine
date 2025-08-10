@@ -1,8 +1,55 @@
 .gameCard {
-  min-height: 200px;
+  min-height: 160px;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
+}
+
+/* Ultra-compact variant for maximum space saving */
+.gameCardCompact {
+  min-height: 120px;
+  gap: 0.3rem;
+}
+
+.gameCardCompact .desktopCardTitle {
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.25rem;
+}
+
+.gameCardCompact .gameInfoSection {
+  margin-bottom: 0.2rem;
+}
+
+.gameCardCompact .participants {
+  gap: 0.3rem;
+}
+
+.gameCardCompact .participantsHeader {
+  padding-bottom: 0.3rem;
+  font-size: 0.8rem;
+  gap: 0.3rem;
+}
+
+.gameCardCompact .participantsList {
+  gap: 0.25rem;
+}
+
+.gameCardCompact .participant {
+  padding: 0.4rem;
+  gap: 0.4rem;
+}
+
+.gameCardCompact .participantName {
+  font-size: 0.8rem;
+}
+
+.gameCardCompact .points {
+  font-size: 0.9rem;
+  min-width: 3rem;
+}
+
+.gameCardCompact .desktopCardTitle h4 {
+  font-size: 1rem;
 }
 
 /* Card Title */
@@ -17,6 +64,74 @@
   color: var(--color-foreground);
   font-size: 1.1rem;
   font-weight: 600;
+}
+
+/* Game name link - Modern Text Link Design */
+.gameNameLink {
+  color: var(--primary-color);
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  font-weight: 600;
+  font-size: inherit;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background: linear-gradient(
+    90deg,
+    var(--primary-color) 0%,
+    #667eea 50%,
+    var(--primary-color) 100%
+  );
+  background-size: 200% 2px;
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+  background-clip: padding-box;
+  padding-bottom: 2px;
+  text-shadow: 0 0 0 transparent;
+}
+
+/* Animated underline on hover */
+.gameNameLink::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-color) 0%,
+    #667eea 50%,
+    var(--primary-color) 100%
+  );
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 1px;
+}
+
+.gameNameLink:hover {
+  color: #667eea;
+  text-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+  transform: translateX(2px);
+}
+
+.gameNameLink:hover::after {
+  width: 100%;
+}
+
+.gameNameLink:active {
+  transform: translateX(1px);
+  text-shadow: 0 0 4px rgba(102, 126, 234, 0.4);
+}
+
+/* Focus state for accessibility */
+.gameNameLink:focus {
+  outline: none;
+  color: #667eea;
+  text-shadow: 0 0 12px rgba(102, 126, 234, 0.4);
+}
+
+.gameNameLink:focus::after {
+  width: 100%;
+  box-shadow: 0 0 6px rgba(102, 126, 234, 0.5);
 }
 
 /* Double Elimination Specific Styles */
@@ -49,7 +164,7 @@
 
 /* Game Info Section - Compact Horizontal Layout */
 .gameInfoSection {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
 }
 
 .gameInfo {
@@ -122,10 +237,10 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.25rem 0;
+  gap: 0.3rem;
+  padding: 0.15rem 0;
   font-size: 0.75rem;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .gameInfoInline .dateTime,
@@ -279,6 +394,91 @@
   color: inherit !important;
 }
 
+/* Game completion indicator - replaces menu button */
+.completionIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #28a745;
+  color: white;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3);
+  border: none;
+  cursor: default;
+}
+
+/* Reference and progression status styles */
+.participantReference {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  color: var(--color-muted);
+  margin-top: 0.2rem;
+}
+
+.referenceIcon {
+  font-size: 0.6rem;
+  opacity: 0.7;
+}
+
+.participantUnresolved {
+  opacity: 0.7;
+  border-left: 3px solid #ffa500 !important;
+  background: rgba(255, 165, 0, 0.05);
+}
+
+.participantStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  color: #ffa500;
+  margin-top: 0.2rem;
+  font-style: italic;
+}
+
+.unresolvedIcon {
+  color: #ffa500;
+  font-size: 0.8rem;
+}
+
+.warningIcon {
+  font-size: 0.6rem;
+}
+
+.noParticipants {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  text-align: center;
+  color: var(--color-muted);
+  background: rgba(var(--card-border-rgb), 0.02);
+  border-radius: 8px;
+  border: 1px dashed rgba(var(--card-border-rgb), 0.3);
+}
+
+.noParticipantsIcon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.5;
+}
+
+.noParticipants p {
+  margin: 0.2rem 0;
+  font-size: 0.9rem;
+}
+
+.noParticipantsHint {
+  font-size: 0.8rem !important;
+  opacity: 0.8;
+}
+
 .editButton {
   padding: 0.4rem 0.8rem;
   border: 1px solid var(--card-border);
@@ -403,34 +603,34 @@
 .participants {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .participantsHeader {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   color: var(--color-foreground);
   font-weight: 600;
-  font-size: 0.9rem;
-  padding-bottom: 0.5rem;
+  font-size: 0.85rem;
+  padding-bottom: 0.4rem;
   border-bottom: 1px solid var(--card-border);
 }
 
 .participantsList {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .participant {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem;
+  gap: 0.5rem;
+  padding: 0.6rem;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-radius: 8px;
+  border-radius: 6px;
   transition: all 0.2s ease-in-out;
 }
 
@@ -485,7 +685,7 @@
 .participantName {
   color: var(--color-foreground);
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .participantType {
@@ -497,13 +697,18 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.25rem;
+  gap: 0.2rem;
+  min-width: 4rem;
+  flex-shrink: 0;
 }
 
 .points {
   color: var(--color-foreground);
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  text-align: right;
+  min-width: 3.5rem;
+  white-space: nowrap;
 }
 
 .pointsLabel {
@@ -524,7 +729,7 @@
 }
 
 .extraResultInline {
-  margin-left: 0.3rem;
+  margin-right: 0.3rem;
   font-size: 0.8rem;
   color: var(--color-secondary-text);
   font-weight: 400;
@@ -666,8 +871,8 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--card-border);
-  padding-bottom: 0.75rem;
-  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
   gap: 1rem;
 }
 
@@ -718,7 +923,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.75rem;
+    padding: 0.6rem;
     background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.05);
     border-bottom: 1px solid var(--card-border);
     cursor: pointer;
@@ -735,16 +940,16 @@
   }
 
   .accordionTitle {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    margin: 0 0 0.2rem 0;
+    margin: 0 0 0.15rem 0;
     color: var(--color-foreground);
   }
 
   .accordionSummary {
     display: flex;
-    gap: 0.5rem;
-    font-size: 0.75rem;
+    gap: 0.4rem;
+    font-size: 0.7rem;
     color: var(--color-secondary-text);
   }
 
@@ -789,7 +994,7 @@
   .contentExpanded {
     max-height: 2000px; /* Large enough for any content */
     opacity: 1;
-    padding: 0.75rem;
+    padding: 0.6rem;
   }
 
   /* Mobile header - stack everything */
@@ -973,6 +1178,11 @@
     gap: 0.3rem;
   }
 
+  .participantScore {
+    min-width: 4rem;
+    flex-shrink: 0;
+  }
+
   /* Participants list - completely redesigned for mobile */
   .participantsList {
     gap: 0.3rem;
@@ -1027,11 +1237,13 @@
   .points {
     font-size: 0.9rem;
     font-weight: 700;
+    text-align: right;
+    min-width: 3rem;
   }
 
   .extraResultInline {
     font-size: 0.7rem;
-    margin-left: 0.2rem;
+    margin-right: 0.2rem;
   }
 
   /* Edit mode mobile - completely redesigned */

@@ -120,6 +120,84 @@
   align-items: center;
 }
 
+/* Filters Section */
+.filtersSection {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filterIcon {
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.filterLabel {
+  color: var(--color-foreground);
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.filterSelect {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  background: var(--card-bg);
+  color: var(--color-foreground);
+  font-size: 0.8rem;
+  min-width: 100px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb, 0, 123, 255), 0.1);
+}
+
+.clearFiltersButton {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  background: #dc3545;
+  color: white;
+  border: 1px solid #dc3545;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.clearFiltersButton:hover {
+  background: #c82333;
+  border-color: #c82333;
+  transform: translateY(-1px);
+}
+
+.clearFiltersButton:active {
+  transform: translateY(0);
+}
+
 .gamesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -166,6 +244,28 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
+  }
+  
+  .filtersSection {
+    padding: 0.75rem;
+  }
+  
+  .filters {
+    gap: 1rem;
+  }
+  
+  .filterGroup {
+    gap: 0.4rem;
+  }
+  
+  .filterSelect {
+    min-width: 80px;
+    font-size: 0.75rem;
+  }
+  
+  .clearFiltersButton {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
   }
   
   .loading,

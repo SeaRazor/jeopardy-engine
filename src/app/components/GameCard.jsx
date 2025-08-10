@@ -1,11 +1,15 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { FaCalendarAlt, FaMapMarkerAlt, FaMicrophone, FaUsers, FaTrophy, FaMedal, FaArrowUp, FaArrowDown, FaEllipsisV, FaEdit, FaCheck, FaPlay } from 'react-icons/fa';
+import { FaCalendarAlt, FaMapMarkerAlt, FaMicrophone, FaUsers, FaTrophy, FaMedal, FaArrowUp, FaArrowDown, FaEllipsisV, FaEdit, FaCheck, FaPlay, FaLink, FaClock, FaExclamationTriangle } from 'react-icons/fa';
 import Card from '../UI/Card/Card';
+import ConfirmationDialog from '../UI/ConfirmationDialog';
+import { getReferenceDisplayText, needsResolution } from '../util/referenceSystem';
+import { useToast } from '../util/ToastContext';
 import styles from './GameCard.module.css';
 
 export default function GameCard({ game, stage, showActions = false, onEdit, onDelete, playerManagementState }) {
+  const { showError, showSuccess } = useToast();
   const [presenter, setPresenter] = useState(null);
   const [players, setPlayers] = useState([]);
   const [currentGame, setCurrentGame] = useState(game);
@@ -19,15 +23,43 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
   });
   const [availablePresenters, setAvailablePresenters] = useState([]);
   const [availablePlayers, setAvailablePlayers] = useState([]);
+  const [allTournamentGames, setAllTournamentGames] = useState([]);
   const [isSaving, setIsSaving] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isFinishDialogOpen, setIsFinishDialogOpen] = useState(false);
+  const [isFinishingGame, setIsFinishingGame] = useState(false);
+  const [gameCompleted, setGameCompleted] = useState(false);
   const menuRef = useRef(null);
   const desktopMenuRef = useRef(null);
   
   // Update local state when prop changes
   useEffect(() => {
     setCurrentGame(game);
+    setGameCompleted(isGameCompleted(game));
   }, [game]);
+
+  // Check if game is completed
+  const isGameCompleted = (gameData) => {
+    if (!gameData.participants || gameData.participants.length === 0) {
+      return false;
+    }
+    
+    // Check if game is explicitly marked as completed
+    if (gameData.completed === true) {
+      return true;
+    }
+    
+    // All participants must be resolved (no pending references)
+    const allResolved = gameData.participants.every(p => p.resolved || !p.sourceReference);
+    if (!allResolved) {
+      return false;
+    }
+    
+    // At least one participant must have results
+    const hasResults = gameData.participants.some(p => p.points !== 0 || p.extraResult);
+    
+    return hasResults;
+  };
   
   // Close menu when clicking outside
   useEffect(() => {
@@ -120,14 +152,21 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
   // Fetch tournament participants for editing (all stages)
   useEffect(() => {
     if (isEditing) {
-      fetch(`/api/tournaments/${currentGame.tournamentId}`)
-        .then(res => res.json())
-        .then(tournamentData => {
+      // Fetch tournament participants and all games in parallel
+      Promise.all([
+        fetch(`/api/tournaments/${currentGame.tournamentId}`).then(res => res.json()),
+        fetch(`/api/tournaments/${currentGame.tournamentId}/stages/${stage.id}/games`).then(res => res.json())
+      ])
+        .then(([tournamentData, gamesData]) => {
           setAvailablePlayers(tournamentData.participants || []);
+          setAllTournamentGames(gamesData || []);
         })
-        .catch(err => console.error('Error fetching tournament participants:', err));
+        .catch(err => {
+          console.error('Error fetching tournament data:', err);
+          showError('Ошибка при загрузке данных турнира');
+        });
     }
-  }, [isEditing, currentGame.tournamentId]);
+  }, [isEditing, currentGame.tournamentId, stage.id, showError]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -163,6 +202,60 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
     
     // Fallback
     return playerInfo.name || 'Неизвестный участник';
+  };
+
+  // Get players that are already assigned to other games in the same stage
+  const getPlayersInOtherGames = () => {
+    const playersInOtherGames = new Set();
+    
+    allTournamentGames.forEach(otherGame => {
+      // Skip current game being edited
+      if (otherGame.id === currentGame.id) return;
+      
+      // Add all players from other games to the set
+      if (otherGame.participants) {
+        otherGame.participants.forEach(participant => {
+          if (participant.playerId && participant.resolved !== false) {
+            playersInOtherGames.add(participant.playerId);
+          }
+        });
+      }
+    });
+    
+    return playersInOtherGames;
+  };
+
+  // Get available players filtering out those already in other games
+  const getFilteredAvailablePlayers = () => {
+    const playersInOtherGames = getPlayersInOtherGames();
+    
+    return availablePlayers.filter(player => {
+      // Exclude players already assigned to other games
+      if (playersInOtherGames.has(player.id)) return false;
+      
+      // Exclude players already selected in current form (to avoid duplicates)
+      const alreadyInCurrentGame = editForm.participants.some(p => p.playerId === player.id) ||
+                                    currentGame.participants?.some(p => p.playerId === player.id);
+      
+      return !alreadyInCurrentGame;
+    });
+  };
+
+  // Get available players for stage 1 dropdowns (more permissive - allows current game players)
+  const getFilteredPlayersForStage1 = (currentIndex) => {
+    const playersInOtherGames = getPlayersInOtherGames();
+    
+    return availablePlayers.filter(player => {
+      // Exclude players already assigned to other games
+      if (playersInOtherGames.has(player.id)) return false;
+      
+      // Allow players already in current game OR current selection, but exclude duplicates within the form
+      const alreadySelectedInForm = editForm.participants.some((p, index) => 
+        index !== currentIndex && p.playerId === player.id
+      );
+      
+      return !alreadySelectedInForm;
+    });
   };
 
   const handleEditClick = () => {
@@ -263,7 +356,7 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
     const currentParticipants = editForm.participants.length > 0 ? editForm.participants : currentGame.participants || [];
     
     if (currentParticipants.length >= maxPlayers) {
-      alert(`Максимальное количество игроков в игре: ${maxPlayers}`);
+      showError(`Максимальное количество игроков в игре: ${maxPlayers}`);
       return;
     }
     
@@ -299,15 +392,22 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
     
     switch (action) {
       case 'edit':
+        if (gameCompleted) {
+          showError('Игра завершена. Редактирование недоступно.');
+          return;
+        }
         if (playerManagementState && !playerManagementState.canEdit) {
-          alert(playerManagementState.restrictionReason || 'Редактирование недоступно');
+          showError(playerManagementState.restrictionReason || 'Редактирование недоступно');
           return;
         }
         handleEditClick();
         break;
       case 'finish':
-        // TODO: Implement finish functionality
-        console.log('Finish game:', currentGame.id);
+        if (gameCompleted) {
+          showError('Игра уже завершена');
+          return;
+        }
+        setIsFinishDialogOpen(true);
         break;
       case 'play':
         // TODO: Implement play functionality
@@ -379,9 +479,77 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
       }
     } catch (error) {
       console.error('Error saving game:', error);
-      alert('Ошибка при сохранении изменений');
+      showError('Ошибка при сохранении изменений');
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleFinishGame = async () => {
+    setIsFinishingGame(true);
+    try {
+      // Validate that game has results
+      if (!currentGame.participants || currentGame.participants.length === 0) {
+        showError('Нельзя завершить игру без участников');
+        return;
+      }
+
+      const hasResults = currentGame.participants.some(p => p.points !== 0 || p.extraResult);
+      if (!hasResults) {
+        showError('Нельзя завершить игру без результатов. Введите очки хотя бы одному участнику.');
+        return;
+      }
+
+      // Call API to finish the game and resolve dependent references
+      const response = await fetch(`/api/tournaments/${currentGame.tournamentId}/stages/${currentGame.stageId}/games/${currentGame.id}/finish`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          completed: true,
+          finishedAt: new Date().toISOString()
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.text();
+        throw new Error(`Failed to finish game: ${errorData}`);
+      }
+
+      const result = await response.json();
+      
+      // Update local state
+      setCurrentGame({
+        ...currentGame,
+        completed: true,
+        finishedAt: result.finishedAt
+      });
+      setGameCompleted(true);
+      
+      // Show success message with resolution info
+      let successMessage = 'Игра завершена успешно!';
+      if (result.resolvedGames && result.resolvedGames > 0) {
+        successMessage += ` Автоматически обновлено участников в ${result.resolvedGames} играх следующих стадий.`;
+      }
+      
+      showSuccess(successMessage);
+      
+      // Trigger a refresh of parent component data
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('gameCompleted', { 
+          detail: { 
+            gameId: currentGame.id, 
+            stageId: currentGame.stageId,
+            tournamentId: currentGame.tournamentId,
+            resolvedGames: result.resolvedGames || 0
+          } 
+        }));
+      }
+    } catch (error) {
+      console.error('Error finishing game:', error);
+      showError(`Ошибка при завершении игры: ${error.message}`);
+    } finally {
+      setIsFinishingGame(false);
+      setIsFinishDialogOpen(false);
     }
   };
 
@@ -394,7 +562,13 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
       <div className={styles.mobileAccordionHeader} onClick={toggleExpanded}>
         <div className={styles.accordionTitleSection}>
           <h4 className={styles.accordionTitle}>
-            {isFinalStage ? 'Финал' : `Бой ${currentGame.gameNumber || currentGame.id}`}
+            <a 
+              href={`/tournaments/${currentGame.tournamentId}/stages/${currentGame.stageId}/games/${currentGame.id}`} 
+              className={styles.gameNameLink}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {isFinalStage ? 'Финал' : `Бой ${currentGame.gameNumber || currentGame.id}`}
+            </a>
           </h4>
           <div className={styles.accordionSummary}>
             <span className={styles.accordionLocation}>{currentGame.gamePlace}</span>
@@ -405,38 +579,38 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
         </div>
         <div className={styles.accordionHeaderActions}>
           {showActions && !isEditing && (
-            <div className={styles.menuContainer} ref={menuRef} onClick={(e) => e.stopPropagation()}>
-              <button onClick={toggleMenu} className={styles.menuButton}>
-                <FaEllipsisV />
-              </button>
-              {isMenuOpen && (
-                <div className={styles.popupMenu}>
-                  <button 
-                    className={`${styles.menuItem} ${playerManagementState && !playerManagementState.canEdit ? styles.menuItemDisabled : ''}`}
-                    onClick={() => handleMenuItemClick('edit')}
-                    disabled={playerManagementState && !playerManagementState.canEdit}
-                    title={playerManagementState && !playerManagementState.canEdit ? playerManagementState.restrictionReason : undefined}
-                  >
-                    <FaEdit className={styles.menuIcon} />
-                    <span>Редактировать</span>
-                  </button>
-                  <button 
-                    className={styles.menuItem} 
-                    onClick={() => handleMenuItemClick('finish')}
-                  >
-                    <FaCheck className={styles.menuIcon} />
-                    <span>Закончить</span>
-                  </button>
-                  <button 
-                    className={styles.menuItem} 
-                    onClick={() => handleMenuItemClick('play')}
-                  >
-                    <FaPlay className={styles.menuIcon} />
-                    <span>Играть</span>
-                  </button>
-                </div>
-              )}
-            </div>
+            gameCompleted ? (
+              <div className={styles.completionIndicator}>
+                <FaCheck />
+              </div>
+            ) : (
+              <div className={styles.menuContainer} ref={menuRef} onClick={(e) => e.stopPropagation()}>
+                <button onClick={toggleMenu} className={styles.menuButton}>
+                  <FaEllipsisV />
+                </button>
+                {isMenuOpen && (
+                  <div className={styles.popupMenu}>
+                    <button 
+                      className={`${styles.menuItem} ${(playerManagementState && !playerManagementState.canEdit) ? styles.menuItemDisabled : ''}`}
+                      onClick={() => handleMenuItemClick('edit')}
+                      disabled={playerManagementState && !playerManagementState.canEdit}
+                      title={playerManagementState && !playerManagementState.canEdit ? playerManagementState.restrictionReason : undefined}
+                    >
+                      <FaEdit className={styles.menuIcon} />
+                      <span>Редактировать</span>
+                    </button>
+                    <button 
+                      className={styles.menuItem}
+                      onClick={() => handleMenuItemClick('finish')}
+                      title="Завершить игру и перевести участников в следующие стадии"
+                    >
+                      <FaCheck className={styles.menuIcon} />
+                      <span>Закончить</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            )
           )}
           <div className={styles.accordionToggle}>
             {isExpanded ? <FaArrowUp /> : <FaArrowDown />}
@@ -447,40 +621,47 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
       {/* Desktop Card Title */}
       <div className={styles.desktopCardTitle}>
         <div className={styles.desktopTitleContent}>
-          <h4>{isFinalStage ? 'Финал' : `Бой ${currentGame.gameNumber || currentGame.id}`}</h4>
+          <h4>
+            <a 
+              href={`/tournaments/${currentGame.tournamentId}/stages/${currentGame.stageId}/games/${currentGame.id}`} 
+              className={styles.gameNameLink}
+            >
+              {isFinalStage ? 'Финал' : `Бой ${currentGame.gameNumber || currentGame.id}`}
+            </a>
+          </h4>
           {showActions && !isEditing && (
-            <div className={styles.menuContainer} ref={desktopMenuRef}>
-              <button onClick={toggleMenu} className={styles.menuButton}>
-                <FaEllipsisV />
-              </button>
-              {isMenuOpen && (
-                <div className={styles.popupMenu}>
-                  <button 
-                    className={`${styles.menuItem} ${playerManagementState && !playerManagementState.canEdit ? styles.menuItemDisabled : ''}`}
-                    onClick={() => handleMenuItemClick('edit')}
-                    disabled={playerManagementState && !playerManagementState.canEdit}
-                    title={playerManagementState && !playerManagementState.canEdit ? playerManagementState.restrictionReason : undefined}
-                  >
-                    <FaEdit className={styles.menuIcon} />
-                    <span>Редактировать</span>
-                  </button>
-                  <button 
-                    className={styles.menuItem} 
-                    onClick={() => handleMenuItemClick('finish')}
-                  >
-                    <FaCheck className={styles.menuIcon} />
-                    <span>Закончить</span>
-                  </button>
-                  <button 
-                    className={styles.menuItem} 
-                    onClick={() => handleMenuItemClick('play')}
-                  >
-                    <FaPlay className={styles.menuIcon} />
-                    <span>Играть</span>
-                  </button>
-                </div>
-              )}
-            </div>
+            gameCompleted ? (
+              <div className={styles.completionIndicator}>
+                <FaCheck />
+              </div>
+            ) : (
+              <div className={styles.menuContainer} ref={desktopMenuRef}>
+                <button onClick={toggleMenu} className={styles.menuButton}>
+                  <FaEllipsisV />
+                </button>
+                {isMenuOpen && (
+                  <div className={styles.popupMenu}>
+                    <button 
+                      className={`${styles.menuItem} ${(playerManagementState && !playerManagementState.canEdit) ? styles.menuItemDisabled : ''}`}
+                      onClick={() => handleMenuItemClick('edit')}
+                      disabled={playerManagementState && !playerManagementState.canEdit}
+                      title={playerManagementState && !playerManagementState.canEdit ? playerManagementState.restrictionReason : undefined}
+                    >
+                      <FaEdit className={styles.menuIcon} />
+                      <span>Редактировать</span>
+                    </button>
+                    <button 
+                      className={styles.menuItem}
+                      onClick={() => handleMenuItemClick('finish')}
+                      title="Завершить игру и перевести участников в следующие стадии"
+                    >
+                      <FaCheck className={styles.menuIcon} />
+                      <span>Закончить</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            )
           )}
         </div>
       </div>
@@ -561,13 +742,10 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
 
       {/* Participants */}
       <div className={styles.participants}>
-        <div className={styles.participantsHeader}>
-          <FaUsers className={styles.icon} />
-          <span>Участники ({isEditing ? editForm.participants.length : players.length})</span>
-        </div>
         
         {!isEditing && (
           <div className={styles.participantsList}>
+            {/* Show resolved participants */}
             {players.map((participant, index) => {
               // Determine bracket type based on stage and gameWinnersNum
               let participantClass = styles.participant;
@@ -599,18 +777,58 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
                     <span className={styles.participantName}>
                       {getPlayerName(participant.playerInfo)}
                     </span>
+                    {participant.sourceReference && (
+                      <span className={styles.participantReference}>
+                        <FaLink className={styles.referenceIcon} />
+                        {getReferenceDisplayText(participant.sourceReference)}
+                      </span>
+                    )}
                   </div>
                   <div className={styles.participantScore}>
                     <span className={styles.points}>
-                      {participant.points}
                       {participant.extraResult && (
-                        <span className={styles.extraResultInline}>({participant.extraResult})</span>
+                        <span className={styles.extraResultInline}>({participant.extraResult}) </span>
                       )}
+                      {participant.points}
                     </span>
                   </div>
                 </div>
               );
             })}
+            
+            {/* Show unresolved references */}
+            {currentGame.participants?.filter(p => needsResolution(p)).map((participant, index) => (
+              <div key={`unresolved-${index}`} className={`${styles.participant} ${styles.participantUnresolved}`}>
+                <div className={styles.participantRank}>
+                  <FaClock className={styles.unresolvedIcon} />
+                </div>
+                <div className={styles.participantInfo}>
+                  <span className={styles.participantName}>
+                    {getReferenceDisplayText(participant.sourceReference)}
+                  </span>
+                  <span className={styles.participantStatus}>
+                    <FaExclamationTriangle className={styles.warningIcon} />
+                    Ожидает завершения предыдущих игр
+                  </span>
+                </div>
+                <div className={styles.participantScore}>
+                  <span className={styles.points}>—</span>
+                </div>
+              </div>
+            ))}
+            
+            {/* Show empty state for games with no participants */}
+            {players.length === 0 && (!currentGame.participants || currentGame.participants.filter(p => needsResolution(p)).length === 0) && (
+              <div className={styles.noParticipants}>
+                <FaUsers className={styles.noParticipantsIcon} />
+                <p>Участники не назначены</p>
+                {stage?.order === 1 ? (
+                  <p className={styles.noParticipantsHint}>Добавьте участников в режиме редактирования</p>
+                ) : (
+                  <p className={styles.noParticipantsHint}>Участники будут добавлены автоматически после завершения предыдущих игр</p>
+                )}
+              </div>
+            )}
           </div>
         )}
 
@@ -628,7 +846,7 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
                     className={styles.select}
                   >
                     <option value="">Выберите игрока</option>
-                    {availablePlayers.map(player => (
+                    {getFilteredPlayersForStage1(index).map(player => (
                       <option key={player.id} value={player.id}>
                         {getPlayerName(player)}
                       </option>
@@ -668,17 +886,16 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
                           value={participant.points || 0}
                           onChange={(e) => handleParticipantUpdate(index, 'points', parseInt(e.target.value) || 0)}
                           className={styles.pointsInput}
-                          min="0"
                         />
                       </div>
                       <div className={styles.formGroup}>
                         <label>Доп. результат:</label>
                         <input
-                          type="text"
+                          type="number"
                           value={participant.extraResult || ''}
-                          onChange={(e) => handleParticipantUpdate(index, 'extraResult', e.target.value)}
+                          onChange={(e) => handleParticipantUpdate(index, 'extraResult', parseInt(e.target.value) || 0)}
                           className={styles.extraInput}
-                          placeholder="Например: +1, -2"
+                          placeholder="Доп. очки (может быть отрицательным)"
                         />
                       </div>
                       <div className={styles.removeParticipantContainer}>
@@ -714,10 +931,7 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
                             className={styles.select}
                           >
                             <option value="">Выберите игрока...</option>
-                            {availablePlayers.filter(player => 
-                              !editForm.participants.some(p => p.playerId === player.id) &&
-                              !currentGame.participants?.some(p => p.playerId === player.id)
-                            ).map(player => (
+                            {getFilteredAvailablePlayers().map(player => (
                               <option key={player.id} value={player.id}>
                                 {getPlayerName(player)}
                               </option>
@@ -745,6 +959,18 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
       </div>
       
       </div> {/* End accordionContent */}
+
+      {/* Finish Game Confirmation Dialog */}
+      <ConfirmationDialog
+        isOpen={isFinishDialogOpen}
+        onClose={() => setIsFinishDialogOpen(false)}
+        onConfirm={handleFinishGame}
+        title="Завершение игры"
+        message={`Вы уверены, что хотите завершить эту игру? После завершения участники будут автоматически переведены в соответствующие игры следующих стадий на основе их мест в турнирной таблице.`}
+        confirmText={isFinishingGame ? "Завершение..." : "Завершить игру"}
+        cancelText="Отмена"
+        isLoading={isFinishingGame}
+      />
     </Card>
   );
 }

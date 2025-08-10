@@ -104,9 +104,23 @@ export async function POST(request, { params }) {
   // Validate each participant has required fields (only if participants exist)
   if (newGame.participants.length > 0) {
     for (const participant of newGame.participants) {
-      if (!participant.playerId || typeof participant.points !== 'number') {
+      // Allow participants with sourceReference (unresolved references)
+      const hasReference = participant.sourceReference && !participant.resolved;
+      const hasPlayerId = participant.playerId;
+      const hasValidPoints = typeof participant.points === 'number';
+      
+      // Either must have playerId and points, OR have a sourceReference
+      if (!hasReference && (!hasPlayerId || !hasValidPoints)) {
         return NextResponse.json(
-          { error: 'Each participant must have playerId and points (number)' }, 
+          { error: 'Each participant must have playerId and points (number), or have a sourceReference' }, 
+          { status: 400 }
+        );
+      }
+      
+      // If has reference, points should still be a number (default 0)
+      if (hasReference && !hasValidPoints) {
+        return NextResponse.json(
+          { error: 'Each participant must have points as a number' }, 
           { status: 400 }
         );
       }
