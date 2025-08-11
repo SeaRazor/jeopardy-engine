@@ -19,7 +19,8 @@
           "name": "Квалификация",
           "order": 1,
           "topGameParticipantsNum": 4,
-          "topGameWinnersNum": 2
+          "topGameWinnersNum": 2,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -29,7 +30,8 @@
           "bottomGameWinnersNum": 2,
           "bottomGameParticipantsNum": 4,
           "topGameParticipantsNum": 4,
-          "topGameWinnersNum": 2
+          "topGameWinnersNum": 2,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -39,7 +41,8 @@
           "bottomGameWinnersNum": 2,
           "bottomGameParticipantsNum": 4,
           "topGameParticipantsNum": 4,
-          "topGameWinnersNum": 2
+          "topGameWinnersNum": 2,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -49,7 +52,8 @@
           "bottomGameWinnersNum": 2,
           "bottomGameParticipantsNum": 4,
           "topGameParticipantsNum": 4,
-          "topGameWinnersNum": 2
+          "topGameWinnersNum": 2,
+          "numberOfThemesInGame": 6
         },
         {
           "bottomGameWinnersNum": 2,
@@ -59,7 +63,8 @@
           "name": "Топ-20",
           "order": 5,
           "topGameParticipantsNum": 4,
-          "topGameWinnersNum": 3
+          "topGameWinnersNum": 3,
+          "numberOfThemesInGame": 6
         },
         {
           "bottomGameParticipantsNum": 3,
@@ -69,7 +74,8 @@
           "name": "Топ-12",
           "order": 6,
           "topGameParticipantsNum": 3,
-          "topGameWinnersNum": 1
+          "topGameWinnersNum": 1,
+          "numberOfThemesInGame": 6
         },
         {
           "bottomGameParticipantsNum": 4,
@@ -79,7 +85,8 @@
           "name": "Топ-9",
           "order": 7,
           "topGameParticipantsNum": 0,
-          "topGameWinnersNum": 0
+          "topGameWinnersNum": 0,
+          "numberOfThemesInGame": 6
         },
         {
           "bottomGameWinnersNum": 3,
@@ -89,14 +96,16 @@
           "name": "Топ-5",
           "order": 8,
           "topGameParticipantsNum": 0,
-          "topGameWinnersNum": 0
+          "topGameWinnersNum": 0,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Грандфинал",
           "id": 9,
           "isFinal": true,
           "name": "Топ-4",
-          "order": 9
+          "order": 9,
+          "numberOfThemesInGame": 8
         }
       ]
     },
@@ -122,7 +131,8 @@
           "name": "Квалификация",
           "order": 1,
           "topGameParticipantsNum": 4,
-          "topGameWinnersNum": 2
+          "topGameWinnersNum": 2,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -132,7 +142,8 @@
           "bottomGameWinnersNum": 2,
           "bottomGameParticipantsNum": 4,
           "topGameParticipantsNum": 4,
-          "topGameWinnersNum": 2
+          "topGameWinnersNum": 2,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -142,7 +153,8 @@
           "bottomGameWinnersNum": 2,
           "bottomGameParticipantsNum": 4,
           "topGameParticipantsNum": 0,
-          "topGameWinnersNum": 0
+          "topGameWinnersNum": 0,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -152,7 +164,8 @@
           "bottomGameWinnersNum": 2,
           "bottomGameParticipantsNum": 4,
           "topGameParticipantsNum": 4,
-          "topGameWinnersNum": 2
+          "topGameWinnersNum": 2,
+          "numberOfThemesInGame": 6
         },
         {
           "bottomGameWinnersNum": 2,
@@ -162,7 +175,8 @@
           "name": "Топ-12",
           "order": 5,
           "topGameParticipantsNum": 0,
-          "topGameWinnersNum": 0
+          "topGameWinnersNum": 0,
+          "numberOfThemesInGame": 6
         },
         {
           "bottomGameParticipantsNum": 0,
@@ -172,7 +186,8 @@
           "name": "Топ-8",
           "order": 6,
           "topGameParticipantsNum": 4,
-          "topGameWinnersNum": 2
+          "topGameWinnersNum": 2,
+          "numberOfThemesInGame": 6
         },
         {
           "bottomGameParticipantsNum": 0,
@@ -182,14 +197,16 @@
           "name": "Топ-6",
           "order": 7,
           "topGameParticipantsNum": 4,
-          "topGameWinnersNum": 2
+          "topGameWinnersNum": 2,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Грандфинал",
           "id": 8,
           "isFinal": true,
           "name": "Финал",
-          "order": 8
+          "order": 8,
+          "numberOfThemesInGame": 8
         }
       ]
     },
@@ -406,7 +423,8 @@
           "name": "1/8 финала",
           "order": 1,
           "topGameParticipantsNum": 4,
-          "topGameWinnersNum": 2
+          "topGameWinnersNum": 2,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Проходят первые два места",
@@ -414,7 +432,8 @@
           "name": "Четверьфиналы",
           "order": 2,
           "topGameParticipantsNum": 4,
-          "topGameWinnersNum": 2
+          "topGameWinnersNum": 2,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Проходят первые два места",
@@ -422,14 +441,16 @@
           "name": "Полуфиналы",
           "order": 3,
           "topGameParticipantsNum": 4,
-          "topGameWinnersNum": 2
+          "topGameWinnersNum": 2,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Финал",
           "id": 4,
           "isFinal": true,
           "name": "Финал",
-          "order": 4
+          "order": 4,
+          "numberOfThemesInGame": 8
         }
       ]
     },
@@ -658,7 +679,73 @@
         "playerType": "person",
         "poolId": 4
       }
-    ]
+    ],
+    "progressionMetadata": {
+      "progressionRules": {
+        "type": "olympic",
+        "autoProgress": true,
+        "bracketSystem": false,
+        "eliminationCount": 1,
+        "stageRules": {
+          "1": {
+            "manualAssignment": true,
+            "playersPerGame": 4,
+            "advanceCount": 2
+          },
+          "default": {
+            "manualAssignment": false,
+            "playersPerGame": 4,
+            "advanceCount": 2,
+            "composition": [
+              {
+                "sourcePosition": 1,
+                "count": 2
+              },
+              {
+                "sourcePosition": 2,
+                "count": 2
+              }
+            ]
+          }
+        }
+      },
+      "stageProgression": [
+        {
+          "stageId": 1,
+          "order": 1,
+          "dependencies": [],
+          "autoGenerated": false,
+          "completed": false
+        },
+        {
+          "stageId": 2,
+          "order": 2,
+          "dependencies": [
+            1
+          ],
+          "autoGenerated": true,
+          "completed": false
+        },
+        {
+          "stageId": 3,
+          "order": 3,
+          "dependencies": [
+            2
+          ],
+          "autoGenerated": true,
+          "completed": false
+        },
+        {
+          "stageId": 4,
+          "order": 4,
+          "dependencies": [
+            3
+          ],
+          "autoGenerated": true,
+          "completed": false
+        }
+      ]
+    }
   },
   {
     "name": "Тестовый турнир",
@@ -677,7 +764,8 @@
           "name": "Квалификация",
           "order": 1,
           "topBracketGameNum": 8,
-          "bottomBracketGamesNum": 0
+          "bottomBracketGamesNum": 0,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -685,7 +773,8 @@
           "name": "Топ-32",
           "order": 2,
           "topBracketGameNum": 4,
-          "bottomBracketGamesNum": 4
+          "bottomBracketGamesNum": 4,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -693,7 +782,8 @@
           "name": "Топ-24",
           "order": 3,
           "topBracketGameNum": 0,
-          "bottomBracketGamesNum": 4
+          "bottomBracketGamesNum": 4,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -701,7 +791,8 @@
           "name": "Топ-16",
           "order": 4,
           "topBracketGameNum": 2,
-          "bottomBracketGamesNum": 2
+          "bottomBracketGamesNum": 2,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -709,7 +800,8 @@
           "name": "Топ-12",
           "order": 5,
           "topBracketGameNum": 0,
-          "bottomBracketGamesNum": 2
+          "bottomBracketGamesNum": 2,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Предфинал",
@@ -717,7 +809,8 @@
           "name": "Топ-8",
           "order": 6,
           "topBracketGameNum": 1,
-          "bottomBracketGamesNum": 1
+          "bottomBracketGamesNum": 1,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Финал нижней сетки",
@@ -725,14 +818,16 @@
           "name": "Топ-6",
           "order": 7,
           "topBracketGameNum": 0,
-          "bottomBracketGamesNum": 1
+          "bottomBracketGamesNum": 1,
+          "numberOfThemesInGame": 6
         },
         {
           "description": "Грандфинал",
           "id": 8,
           "isFinal": true,
           "name": "Финал",
-          "order": 8
+          "order": 8,
+          "numberOfThemesInGame": 8
         }
       ]
     },

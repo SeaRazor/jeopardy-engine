@@ -6,15 +6,54 @@
 .stageInfo {
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 4px 12px var(--color-shadow);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+.stageInfoHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.toggleButton {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.toggleButton:hover {
+  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.1);
+  transform: scale(1.1);
 }
 
 .details {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+.details.collapsed {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-top: 0;
+}
+
+.details.expanded {
+  max-height: 1000px;
+  opacity: 1;
+  margin-top: 1rem;
 }
 
 .detail {
@@ -43,38 +82,345 @@
   font-weight: 500;
 }
 
-.bracketInfo {
+.detailFull {
+  font-size: 0.85rem;
+  color: var(--color-foreground);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-top: 0.75rem;
+}
+
+.detailFull .detailValue {
+  text-align: left;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-left: 1.5rem;
   font-size: 0.85rem;
 }
 
-.upperCount {
-  display: inline-flex;
+.detailInline {
+  font-size: 0.85rem;
+  color: var(--color-foreground);
+  display: flex;
   align-items: center;
-  padding: 0.25rem 0.6rem;
-  background: linear-gradient(135deg, #ff6b35, #ff8c42);
-  color: white;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 0.75rem;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-  box-shadow: 0 2px 4px rgba(255, 107, 53, 0.3);
+  gap: 0.75rem;
 }
 
-.lowerCount {
+.detailInline .detailValue {
+  text-align: left;
+  font-weight: 400;
+  line-height: 1.4;
+  font-size: 0.85rem;
+  flex: 1;
+}
+
+/* MODERN STATS CARDS - Compact, efficient, and visually appealing */
+
+/* Primary stats container - Flexible layout that adapts to content */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Compact card design with minimal height */
+.statCard {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  min-height: auto;
+}
+
+/* Modern hover effects with better performance */
+.statCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(var(--primary-color-rgb, 0, 123, 255), 0.02) 0%, rgba(var(--primary-color-rgb, 0, 123, 255), 0.08) 100%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.statCard:hover::before {
+  opacity: 1;
+}
+
+.statCard:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: rgba(var(--primary-color-rgb, 0, 123, 255), 0.25);
+}
+
+/* Compact icon design - minimal size */
+.statIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 4px;
+  background: linear-gradient(135deg, var(--primary-color), rgba(var(--primary-color-rgb, 0, 123, 255), 0.85));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.675rem;
+  flex-shrink: 0;
+  box-shadow: 0 1px 2px rgba(var(--primary-color-rgb, 0, 123, 255), 0.15);
+}
+
+/* Content layout for compact horizontal display */
+.statContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Prominent value - compact size */
+.statValue {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-foreground);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+/* Refined label typography - compact */
+.statLabel {
+  font-size: 0.75rem;
+  color: var(--color-secondary-text);
+  font-weight: 500;
+  line-height: 1.1;
+  text-transform: none;
+}
+
+/* Special styling for complex game statistics - keep horizontal but compact */
+.statCard.complexStat {
+  min-height: auto;
+  padding: 0.5rem 0.75rem;
+}
+
+.statCard.complexStat .statContent {
+  gap: 0.125rem;
+  text-align: left;
+}
+
+/* ALTERNATIVE LAYOUT OPTIONS - Horizontal compact design */
+.statsRowHorizontal {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--primary-color-rgb, 0, 123, 255), 0.3) transparent;
+}
+
+.statsRowHorizontal::-webkit-scrollbar {
+  height: 4px;
+}
+
+.statsRowHorizontal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.statsRowHorizontal::-webkit-scrollbar-thumb {
+  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.3);
+  border-radius: 2px;
+}
+
+.statCardHorizontal {
+  min-width: 140px;
+  flex-shrink: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 0.75rem;
+  text-align: center;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.statCardHorizontal:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: rgba(var(--primary-color-rgb, 0, 123, 255), 0.25);
+}
+
+.statCardHorizontal .statIcon {
+  margin: 0 auto 0.375rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.statCardHorizontal .statValue {
+  font-size: 1.375rem;
+}
+
+.statCardHorizontal .statLabel {
+  font-size: 0.75rem;
+}
+
+/* DENSITY VARIANTS - For different information density needs */
+.statsRowDense {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.statCardDense {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 0.625rem 0.5rem;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.statCardDense:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+  border-color: rgba(var(--primary-color-rgb, 0, 123, 255), 0.3);
+}
+
+.statCardDense .statIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0 auto 0.375rem;
+  font-size: 0.6875rem;
+  border-radius: 6px;
+}
+
+.statCardDense .statValue {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.statCardDense .statLabel {
+  font-size: 0.6875rem;
+  margin-top: 0.125rem;
+}
+
+/* EMPHASIS VARIANTS - For highlighting important statistics */
+.statCardPrimary {
+  border: 1px solid rgba(var(--primary-color-rgb, 0, 123, 255), 0.3);
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(var(--primary-color-rgb, 0, 123, 255), 0.03) 100%);
+}
+
+.statCardPrimary .statIcon {
+  background: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(var(--primary-color-rgb, 0, 123, 255), 0.3);
+}
+
+.statCardPrimary .statValue {
+  color: var(--primary-color);
+  font-weight: 900;
+}
+
+.statCardSuccess {
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(34, 197, 94, 0.03) 100%);
+}
+
+.statCardSuccess .statIcon {
+  background: linear-gradient(135deg, rgb(34, 197, 94), rgb(22, 163, 74));
+}
+
+.statCardSuccess .statValue {
+  color: rgb(34, 197, 94);
+}
+
+.statCardWarning {
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(245, 158, 11, 0.03) 100%);
+}
+
+.statCardWarning .statIcon {
+  background: linear-gradient(135deg, rgb(245, 158, 11), rgb(217, 119, 6));
+}
+
+.statCardWarning .statValue {
+  color: rgb(245, 158, 11);
+}
+
+/* MODERN BRACKET BREAKDOWN - More integrated and visually appealing */
+.bracketBreakdown {
+  display: flex;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.upperBracket,
+.lowerBracket {
+  font-size: 0.625rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-weight: 600;
+  white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem 0.6rem;
-  background: linear-gradient(135deg, #ffd700, #ffed4a);
-  color: #1a1a1a;
-  border-radius: 12px;
-  font-weight: 600;
+  gap: 0.125rem;
+}
+
+.upperBracket {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.9), rgba(249, 115, 22, 0.9));
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+}
+
+.lowerBracket {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.9), rgba(251, 191, 36, 0.9));
+  color: rgba(0, 0, 0, 0.8);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
+}
+
+/* Simplified bracket info for better integration */
+.bracketInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin-top: 0.625rem;
+  font-size: 0.8125rem;
+}
+
+.bracketInfo .upperCount,
+.bracketInfo .lowerCount {
   font-size: 0.75rem;
-  text-shadow: 0 1px 2px rgba(255,255,255,0.5);
-  box-shadow: 0 2px 4px rgba(255, 215, 0, 0.4);
+  padding: 0.25rem 0.625rem;
+  border-radius: 8px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.bracketInfo .upperCount {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(249, 115, 22, 0.15));
+  color: rgb(239, 68, 68);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.bracketInfo .lowerCount {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(251, 191, 36, 0.15));
+  color: rgb(245, 158, 11);
+  border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
 .detail strong {
@@ -96,7 +442,165 @@
   margin-bottom: 1.5rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--card-border);
+  flex-wrap: wrap;
+  gap: 1rem;
 }
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.headerFilters {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Filter sections organization */
+.filterTags {
+  display: flex;
+  gap: 0.25rem;
+}
+
+/* Clear filters button - only visible when filters are active */
+.clearFiltersButton {
+  padding: 0.375rem 0.75rem;
+  border: 2px solid rgba(220, 53, 69, 0.3);
+  border-radius: 16px;
+  background: var(--card-bg);
+  color: rgb(220, 53, 69);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-width: auto;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(220, 53, 69, 0.1);
+}
+
+.clearFiltersButton:hover {
+  background: rgba(220, 53, 69, 0.05);
+  border-color: rgba(220, 53, 69, 0.5);
+  color: rgb(185, 28, 28);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(220, 53, 69, 0.2);
+}
+
+.clearFiltersButton:active {
+  transform: scale(0.95);
+  transition-duration: 0.1s;
+}
+
+.clearFiltersButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
+}
+
+.filterTag {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  color: var(--color-secondary-text);
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filterTag:hover {
+  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.1);
+  border-color: rgba(var(--primary-color-rgb, 0, 123, 255), 0.3);
+  color: var(--color-foreground);
+}
+
+.filterTag.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+}
+
+/* Upper bracket tags - Red/Orange theme matching actual bracket colors */
+.bracketTag.upperBracketTag {
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.bracketTag.upperBracketTag:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: rgb(239, 68, 68);
+}
+
+.bracketTag.upperBracketTag.active {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.9), rgba(249, 115, 22, 0.9));
+  border-color: rgb(239, 68, 68);
+  color: white;
+}
+
+/* Lower bracket tags - Yellow/Amber theme matching actual bracket colors */
+.bracketTag.lowerBracketTag {
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.bracketTag.lowerBracketTag:hover {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.5);
+  color: rgb(245, 158, 11);
+}
+
+.bracketTag.lowerBracketTag.active {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.9), rgba(251, 191, 36, 0.9));
+  border-color: rgb(245, 158, 11);
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* Ongoing games - Blue theme */
+.statusTag.ongoingTag {
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.statusTag.ongoingTag:hover {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.5);
+  color: rgb(59, 130, 246);
+}
+
+.statusTag.ongoingTag.active {
+  background: rgb(59, 130, 246);
+  border-color: rgb(59, 130, 246);
+  color: white;
+}
+
+/* Completed games - Green theme */
+.statusTag.completedTag {
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.statusTag.completedTag:hover {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.5);
+  color: rgb(34, 197, 94);
+}
+
+.statusTag.completedTag.active {
+  background: rgb(34, 197, 94);
+  border-color: rgb(34, 197, 94);
+  color: white;
+}
+
 
 .gamesSectionHeader h3 {
   margin: 0;
@@ -173,30 +677,6 @@
   box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb, 0, 123, 255), 0.1);
 }
 
-.clearFiltersButton {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.8rem;
-  background: #dc3545;
-  color: white;
-  border: 1px solid #dc3545;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.clearFiltersButton:hover {
-  background: #c82333;
-  border-color: #c82333;
-  transform: translateY(-1px);
-}
-
-.clearFiltersButton:active {
-  transform: translateY(0);
-}
 
 .gamesGrid {
   display: grid;
@@ -231,6 +711,72 @@
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
+  .stageInfo {
+    padding: 1.25rem;
+  }
+  
+  .detailInline {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .detailInline .detailValue {
+    font-size: 0.8rem;
+    margin-left: 0;
+  }
+  
+  .toggleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Modern mobile stats layout */
+  .statsRow {
+    grid-template-columns: 1fr;
+    gap: 0.625rem;
+  }
+  
+  .statCard {
+    padding: 0.75rem;
+    min-height: auto;
+  }
+  
+  .statIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 0.375rem;
+  }
+  
+  .statValue {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+  
+  .statLabel {
+    font-size: 0.75rem;
+  }
+  
+  .bracketBreakdown {
+    gap: 0.25rem;
+    margin-top: 0.375rem;
+  }
+  
+  .upperBracket,
+  .lowerBracket {
+    font-size: 0.625rem;
+    padding: 0.1875rem 0.375rem;
+  }
+  
+  .detailFull .detailValue {
+    margin-left: 1.25rem;
+    font-size: 0.8rem;
+  }
+  
   .gamesSection {
     padding: 0 1rem;
   }
@@ -243,8 +789,68 @@
   .gamesSectionHeader {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 1rem;
   }
+  
+  .headerLeft {
+    gap: 0.75rem;
+  }
+  
+  .headerFilters {
+    gap: 0.5rem;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  /* Mobile filter groups stack vertically */
+  .filterTags {
+    gap: 0.375rem;
+    justify-content: center;
+  }
+  
+  /* Remove separator on mobile - not needed when stacked */
+  .filterTags:first-of-type::before {
+    display: none;
+  }
+  
+  .filterTags:first-of-type {
+    padding-left: 0;
+  }
+  
+  /* Mobile clear button */
+  .clearFiltersButton {
+    padding: 0.375rem 0.625rem;
+    font-size: 0.7rem;
+    align-self: center;
+    margin-top: 0.25rem;
+  }
+  
+  .filterTag {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+    min-width: 65px;
+    border-width: 2px; /* Maintain thick border on mobile */
+    border-radius: 20px;
+    transform: none; /* Reduce complex transforms on mobile for performance */
+  }
+  
+  /* Simplify mobile hover effects for touch devices */
+  .filterTag:hover {
+    transform: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* Simplify active state animations on mobile */
+  .filterTag.active {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(var(--primary-color-rgb, 0, 123, 255), 0.25);
+  }
+  
+  .bracketTag.active,
+  .statusTag.active {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
   
   .filtersSection {
     padding: 0.75rem;
@@ -272,6 +878,99 @@
   .error,
   .noGames {
     padding: 2rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stageInfo {
+    padding: 1rem;
+  }
+  
+  .detailInline .detailHeader {
+    flex-wrap: wrap;
+  }
+  
+  /* Ultra-compact mobile design */
+  .statsRow {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .statCard {
+    padding: 0.625rem;
+    min-height: auto;
+  }
+  
+  .statIcon {
+    width: 1.375rem;
+    height: 1.375rem;
+    font-size: 0.6875rem;
+    border-radius: 5px;
+    margin-bottom: 0.25rem;
+  }
+  
+  .statValue {
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+  
+  .statLabel {
+    font-size: 0.6875rem;
+  }
+  
+  .bracketBreakdown {
+    flex-direction: column;
+    gap: 0.1875rem;
+    margin-top: 0.25rem;
+  }
+  
+  .upperBracket,
+  .lowerBracket {
+    font-size: 0.5625rem;
+    padding: 0.125rem 0.25rem;
+    border-radius: 4px;
+  }
+  
+  /* Alternative layouts for mobile */
+  .statsRowHorizontal {
+    gap: 0.5rem;
+  }
+  
+  .statCardHorizontal {
+    min-width: 110px;
+    padding: 0.625rem 0.5rem;
+  }
+  
+  .statCardHorizontal .statIcon {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .statCardHorizontal .statValue {
+    font-size: 1.125rem;
+  }
+  
+  .statCardHorizontal .statLabel {
+    font-size: 0.6875rem;
+  }
+  
+  .statsRowDense {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.375rem;
+  }
+  
+  .statCardDense {
+    padding: 0.5rem 0.375rem;
+  }
+  
+  .statCardDense .statIcon {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+  
+  .statCardDense .statValue {
+    font-size: 1rem;
   }
 }
 

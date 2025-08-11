@@ -80,11 +80,27 @@ export default function AddTournamentForm({ onClose }) {
   const handleSchemeChange = (e) => {
     const schemeId = Number(e.target.value);
     const selectedScheme = schemes.find(s => s.id === schemeId);
-    setFormData(prevData => ({
-      ...prevData,
-      schema: selectedScheme,
-      participants: selectedScheme ? selectedScheme.participantsNum : 0,
-    }));
+
+    if (selectedScheme) {
+      // Pre-calculate participants for each stage
+      const stagesWithParticipants = selectedScheme.stages.map(stage => {
+        const participants = stage.topGameParticipantsNum || stage.bottomGameParticipantsNum || 0;
+        return { ...stage, participantsNum: participants };
+      });
+
+      setFormData(prevData => ({
+        ...prevData,
+        schema: { ...selectedScheme, stages: stagesWithParticipants },
+        participants: selectedScheme.participantsNum,
+      }));
+    } else {
+      setFormData(prevData => ({
+        ...prevData,
+        schema: {},
+        participants: 0,
+      }));
+    }
+
     setErrors(prevErrors => ({ ...prevErrors, schema: undefined }));
   };
 

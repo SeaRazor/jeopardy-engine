@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { FaUsers, FaTrophy, FaInfoCircle, FaFilter, FaTimes } from 'react-icons/fa';
+import { FaUsers, FaTrophy, FaInfoCircle, FaGamepad, FaUserSlash, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import GameCard from '../../../components/GameCard';
 import { getPlayerManagementState } from '../../../util/playerManagementUtils';
 import styles from './StageTab.module.css';
@@ -16,9 +16,14 @@ const fetchStageGames = async (tournamentId, stageId) => {
 const StageTab = ({ stage, stageIndex, tournament }) => {
   // Filtering state
   const [filters, setFilters] = useState({
-    bracketType: 'all', // 'all', 'upper', 'lower'
-    status: 'all' // 'all', 'ongoing', 'completed'
+    upper: true,
+    lower: true,
+    ongoing: true,
+    completed: true
   });
+
+  // Collapsible state for mobile
+  const [isStageInfoExpanded, setIsStageInfoExpanded] = useState(true);
 
   if (!stage) {
     return (
@@ -32,7 +37,7 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
   }
 
   // Fetch games for this stage
-  const { data: gamesData = [], isLoading: gamesLoading, isError: gamesError } = useQuery({
+  const { data: gamesData = [], isLoading: gamesLoading, isError: gamesError, isFetching } = useQuery({
     queryKey: ['stage-games', tournament.id, stage.id],
     queryFn: () => fetchStageGames(tournament.id, stage.id),
   });
@@ -58,18 +63,24 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
 
   // Apply filters to games
   const filteredGames = allGames.filter(game => {
-    // Bracket type filter
-    if (filters.bracketType !== 'all') {
-      if (filters.bracketType === 'upper' && game.bracketType !== 'upper') return false;
-      if (filters.bracketType === 'lower' && game.bracketType !== 'lower') return false;
+    // Bracket type filter - if no bracket filters are active, show no games
+    const bracketFiltersActive = filters.upper || filters.lower;
+    if (!bracketFiltersActive) {
+      return false; // No bracket filters active = show no games
     }
+    const matchesBracket = (filters.upper && game.bracketType === 'upper') || 
+                          (filters.lower && game.bracketType === 'lower');
+    if (!matchesBracket) return false;
 
-    // Status filter
-    if (filters.status !== 'all') {
-      const completed = isGameCompleted(game);
-      if (filters.status === 'completed' && !completed) return false;
-      if (filters.status === 'ongoing' && completed) return false;
+    // Status filter - if no status filters are active, show no games
+    const statusFiltersActive = filters.ongoing || filters.completed;
+    if (!statusFiltersActive) {
+      return false; // No status filters active = show no games
     }
+    const completed = isGameCompleted(game);
+    const matchesStatus = (filters.ongoing && !completed) || 
+                         (filters.completed && completed);
+    if (!matchesStatus) return false;
 
     return true;
   });
@@ -77,26 +88,202 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
   const games = filteredGames;
 
   // Filter functions
-  const handleFilterChange = (filterType, value) => {
-    setFilters(prev => ({ ...prev, [filterType]: value }));
+  const handleFilterToggle = (filterKey) => {
+    setFilters(prev => ({ ...prev, [filterKey]: !prev[filterKey] }));
   };
 
   const clearFilters = () => {
-    setFilters({ bracketType: 'all', status: 'all' });
+    setFilters({ upper: true, lower: true, ongoing: true, completed: true });
   };
 
-  const hasActiveFilters = filters.bracketType !== 'all' || filters.status !== 'all';
+  const toggleStageInfo = () => {
+    setIsStageInfoExpanded(prev => !prev);
+  };
 
-  // Calculate total participants and promoted
-  const totalParticipants = (stage.topGameParticipantsNum || 0) + (stage.bottomGameParticipantsNum || 0);
-  const totalPromoted = (stage.topGameWinnersNum || 0) + (stage.bottomGameWinnersNum || 0);
+  const hasActiveFilters = filters.upper || filters.lower || filters.ongoing || filters.completed;
+
+  // Calculate participants as number of games × players per game
+  const calculateTotalParticipants = () => {
+    // Get game counts from stage config (with different field name variations)
+    const upperGames = stage.topBracketGameNum || stage.topGamesNum || 0;
+    const lowerGames = stage.bottomBracketGamesNum || stage.bottomGamesNum || 0;
+    
+    // Get players per game from stage config
+    const upperPlayersPerGame = stage.topGameParticipantsNum || 4;
+    const lowerPlayersPerGame = stage.bottomGameParticipantsNum || 4;
+    
+    // If we have game counts from config, calculate participants
+    if (upperGames > 0 || lowerGames > 0) {
+      return (upperGames * upperPlayersPerGame) + (lowerGames * lowerPlayersPerGame);
+    }
+    
+    // Otherwise use loaded games data
+    const playersPerGame = upperPlayersPerGame || lowerPlayersPerGame || 4;
+    return Math.max(allGames.length * playersPerGame, 0);
+  };
+  
+  const totalParticipants = calculateTotalParticipants();
+
+  const calculatePromoted = () => {
+    // For double elimination tournaments, understand bracket flow
+    if (tournament?.schema?.schemeName === 'Double Elimination') {
+      // First stage typically eliminates no one (everyone continues)
+      if (stage.order === 1 || (stage.description && stage.description.toLowerCase().includes('все продолжают'))) {
+        return totalParticipants; // Everyone is promoted, just redistributed to brackets
+      }
+      
+      // Check description for elimination patterns
+      if (stage.description) {
+        const desc = stage.description.toLowerCase();
+        if (desc.includes('все продолжают') || desc.includes('никто не вылетает')) {
+          return totalParticipants; // Everyone is promoted
+        }
+      }
+      
+      // Double elimination logic for ALL stages:
+      // - Upper bracket players (if any): ALL continue (winners stay upper, losers drop to lower)
+      // - Lower bracket players (if any): only WINNERS continue, losers are eliminated (2nd loss)
+      
+      const upperParticipants = stage.topGameParticipantsNum || 0;
+      const upperWinners = stage.topGameWinnersNum || 0;
+      const lowerParticipants = stage.bottomGameParticipantsNum || 0;
+      const lowerWinners = stage.bottomGameWinnersNum || 0;
+      
+      // For stages with actual games, try to count from game data
+      if (allGames.length > 0) {
+        const upperGames = allGames.filter(game => game.bracketType === 'upper');
+        const lowerGames = allGames.filter(game => game.bracketType === 'lower');
+        
+        if (upperGames.length > 0 || lowerGames.length > 0) {
+          // Upper bracket: ALL participants continue (winners + losers)
+          let upperTotal = 0;
+          upperGames.forEach(game => {
+            if (game.participants) {
+              upperTotal += game.participants.length;
+            }
+          });
+          
+          // Lower bracket: only winners continue
+          let lowerWinnersCount = 0;
+          lowerGames.forEach(game => {
+            if (game.participants) {
+              const winnersCount = lowerWinners || stage.gameWinnersNum || Math.max(1, Math.floor(game.participants.length / 2));
+              lowerWinnersCount += winnersCount;
+            }
+          });
+          
+          return upperTotal + lowerWinnersCount;
+        }
+      }
+      
+      // Fallback to stage configuration
+      // Handle different stage types:
+      // - Stages with both brackets: upperParticipants + lowerWinners  
+      // - Upper-only stages: upperWinners
+      // - Lower-only stages: lowerWinners
+      
+      if (upperParticipants > 0 && lowerParticipants > 0) {
+        // Both brackets: all upper + lower winners
+        return upperParticipants + lowerWinners;
+      } else if (upperParticipants > 0) {
+        // Upper bracket only: winners advance
+        return upperWinners;
+      } else if (lowerParticipants > 0) {
+        // Lower bracket only: winners advance
+        return lowerWinners;
+      }
+      
+      return 0;
+    }
+    
+    // For other tournament types (Olympic, etc.)
+    // For stages with game results, count actual winners
+    if (allGames.length > 0) {
+      let promoted = 0;
+      allGames.forEach(game => {
+        if (game.participants) {
+          const winnersCount = stage.gameWinnersNum || stage.topGameWinnersNum || Math.max(1, Math.floor(game.participants.length / 2));
+          promoted += winnersCount;
+        }
+      });
+      return promoted;
+    }
+    
+    // For Olympic and other tournament types, calculate based on stage configuration
+    if (tournament?.schema?.schemeName === 'Олимпийская' || tournament?.schema?.schemeName === 'Olympic') {
+      // Calculate total games and promoted players
+      const participantsPerGame = stage.topGameParticipantsNum || 4;
+      const winnersPerGame = stage.topGameWinnersNum || 2;
+      
+      if (participantsPerGame > 0) {
+        const totalGames = Math.ceil(totalParticipants / participantsPerGame);
+        return totalGames * winnersPerGame;
+      }
+    }
+    
+    return (stage.gameWinnersNum || stage.topGameWinnersNum || 0) * Math.max(1, allGames.length);
+  };
+
+  const calculateEliminated = () => {
+    // For double elimination tournaments, understand bracket elimination rules for ALL stages
+    if (tournament?.schema?.schemeName === 'Double Elimination') {
+      // First stage typically eliminates no one (everyone continues)
+      if (stage.order === 1 || (stage.description && stage.description.toLowerCase().includes('все продолжают'))) {
+        return 0;
+      }
+      
+      // Check description for elimination patterns
+      if (stage.description) {
+        const desc = stage.description.toLowerCase();
+        if (desc.includes('все продолжают') || desc.includes('никто не вылетает')) {
+          return 0;
+        }
+      }
+      
+      // Double elimination rules for ALL stages:
+      // - Upper bracket players NEVER get eliminated (they just drop to lower bracket)
+      // - Lower bracket players get eliminated if they lose (2nd loss)
+      // - Final stages may have special elimination rules
+      
+      const upperParticipants = stage.topGameParticipantsNum || 0;
+      const lowerParticipants = stage.bottomGameParticipantsNum || 0;
+      const lowerWinners = stage.bottomGameWinnersNum || 0;
+      
+      if (stage.isFinal) {
+        // Final stage - calculate based on total participants vs promoted
+        const totalPromoted = calculatePromoted();
+        return Math.max(0, totalParticipants - totalPromoted);
+      }
+      
+      // For all non-final stages:
+      // - Upper bracket: 0 eliminations (players just move to lower bracket)
+      // - Lower bracket: participants - winners = eliminated
+      
+      const eliminated = lowerParticipants - lowerWinners;
+      
+      // Ensure the number makes sense
+      if (eliminated < 0) {
+        return 0;
+      }
+      
+      return eliminated;
+    }
+    
+    // For other tournament types, simple calculation
+    const totalPromoted = calculatePromoted();
+    return Math.max(0, totalParticipants - totalPromoted);
+  };
+
+  const totalPromoted = calculatePromoted();
+  const totalNotPromoted = calculateEliminated();
   
   // Calculate bracket game counts for double elimination tournaments
   const getGameCounts = () => {
     if (tournament?.schema?.schemeName !== 'Double Elimination') return null;
     
-    const upperGames = allGames.filter(game => game.bracketType === 'upper').length;
-    const lowerGames = allGames.filter(game => game.bracketType === 'lower').length;
+    // Use stage config for game counts to prevent flashing, fall back to actual games
+    const upperGames = stage.topBracketGameNum || stage.topGamesNum || allGames.filter(game => game.bracketType === 'upper').length;
+    const lowerGames = stage.bottomBracketGamesNum || stage.bottomGamesNum || allGames.filter(game => game.bracketType === 'lower').length;
     const filteredUpperGames = games.filter(game => game.bracketType === 'upper').length;
     const filteredLowerGames = games.filter(game => game.bracketType === 'lower').length;
     
@@ -117,113 +304,152 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
   return (
     <div className={styles.container}>
       <div className={styles.stageInfo}>
-        <div className={styles.details}>
-          <div className={styles.detail}>
+        <div className={styles.stageInfoHeader}>
+          <div className={styles.detailInline}>
             <div className={styles.detailHeader}>
               <FaInfoCircle className={styles.detailIcon} />
-              <strong>Описание:</strong>
+              <strong>Описание стадии:</strong>
             </div>
             <div className={styles.detailValue}>
-              {stage.description}
+              {stage.description || 'Описание не указано'}
             </div>
           </div>
-          <div className={styles.detail}>
-            <div className={styles.detailHeader}>
-              <FaUsers className={styles.detailIcon} />
-              <strong>Участников:</strong>
+          <button 
+            onClick={toggleStageInfo}
+            className={styles.toggleButton}
+            title={isStageInfoExpanded ? "Свернуть информацию" : "Развернуть информацию"}
+          >
+            {isStageInfoExpanded ? <FaChevronUp /> : <FaChevronDown />}
+          </button>
+        </div>
+        
+        <div className={`${styles.details} ${isStageInfoExpanded ? styles.expanded : styles.collapsed}`}>
+          
+          {!stage.isFinal && (
+            <div className={styles.statsRow}>
+              <div className={styles.statCard}>
+                <div className={styles.statIcon}>
+                  <FaUsers />
+                </div>
+                <div className={styles.statContent}>
+                  <div className={styles.statValue}>{totalParticipants}</div>
+                  <div className={styles.statLabel}>Участников</div>
+                </div>
+              </div>
+
+              <div className={`${styles.statCard} ${tournament?.schema?.schemeName === 'Double Elimination' && bracketGameCounts ? styles.complexStat : ''}`}>
+                <div className={styles.statIcon}>
+                  <FaGamepad />
+                </div>
+                <div className={styles.statContent}>
+                  {tournament?.schema?.schemeName === 'Double Elimination' && bracketGameCounts ? (
+                    <>
+                      <div className={styles.statValue}>{bracketGameCounts.upperGames + bracketGameCounts.lowerGames}</div>
+                      <div className={styles.statLabel}>
+                        Всего игр
+                        {(bracketGameCounts.upperGames > 0 || bracketGameCounts.lowerGames > 0) && (
+                          <div className={styles.bracketBreakdown}>
+                            {bracketGameCounts.upperGames > 0 && (
+                              <span className={styles.upperBracket}>Верхняя: {bracketGameCounts.upperGames}</span>
+                            )}
+                            {bracketGameCounts.lowerGames > 0 && (
+                              <span className={styles.lowerBracket}>Нижняя: {bracketGameCounts.lowerGames}</span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className={styles.statValue}>
+                        {stage.topBracketGameNum || stage.topGamesNum || stage.bottomBracketGamesNum || stage.bottomGamesNum ? 
+                          (stage.topBracketGameNum || stage.topGamesNum || 0) + (stage.bottomBracketGamesNum || stage.bottomGamesNum || 0) :
+                          allGames.length
+                        }
+                      </div>
+                      <div className={styles.statLabel}>Всего игр</div>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              <div className={styles.statCard}>
+                <div className={styles.statIcon}>
+                  <FaTrophy />
+                </div>
+                <div className={styles.statContent}>
+                  <div className={styles.statValue}>{totalPromoted}</div>
+                  <div className={styles.statLabel}>Проходят далее</div>
+                </div>
+              </div>
+
+              {totalNotPromoted > 0 && (
+                <div className={styles.statCard}>
+                  <div className={styles.statIcon}>
+                    <FaUserSlash />
+                  </div>
+                  <div className={styles.statContent}>
+                    <div className={styles.statValue}>{totalNotPromoted}</div>
+                    <div className={styles.statLabel}>Выбывают</div>
+                  </div>
+                </div>
+              )}
             </div>
-            <div className={styles.detailValue}>
-              {totalParticipants}
-            </div>
-          </div>
-          <div className={styles.detail}>
-            <div className={styles.detailHeader}>
-              <FaTrophy className={styles.detailIcon} />
-              <strong>Проходят далее:</strong>
-            </div>
-            <div className={styles.detailValue}>
-              {totalPromoted}
-            </div>
-          </div>
+          )}
         </div>
       </div>
 
       {/* Games Section */}
       <div className={styles.gamesSection}>
         <div className={styles.gamesSectionHeader}>
-          <h3>Бои стадии</h3>
-          <div className={styles.gamesCount}>
-            {gamesLoading ? (
-              'Загрузка...'
-            ) : bracketGameCounts ? (
-              <div className={styles.bracketInfo}>
-                {bracketGameCounts.upperGames > 0 && (
-                  <span className={styles.upperCount}>
-                    верхняя сетка: {bracketGameCounts.isFiltered ? bracketGameCounts.filteredUpperGames : bracketGameCounts.upperGames} 
-                    {bracketGameCounts.isFiltered && ` из ${bracketGameCounts.upperGames}`} боев
-                  </span>
-                )}
-                {bracketGameCounts.lowerGames > 0 && (
-                  <span className={styles.lowerCount}>
-                    нижняя сетка: {bracketGameCounts.isFiltered ? bracketGameCounts.filteredLowerGames : bracketGameCounts.lowerGames}
-                    {bracketGameCounts.isFiltered && ` из ${bracketGameCounts.lowerGames}`} боев
-                  </span>
-                )}
+          <div className={styles.headerLeft}>
+            <h3>Бои стадии</h3>
+            <div className={styles.gamesCount}>
+              {gamesLoading ? (
+                'Загрузка...'
+              ) : (
+                `${hasActiveFilters ? `${games.length} из ${allGames.length}` : games.length} боев`
+              )}
+            </div>
+          </div>
+          
+          <div className={styles.headerFilters}>
+            {tournament?.schema?.schemeName === 'Double Elimination' && (
+              <div className={styles.filterTags}>
+                <button 
+                  onClick={() => handleFilterToggle('upper')}
+                  className={`${styles.filterTag} ${styles.bracketTag} ${styles.upperBracketTag} ${filters.upper ? styles.active : ''}`}
+                >
+                  Верхняя
+                </button>
+                <button 
+                  onClick={() => handleFilterToggle('lower')}
+                  className={`${styles.filterTag} ${styles.bracketTag} ${styles.lowerBracketTag} ${filters.lower ? styles.active : ''}`}
+                >
+                  Нижняя
+                </button>
               </div>
-            ) : (
-              `${hasActiveFilters ? `${games.length} из ${allGames.length}` : games.length} боев`
             )}
+            
+            <div className={styles.filterTags}>
+              <button 
+                onClick={() => handleFilterToggle('ongoing')}
+                className={`${styles.filterTag} ${styles.statusTag} ${styles.ongoingTag} ${filters.ongoing ? styles.active : ''}`}
+              >
+                Идут
+              </button>
+              <button 
+                onClick={() => handleFilterToggle('completed')}
+                className={`${styles.filterTag} ${styles.statusTag} ${styles.completedTag} ${filters.completed ? styles.active : ''}`}
+              >
+                Завершены
+              </button>
+            </div>
+            
+            
           </div>
         </div>
 
-        {/* Filters */}
-        <div className={styles.filtersSection}>
-          <div className={styles.filters}>
-            <div className={styles.filterGroup}>
-              <FaFilter className={styles.filterIcon} />
-              <span className={styles.filterLabel}>Фильтры:</span>
-            </div>
-            
-            {tournament?.schema?.schemeName === 'Double Elimination' && (
-              <div className={styles.filterGroup}>
-                <label className={styles.filterLabel}>Сетка:</label>
-                <select 
-                  value={filters.bracketType} 
-                  onChange={(e) => handleFilterChange('bracketType', e.target.value)}
-                  className={styles.filterSelect}
-                >
-                  <option value="all">Все</option>
-                  <option value="upper">Верхняя</option>
-                  <option value="lower">Нижняя</option>
-                </select>
-              </div>
-            )}
-            
-            <div className={styles.filterGroup}>
-              <label className={styles.filterLabel}>Статус:</label>
-              <select 
-                value={filters.status} 
-                onChange={(e) => handleFilterChange('status', e.target.value)}
-                className={styles.filterSelect}
-              >
-                <option value="all">Все</option>
-                <option value="ongoing">Идут</option>
-                <option value="completed">Завершены</option>
-              </select>
-            </div>
-            
-            {hasActiveFilters && (
-              <button 
-                onClick={clearFilters} 
-                className={styles.clearFiltersButton}
-                title="Очистить фильтры"
-              >
-                <FaTimes />
-                <span>Очистить</span>
-              </button>
-            )}
-          </div>
-        </div>
 
         {gamesLoading && (
           <div className={styles.loading}>
