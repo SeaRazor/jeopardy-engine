@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { FaCalendarAlt, FaInfoCircle, FaSitemap, FaUsers, FaChevronDown, FaChevronUp, FaChevronRight } from 'react-icons/fa';
 import Link from 'next/link';
@@ -23,6 +23,7 @@ const fetchTournament = async (id) => {
 
 export default function TournamentDetailPage() {
   const { id } = useParams();
+  const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState('participants');
   const [isInfoExpanded, setIsInfoExpanded] = useState(false);
   
@@ -30,6 +31,14 @@ export default function TournamentDetailPage() {
     queryKey: ['tournament', id],
     queryFn: () => fetchTournament(id),
   });
+
+  // Set active tab from URL parameter
+  useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    if (tabParam) {
+      setActiveTab(tabParam);
+    }
+  }, [searchParams]);
 
   const handleUpdateParticipants = (participants) => {
     // In a real app, this would update the tournament via API

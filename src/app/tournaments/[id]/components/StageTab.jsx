@@ -63,14 +63,16 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
 
   // Apply filters to games
   const filteredGames = allGames.filter(game => {
-    // Bracket type filter - if no bracket filters are active, show no games
-    const bracketFiltersActive = filters.upper || filters.lower;
-    if (!bracketFiltersActive) {
-      return false; // No bracket filters active = show no games
+    // Bracket type filter - only apply for Double Elimination tournaments and non-final stages
+    if (tournament?.schema?.schemeName === 'Double Elimination' && !stage?.isFinal) {
+      const bracketFiltersActive = filters.upper || filters.lower;
+      if (!bracketFiltersActive) {
+        return false; // No bracket filters active = show no games
+      }
+      const matchesBracket = (filters.upper && game.bracketType === 'upper') || 
+                            (filters.lower && game.bracketType === 'lower');
+      if (!matchesBracket) return false;
     }
-    const matchesBracket = (filters.upper && game.bracketType === 'upper') || 
-                          (filters.lower && game.bracketType === 'lower');
-    if (!matchesBracket) return false;
 
     // Status filter - if no status filters are active, show no games
     const statusFiltersActive = filters.ongoing || filters.completed;
@@ -332,8 +334,9 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
                   <FaUsers />
                 </div>
                 <div className={styles.statContent}>
-                  <div className={styles.statValue}>{totalParticipants}</div>
-                  <div className={styles.statLabel}>Участников</div>
+                   <div className={styles.statLabel}>Участников</div>
+                   <div className={styles.statValue}>{totalParticipants}</div>
+
                 </div>
               </div>
 
@@ -344,30 +347,33 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
                 <div className={styles.statContent}>
                   {tournament?.schema?.schemeName === 'Double Elimination' && bracketGameCounts ? (
                     <>
+
+                        <div className={styles.statLabel}>Всего игр</div>
+
+
                       <div className={styles.statValue}>{bracketGameCounts.upperGames + bracketGameCounts.lowerGames}</div>
-                      <div className={styles.statLabel}>
-                        Всего игр
-                        {(bracketGameCounts.upperGames > 0 || bracketGameCounts.lowerGames > 0) && (
+                      {(bracketGameCounts.upperGames > 0 || bracketGameCounts.lowerGames > 0) && (
                           <div className={styles.bracketBreakdown}>
                             {bracketGameCounts.upperGames > 0 && (
-                              <span className={styles.upperBracket}>Верхняя: {bracketGameCounts.upperGames}</span>
+                                <span className={styles.upperBracket}>Верхняя: {bracketGameCounts.upperGames}</span>
                             )}
                             {bracketGameCounts.lowerGames > 0 && (
-                              <span className={styles.lowerBracket}>Нижняя: {bracketGameCounts.lowerGames}</span>
+                                <span className={styles.lowerBracket}>Нижняя: {bracketGameCounts.lowerGames}</span>
                             )}
                           </div>
-                        )}
-                      </div>
+                      )}
+
                     </>
                   ) : (
                     <>
+                      <div className={styles.statLabel}>Всего игр</div>
                       <div className={styles.statValue}>
                         {stage.topBracketGameNum || stage.topGamesNum || stage.bottomBracketGamesNum || stage.bottomGamesNum ? 
                           (stage.topBracketGameNum || stage.topGamesNum || 0) + (stage.bottomBracketGamesNum || stage.bottomGamesNum || 0) :
                           allGames.length
                         }
                       </div>
-                      <div className={styles.statLabel}>Всего игр</div>
+
                     </>
                   )}
                 </div>
@@ -378,8 +384,9 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
                   <FaTrophy />
                 </div>
                 <div className={styles.statContent}>
-                  <div className={styles.statValue}>{totalPromoted}</div>
                   <div className={styles.statLabel}>Проходят далее</div>
+                  <div className={styles.statValue}>{totalPromoted}</div>
+
                 </div>
               </div>
 

@@ -137,7 +137,7 @@
   overflow: hidden;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  min-height: auto;
+  min-height: 4rem;
 }
 
 /* Modern hover effects with better performance */
@@ -182,10 +182,13 @@
 /* Content layout for compact horizontal display */
 .statContent {
   display: flex;
-  flex-direction: column;
-  gap: 0.125rem;
+  flex-direction: row;
+  gap: 0.5rem;
   flex: 1;
   min-width: 0;
+  align-items: center;
+  align-content: space-between;
+  justify-content: space-between;
 }
 
 /* Prominent value - compact size */
@@ -199,7 +202,7 @@
 
 /* Refined label typography - compact */
 .statLabel {
-  font-size: 0.75rem;
+  font-size: 1rem;
   color: var(--color-secondary-text);
   font-weight: 500;
   line-height: 1.1;
@@ -213,7 +216,7 @@
 }
 
 .statCard.complexStat .statContent {
-  gap: 0.125rem;
+  gap: 0.5rem;
   text-align: left;
 }
 
@@ -360,6 +363,7 @@
 /* MODERN BRACKET BREAKDOWN - More integrated and visually appealing */
 .bracketBreakdown {
   display: flex;
+  flex-direction: column;
   gap: 0.25rem;
   margin-top: 0.25rem;
   flex-wrap: wrap;

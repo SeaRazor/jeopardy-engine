@@ -20,7 +20,15 @@
           "order": 1,
           "topGameParticipantsNum": 4,
           "topGameWinnersNum": 2,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Спорт и олимпиада",
+            "Мировая литература",
+            "Музыка и композиторы",
+            "Экология и природа",
+            "Архитектура и дизайн",
+            "Языки и лингвистика"
+          ]
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -31,7 +39,15 @@
           "bottomGameParticipantsNum": 4,
           "topGameParticipantsNum": 4,
           "topGameWinnersNum": 2,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "История России",
+            "Искусство и живопись",
+            "Экология и природа",
+            "Философия и религия",
+            "Технологии и IT",
+            "Химия и материалы"
+          ]
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -42,7 +58,15 @@
           "bottomGameParticipantsNum": 4,
           "topGameParticipantsNum": 4,
           "topGameWinnersNum": 2,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Мировая литература",
+            "Языки и лингвистика",
+            "Химия и материалы",
+            "Космос и планеты",
+            "История России",
+            "Спорт и олимпиада"
+          ]
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -53,7 +77,15 @@
           "bottomGameParticipantsNum": 4,
           "topGameParticipantsNum": 4,
           "topGameWinnersNum": 2,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Физика и астрономия",
+            "Языки и лингвистика",
+            "Наука и изобретения",
+            "Архитектура и дизайн",
+            "Технологии и IT",
+            "Транспорт и путешествия"
+          ]
         },
         {
           "bottomGameWinnersNum": 2,
@@ -64,7 +96,15 @@
           "order": 5,
           "topGameParticipantsNum": 4,
           "topGameWinnersNum": 3,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Спорт и олимпиада",
+            "Биология и медицина",
+            "Химия и материалы",
+            "Культура и традиции",
+            "Языки и лингвистика",
+            "Физика и астрономия"
+          ]
         },
         {
           "bottomGameParticipantsNum": 3,
@@ -75,7 +115,15 @@
           "order": 6,
           "topGameParticipantsNum": 3,
           "topGameWinnersNum": 1,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Космос и планеты",
+            "Архитектура и дизайн",
+            "Технологии и IT",
+            "Химия и материалы",
+            "Кино и театр",
+            "Транспорт и путешествия"
+          ]
         },
         {
           "bottomGameParticipantsNum": 4,
@@ -86,7 +134,15 @@
           "order": 7,
           "topGameParticipantsNum": 0,
           "topGameWinnersNum": 0,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "История России",
+            "Кино и театр",
+            "Археология и история",
+            "Наука и изобретения",
+            "Политика и право",
+            "Языки и лингвистика"
+          ]
         },
         {
           "bottomGameWinnersNum": 3,
@@ -97,7 +153,15 @@
           "order": 8,
           "topGameParticipantsNum": 0,
           "topGameWinnersNum": 0,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Технологии и IT",
+            "Архитектура и дизайн",
+            "Космос и планеты",
+            "Психология и социология",
+            "Культура и традиции",
+            "Экономика и финансы"
+          ]
         },
         {
           "description": "Грандфинал",
@@ -105,7 +169,17 @@
           "isFinal": true,
           "name": "Топ-4",
           "order": 9,
-          "numberOfThemesInGame": 8
+          "numberOfThemesInGame": 8,
+          "themes": [
+            "География мира",
+            "Экология и природа",
+            "Археология и история",
+            "Биология и медицина",
+            "Физика и астрономия",
+            "Технологии и IT",
+            "Химия и материалы",
+            "Мировая литература"
+          ]
         }
       ]
     },
@@ -132,7 +206,15 @@
           "order": 1,
           "topGameParticipantsNum": 4,
           "topGameWinnersNum": 2,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Детская литература",
+            "Фольклор и мифы",
+            "Модернизм и авангард",
+            "Драматургия",
+            "Зарубежная литература",
+            "Современные авторы"
+          ]
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -143,7 +225,15 @@
           "bottomGameParticipantsNum": 4,
           "topGameParticipantsNum": 4,
           "topGameWinnersNum": 2,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Зарубежная литература",
+            "Публицистика",
+            "Приключенческая литература",
+            "Русская поэзия",
+            "Современные авторы",
+            "Классическая проза"
+          ]
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -154,7 +244,15 @@
           "bottomGameParticipantsNum": 4,
           "topGameParticipantsNum": 0,
           "topGameWinnersNum": 0,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Публицистика",
+            "Исторические романы",
+            "Модернизм и авангард",
+            "Поэзия XX века",
+            "Военная проза",
+            "Критика и эссеистика"
+          ]
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -165,7 +263,15 @@
           "bottomGameParticipantsNum": 4,
           "topGameParticipantsNum": 4,
           "topGameWinnersNum": 2,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Русская поэзия",
+            "Детская литература",
+            "Литература народов мира",
+            "Женская проза",
+            "Мемуары и биографии",
+            "Модернизм и авангард"
+          ]
         },
         {
           "bottomGameWinnersNum": 2,
@@ -176,7 +282,15 @@
           "order": 5,
           "topGameParticipantsNum": 0,
           "topGameWinnersNum": 0,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Научная фантастика",
+            "Переводная поэзия",
+            "Военная проза",
+            "Модернизм и авангард",
+            "Фольклор и мифы",
+            "Мемуары и биографии"
+          ]
         },
         {
           "bottomGameParticipantsNum": 0,
@@ -187,7 +301,15 @@
           "order": 6,
           "topGameParticipantsNum": 4,
           "topGameWinnersNum": 2,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Эпические произведения",
+            "Русская поэзия",
+            "Литература народов мира",
+            "Военная проза",
+            "Классическая проза",
+            "Приключенческая литература"
+          ]
         },
         {
           "bottomGameParticipantsNum": 0,
@@ -198,7 +320,15 @@
           "order": 7,
           "topGameParticipantsNum": 4,
           "topGameWinnersNum": 2,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Детская литература",
+            "Современные авторы",
+            "Философская проза",
+            "Короткая проза",
+            "Женская проза",
+            "Сатира и юмор"
+          ]
         },
         {
           "description": "Грандфинал",
@@ -206,7 +336,17 @@
           "isFinal": true,
           "name": "Финал",
           "order": 8,
-          "numberOfThemesInGame": 8
+          "numberOfThemesInGame": 8,
+          "themes": [
+            "Русская поэзия",
+            "Пьесы и либретто",
+            "Критика и эссеистика",
+            "Современные авторы",
+            "Фольклор и мифы",
+            "Мемуары и биографии",
+            "Классическая проза",
+            "Драматургия"
+          ]
         }
       ]
     },
@@ -424,7 +564,15 @@
           "order": 1,
           "topGameParticipantsNum": 4,
           "topGameWinnersNum": 2,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Языки и лингвистика",
+            "Транспорт и путешествия",
+            "Кино и театр",
+            "Археология и история",
+            "Биология и медицина",
+            "Химия и материалы"
+          ]
         },
         {
           "description": "Проходят первые два места",
@@ -433,7 +581,15 @@
           "order": 2,
           "topGameParticipantsNum": 4,
           "topGameWinnersNum": 2,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Музыка и композиторы",
+            "Химия и материалы",
+            "Экология и природа",
+            "Кино и театр",
+            "Экономика и финансы",
+            "Спорт и олимпиада"
+          ]
         },
         {
           "description": "Проходят первые два места",
@@ -442,7 +598,15 @@
           "order": 3,
           "topGameParticipantsNum": 4,
           "topGameWinnersNum": 2,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Археология и история",
+            "Биология и медицина",
+            "Музыка и композиторы",
+            "Экономика и финансы",
+            "Физика и астрономия",
+            "Наука и изобретения"
+          ]
         },
         {
           "description": "Финал",
@@ -450,7 +614,17 @@
           "isFinal": true,
           "name": "Финал",
           "order": 4,
-          "numberOfThemesInGame": 8
+          "numberOfThemesInGame": 8,
+          "themes": [
+            "Кино и театр",
+            "Химия и материалы",
+            "Архитектура и дизайн",
+            "Языки и лингвистика",
+            "Наука и изобретения",
+            "Искусство и живопись",
+            "Математика и логика",
+            "История России"
+          ]
         }
       ]
     },
@@ -765,7 +939,15 @@
           "order": 1,
           "topBracketGameNum": 8,
           "bottomBracketGamesNum": 0,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Технологии и IT",
+            "Спорт и олимпиада",
+            "Физика и астрономия",
+            "Политика и право",
+            "Искусство и живопись",
+            "Археология и история"
+          ]
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -774,7 +956,15 @@
           "order": 2,
           "topBracketGameNum": 4,
           "bottomBracketGamesNum": 4,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "История России",
+            "Транспорт и путешествия",
+            "Физика и астрономия",
+            "Биология и медицина",
+            "Экология и природа",
+            "Языки и лингвистика"
+          ]
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -783,7 +973,15 @@
           "order": 3,
           "topBracketGameNum": 0,
           "bottomBracketGamesNum": 4,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "История России",
+            "Мировая литература",
+            "Экология и природа",
+            "Культура и традиции",
+            "Архитектура и дизайн",
+            "Химия и материалы"
+          ]
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -792,7 +990,15 @@
           "order": 4,
           "topBracketGameNum": 2,
           "bottomBracketGamesNum": 2,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Наука и изобретения",
+            "Психология и социология",
+            "Экономика и финансы",
+            "Экология и природа",
+            "Искусство и живопись",
+            "Музыка и композиторы"
+          ]
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",
@@ -801,7 +1007,15 @@
           "order": 5,
           "topBracketGameNum": 0,
           "bottomBracketGamesNum": 2,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Философия и религия",
+            "Политика и право",
+            "Мировая литература",
+            "Архитектура и дизайн",
+            "Физика и астрономия",
+            "Археология и история"
+          ]
         },
         {
           "description": "Предфинал",
@@ -810,7 +1024,15 @@
           "order": 6,
           "topBracketGameNum": 1,
           "bottomBracketGamesNum": 1,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "География мира",
+            "Кино и театр",
+            "Искусство и живопись",
+            "Языки и лингвистика",
+            "Психология и социология",
+            "Мировая литература"
+          ]
         },
         {
           "description": "Финал нижней сетки",
@@ -819,7 +1041,15 @@
           "order": 7,
           "topBracketGameNum": 0,
           "bottomBracketGamesNum": 1,
-          "numberOfThemesInGame": 6
+          "numberOfThemesInGame": 6,
+          "themes": [
+            "Технологии и IT",
+            "Спорт и олимпиада",
+            "География мира",
+            "Экология и природа",
+            "Мировая литература",
+            "Наука и изобретения"
+          ]
         },
         {
           "description": "Грандфинал",
@@ -827,7 +1057,17 @@
           "isFinal": true,
           "name": "Финал",
           "order": 8,
-          "numberOfThemesInGame": 8
+          "numberOfThemesInGame": 8,
+          "themes": [
+            "Политика и право",
+            "Экономика и финансы",
+            "Экология и природа",
+            "Музыка и композиторы",
+            "Психология и социология",
+            "Транспорт и путешествия",
+            "Космос и планеты",
+            "Физика и астрономия"
+          ]
         }
       ]
     },

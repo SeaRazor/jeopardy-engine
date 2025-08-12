@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 const gamesDbPath = path.join(process.cwd(), 'src/app/api/games/db.json');
+const tournamentsDbPath = path.join(process.cwd(), 'src/app/api/tournaments/db.json');
 
 function readGames() {
   try {
@@ -10,6 +11,16 @@ function readGames() {
     return JSON.parse(data);
   } catch (error) {
     console.error('Error reading games db.json:', error);
+    return [];
+  }
+}
+
+function readTournaments() {
+  try {
+    const data = fs.readFileSync(tournamentsDbPath, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading tournaments db.json:', error);
     return [];
   }
 }
@@ -35,8 +46,24 @@ export async function GET(request, { params }) {
   if (!game) {
     return NextResponse.json({ error: 'Game not found' }, { status: 404 });
   }
+
+  // Fetch tournament data to get stage themes
+  const tournaments = readTournaments();
+  const tournament = tournaments.find(t => t.id === parseInt(tournamentId));
   
-  return NextResponse.json(game);
+  let stageThemes = [];
+  if (tournament && tournament.schema && tournament.schema.stages) {
+    const stage = tournament.schema.stages.find(s => s.id === parseInt(stageId));
+    if (stage && stage.themes) {
+      stageThemes = stage.themes;
+    }
+  }
+
+  // Return game data with stage themes included
+  return NextResponse.json({
+    ...game,
+    stageThemes
+  });
 }
 
 export async function PUT(request, { params }) {

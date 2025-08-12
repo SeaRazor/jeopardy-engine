@@ -9,6 +9,7 @@ import { useToast } from '../../../util/ToastContext';
 import { drawTournament } from '../../../util/draw';
 import { createProgressionEngine } from '../../../util/progressionEngine';
 import { createResolvedParticipant } from '../../../util/referenceSystem';
+import { createReferenceResolver } from '../../../util/referenceResolver';
 import styles from './ParticipantsTab.module.css';
 
 const fetchAvailablePlayers = async (type) => {

@@ -1491,11 +1491,47 @@
     "stageId": 8
   },
   {
-    "gameDate": "2025-08-11T10:06:04.543Z",
-    "gamePlace": "Арена 1",
+    "gameDate": "2025-08-12",
+    "gamePlace": "TBD",
     "presenterId": 1,
-    "stageOrder": 1,
-    "participants": [],
+    "participants": [
+      {
+        "playerId": "bixietw5iebv3s9uox4b0g",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "cwbkvqbghl4yk9pjaow3",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "et3rdyuy78rbkektiwm68d",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "rxjigb8s3bk5e8f4wfskt",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
     "tournamentType": "Olympic",
     "id": 31,
     "gameNumber": 1,
@@ -1503,11 +1539,47 @@
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-11T10:06:04.633Z",
-    "gamePlace": "Арена 2",
+    "gameDate": "2025-08-12",
+    "gamePlace": "TBD",
     "presenterId": 1,
-    "stageOrder": 2,
-    "participants": [],
+    "participants": [
+      {
+        "playerId": "osz5hc4pxnmgg5etrbt9xm",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "kabym1bvlzit0zfhna4rbg",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "ribea9t5rphlaqlaobek",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "9w5e62prxpm958cso1n6a",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
     "tournamentType": "Olympic",
     "id": 32,
     "gameNumber": 2,
@@ -1515,11 +1587,47 @@
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-11T10:06:04.691Z",
-    "gamePlace": "Арена 3",
+    "gameDate": "2025-08-12",
+    "gamePlace": "TBD",
     "presenterId": 1,
-    "stageOrder": 3,
-    "participants": [],
+    "participants": [
+      {
+        "playerId": "uhq554w66f8acpd210ufe",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "1kqu05spruzt1f9w6rccj",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "g32rybnoyfmmxhvhm1kv4",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "ulv4g3ky6x82buramzofii",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
     "tournamentType": "Olympic",
     "id": 33,
     "gameNumber": 3,
@@ -1527,11 +1635,47 @@
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-11T10:06:04.753Z",
-    "gamePlace": "Арена 4",
+    "gameDate": "2025-08-12",
+    "gamePlace": "TBD",
     "presenterId": 1,
-    "stageOrder": 4,
-    "participants": [],
+    "participants": [
+      {
+        "playerId": "p8lrjns2xgkxbjrmj5sr08",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "tqfjgx46h5eeq1fhooko3k",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "hd116h7akvo28rb5hil66r",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "ktwez8mw1s22yr0ta5sq1h",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
     "tournamentType": "Olympic",
     "id": 34,
     "gameNumber": 4,
@@ -1539,11 +1683,47 @@
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-11T10:06:04.802Z",
-    "gamePlace": "Арена 5",
+    "gameDate": "2025-08-12",
+    "gamePlace": "TBD",
     "presenterId": 1,
-    "stageOrder": 5,
-    "participants": [],
+    "participants": [
+      {
+        "playerId": "3nf6tmqfsw7toa4gubsp4",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "163flh9l5kpil18mgsnv0nk",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "udbq5tcjbciyeoibwz7eg",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "tv0hxavswblb0bhh78fhgv",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
     "tournamentType": "Olympic",
     "id": 35,
     "gameNumber": 5,
@@ -1551,11 +1731,47 @@
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-11T10:06:04.851Z",
-    "gamePlace": "Арена 6",
+    "gameDate": "2025-08-12",
+    "gamePlace": "TBD",
     "presenterId": 1,
-    "stageOrder": 6,
-    "participants": [],
+    "participants": [
+      {
+        "playerId": "qh1l3ut6qxunkm864njl",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "l8v4lc5bqsd98xpqve8tm7",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "213q2ebumnk6xcjoejfml2",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "se5nb3ka1qkrzz396ev35q",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
     "tournamentType": "Olympic",
     "id": 36,
     "gameNumber": 6,
@@ -1563,11 +1779,47 @@
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-11T10:06:04.899Z",
-    "gamePlace": "Арена 7",
+    "gameDate": "2025-08-12",
+    "gamePlace": "TBD",
     "presenterId": 1,
-    "stageOrder": 7,
-    "participants": [],
+    "participants": [
+      {
+        "playerId": "a3b556wy16pkxjtxmur85s",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "ekaxxgd6gjixk7lkdhaisc",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "aqtbfhaxg8enbur9zm54",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "me2ldsg23242j1jxx",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
     "tournamentType": "Olympic",
     "id": 37,
     "gameNumber": 7,
@@ -1575,11 +1827,47 @@
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-11T10:06:04.946Z",
-    "gamePlace": "Арена 8",
+    "gameDate": "2025-08-12",
+    "gamePlace": "TBD",
     "presenterId": 1,
-    "stageOrder": 8,
-    "participants": [],
+    "participants": [
+      {
+        "playerId": "4jpqi2d1j7a4jy91lo6wl3",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "kd0kljllygi8mn2eemj7p4",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "q566o181jgxbsa375cog",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "9rrekkana350ujqm3luy7",
+        "sourceReference": null,
+        "points": 0,
+        "extraResult": "",
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
     "tournamentType": "Olympic",
     "id": 38,
     "gameNumber": 8,
@@ -1587,7 +1875,7 @@
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-11T10:06:05.000Z",
+    "gameDate": "2025-08-12T13:24:01.019Z",
     "gamePlace": "Арена 1",
     "presenterId": 1,
     "stageOrder": 1,
@@ -1636,7 +1924,7 @@
     "stageId": 2
   },
   {
-    "gameDate": "2025-08-11T10:06:05.050Z",
+    "gameDate": "2025-08-12T13:24:01.070Z",
     "gamePlace": "Арена 2",
     "presenterId": 1,
     "stageOrder": 2,
@@ -1685,7 +1973,7 @@
     "stageId": 2
   },
   {
-    "gameDate": "2025-08-11T10:06:05.098Z",
+    "gameDate": "2025-08-12T13:24:01.123Z",
     "gamePlace": "Арена 3",
     "presenterId": 1,
     "stageOrder": 3,
@@ -1734,7 +2022,7 @@
     "stageId": 2
   },
   {
-    "gameDate": "2025-08-11T10:06:05.147Z",
+    "gameDate": "2025-08-12T13:24:01.174Z",
     "gamePlace": "Арена 4",
     "presenterId": 1,
     "stageOrder": 4,
@@ -1783,7 +2071,7 @@
     "stageId": 2
   },
   {
-    "gameDate": "2025-08-11T10:06:05.200Z",
+    "gameDate": "2025-08-12T13:24:01.227Z",
     "gamePlace": "Арена 1",
     "presenterId": 1,
     "stageOrder": 1,
@@ -1832,7 +2120,7 @@
     "stageId": 3
   },
   {
-    "gameDate": "2025-08-11T10:06:05.249Z",
+    "gameDate": "2025-08-12T13:24:01.281Z",
     "gamePlace": "Арена 2",
     "presenterId": 1,
     "stageOrder": 2,
@@ -1881,7 +2169,7 @@
     "stageId": 3
   },
   {
-    "gameDate": "2025-08-11T10:06:05.297Z",
+    "gameDate": "2025-08-12T13:24:01.334Z",
     "gamePlace": "Арена 1",
     "presenterId": 1,
     "stageOrder": 1,
