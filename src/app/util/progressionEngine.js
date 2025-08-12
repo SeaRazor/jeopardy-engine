@@ -182,6 +182,53 @@ export class TournamentProgressionEngine {
     const currentStage = this.tournament.schema?.stages?.find(s => s.order === currentStageOrder);
     const hasHighBracket = currentStage && (currentStage.topBracketGameNum || 0) > 0;
     
+    // Handle final stages (bracketType === null)
+    if (bracketType === null && currentStage?.isFinal) {
+      // Final stage: get top performers from previous stage
+      const prevStage = this.tournament.schema?.stages?.find(s => s.order === prevStageOrder);
+      
+      if (prevStage) {
+        const prevHasUpperBracket = (prevStage.topBracketGameNum || 0) > 0;
+        const prevHasLowerBracket = (prevStage.bottomBracketGamesNum || 0) > 0;
+        
+        // Add participants from upper bracket if it exists
+        if (prevHasUpperBracket) {
+          // Add top performers from upper bracket
+          const upperGames = prevStage.topBracketGameNum || 0;
+          for (let i = 1; i <= upperGames; i++) {
+            participants.push(
+              createParticipantWithReference(createPlayerReference(prevStageOrder, i, 1)) // 1st place from each upper game
+            );
+          }
+        }
+        
+        // Add participants from lower bracket if it exists  
+        if (prevHasLowerBracket) {
+          // Add winners from lower bracket
+          const lowerGames = prevStage.bottomBracketGamesNum || 0;
+          for (let i = 1; i <= lowerGames; i++) {
+            participants.push(
+              createParticipantWithReference(createPlayerReference(prevStageOrder, i, 1), { lossBracket: true, eliminationCount: 1 })
+            );
+          }
+        }
+        
+        // If neither bracket exists, take winners from all games in the previous stage
+        if (!prevHasUpperBracket && !prevHasLowerBracket) {
+          // Fallback: assume all games from previous stage contribute winners
+          // This handles cases where stage definitions don't specify bracket counts clearly
+          const gameWinnersNum = prevStage.topGameWinnersNum || prevStage.gameWinnersNum || 1;
+          for (let i = 1; i <= 4; i++) { // Assume up to 4 participants in final
+            participants.push(
+              createParticipantWithReference(createPlayerReference(prevStageOrder, Math.ceil(i / gameWinnersNum), ((i - 1) % gameWinnersNum) + 1))
+            );
+          }
+        }
+      }
+      
+      return participants;
+    }
+    
     if (bracketType === 'upper') {
       if (!hasHighBracket) {
         // No high-bracket in current stage, skip high-bracket game creation

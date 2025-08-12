@@ -13,6 +13,12 @@ const fetchStageGames = async (tournamentId, stageId) => {
   return res.json();
 };
 
+const fetchAllTournamentGames = async (tournamentId) => {
+  const res = await fetch(`/api/tournaments/${tournamentId}/games`);
+  if (!res.ok) throw new Error('Failed to fetch all tournament games');
+  return res.json();
+};
+
 const StageTab = ({ stage, stageIndex, tournament }) => {
   // Filtering state
   const [filters, setFilters] = useState({
@@ -40,6 +46,12 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
   const { data: gamesData = [], isLoading: gamesLoading, isError: gamesError, isFetching } = useQuery({
     queryKey: ['stage-games', tournament.id, stage.id],
     queryFn: () => fetchStageGames(tournament.id, stage.id),
+  });
+
+  // Fetch all tournament games for reference resolution
+  const { data: allTournamentGames = [], isLoading: allGamesLoading } = useQuery({
+    queryKey: ['all-tournament-games', tournament.id],
+    queryFn: () => fetchAllTournamentGames(tournament.id),
   });
 
   // Sort games by stageOrder and gameNumber for proper display
@@ -489,6 +501,8 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
                 showActions={true}
                 onEdit={(game) => console.log('Edit game:', game)}
                 playerManagementState={playerManagementState}
+                tournamentData={tournament}
+                allTournamentGames={allTournamentGames}
               />
             ))}
           </div>

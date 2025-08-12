@@ -4,11 +4,11 @@ import { useState, useEffect, useRef } from 'react';
 import { FaCalendarAlt, FaMapMarkerAlt, FaMicrophone, FaUsers, FaTrophy, FaMedal, FaArrowUp, FaArrowDown, FaEllipsisV, FaEdit, FaCheck, FaPlay, FaLink, FaClock, FaExclamationTriangle } from 'react-icons/fa';
 import Card from '../UI/Card/Card';
 import ConfirmationDialog from '../UI/ConfirmationDialog';
-import { getReferenceDisplayText, needsResolution } from '../util/referenceSystem';
+import { getReferenceDisplayText, needsResolution, parsePlayerReference, getPositionText } from '../util/referenceSystem';
 import { useToast } from '../util/ToastContext';
 import styles from './GameCard.module.css';
 
-export default function GameCard({ game, stage, showActions = false, onEdit, onDelete, playerManagementState }) {
+export default function GameCard({ game, stage, showActions = false, onEdit, onDelete, playerManagementState, tournamentData = null, allTournamentGames = [] }) {
   const { showError, showSuccess } = useToast();
   const [presenter, setPresenter] = useState(null);
   const [players, setPlayers] = useState([]);
@@ -23,7 +23,7 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
   });
   const [availablePresenters, setAvailablePresenters] = useState([]);
   const [availablePlayers, setAvailablePlayers] = useState([]);
-  const [allTournamentGames, setAllTournamentGames] = useState([]);
+  // Tournament data now comes from props instead of state
   const [isSaving, setIsSaving] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFinishDialogOpen, setIsFinishDialogOpen] = useState(false);
@@ -31,6 +31,38 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
   const [gameCompleted, setGameCompleted] = useState(false);
   const menuRef = useRef(null);
   const desktopMenuRef = useRef(null);
+
+  // Local helper function to display references with absolute game numbers
+  const getReferenceDisplayTextWithAbsoluteNumbers = (reference) => {
+    const parsed = parsePlayerReference(reference);
+    
+    if (!parsed || !tournamentData || !allTournamentGames.length) {
+      return getReferenceDisplayText(reference); // Fallback if data not loaded
+    }
+    
+    // Find the stage ID for the source stage order
+    const sourceStage = tournamentData.schema?.stages?.find(s => s.order === parsed.stageOrder);
+    if (!sourceStage) {
+      return getReferenceDisplayText(reference); // Fallback if stage not found
+    }
+    
+    // Find games from the source stage
+    const stageGames = allTournamentGames.filter(g => g.stageId === sourceStage.id);
+    
+    if (stageGames.length > 0) {
+      // Sort by stageOrder to match relative position to absolute game number
+      const sortedGames = stageGames.sort((a, b) => (a.stageOrder || 0) - (b.stageOrder || 0));
+      const targetGame = sortedGames[parsed.gamePosition - 1]; // Convert 1-based to 0-based index
+      
+      if (targetGame && targetGame.gameNumber) {
+        const positionText = getPositionText(parsed.placement);
+        return `${positionText} из Игры ${targetGame.gameNumber} (Стадия ${parsed.stageOrder})`;
+      }
+    }
+    
+    // Fallback to original display
+    return getReferenceDisplayText(reference);
+  };
   
   // Update local state when prop changes
   useEffect(() => {
@@ -149,24 +181,12 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
     }
   }, [isEditing]);
 
-  // Fetch tournament participants for editing (all stages)
+  // Fetch available players only when editing
   useEffect(() => {
-    if (isEditing) {
-      // Fetch tournament participants and all games in parallel
-      Promise.all([
-        fetch(`/api/tournaments/${currentGame.tournamentId}`).then(res => res.json()),
-        fetch(`/api/tournaments/${currentGame.tournamentId}/stages/${stage.id}/games`).then(res => res.json())
-      ])
-        .then(([tournamentData, gamesData]) => {
-          setAvailablePlayers(tournamentData.participants || []);
-          setAllTournamentGames(gamesData || []);
-        })
-        .catch(err => {
-          console.error('Error fetching tournament data:', err);
-          showError('Ошибка при загрузке данных турнира');
-        });
+    if (isEditing && tournamentData) {
+      setAvailablePlayers(tournamentData.participants || []);
     }
-  }, [isEditing, currentGame.tournamentId, stage.id, showError]);
+  }, [isEditing, tournamentData]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -780,7 +800,7 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
                     {participant.sourceReference && (
                       <span className={styles.participantReference}>
                         <FaLink className={styles.referenceIcon} />
-                        {getReferenceDisplayText(participant.sourceReference)}
+                        {getReferenceDisplayTextWithAbsoluteNumbers(participant.sourceReference)}
                       </span>
                     )}
                   </div>
@@ -804,7 +824,7 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
                 </div>
                 <div className={styles.participantInfo}>
                   <span className={styles.participantName}>
-                    {getReferenceDisplayText(participant.sourceReference)}
+                    {getReferenceDisplayTextWithAbsoluteNumbers(participant.sourceReference)}
                   </span>
                   <span className={styles.participantStatus}>
                     <FaExclamationTriangle className={styles.warningIcon} />

@@ -100,7 +100,7 @@ export const validateReference = (reference, currentStageOrder) => {
   return { valid: true };
 };
 
-// Generate reference display text
+// Generate reference display text with relative game numbers
 export const getReferenceDisplayText = (reference) => {
   const parsed = parsePlayerReference(reference);
   
@@ -110,6 +110,51 @@ export const getReferenceDisplayText = (reference) => {
   
   const positionText = getPositionText(parsed.placement);
   return `${positionText} из Игры ${parsed.gamePosition} (Стадия ${parsed.stageOrder})`;
+};
+
+// Enhanced reference display text that shows absolute game numbers
+export const getReferenceDisplayTextWithAbsoluteGameNumber = async (reference, tournamentId) => {
+  const parsed = parsePlayerReference(reference);
+  
+  if (!parsed) {
+    return 'Invalid Reference';
+  }
+  
+  try {
+    // Fetch games from the source stage to find the absolute game number
+    const response = await fetch(`/api/tournaments/${tournamentId}/stages/${getStageIdByOrder(tournamentId, parsed.stageOrder)}/games`);
+    if (response.ok) {
+      const stageGames = await response.json();
+      // Sort games by stageOrder to match the relative position to absolute game number
+      const sortedGames = stageGames.sort((a, b) => (a.stageOrder || 0) - (b.stageOrder || 0));
+      const targetGame = sortedGames[parsed.gamePosition - 1]; // Convert 1-based to 0-based index
+      
+      if (targetGame && targetGame.gameNumber) {
+        const positionText = getPositionText(parsed.placement);
+        return `${positionText} из Игры ${targetGame.gameNumber} (Стадия ${parsed.stageOrder})`;
+      }
+    }
+  } catch (error) {
+    console.warn('Failed to fetch absolute game number for reference:', error);
+  }
+  
+  // Fallback to relative game number
+  return getReferenceDisplayText(reference);
+};
+
+// Helper function to get stage ID by order (this would need to be implemented)
+const getStageIdByOrder = async (tournamentId, stageOrder) => {
+  try {
+    const response = await fetch(`/api/tournaments/${tournamentId}`);
+    if (response.ok) {
+      const tournament = await response.json();
+      const stage = tournament.schema?.stages?.find(s => s.order === stageOrder);
+      return stage?.id;
+    }
+  } catch (error) {
+    console.warn('Failed to get stage ID by order:', error);
+  }
+  return stageOrder; // Fallback to using order as ID
 };
 
 export const getPositionText = (placement) => {

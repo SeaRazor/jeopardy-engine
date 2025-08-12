@@ -9,7 +9,6 @@ import { useToast } from '../../../util/ToastContext';
 import { drawTournament } from '../../../util/draw';
 import { createProgressionEngine } from '../../../util/progressionEngine';
 import { createResolvedParticipant } from '../../../util/referenceSystem';
-import { createReferenceResolver } from '../../../util/referenceResolver';
 import styles from './ParticipantsTab.module.css';
 
 const fetchAvailablePlayers = async (type) => {
@@ -493,11 +492,18 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
       // Update games existence status
       setGamesExist(true);
 
+      // Note: Reference resolution will happen automatically when stage 1 games are completed
+      // For now, participants in later stages will show as "not assigned" until stage 1 results are available
+      let resolvedReferencesCount = 0;
+
       // Show success message
       const stageText = tournament.schema.stages.length === 1 ? 'стадии' : 'стадий';
+      const subsequentStagesText = tournament.schema.stages.length > 1 
+        ? ` Участники последующих стадий будут назначены автоматически после завершения предыдущих игр.`
+        : '';
       showSuccess(
         `Жеребьевка завершена! ${totalGamesCreated} боев созданы для всех ${tournament.schema.stages.length} ${stageText}! ` +
-        `Игроки автоматически распределены из разных корзин.`
+        `Игроки автоматически распределены из разных корзин.${subsequentStagesText}`
       );
     } catch (error) {
       console.error('Error during tournament draw:', error);
@@ -597,11 +603,18 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
         // Update games existence status
         setGamesExist(true);
 
+        // Note: Reference resolution will happen automatically when stage 1 games are completed
+        // For now, participants in later stages will show as "not assigned" until stage 1 results are available
+        let resolvedReferencesCount = 0;
+
         // Show success message
         const stageText = tournament.schema.stages.length === 1 ? 'стадии' : 'стадий';
+        const subsequentStagesText = tournament.schema.stages.length > 1 
+          ? ` Участники последующих стадий будут назначены автоматически после завершения предыдущих игр.`
+          : '';
         showSuccess(
           `${totalGamesCreated} боев созданы для всех ${tournament.schema.stages.length} ${stageText}! ` +
-          `Стадия 1 готова к игре. Последующие стадии будут автоматически заполнены по результатам.`
+          `Стадия 1 готова к игре.${subsequentStagesText}`
         );
       } else {
         showError('Не удалось создать бои. Проверьте количество участников.');
