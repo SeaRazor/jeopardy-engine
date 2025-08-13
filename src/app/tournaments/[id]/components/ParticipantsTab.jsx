@@ -522,7 +522,7 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
         gameDate: new Date().toISOString().split('T')[0],
         gamePlace: 'TBD',
         presenterId: 1,
-        participants: drawnGame.players.map(player => createResolvedParticipant(player.playerId, 0)),
+        participants: drawnGame.players.map(player => createResolvedParticipant(player.playerId, { points: 0 })),
         tournamentType: drawnGame.tournamentType
       };
 
@@ -671,92 +671,43 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
 
   // Create progressive stage games with participant references
   const createProgressiveStageGames = async (stage, tournament, progressionEngine) => {
-    let gamesCreated = 0;
-    const isDoubleElimination = tournament.schema.schemeName === 'Double Elimination';
+    console.log(`[ParticipantsTab] Creating progressive stage games for stage ${stage.order}`);
     
-    if (isDoubleElimination) {
-      // Create upper bracket games
-      const upperGamesCount = stage.topBracketGameNum || 0;
-      for (let i = 1; i <= upperGamesCount; i++) {
-        // Generate participants with references using progression engine
-        const participantsWithReferences = progressionEngine.generateGameParticipants(stage.order, i - 1, 'upper');
-        
-        const gameData = {
-          gameDate: new Date().toISOString(),
-          gamePlace: `Арена ${i}`,
-          presenterId: 1,
-          stageOrder: i,
-          participants: participantsWithReferences,
-          bracketType: stage.isFinal ? null : 'upper',
-          bracketPosition: stage.isFinal ? null : i,
-          tournamentType: 'DoubleElimination'
-        };
-
-        await createProgressiveGame(gameData, stage, tournament);
-        gamesCreated++;
-      }
-
-      // Create lower bracket games
-      const lowerGamesCount = stage.bottomBracketGamesNum || 0;
-      for (let i = 1; i <= lowerGamesCount; i++) {
-        // Generate participants with references using progression engine
-        const participantsWithReferences = progressionEngine.generateGameParticipants(stage.order, i - 1, 'lower');
-        
-        const gameData = {
-          gameDate: new Date().toISOString(),
-          gamePlace: `Арена ${upperGamesCount + i}`,
-          presenterId: 1,
-          stageOrder: upperGamesCount + i,
-          participants: participantsWithReferences,
-          bracketType: stage.isFinal ? null : 'lower',
-          bracketPosition: stage.isFinal ? null : i,
-          tournamentType: 'DoubleElimination'
-        };
-
-        await createProgressiveGame(gameData, stage, tournament);
-        gamesCreated++;
-      }
-
-      // Handle final stage (1 game if no brackets specified)
-      if (stage.isFinal && upperGamesCount === 0 && lowerGamesCount === 0) {
-        // Generate participants with references using progression engine
-        const participantsWithReferences = progressionEngine.generateGameParticipants(stage.order, 0, null);
-        
-        const gameData = {
-          gameDate: new Date().toISOString(),
-          gamePlace: 'Финальная арена',
-          presenterId: 1,
-          stageOrder: 1,
-          participants: participantsWithReferences,
-          tournamentType: 'DoubleElimination'
-        };
-
-        await createProgressiveGame(gameData, stage, tournament);
-        gamesCreated++;
-      }
-    } else {
-      // Olympic: Simple progression
-      const gamesCount = calculateGamesForStage(stage, tournament.schema.participantsNum);
+    try {
+      // Use the new progression engine to create all games for this stage
+      const gamesWithParticipants = await progressionEngine.createStageWithParticipants(stage);
       
-      for (let i = 1; i <= gamesCount; i++) {
-        // Generate participants with references using progression engine
-        const participantsWithReferences = progressionEngine.generateGameParticipants(stage.order, i - 1, null);
-        
+      console.log(`[ParticipantsTab] Created ${gamesWithParticipants.length} games for stage ${stage.order}`);
+      
+      let gamesCreated = 0;
+      
+      // Create each game via API
+      for (const game of gamesWithParticipants) {
         const gameData = {
           gameDate: new Date().toISOString(),
-          gamePlace: `Арена ${i}`,
+          gamePlace: `Арена ${game.gameIndex + 1}`,
           presenterId: 1,
-          stageOrder: i,
-          participants: participantsWithReferences,
-          tournamentType: 'Olympic'
+          stageOrder: game.gameNumber, // Use unique game number instead of gameIndex
+          participants: game.participants,
+          bracketType: game.bracketType,
+          bracketPosition: game.gameIndex + 1,
+          tournamentType: tournament.schema.schemeName === 'Double Elimination' ? 'DoubleElimination' : 'Olympic',
+          gameNumber: game.gameNumber
         };
 
+        console.log(`[ParticipantsTab] Creating game ${game.gameNumber} (${game.bracketType || 'final'}) with ${game.participants.length} participants`);
+        
         await createProgressiveGame(gameData, stage, tournament);
         gamesCreated++;
       }
+      
+      console.log(`[ParticipantsTab] Successfully created ${gamesCreated} games for stage ${stage.order}`);
+      return gamesCreated;
+      
+    } catch (error) {
+      console.error(`[ParticipantsTab] Error creating progressive stage games for stage ${stage.order}:`, error);
+      throw error;
     }
-    
-    return gamesCreated;
   };
 
   // Helper function to create a single progressive game

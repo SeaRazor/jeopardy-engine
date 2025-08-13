@@ -54,11 +54,22 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
     queryFn: () => fetchAllTournamentGames(tournament.id),
   });
 
-  // Sort games by stageOrder and gameNumber for proper display
+  // Sort games by stageOrder, then by bracket type (upper first), then by gameNumber
   const allGames = gamesData.sort((a, b) => {
-    if (a.stageOrder && b.stageOrder) {
+    // First, sort by stageOrder if available
+    if (a.stageOrder && b.stageOrder && a.stageOrder !== b.stageOrder) {
       return a.stageOrder - b.stageOrder;
     }
+    
+    // Then sort by bracket type: upper bracket games come first
+    const bracketOrderA = a.bracketType === 'upper' ? 0 : a.bracketType === 'lower' ? 1 : 2; // null/final = 2
+    const bracketOrderB = b.bracketType === 'upper' ? 0 : b.bracketType === 'lower' ? 1 : 2; // null/final = 2
+    
+    if (bracketOrderA !== bracketOrderB) {
+      return bracketOrderA - bracketOrderB;
+    }
+    
+    // Finally, sort by gameNumber within the same bracket
     return (a.gameNumber || a.id) - (b.gameNumber || b.id);
   });
 

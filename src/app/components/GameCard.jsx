@@ -32,37 +32,6 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
   const menuRef = useRef(null);
   const desktopMenuRef = useRef(null);
 
-  // Local helper function to display references with absolute game numbers
-  const getReferenceDisplayTextWithAbsoluteNumbers = (reference) => {
-    const parsed = parsePlayerReference(reference);
-    
-    if (!parsed || !tournamentData || !allTournamentGames.length) {
-      return getReferenceDisplayText(reference); // Fallback if data not loaded
-    }
-    
-    // Find the stage ID for the source stage order
-    const sourceStage = tournamentData.schema?.stages?.find(s => s.order === parsed.stageOrder);
-    if (!sourceStage) {
-      return getReferenceDisplayText(reference); // Fallback if stage not found
-    }
-    
-    // Find games from the source stage
-    const stageGames = allTournamentGames.filter(g => g.stageId === sourceStage.id);
-    
-    if (stageGames.length > 0) {
-      // Sort by stageOrder to match relative position to absolute game number
-      const sortedGames = stageGames.sort((a, b) => (a.stageOrder || 0) - (b.stageOrder || 0));
-      const targetGame = sortedGames[parsed.gamePosition - 1]; // Convert 1-based to 0-based index
-      
-      if (targetGame && targetGame.gameNumber) {
-        const positionText = getPositionText(parsed.placement);
-        return `${positionText} из Игры ${targetGame.gameNumber} (Стадия ${parsed.stageOrder})`;
-      }
-    }
-    
-    // Fallback to original display
-    return getReferenceDisplayText(reference);
-  };
   
   // Update local state when prop changes
   useEffect(() => {
@@ -800,7 +769,7 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
                     {participant.sourceReference && (
                       <span className={styles.participantReference}>
                         <FaLink className={styles.referenceIcon} />
-                        {getReferenceDisplayTextWithAbsoluteNumbers(participant.sourceReference)}
+                        {getReferenceDisplayText(participant.sourceReference)}
                       </span>
                     )}
                   </div>
@@ -824,7 +793,7 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
                 </div>
                 <div className={styles.participantInfo}>
                   <span className={styles.participantName}>
-                    {getReferenceDisplayTextWithAbsoluteNumbers(participant.sourceReference)}
+                    {getReferenceDisplayText(participant.sourceReference)}
                   </span>
                   <span className={styles.participantStatus}>
                     <FaExclamationTriangle className={styles.warningIcon} />

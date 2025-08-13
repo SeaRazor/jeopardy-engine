@@ -1,10 +1,10 @@
 // Universal Reference System for Tournament Progression
 // Handles player references between stages for both Double Elimination and Olympic tournaments
 
-// Reference format: "stage.game.position" (e.g., "1.1.1" = 1st place from stage 1, game 1)
+// Reference format: "tournament.gameNumber.position" (e.g., "4.29.1" = 1st place from game 29 in tournament 4)
 
-export const createPlayerReference = (stageOrder, gamePosition, placement) => {
-  return `${stageOrder}.${gamePosition}.${placement}`;
+export const createPlayerReference = (tournamentId, gameNumber, placement) => {
+  return `${tournamentId}.${gameNumber}.${placement}`;
 };
 
 export const parsePlayerReference = (reference) => {
@@ -17,15 +17,15 @@ export const parsePlayerReference = (reference) => {
     return null;
   }
   
-  const [stageOrder, gamePosition, placement] = parts.map(p => parseInt(p));
+  const [tournamentId, gameNumber, placement] = parts.map(p => parseInt(p));
   
-  if (isNaN(stageOrder) || isNaN(gamePosition) || isNaN(placement)) {
+  if (isNaN(tournamentId) || isNaN(gameNumber) || isNaN(placement)) {
     return null;
   }
   
   return {
-    stageOrder,
-    gamePosition,
+    tournamentId,
+    gameNumber,
     placement
   };
 };
@@ -65,15 +65,15 @@ export const needsResolution = (participant) => {
   return participant.sourceReference && !participant.resolved && !participant.playerId;
 };
 
-// Get all unique stage dependencies for a list of participants
-export const getStageDependencies = (participants) => {
+// Get all unique game dependencies for a list of participants
+export const getGameDependencies = (participants) => {
   const dependencies = new Set();
   
   participants.forEach(participant => {
     if (participant.sourceReference) {
       const parsed = parsePlayerReference(participant.sourceReference);
       if (parsed) {
-        dependencies.add(parsed.stageOrder);
+        dependencies.add(parsed.gameNumber);
       }
     }
   });
@@ -82,15 +82,19 @@ export const getStageDependencies = (participants) => {
 };
 
 // Validate reference format and constraints
-export const validateReference = (reference, currentStageOrder) => {
+export const validateReference = (reference, currentTournamentId, currentGameNumber) => {
   const parsed = parsePlayerReference(reference);
   
   if (!parsed) {
     return { valid: false, error: 'Invalid reference format' };
   }
   
-  if (parsed.stageOrder >= currentStageOrder) {
-    return { valid: false, error: 'Cannot reference current or future stages' };
+  if (parsed.tournamentId !== currentTournamentId) {
+    return { valid: false, error: 'Cannot reference games from different tournaments' };
+  }
+  
+  if (parsed.gameNumber >= currentGameNumber) {
+    return { valid: false, error: 'Cannot reference current or future games' };
   }
   
   if (parsed.placement < 1 || parsed.placement > 4) {
@@ -100,7 +104,7 @@ export const validateReference = (reference, currentStageOrder) => {
   return { valid: true };
 };
 
-// Generate reference display text with relative game numbers
+// Generate reference display text with absolute game numbers
 export const getReferenceDisplayText = (reference) => {
   const parsed = parsePlayerReference(reference);
   
@@ -109,53 +113,9 @@ export const getReferenceDisplayText = (reference) => {
   }
   
   const positionText = getPositionText(parsed.placement);
-  return `${positionText} из Игры ${parsed.gamePosition} (Стадия ${parsed.stageOrder})`;
+  return `${positionText} из Игры ${parsed.gameNumber}`;
 };
 
-// Enhanced reference display text that shows absolute game numbers
-export const getReferenceDisplayTextWithAbsoluteGameNumber = async (reference, tournamentId) => {
-  const parsed = parsePlayerReference(reference);
-  
-  if (!parsed) {
-    return 'Invalid Reference';
-  }
-  
-  try {
-    // Fetch games from the source stage to find the absolute game number
-    const response = await fetch(`/api/tournaments/${tournamentId}/stages/${getStageIdByOrder(tournamentId, parsed.stageOrder)}/games`);
-    if (response.ok) {
-      const stageGames = await response.json();
-      // Sort games by stageOrder to match the relative position to absolute game number
-      const sortedGames = stageGames.sort((a, b) => (a.stageOrder || 0) - (b.stageOrder || 0));
-      const targetGame = sortedGames[parsed.gamePosition - 1]; // Convert 1-based to 0-based index
-      
-      if (targetGame && targetGame.gameNumber) {
-        const positionText = getPositionText(parsed.placement);
-        return `${positionText} из Игры ${targetGame.gameNumber} (Стадия ${parsed.stageOrder})`;
-      }
-    }
-  } catch (error) {
-    console.warn('Failed to fetch absolute game number for reference:', error);
-  }
-  
-  // Fallback to relative game number
-  return getReferenceDisplayText(reference);
-};
-
-// Helper function to get stage ID by order (this would need to be implemented)
-const getStageIdByOrder = async (tournamentId, stageOrder) => {
-  try {
-    const response = await fetch(`/api/tournaments/${tournamentId}`);
-    if (response.ok) {
-      const tournament = await response.json();
-      const stage = tournament.schema?.stages?.find(s => s.order === stageOrder);
-      return stage?.id;
-    }
-  } catch (error) {
-    console.warn('Failed to get stage ID by order:', error);
-  }
-  return stageOrder; // Fallback to using order as ID
-};
 
 export const getPositionText = (placement) => {
   const positions = {
@@ -168,84 +128,6 @@ export const getPositionText = (placement) => {
   return positions[placement] || `${placement}-е место`;
 };
 
-// Generate references for tournament progression patterns
-export const generateProgressionReferences = (tournamentType, currentStage, gameIndex) => {
-  switch (tournamentType) {
-    case 'Double Elimination':
-      return generateDoubleEliminationReferences(currentStage, gameIndex);
-    case 'Олимпийская':
-      return generateOlympicReferences(currentStage, gameIndex);
-    default:
-      return [];
-  }
-};
-
-// Double Elimination reference generation
-const generateDoubleEliminationReferences = (currentStage, gameIndex) => {
-  const prevStage = currentStage.order - 1;
-  
-  if (prevStage < 1) {
-    return []; // Stage 1 has no references
-  }
-  
-  // Determine if this is a high or low bracket game
-  const isHighBracket = currentStage.bracketType === 'upper' || 
-                       (!currentStage.bracketType && gameIndex < (currentStage.topBracketGameNum || 0));
-  
-  if (isHighBracket) {
-    // High bracket games: 1st and 2nd place winners
-    return [
-      createPlayerReference(prevStage, gameIndex * 2 + 1, 1), // 1st from game A
-      createPlayerReference(prevStage, gameIndex * 2 + 1, 2), // 2nd from game A  
-      createPlayerReference(prevStage, gameIndex * 2 + 2, 1), // 1st from game B
-      createPlayerReference(prevStage, gameIndex * 2 + 2, 2)  // 2nd from game B
-    ];
-  } else {
-    // Low bracket games: 3rd and 4th place + previous low bracket winners
-    const references = [];
-    
-    // Add 3rd and 4th place losers from high bracket
-    references.push(
-      createPlayerReference(prevStage, gameIndex + 1, 3), // 3rd place
-      createPlayerReference(prevStage, gameIndex + 1, 4)  // 4th place
-    );
-    
-    // Add winners from previous low bracket if applicable
-    if (prevStage > 1) {
-      references.push(
-        createPlayerReference(prevStage, gameIndex + 1, 1), // Winner from low bracket
-        createPlayerReference(prevStage, gameIndex + 2, 1)  // Winner from low bracket
-      );
-    }
-    
-    return references;
-  }
-};
-
-// Olympic reference generation  
-const generateOlympicReferences = (currentStage, gameIndex) => {
-  const prevStage = currentStage.order - 1;
-  
-  if (prevStage < 1) {
-    return []; // Stage 1 has no references
-  }
-  
-  // Olympic: Top 2 from each game advance to next stage
-  const referencesPerGame = 2;
-  const gamesPerNextGame = 2; // 2 previous games feed into 1 next game
-  
-  const references = [];
-  
-  for (let i = 0; i < gamesPerNextGame; i++) {
-    const sourceGameIndex = gameIndex * gamesPerNextGame + i + 1;
-    
-    for (let placement = 1; placement <= referencesPerGame; placement++) {
-      references.push(createPlayerReference(prevStage, sourceGameIndex, placement));
-    }
-  }
-  
-  return references;
-};
 
 // Utility to get all games that a stage depends on
 export const getStageGameDependencies = (stage, participants) => {
@@ -255,13 +137,12 @@ export const getStageGameDependencies = (stage, participants) => {
     if (participant.sourceReference) {
       const parsed = parsePlayerReference(participant.sourceReference);
       if (parsed) {
-        const depKey = `${parsed.stageOrder}.${parsed.gamePosition}`;
-        if (!dependencies.includes(depKey)) {
-          dependencies.push(depKey);
+        if (!dependencies.includes(parsed.gameNumber)) {
+          dependencies.push(parsed.gameNumber);
         }
       }
     }
   });
   
-  return dependencies;
+  return dependencies.sort((a, b) => a - b);
 };

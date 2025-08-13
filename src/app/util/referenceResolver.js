@@ -113,19 +113,19 @@ export class ReferenceResolver {
       throw new Error(`Invalid reference format: ${reference}`);
     }
 
-    const { stageOrder, gamePosition, placement } = parsed;
+    const { tournamentId, gameNumber, placement } = parsed;
 
-    // Find the source game
-    const sourceStage = await this.findStageByOrder(stageOrder);
-    if (!sourceStage) {
-      throw new Error(`Source stage ${stageOrder} not found`);
+    // Verify tournament ID matches
+    if (tournamentId !== this.tournamentId) {
+      throw new Error(`Reference tournament ID ${tournamentId} does not match resolver tournament ID ${this.tournamentId}`);
     }
 
-    const sourceGames = await this.fetchStageGames(sourceStage.id);
-    const sourceGame = sourceGames.find(g => g.stageOrder === gamePosition || g.gameNumber === gamePosition);
+    // Find the source game by game number
+    const allGames = await this.fetchAllTournamentGames();
+    const sourceGame = allGames.find(g => g.gameNumber === gameNumber);
     
     if (!sourceGame) {
-      throw new Error(`Source game ${gamePosition} not found in stage ${stageOrder}`);
+      throw new Error(`Source game ${gameNumber} not found`);
     }
 
     // Check if source game is completed
@@ -313,6 +313,14 @@ export class ReferenceResolver {
     const response = await fetch(`/api/tournaments/${this.tournamentId}/stages/${stageId}/games`);
     if (!response.ok) {
       throw new Error(`Failed to fetch stage games: ${response.statusText}`);
+    }
+    return response.json();
+  }
+
+  async fetchAllTournamentGames() {
+    const response = await fetch(`/api/tournaments/${this.tournamentId}/games`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch tournament games: ${response.statusText}`);
     }
     return response.json();
   }
