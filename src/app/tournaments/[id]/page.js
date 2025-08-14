@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams, useSearchParams, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { FaCalendarAlt, FaInfoCircle, FaSitemap, FaUsers, FaChevronDown, FaChevronUp, FaChevronRight } from 'react-icons/fa';
 import Link from 'next/link';
@@ -24,6 +24,7 @@ const fetchTournament = async (id) => {
 export default function TournamentDetailPage() {
   const { id } = useParams();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState('participants');
   const [isInfoExpanded, setIsInfoExpanded] = useState(false);
   
@@ -40,6 +41,17 @@ export default function TournamentDetailPage() {
     }
   }, [searchParams]);
 
+  // Redirect to tournaments list if tournament not found
+  useEffect(() => {
+    if (isError) {
+      const timer = setTimeout(() => {
+        router.push('/tournaments');
+      }, 3000); // 3 second delay to show error message
+      
+      return () => clearTimeout(timer);
+    }
+  }, [isError, router]);
+
   const handleUpdateParticipants = (participants) => {
     // In a real app, this would update the tournament via API
     console.log('Updated participants:', participants);
@@ -53,7 +65,21 @@ export default function TournamentDetailPage() {
 
   if (isError) return (
     <div className="container">
-      <div className={styles.error}>Ошибка загрузки турнира</div>
+      <div className={styles.error}>
+        <div className={styles.errorTitle}>
+          <FaInfoCircle className={styles.errorIcon} />
+          Турнир не найден
+        </div>
+        <p className={styles.errorMessage}>
+          Запрашиваемый турнир не существует или был удален.
+        </p>
+        <p className={styles.redirectMessage}>
+          Перенаправление на список турниров через 3 секунды...
+        </p>
+        <Link href="/tournaments" className={styles.backLink}>
+          Перейти к списку турниров сейчас
+        </Link>
+      </div>
     </div>
   );
 

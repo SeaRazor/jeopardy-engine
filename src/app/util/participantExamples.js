@@ -304,7 +304,7 @@ export const tournamentWithProgressionExample = {
   name: "Прогрессивный турнир",
   startDate: "2025-08-10",
   endDate: "2025-08-15",
-  type: "SI",
+  type: 1,
   gameCreationMethod: "emptyGames",
   
   // New progression metadata

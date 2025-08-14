@@ -14,10 +14,12 @@ export const getTournamentStatus = (startDate, endDate) => {
 
 export const getTypeLabel = (type) => {
   const types = {
-    'Своя игра': 'СИ',
+    'Своя Игра': 'СИ',
     'Эрудит-квартет': 'ЭК',
     'SI': 'СИ',
     'EK': 'ЭК',
+    1: 'СИ',
+    2: 'ЭК',
     '1': 'СИ',
     '2': 'ЭК',
   };

@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 
 const types = [
-    { id: 1, name: 'SI' },
-    { id: 2, name: 'EK' },
+    { id: 1, name: 'Своя Игра' },
+    { id: 2, name: 'Эрудит-квартет' },
 ];
 
 export async function GET() {

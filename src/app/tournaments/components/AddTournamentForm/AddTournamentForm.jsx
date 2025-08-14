@@ -71,7 +71,7 @@ export default function AddTournamentForm({ onClose }) {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: name === 'type' && value ? Number(value) : value,
     }));
     // Clear error for the field being changed
     setErrors((prevErrors) => ({ ...prevErrors, [name]: undefined }));
@@ -163,7 +163,7 @@ export default function AddTournamentForm({ onClose }) {
           >
             <option value="">Выберите тип</option>
             {types?.map((type) => (
-              <option key={type.id} value={type.name}>
+              <option key={type.id} value={type.id}>
                 {type.name}
               </option>
             ))}
