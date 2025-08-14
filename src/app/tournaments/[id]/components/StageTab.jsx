@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { FaUsers, FaTrophy, FaInfoCircle, FaGamepad, FaUserSlash, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import GameCard from '../../../components/GameCard';
 import { getPlayerManagementState } from '../../../util/playerManagementUtils';
@@ -30,14 +30,90 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
 
   // Collapsible state for mobile
   const [isStageInfoExpanded, setIsStageInfoExpanded] = useState(true);
+  
+  // Theme names management
+  const [stageThemes, setStageThemes] = useState([]);
+  const [isEditingThemes, setIsEditingThemes] = useState(false);
+  
+  // React Query
+  const queryClient = useQueryClient();
+
+  // Load stage themes on component mount
+  useEffect(() => {
+    const loadStageThemes = () => {
+      // Initialize with existing themes from stage or default themes
+      const defaultThemeCount = stage?.numberOfThemesInGame || 6;
+      const existingThemes = stage?.stageThemes || [];
+      
+      const themes = Array.from({ length: defaultThemeCount }, (_, index) => 
+        existingThemes[index] || `Тема ${index + 1}`
+      );
+      
+      setStageThemes(themes);
+    };
+
+    if (stage) {
+      loadStageThemes();
+    }
+  }, [stage]);
+
+  // Theme management functions
+  const handleThemeNameChange = (index, newName) => {
+    const updatedThemes = [...stageThemes];
+    updatedThemes[index] = newName;
+    setStageThemes(updatedThemes);
+  };
+
+  // Mutation for saving themes
+  const saveThemesMutation = useMutation({
+    mutationFn: async (themes) => {
+      const response = await fetch(`/api/tournaments/${tournament.id}/stages/${stage.id}/themes`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ themes }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save themes');
+      }
+
+      return response.json();
+    },
+    onSuccess: () => {
+      setIsEditingThemes(false);
+      // Invalidate tournament query to refetch updated data
+      queryClient.invalidateQueries({ queryKey: ['tournament', tournament.id] });
+    },
+    onError: (error) => {
+      console.error('Error saving themes:', error);
+      // You might want to show a toast error here
+    }
+  });
+
+  const handleSaveThemes = () => {
+    saveThemesMutation.mutate(stageThemes);
+  };
+
+  const handleCancelEditThemes = () => {
+    // Reset themes to original values
+    const defaultThemeCount = stage?.numberOfThemesInGame || 6;
+    const existingThemes = stage?.stageThemes || [];
+    
+    const themes = Array.from({ length: defaultThemeCount }, (_, index) => 
+      existingThemes[index] || `Тема ${index + 1}`
+    );
+    
+    setStageThemes(themes);
+    setIsEditingThemes(false);
+  };
 
   if (!stage) {
     return (
-      <div className={styles.container}>
-        <div className={styles.errorMessage}>
-          <FaInfoCircle className={styles.errorIcon} />
-          <p>Информация о стадии недоступна</p>
-        </div>
+      <div className={styles.errorMessage}>
+        <FaInfoCircle className={styles.errorIcon} />
+        <p>Информация о стадии недоступна</p>
       </div>
     );
   }
@@ -327,7 +403,7 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
   const playerManagementState = getPlayerManagementState(tournament, stage.order);
 
   return (
-    <div className={styles.container}>
+    <>
       <div className={styles.stageInfo}>
         <div className={styles.stageInfoHeader}>
           <div className={styles.detailInline}>
@@ -426,6 +502,58 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
               )}
             </div>
           )}
+
+          {/* Theme Management Subsection */}
+          <div className={styles.themeManagementSection}>
+            <div className={styles.themeManagementHeader}>
+              <h3>Темы игр стадии</h3>
+              <div className={styles.themeManagementActions}>
+                {!isEditingThemes ? (
+                  <button 
+                    onClick={() => setIsEditingThemes(true)}
+                    className={styles.editThemesButton}
+                  >
+                    Редактировать темы
+                  </button>
+                ) : (
+                  <div className={styles.themeActionButtons}>
+                    <button 
+                      onClick={handleSaveThemes}
+                      className={styles.saveThemesButton}
+                      disabled={saveThemesMutation.isPending}
+                    >
+                      {saveThemesMutation.isPending ? 'Сохранение...' : 'Сохранить'}
+                    </button>
+                    <button 
+                      onClick={handleCancelEditThemes}
+                      className={styles.cancelThemesButton}
+                    >
+                      Отмена
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            <div className={styles.themesGrid}>
+              {stageThemes.map((themeName, index) => (
+                <div key={index} className={styles.themeItem}>
+                  <div className={styles.themeNumber}>#{index + 1}</div>
+                  {isEditingThemes ? (
+                    <input
+                      type="text"
+                      value={themeName}
+                      onChange={(e) => handleThemeNameChange(index, e.target.value)}
+                      className={styles.themeNameInput}
+                      placeholder={`Тема ${index + 1}`}
+                    />
+                  ) : (
+                    <div className={styles.themeNameDisplay}>{themeName}</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -480,7 +608,6 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
           </div>
         </div>
 
-
         {gamesLoading && (
           <div className={styles.loading}>
             <p>Загрузка боев...</p>
@@ -519,7 +646,7 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

@@ -50,8 +50,8 @@ export default function TournamentFilters({ filters, onFilterChange, onClear }) 
             className={styles.select}
           >
             <option value="">Все типы</option>
-            <option value="Своя игра">Своя игра</option>
-            <option value="Эрудит-квартет">Эрудит-квартет</option>
+            <option value="1">Своя Игра</option>
+            <option value="2">Эрудит-квартет</option>
           </select>
           <select
             name="status"
@@ -105,8 +105,8 @@ export default function TournamentFilters({ filters, onFilterChange, onClear }) 
                   className={styles.select}
                 >
                   <option value="">Все типы</option>
-                  <option value="Своя игра">Своя игра</option>
-                  <option value="Эрудит-квартет">Эрудит-квартет</option>
+                  <option value="1">Своя Игра</option>
+                  <option value="2">Эрудит-квартет</option>
                 </select>
                 <select
                   name="status"

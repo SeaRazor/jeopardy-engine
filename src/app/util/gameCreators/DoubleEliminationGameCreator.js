@@ -14,6 +14,9 @@ export class DoubleEliminationGameCreator extends BaseGameCreator {
     const bottomBracketGames = stage.bottomBracketGamesNum || 0;
     const totalGames = topBracketGames + bottomBracketGames;
     
+    // Get stage themes
+    const stageThemes = stage.stageThemes || [];
+    
     console.log(`[DoubleEliminationGameCreator] Creating ${totalGames} games for stage ${stage.order}`);
     console.log(`[DoubleEliminationGameCreator] Top bracket: ${topBracketGames}, Bottom bracket: ${bottomBracketGames}`);
     
@@ -24,7 +27,8 @@ export class DoubleEliminationGameCreator extends BaseGameCreator {
         stageId: stage.id,
         bracketType: 'upper',
         playersPerGame: stage.numberOfPlayers || 4,
-        gameIndex: i
+        gameIndex: i,
+        stageThemes: stageThemes
       });
       
       games.push(game);
@@ -38,7 +42,8 @@ export class DoubleEliminationGameCreator extends BaseGameCreator {
         stageId: stage.id,
         bracketType: 'lower',
         playersPerGame: stage.numberOfPlayers || 4,
-        gameIndex: i
+        gameIndex: i,
+        stageThemes: stageThemes
       });
       
       games.push(game);
@@ -52,7 +57,8 @@ export class DoubleEliminationGameCreator extends BaseGameCreator {
         stageId: stage.id,
         bracketType: null,
         playersPerGame: stage.numberOfPlayers || 4,
-        gameIndex: 0
+        gameIndex: 0,
+        stageThemes: stageThemes
       });
       
       games.push(game);

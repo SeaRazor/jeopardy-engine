@@ -42,7 +42,7 @@ export default function TournamentsPage() {
       const status = getTournamentStatus(tournament.startDate, tournament.endDate);
       return (
         tournament.name.toLowerCase().includes(filters.name.toLowerCase()) &&
-        (filters.type === '' || tournament.type === filters.type) &&
+        (filters.type === '' || tournament.type === parseInt(filters.type)) &&
         (filters.status === '' || status === filters.status)
       );
     });

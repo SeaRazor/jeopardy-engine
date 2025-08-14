@@ -29,7 +29,7 @@ export class BaseGameCreator {
   }
 
   // Create a single game with proper structure
-  createGame({ gameNumber, stageId, bracketType, playersPerGame, gameIndex }) {
+  createGame({ gameNumber, stageId, bracketType, playersPerGame, gameIndex, stageThemes = [] }) {
     const game = {
       id: gameNumber, // Use gameNumber as ID for simplicity
       gameNumber: gameNumber,
@@ -41,6 +41,7 @@ export class BaseGameCreator {
       isTop: bracketType === 'upper' || bracketType === null,
       participants: [], // Will be filled by participant distributor
       themes: [],
+      stageThemes: stageThemes, // Theme names for this stage
       results: null,
       createdAt: new Date().toISOString()
     };

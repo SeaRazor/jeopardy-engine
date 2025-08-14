@@ -87,7 +87,7 @@ export default function TournamentDetailPage() {
   const typeLabel = getTypeLabel(tournament.type);
 
   return (
-    <div className="container">
+    <>
       <div className={styles.header}>
         <div className={styles.pageHeader}>
           <div className={styles.breadcrumbTrail}>
@@ -168,7 +168,7 @@ export default function TournamentDetailPage() {
         onTabChange={setActiveTab}
       />
 
-      <div className={styles.content}>
+      <div >
         {activeTab === 'participants' && (
           <ParticipantsTab 
             tournament={tournament}
@@ -193,6 +193,6 @@ export default function TournamentDetailPage() {
           );
         })()}
       </div>
-    </div>
+    </>
   );
 }

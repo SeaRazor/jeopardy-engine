@@ -4,7 +4,7 @@
     "name": "Своя игра Double Elimination 64",
     "startDate": "2025-01-15",
     "endDate": "2025-01-25",
-    "type": "Своя игра",
+    "type": 1,
     "gameCreationMethod": "emptyGames",
     "schema": {
       "id": 1,
@@ -190,7 +190,7 @@
     "name": "Эрудит-квартет Double Elimination 32",
     "startDate": "2025-01-15",
     "endDate": "2025-01-25",
-    "type": "Эрудит-квартет",
+    "type": 2,
     "gameCreationMethod": "emptyGames",
     "schema": {
       "id": 2,
@@ -550,7 +550,7 @@
     "name": "Своя игра Олимпийская 32",
     "startDate": "2025-01-15",
     "endDate": "2025-01-25",
-    "type": "Своя игра",
+    "type": 1,
     "gameCreationMethod": "emptyGames",
     "schema": {
       "id": 3,
@@ -1438,7 +1438,15 @@
           "bottomBracketGamesNum": 0,
           "gameWinnersNum": 2,
           "numberOfPlayers": 4,
-          "participantsNum": 0
+          "participantsNum": 0,
+          "stageThemes": [
+            "Плавали-знаем",
+            "-ОРО- (матрица)",
+            "С.И. (инициальная тема)",
+            "Не только города Испании",
+            "Неуверенность (гиперматрица)",
+            "Последняя"
+          ]
         },
         {
           "description": "Вылетают третьи и четвёртые места жёлтых боёв",

@@ -54,8 +54,9 @@ export async function GET(request, { params }) {
   let stageThemes = [];
   if (tournament && tournament.schema && tournament.schema.stages) {
     const stage = tournament.schema.stages.find(s => s.id === parseInt(stageId));
-    if (stage && stage.themes) {
-      stageThemes = stage.themes;
+    if (stage) {
+      // Check for both stageThemes (new) and themes (legacy) properties
+      stageThemes = stage.stageThemes || stage.themes || [];
     }
   }
 

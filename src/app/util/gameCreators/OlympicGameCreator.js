@@ -14,6 +14,9 @@ export class OlympicGameCreator extends BaseGameCreator {
     const participantsInStage = this.calculateParticipantsInStage(stage);
     const gamesNeeded = Math.ceil(participantsInStage / participantsPerGame);
     
+    // Get stage themes
+    const stageThemes = stage.stageThemes || [];
+    
     console.log(`[OlympicGameCreator] Creating ${gamesNeeded} games for stage ${stage.order}`);
     console.log(`[OlympicGameCreator] Participants in stage: ${participantsInStage}, participants per game: ${participantsPerGame}`);
     
@@ -24,7 +27,8 @@ export class OlympicGameCreator extends BaseGameCreator {
         stageId: stage.id,
         bracketType: 'upper', // All Olympic games are treated as upper bracket
         playersPerGame: participantsPerGame,
-        gameIndex: i
+        gameIndex: i,
+        stageThemes: stageThemes
       });
       
       games.push(game);
@@ -38,7 +42,8 @@ export class OlympicGameCreator extends BaseGameCreator {
         stageId: stage.id,
         bracketType: null,
         playersPerGame: participantsPerGame,
-        gameIndex: 0
+        gameIndex: 0,
+        stageThemes: stageThemes
       });
       
       games.push(game);

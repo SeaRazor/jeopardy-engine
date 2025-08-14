@@ -13,15 +13,13 @@ export const getTournamentStatus = (startDate, endDate) => {
 };
 
 export const getTypeLabel = (type) => {
-  const types = {
-    'Своя Игра': 'СИ',
-    'Эрудит-квартет': 'ЭК',
-    'SI': 'СИ',
-    'EK': 'ЭК',
-    1: 'СИ',
-    2: 'ЭК',
-    '1': 'СИ',
-    '2': 'ЭК',
-  };
-  return types[type] || '';
+  // Handle integer IDs as primary format
+  if (type === 1 || type === '1') return 'СИ';
+  if (type === 2 || type === '2') return 'ЭК';
+  
+  // Fallback for legacy string names during transition
+  if (type === 'Своя игра') return 'СИ';
+  if (type === 'Эрудит-квартет') return 'ЭК';
+  
+  return '';
 };
