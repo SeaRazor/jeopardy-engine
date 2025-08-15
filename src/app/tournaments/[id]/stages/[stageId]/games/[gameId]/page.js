@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { FaUsers, FaMicrophone, FaTrophy, FaUserTimes, FaCheckCircle, FaChevronLeft, FaChevronRight, FaCheck, FaInfoCircle, FaChevronRight as FaBreadcrumbChevron } from 'react-icons/fa';
+import { FaUsers, FaMicrophone, FaTrophy, FaUserTimes, FaCheckCircle, FaChevronLeft, FaChevronRight, FaCheck, FaInfoCircle, FaChevronRight as FaBreadcrumbChevron, FaPlus, FaMinus } from 'react-icons/fa';
 import Link from 'next/link';
 import Card from '../../../../../../UI/Card/Card';
-import { generateColorFromString } from '../../../../../../util/color';
 import { useToast } from '../../../../../../util/ToastContext';
 import styles from './GameDetailsPage.module.css';
 
@@ -22,6 +21,7 @@ export default function GameDetailsPage() {
   const [themes, setThemes] = useState([]);
   const [selectedThemeIndex, setSelectedThemeIndex] = useState(0);
   const [completedThemes, setCompletedThemes] = useState(new Set());
+  const [revealedQuestions, setRevealedQuestions] = useState(new Map());
   const [loading, setLoading] = useState(true);
 
   const { id: tournamentId, stageId, gameId } = params;
@@ -132,11 +132,29 @@ export default function GameDetailsPage() {
 
   const getPlayerName = (playerInfo) => {
     if (!playerInfo) return 'Unknown Player';
-    if (playerInfo.name) return playerInfo.name; // Team name
-    if (playerInfo.firstName && playerInfo.lastName) {
-      return `${playerInfo.firstName} ${playerInfo.lastName}`;
+    
+    let fullName;
+    if (playerInfo.name) {
+      fullName = playerInfo.name; // Team name
+    } else if (playerInfo.firstName && playerInfo.lastName) {
+      fullName = `${playerInfo.firstName} ${playerInfo.lastName}`;
+    } else {
+      fullName = playerInfo.firstName || 'Unknown Player';
     }
-    return playerInfo.firstName || 'Unknown Player';
+    
+    // Split name by space and show on separate lines if two words
+    const words = fullName.split(' ');
+    if (words.length === 2) {
+      return (
+        <>
+          {words[0]}
+          <br />
+          {words[1]}
+        </>
+      );
+    }
+    
+    return fullName;
   };
 
   const getPlayerInitials = (playerInfo) => {
@@ -148,9 +166,18 @@ export default function GameDetailsPage() {
     return playerInfo.firstName?.charAt(0)?.toUpperCase() || '?';
   };
 
-  const getPlayerColor = (playerInfo) => {
+  const getPlayerColor = (playerInfo, playerIndex) => {
     if (!playerInfo) return '#ccc';
-    return generateColorFromString(playerInfo.id);
+    
+    // Use 4 grades of amber for visual differentiation
+    const predefinedColors = [
+      '#d97706', // Amber 600 (darkest)
+      '#f59e0b', // Amber 500 
+      '#fbbf24', // Amber 400
+      '#fcd34d'  // Amber 300 (lightest)
+    ];
+    
+    return predefinedColors[playerIndex % predefinedColors.length];
   };
 
   const handleThemeSelect = (index) => {
@@ -182,6 +209,58 @@ export default function GameDetailsPage() {
       const newCompleted = new Set(prev);
       newCompleted.add(selectedThemeIndex);
       return newCompleted;
+    });
+  };
+
+  const handleScoreAdjustment = (playerId, adjustment, event, questionId, themeIndex, questionIndex) => {
+    event.stopPropagation();
+    event.preventDefault();
+    
+    const isCorrectAnswer = adjustment > 0;
+    
+    // Reveal the question value for this specific player
+    setRevealedQuestions(prev => {
+      const newMap = new Map(prev);
+      const playerQuestions = newMap.get(playerId) || new Set();
+      playerQuestions.add(questionId);
+      newMap.set(playerId, playerQuestions);
+      return newMap;
+    });
+    
+    // Update question state
+    setThemes(prevThemes => {
+      const newThemes = [...prevThemes];
+      if (isCorrectAnswer) {
+        // Correct answer: mark as answered and completed for all players
+        newThemes[themeIndex].questions[questionIndex] = {
+          ...newThemes[themeIndex].questions[questionIndex],
+          answered: true,
+          answeredBy: playerId,
+          isCompleted: true
+        };
+      } else {
+        // Incorrect answer: mark as answered by this player but keep available for others
+        newThemes[themeIndex].questions[questionIndex] = {
+          ...newThemes[themeIndex].questions[questionIndex],
+          answeredBy: playerId,
+          incorrectAnswers: [
+            ...(newThemes[themeIndex].questions[questionIndex].incorrectAnswers || []),
+            playerId
+          ]
+        };
+      }
+      return newThemes;
+    });
+    
+    // Update player scores
+    setPlayers(prevPlayers => {
+      const newPlayers = prevPlayers.map(player => 
+        player.playerId === playerId 
+          ? { ...player, points: player.points + adjustment }
+          : player
+      );
+      
+      return newPlayers;
     });
   };
 
@@ -428,44 +507,14 @@ export default function GameDetailsPage() {
           </Card>
         )}
 
-        {/* Player Scores Section */}
-        {players.length > 0 && (
-          <Card className={styles.scoresCard}>
-            <div className={styles.scoresHeader}>
-              <h3>Счёт игроков</h3>
-              <div className={styles.scoresCount}>
-                {players.length} игроков
-              </div>
-            </div>
-            <div className={styles.scoresGrid}>
-              {players.map((player, index) => (
-                <div key={player.playerId} className={styles.scoreItem}>
-                  <div className={styles.avatar} style={{ backgroundColor: getPlayerColor(player.playerInfo) }}>
-                    {getPlayerInitials(player.playerInfo)}
-                  </div>
-                  <div className={styles.playerInfo}>
-                    <div className={styles.playerName}>
-                      {getPlayerName(player.playerInfo)}
-                    </div>
-                    <div className={styles.playerScore}>
-                      {player.points} очков
-                      {player.extraResult && (
-                        <span className={styles.extraResult}> ({player.extraResult})</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Card>
-        )}
 
         {/* Game Grid */}
         <Card className={styles.gameGridCard}>
           <div className={styles.gameGrid}>
             {/* Header Row */}
             <div className={styles.gridHeader}>
-              <div className={styles.playerHeader}>Игрок</div>
+              <div></div>
+              <div className={styles.scoreHeader}>Счет</div>
               {selectedTheme.questions.map((question) => (
                 <div key={question.id} className={styles.questionHeader}>
                   {question.value}
@@ -477,36 +526,56 @@ export default function GameDetailsPage() {
             {players.map((player, playerIndex) => (
               <div key={player.playerId} className={styles.gridRow}>
                 <div className={styles.playerCell}>
-                  <div className={styles.avatar} style={{ backgroundColor: getPlayerColor(player.playerInfo) }}>
-                    {getPlayerInitials(player.playerInfo)}
-                  </div>
                   <div className={styles.playerInfo}>
-                    <div className={styles.playerName}>
+                    <div className={styles.playerName} style={{ color: getPlayerColor(player.playerInfo, playerIndex) }}>
                       {getPlayerName(player.playerInfo)}
                     </div>
-                    <div className={styles.playerScore}>
-                      {player.points} очков
-                      {player.extraResult && (
-                        <span className={styles.extraResult}> ({player.extraResult})</span>
-                      )}
-                    </div>
                   </div>
+                </div>
+                
+                <div className={styles.scoreCell} style={{ color: getPlayerColor(player.playerInfo, playerIndex) }}>
+                  {player.points}
+                  {player.extraResult && (
+                    <span className={styles.extraResult}> ({player.extraResult})</span>
+                  )}
                 </div>
                 
                 {selectedTheme.questions.map((question, questionIndex) => (
                   <div 
                     key={question.id} 
                     className={`${styles.questionCell} ${
-                      question.answered 
-                        ? question.answeredBy === player.playerId 
-                          ? styles.answeredCorrect 
-                          : styles.answeredIncorrect
-                        : ''
+                      question.answered && question.answeredBy === player.playerId 
+                        ? styles.answeredCorrect 
+                        : (question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId))
+                          ? styles.answeredIncorrect
+                          : ''
                     }`}
-                    onClick={() => handleQuestionClick(selectedThemeIndex, questionIndex, player.playerId)}
                   >
-                    {question.answered && question.answeredBy === player.playerId ? '✓' : 
-                     question.answered ? '✗' : question.value}
+                    <div className={styles.questionContent}>
+                      {!(question.isCompleted || (question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId))) && (
+                        <button 
+                          className={`${styles.adjustButton} ${styles.minusButton}`}
+                          onClick={(e) => handleScoreAdjustment(player.playerId, -question.value, e, question.id, selectedThemeIndex, questionIndex)}
+                          aria-label="Уменьшить счет"
+                        >
+                          <FaMinus />
+                        </button>
+                      )}
+                      <span className={styles.questionValue}>
+                        {question.answered && question.answeredBy === player.playerId ? '✓' : 
+                         (question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId)) ? '✗' : 
+                         (revealedQuestions && revealedQuestions.get && revealedQuestions.get(player.playerId) && revealedQuestions.get(player.playerId).has(question.id)) ? question.value : ''}
+                      </span>
+                      {!(question.isCompleted || (question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId))) && (
+                        <button 
+                          className={`${styles.adjustButton} ${styles.plusButton}`}
+                          onClick={(e) => handleScoreAdjustment(player.playerId, question.value, e, question.id, selectedThemeIndex, questionIndex)}
+                          aria-label="Увеличить счет"
+                        >
+                          <FaPlus />
+                        </button>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>

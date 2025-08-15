@@ -453,111 +453,6 @@
   background: #ef4444;
 }
 
-/* Player Scores Section */
-.scoresCard {
-  margin-bottom: 1rem;
-}
-
-.scoresHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1rem 0.5rem;
-  border-bottom: 1px solid var(--card-border);
-  margin-bottom: 1rem;
-}
-
-.scoresHeader h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--color-foreground);
-}
-
-.scoresCount {
-  font-size: 0.9rem;
-  color: var(--color-secondary-text);
-  font-weight: 500;
-}
-
-.scoresGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0.75rem;
-  padding: 0 1rem 1rem;
-}
-
-.scoreItem {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem;
-  background: var(--accent-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-.scoreItem:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-color: var(--primary-color);
-}
-
-.avatar {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  color: white;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  position: relative;
-}
-
-.rankBadge {
-  position: absolute;
-  top: -0.25rem;
-  right: -0.25rem;
-  width: 1.25rem;
-  height: 1.25rem;
-  background: var(--primary-color);
-  border: 2px solid white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  font-weight: 700;
-  z-index: 1;
-}
-
-.scoreItem .playerInfo {
-  flex: 1;
-  min-width: 0;
-}
-
-.scoreItem .playerName {
-  font-weight: 600;
-  color: var(--color-foreground);
-  margin-bottom: 0.25rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.scoreItem .playerScore {
-  font-size: 0.9rem;
-  color: var(--color-secondary-text);
-  font-weight: 500;
-}
-
-.scoreItem .extraResult {
-  color: var(--primary-color);
-  font-weight: 600;
-}
 
 /* Game Grid */
 .gameGridCard {
@@ -566,71 +461,81 @@
 
 .gameGrid {
   display: grid;
-  gap: 1px;
-  background: var(--card-border);
-  border-radius: 8px;
+  gap: 0;
+  background: var(--card-bg);
+  border-radius: 12px;
   overflow: hidden;
   margin: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .gridHeader {
   display: grid;
-  grid-template-columns: 250px repeat(5, 1fr);
-  background: var(--accent-bg);
+  grid-template-columns: 200px 100px repeat(5, 1fr);
+  background: linear-gradient(135deg, var(--accent-bg) 0%, rgba(var(--primary-color-rgb, 59, 130, 246), 0.05) 100%);
+  border-bottom: 2px solid rgba(var(--primary-color-rgb, 59, 130, 246), 0.1);
 }
 
 .playerHeader,
+.scoreHeader,
 .questionHeader {
-  padding: 0.75rem;
-  font-weight: 600;
+  padding: 1rem 0.75rem;
+  font-weight: 700;
   text-align: center;
   color: var(--color-foreground);
-  border-right: 1px solid var(--card-border);
-  background: var(--accent-bg);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-right: 1px solid rgba(var(--primary-color-rgb, 59, 130, 246), 0.1);
+  background: transparent;
+  position: relative;
 }
 
 .playerHeader {
   text-align: left;
   background: var(--primary-color);
   color: white;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  box-shadow: inset 0 -2px 0 rgba(255, 255, 255, 0.2);
 }
 
 .questionHeader {
-  font-size: 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--primary-color);
 }
 
 .gridRow {
   display: grid;
-  grid-template-columns: 250px repeat(5, 1fr);
+  grid-template-columns: 200px 100px repeat(5, 1fr);
   background: var(--card-bg);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
 }
 
-.gridRow:nth-child(even) {
-  background: var(--accent-bg);
+.gridRow:hover {
+  background: rgba(var(--primary-color-rgb, 59, 130, 246), 0.02);
+  box-shadow: inset 0 0 0 1px rgba(var(--primary-color-rgb, 59, 130, 246), 0.05);
+}
+
+.gridRow:last-child {
+  border-bottom: none;
 }
 
 .playerCell {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem;
-  border-right: 1px solid var(--card-border);
+  padding: 1.25rem 1rem;
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
   background: inherit;
+  transition: all 0.2s ease;
 }
 
-.playerCell .avatar {
-  width: 2rem;
-  height: 2rem;
-  font-size: 0.8rem;
-}
-
-.playerCell .rankBadge {
-  width: 1rem;
-  height: 1rem;
-  font-size: 0.6rem;
-  top: -0.2rem;
-  right: -0.2rem;
-}
 
 
 .playerInfo {
@@ -639,12 +544,16 @@
 }
 
 .playerName {
-  font-weight: 600;
-  color: var(--color-foreground);
-  margin-bottom: 0.25rem;
-  white-space: nowrap;
+  font-weight: 700;
+  margin-bottom: 0;
+  line-height: 1.3;
+  text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.025em;
 }
 
 .playerScore {
@@ -653,50 +562,167 @@
 }
 
 .extraResult {
-  color: var(--primary-color);
+  opacity: 0.8;
   font-weight: 500;
+}
+
+.scoreCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 1rem;
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  background: inherit;
+  font-weight: 700;
+  font-size: 1.125rem;
+  transition: all 0.2s ease;
+  min-height: 60px;
 }
 
 .questionCell {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
-  border-right: 1px solid var(--card-border);
+  padding: 1.25rem 0.75rem;
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
   background: inherit;
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
   font-size: 1rem;
   color: var(--color-foreground);
+  position: relative;
+  min-height: 60px;
+  border-radius: 0;
+}
+
+.questionCell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(var(--primary-color-rgb, 59, 130, 246), 0.02) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.questionCell:last-child {
+  border-right: none;
 }
 
 .questionCell:hover {
-  background: var(--primary-color);
-  color: white;
-  transform: scale(1.02);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px -8px rgba(var(--primary-color-rgb, 59, 130, 246), 0.4);
+  z-index: 1;
+}
+
+.questionCell:hover::before {
+  opacity: 1;
+}
+
+.questionCell:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px -4px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
 }
 
 .questionCell.answeredCorrect {
-  background: rgba(34, 197, 94, 0.2);
-  border-color: rgb(34, 197, 94);
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(34, 197, 94, 0.05) 100%);
+  border: 2px solid rgba(34, 197, 94, 0.3);
   color: rgb(34, 197, 94);
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.125rem;
+  box-shadow: inset 0 1px 0 rgba(34, 197, 94, 0.1);
 }
 
 .questionCell.answeredIncorrect {
-  background: rgba(239, 68, 68, 0.2);
-  border-color: rgb(239, 68, 68);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
+  border: 2px solid rgba(239, 68, 68, 0.3);
   color: rgb(239, 68, 68);
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.125rem;
+  box-shadow: inset 0 1px 0 rgba(239, 68, 68, 0.1);
 }
 
 .questionCell.answeredCorrect:hover,
 .questionCell.answeredIncorrect:hover {
   transform: none;
   cursor: default;
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.questionContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.questionValue {
+  flex: 1;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.adjustButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--color-foreground);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  opacity: 0;
+  transform: scale(0.8);
+  z-index: 10;
+}
+
+.adjustButton:hover:not(:disabled) {
+  background: white;
+  transform: scale(1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.adjustButton.minusButton {
+  color: #dc2626;
+}
+
+.adjustButton.minusButton:hover:not(:disabled) {
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.adjustButton.plusButton {
+  color: #16a34a;
+}
+
+.adjustButton.plusButton:hover:not(:disabled) {
+  color: #16a34a;
+  background: rgba(22, 163, 74, 0.1);
+  border: 1px solid rgba(22, 163, 74, 0.2);
+}
+
+.adjustButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: scale(0.8);
+}
+
+.questionCell:hover .adjustButton:not(:disabled) {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.questionCell:hover .adjustButton:disabled {
+  opacity: 0.3;
+  transform: scale(0.8);
 }
 
 /* Loading and Error States */
@@ -843,127 +869,146 @@
     gap: 0.25rem;
   }
 
-  .scoresHeader {
-    padding: 0.75rem 0.75rem 0.5rem;
-  }
-
-  .scoresHeader h3 {
-    font-size: 1rem;
-  }
-
-  .scoresCount {
-    font-size: 0.8rem;
-  }
-
-  .scoresGrid {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-    padding: 0 0.75rem 0.75rem;
-  }
-
-  .scoreItem {
-    padding: 0.5rem;
-    gap: 0.5rem;
-  }
-
-  .avatar {
-    width: 2rem;
-    height: 2rem;
-    font-size: 0.8rem;
-  }
-
-  .rankBadge {
-    width: 1rem;
-    height: 1rem;
-    font-size: 0.6rem;
-    top: -0.2rem;
-    right: -0.2rem;
-  }
-
-  .scoreItem .playerName {
-    font-size: 0.9rem;
-  }
-
-  .scoreItem .playerScore {
-    font-size: 0.8rem;
-  }
-
   .gameGrid {
     margin: 0.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
   }
 
-  .gridHeader,
+  .gridHeader {
+    grid-template-columns: 120px 80px repeat(5, minmax(50px, 1fr));
+    background: linear-gradient(135deg, var(--accent-bg) 0%, rgba(var(--primary-color-rgb, 59, 130, 246), 0.04) 100%);
+  }
+
   .gridRow {
-    grid-template-columns: 150px repeat(5, minmax(60px, 1fr));
+    grid-template-columns: 120px 80px repeat(5, minmax(50px, 1fr));
+  }
+
+  .gridRow:hover {
+    background: rgba(var(--primary-color-rgb, 59, 130, 246), 0.015);
   }
 
   .playerCell {
-    padding: 0.75rem 0.5rem;
-    gap: 0.5rem;
+    padding: 1rem 0.75rem;
   }
 
-  .playerCell .avatar {
-    width: 1.75rem;
-    height: 1.75rem;
-    font-size: 0.7rem;
-  }
-
-  .playerCell .rankBadge {
-    width: 0.9rem;
-    height: 0.9rem;
-    font-size: 0.55rem;
+  .scoreCell {
+    padding: 1rem 0.75rem;
+    font-size: 1rem;
+    min-height: 50px;
   }
 
   .playerName {
-    font-size: 0.9rem;
-  }
-
-  .playerScore {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    font-weight: 600;
   }
 
   .questionCell {
-    padding: 0.75rem 0.25rem;
-    font-size: 0.9rem;
+    padding: 1rem 0.5rem;
+    font-size: 0.85rem;
+    min-height: 50px;
+  }
+
+  .questionCell:hover {
+    transform: translateY(-0.5px);
+    box-shadow: 0 4px 12px -4px rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+  }
+
+  .adjustButton {
+    opacity: 1;
+    width: 28px;
+    height: 28px;
+    font-size: 0.85rem;
+  }
+
+  .questionValue {
+    font-size: 0.85rem;
   }
 
   .playerHeader,
+  .scoreHeader,
   .questionHeader {
-    padding: 0.5rem 0.25rem;
-    font-size: 0.9rem;
+    padding: 0.75rem 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.03em;
   }
 
   .playerHeader {
-    padding: 0.5rem;
+    padding: 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .questionHeader {
+    font-size: 1rem;
+    font-weight: 600;
   }
 }
 
 @media (max-width: 480px) {
+  .gameGrid {
+    margin: 0.25rem;
+    border-radius: 6px;
+  }
+
   .gridHeader,
   .gridRow {
-    grid-template-columns: 120px repeat(5, minmax(50px, 1fr));
+    grid-template-columns: 100px 60px repeat(5, minmax(40px, 1fr));
+  }
+
+  .playerCell {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .scoreCell {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.9rem;
+    min-height: 45px;
   }
 
   .questionCell {
-    padding: 0.5rem 0.1rem;
+    padding: 0.75rem 0.25rem;
+    font-size: 0.8rem;
+    min-height: 45px;
+  }
+
+  .questionCell:hover {
+    transform: translateY(-0.25px);
+    box-shadow: 0 2px 8px -2px rgba(var(--primary-color-rgb, 59, 130, 246), 0.25);
+  }
+
+  .adjustButton {
+    opacity: 1;
+    width: 24px;
+    height: 24px;
+    font-size: 0.75rem;
+  }
+
+  .questionValue {
     font-size: 0.8rem;
   }
 
   .playerName {
     font-size: 0.8rem;
-  }
-
-  .playerScore {
-    font-size: 0.7rem;
+    line-height: 1.15;
+    font-weight: 600;
   }
 
   .playerHeader,
+  .scoreHeader,
   .questionHeader {
-    padding: 0.4rem 0.1rem;
-    font-size: 0.8rem;
+    padding: 0.6rem 0.25rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
   }
 
   .playerHeader {
-    padding: 0.4rem;
+    padding: 0.6rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .questionHeader {
+    font-size: 0.9rem;
+    font-weight: 600;
   }
 }
