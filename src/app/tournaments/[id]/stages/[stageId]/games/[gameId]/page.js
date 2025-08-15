@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { FaUsers, FaMicrophone, FaTrophy, FaUserTimes, FaCheckCircle, FaChevronLeft, FaChevronRight, FaCheck, FaInfoCircle, FaChevronRight as FaBreadcrumbChevron } from 'react-icons/fa';
 import Link from 'next/link';
 import Card from '../../../../../../UI/Card/Card';
+import { generateColorFromString } from '../../../../../../util/color';
 import { useToast } from '../../../../../../util/ToastContext';
 import styles from './GameDetailsPage.module.css';
 
@@ -87,16 +88,33 @@ export default function GameDetailsPage() {
         const stageThemes = gameData.stageThemes || [];
         const numberOfThemes = stageThemes.length || stageData?.numberOfThemesInGame || 6;
         
-        const initialThemes = Array.from({ length: numberOfThemes }, (_, index) => ({
-          id: index + 1,
-          name: stageThemes[index] || `Тема ${index + 1}`, // Use real theme name or fallback
-          questions: Array.from({ length: 5 }, (_, qIndex) => ({
-            id: `${index + 1}-${qIndex + 1}`,
-            value: (qIndex + 1) * 10,
-            answered: false,
-            answeredBy: null
-          }))
-        }));
+        const initialThemes = Array.from({ length: numberOfThemes }, (_, index) => {
+          const themeData = stageThemes[index];
+          let themeName = `Тема ${index + 1}`;
+          let themeDescription = '';
+          
+          // Handle both string and object formats
+          if (themeData) {
+            if (typeof themeData === 'string') {
+              themeName = themeData;
+            } else if (typeof themeData === 'object' && themeData.name) {
+              themeName = themeData.name;
+              themeDescription = themeData.description || '';
+            }
+          }
+          
+          return {
+            id: index + 1,
+            name: themeName,
+            description: themeDescription,
+            questions: Array.from({ length: 5 }, (_, qIndex) => ({
+              id: `${index + 1}-${qIndex + 1}`,
+              value: (qIndex + 1) * 10,
+              answered: false,
+              answeredBy: null
+            }))
+          };
+        });
         setThemes(initialThemes);
 
       } catch (error) {
@@ -119,6 +137,20 @@ export default function GameDetailsPage() {
       return `${playerInfo.firstName} ${playerInfo.lastName}`;
     }
     return playerInfo.firstName || 'Unknown Player';
+  };
+
+  const getPlayerInitials = (playerInfo) => {
+    if (!playerInfo) return '?';
+    if (playerInfo.name) return playerInfo.name.charAt(0).toUpperCase(); // Team initial
+    if (playerInfo.firstName && playerInfo.lastName) {
+      return `${playerInfo.firstName.charAt(0)}${playerInfo.lastName.charAt(0)}`.toUpperCase();
+    }
+    return playerInfo.firstName?.charAt(0)?.toUpperCase() || '?';
+  };
+
+  const getPlayerColor = (playerInfo) => {
+    if (!playerInfo) return '#ccc';
+    return generateColorFromString(playerInfo.id);
   };
 
   const handleThemeSelect = (index) => {
@@ -209,7 +241,7 @@ export default function GameDetailsPage() {
   }
 
   const { winners, losers } = getWinnersAndLosers();
-  const selectedTheme = themes[selectedThemeIndex];
+  const selectedTheme = themes[selectedThemeIndex] || { name: 'Загрузка...', description: '' };
 
   return (
     <div className={styles.container}>
@@ -293,7 +325,7 @@ export default function GameDetailsPage() {
         </div>
         
         {/* Themes Section */}
-        <div className={styles.themesInfoSection}>
+        {/*<div className={styles.themesInfoSection}>
           <div className={styles.themesInfoHeader}>
             <div className={styles.themesInfoIcon}>📚</div>
             <div className={styles.themesInfoLabel}>Темы игры ({themes.length})</div>
@@ -305,89 +337,128 @@ export default function GameDetailsPage() {
               </span>
             ))}
           </div>
-        </div>
+        </div>*/}
       </Card>
 
       {/* Main Game Area */}
       <div className={styles.gameArea}>
         {/* Themes Stepper */}
-        <Card className={styles.themesCard}>
-          <div className={styles.themesHeader}>
-            <h3>Темы игры</h3>
-            <div className={styles.themeCounter}>
-              {selectedThemeIndex + 1} из {themes.length}
+        {themes.length > 0 && (
+          <Card className={styles.themesCard}>
+            <div className={styles.themesHeaderWithStepper}>
+              <div className={styles.themesHeaderInfo}>
+                <h3>Темы игры</h3>
+                <div className={styles.themeCounter}>
+                  {selectedThemeIndex + 1} из {themes.length}
+                </div>
+              </div>
+              
+              <div className={styles.stepperContainer}>
+                <button
+                  onClick={handlePrevTheme}
+                  className={styles.navButton}
+                  aria-label="Предыдущая тема"
+                >
+                  <FaChevronLeft />
+                </button>
+                
+                <div className={styles.themesStepper}>
+                  {themes.map((theme, index) => (
+                    <div key={theme.id} className={styles.stepperItem}>
+                      <div 
+                        className={`${styles.stepCircle} ${
+                          completedThemes.has(index) ? styles.completed : 
+                          index === selectedThemeIndex ? styles.current : styles.upcoming
+                        }`}
+                        onClick={() => setSelectedThemeIndex(index)}
+                      >
+                        {completedThemes.has(index) ? (
+                          <FaCheckCircle className={styles.checkIcon} />
+                        ) : (
+                          index + 1
+                        )}
+                      </div>
+                      {index < themes.length - 1 && (
+                        <div 
+                          className={`${styles.stepLine} ${
+                            completedThemes.has(index) ? styles.completed : ''
+                          }`}
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+                
+                <button
+                  onClick={handleNextTheme}
+                  className={styles.navButton}
+                  aria-label="Следующая тема"
+                >
+                  <FaChevronRight />
+                </button>
+              </div>
+              
+              <div className={styles.headerActions}>
+                <button
+                  onClick={handleCompleteTheme}
+                  className={`${styles.actionButton} ${styles.completeThemeButton}`}
+                  disabled={completedThemes.has(selectedThemeIndex)}
+                >
+                  <FaCheck />
+                  {completedThemes.has(selectedThemeIndex) ? 'Завершена' : 'Завершить'}
+                </button>
+                
+                <button
+                  onClick={handleCompleteGame}
+                  className={`${styles.actionButton} ${styles.completeGameButton}`}
+                  disabled={game?.status === 'completed'}
+                >
+                  <FaTrophy />
+                  {game?.status === 'completed' ? 'Завершена' : 'Завершить игру'}
+                </button>
+              </div>
             </div>
-          </div>
-          <div className={styles.stepperNavigation}>
-            <button
-              onClick={handlePrevTheme}
-              className={styles.navButton}
-              aria-label="Предыдущая тема"
-            >
-              <FaChevronLeft />
-              Назад
-            </button>
             
-            <div className={styles.themesStepper}>
-              {themes.map((theme, index) => (
-                <div key={theme.id} className={styles.stepperItem}>
-                  <div 
-                    className={`${styles.stepCircle} ${
-                      completedThemes.has(index) ? styles.completed : 
-                      index === selectedThemeIndex ? styles.current : styles.upcoming
-                    }`}
-                    onClick={() => setSelectedThemeIndex(index)}
-                  >
-                    {completedThemes.has(index) ? (
-                      <FaCheckCircle className={styles.checkIcon} />
-                    ) : (
-                      index + 1
-                    )}
+            <div className={styles.currentThemeInfo}>
+              <div className={styles.themeName}>{selectedTheme.name}</div>
+              {selectedTheme.description && (
+                <div className={styles.themeDescription}>{selectedTheme.description}</div>
+              )}
+            </div>
+          </Card>
+        )}
+
+        {/* Player Scores Section */}
+        {players.length > 0 && (
+          <Card className={styles.scoresCard}>
+            <div className={styles.scoresHeader}>
+              <h3>Счёт игроков</h3>
+              <div className={styles.scoresCount}>
+                {players.length} игроков
+              </div>
+            </div>
+            <div className={styles.scoresGrid}>
+              {players.map((player, index) => (
+                <div key={player.playerId} className={styles.scoreItem}>
+                  <div className={styles.avatar} style={{ backgroundColor: getPlayerColor(player.playerInfo) }}>
+                    {getPlayerInitials(player.playerInfo)}
                   </div>
-                  {index < themes.length - 1 && (
-                    <div 
-                      className={`${styles.stepLine} ${
-                        completedThemes.has(index) ? styles.completed : ''
-                      }`}
-                    />
-                  )}
+                  <div className={styles.playerInfo}>
+                    <div className={styles.playerName}>
+                      {getPlayerName(player.playerInfo)}
+                    </div>
+                    <div className={styles.playerScore}>
+                      {player.points} очков
+                      {player.extraResult && (
+                        <span className={styles.extraResult}> ({player.extraResult})</span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
-            
-            <button
-              onClick={handleNextTheme}
-              className={styles.navButton}
-              aria-label="Следующая тема"
-            >
-              Вперед
-              <FaChevronRight />
-            </button>
-          </div>
-          
-          <div className={styles.currentThemeInfo}>
-            <div className={styles.themeName}>{selectedTheme.name}</div>
-            <div className={styles.themeActions}>
-              <button
-                onClick={handleCompleteTheme}
-                className={`${styles.actionButton} ${styles.completeThemeButton}`}
-                disabled={completedThemes.has(selectedThemeIndex)}
-              >
-                <FaCheck />
-                {completedThemes.has(selectedThemeIndex) ? 'Тема завершена' : 'Завершить тему'}
-              </button>
-              
-              <button
-                onClick={handleCompleteGame}
-                className={`${styles.actionButton} ${styles.completeGameButton}`}
-                disabled={game?.status === 'completed'}
-              >
-                <FaTrophy />
-                {game?.status === 'completed' ? 'Игра завершена' : 'Завершить игру'}
-              </button>
-            </div>
-          </div>
-        </Card>
+          </Card>
+        )}
 
         {/* Game Grid */}
         <Card className={styles.gameGridCard}>
@@ -406,7 +477,9 @@ export default function GameDetailsPage() {
             {players.map((player, playerIndex) => (
               <div key={player.playerId} className={styles.gridRow}>
                 <div className={styles.playerCell}>
-                  <div className={styles.playerRank}>{playerIndex + 1}</div>
+                  <div className={styles.avatar} style={{ backgroundColor: getPlayerColor(player.playerInfo) }}>
+                    {getPlayerInitials(player.playerInfo)}
+                  </div>
                   <div className={styles.playerInfo}>
                     <div className={styles.playerName}>
                       {getPlayerName(player.playerInfo)}

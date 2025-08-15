@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
-import { FaUsers, FaTrophy, FaInfoCircle, FaGamepad, FaUserSlash, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaUsers, FaTrophy, FaInfoCircle, FaGamepad, FaUserSlash, FaChevronDown, FaChevronUp, FaEdit } from 'react-icons/fa';
 import GameCard from '../../../components/GameCard';
 import { getPlayerManagementState } from '../../../util/playerManagementUtils';
+import ThemeEditModal from './ThemeEditModal';
 import styles from './StageTab.module.css';
 
 const fetchStageGames = async (tournamentId, stageId) => {
@@ -33,7 +34,7 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
   
   // Theme names management
   const [stageThemes, setStageThemes] = useState([]);
-  const [isEditingThemes, setIsEditingThemes] = useState(false);
+  const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
   
   // React Query
   const queryClient = useQueryClient();
@@ -43,11 +44,19 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
     const loadStageThemes = () => {
       // Initialize with existing themes from stage or default themes
       const defaultThemeCount = stage?.numberOfThemesInGame || 6;
-      const existingThemes = stage?.stageThemes || [];
+      const existingThemes = stage?.stageThemes || stage?.themes || [];
       
-      const themes = Array.from({ length: defaultThemeCount }, (_, index) => 
-        existingThemes[index] || `Тема ${index + 1}`
-      );
+      // Handle both string and object formats
+      const themes = Array.from({ length: defaultThemeCount }, (_, index) => {
+        const existing = existingThemes[index];
+        if (existing) {
+          if (typeof existing === 'string') {
+            return { name: existing, description: '' };
+          }
+          return existing;
+        }
+        return { name: `Тема ${index + 1}`, description: '' };
+      });
       
       setStageThemes(themes);
     };
@@ -58,13 +67,6 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
   }, [stage]);
 
   // Theme management functions
-  const handleThemeNameChange = (index, newName) => {
-    const updatedThemes = [...stageThemes];
-    updatedThemes[index] = newName;
-    setStageThemes(updatedThemes);
-  };
-
-  // Mutation for saving themes
   const saveThemesMutation = useMutation({
     mutationFn: async (themes) => {
       const response = await fetch(`/api/tournaments/${tournament.id}/stages/${stage.id}/themes`, {
@@ -82,7 +84,6 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
       return response.json();
     },
     onSuccess: () => {
-      setIsEditingThemes(false);
       // Invalidate tournament query to refetch updated data
       queryClient.invalidateQueries({ queryKey: ['tournament', tournament.id] });
     },
@@ -92,21 +93,17 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
     }
   });
 
-  const handleSaveThemes = () => {
-    saveThemesMutation.mutate(stageThemes);
+  const handleSaveThemes = (themes) => {
+    setStageThemes(themes);
+    saveThemesMutation.mutate(themes);
   };
 
-  const handleCancelEditThemes = () => {
-    // Reset themes to original values
-    const defaultThemeCount = stage?.numberOfThemesInGame || 6;
-    const existingThemes = stage?.stageThemes || [];
-    
-    const themes = Array.from({ length: defaultThemeCount }, (_, index) => 
-      existingThemes[index] || `Тема ${index + 1}`
-    );
-    
-    setStageThemes(themes);
-    setIsEditingThemes(false);
+  const handleOpenThemeModal = () => {
+    setIsThemeModalOpen(true);
+  };
+
+  const handleCloseThemeModal = () => {
+    setIsThemeModalOpen(false);
   };
 
   if (!stage) {
@@ -502,58 +499,43 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
               )}
             </div>
           )}
-
           {/* Theme Management Subsection */}
           <div className={styles.themeManagementSection}>
             <div className={styles.themeManagementHeader}>
-              <h3>Темы игр стадии</h3>
+              <div className={styles.detailHeader}>
+                <FaInfoCircle className={styles.detailIcon} />
+                <strong>Темы стадии:</strong>
+              </div>
               <div className={styles.themeManagementActions}>
-                {!isEditingThemes ? (
-                  <button 
-                    onClick={() => setIsEditingThemes(true)}
-                    className={styles.editThemesButton}
-                  >
-                    Редактировать темы
-                  </button>
-                ) : (
-                  <div className={styles.themeActionButtons}>
-                    <button 
-                      onClick={handleSaveThemes}
-                      className={styles.saveThemesButton}
-                      disabled={saveThemesMutation.isPending}
-                    >
-                      {saveThemesMutation.isPending ? 'Сохранение...' : 'Сохранить'}
-                    </button>
-                    <button 
-                      onClick={handleCancelEditThemes}
-                      className={styles.cancelThemesButton}
-                    >
-                      Отмена
-                    </button>
-                  </div>
-                )}
+                <button 
+                  onClick={handleOpenThemeModal}
+                  className={styles.editThemesButton}
+                >
+                  <FaEdit />
+                  Редактировать все темы
+                </button>
               </div>
             </div>
             
             <div className={styles.themesGrid}>
-              {stageThemes.map((themeName, index) => (
+              {stageThemes.map((theme, index) => (
                 <div key={index} className={styles.themeItem}>
-                  <div className={styles.themeNumber}>#{index + 1}</div>
-                  {isEditingThemes ? (
-                    <input
-                      type="text"
-                      value={themeName}
-                      onChange={(e) => handleThemeNameChange(index, e.target.value)}
-                      className={styles.themeNameInput}
-                      placeholder={`Тема ${index + 1}`}
-                    />
-                  ) : (
-                    <div className={styles.themeNameDisplay}>{themeName}</div>
-                  )}
+                  <div className={styles.themeNameDisplay}>
+                    {theme.name || `Тема ${index + 1}`}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
+
+          <ThemeEditModal
+            isOpen={isThemeModalOpen}
+            onClose={handleCloseThemeModal}
+            onSave={handleSaveThemes}
+            initialThemes={stageThemes}
+            maxThemes={stage?.numberOfThemesInGame || 6}
+            isSaving={saveThemesMutation.isPending}
+          />
         </div>
       </div>
 

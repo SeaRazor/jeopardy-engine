@@ -152,16 +152,45 @@
 
 /* Themes Info Section */
 .themesInfoSection {
-  border-top: 1px solid var(--card-border);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
   margin-top: 1rem;
-  padding-top: 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.themesInfoSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(var(--primary-color-rgb, 0, 123, 255), 0.02) 0%, rgba(var(--primary-color-rgb, 0, 123, 255), 0.08) 100%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.themesInfoSection:hover::before {
+  opacity: 1;
+}
+
+.themesInfoSection:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: rgba(var(--primary-color-rgb, 0, 123, 255), 0.25);
 }
 
 .themesInfoHeader {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  gap: 0.625rem;
+  margin-bottom: 0.5rem;
 }
 
 .themesInfoIcon {
@@ -190,14 +219,6 @@
   font-size: 0.8rem;
   font-weight: 500;
   color: var(--color-foreground);
-  transition: all 0.2s ease;
-}
-
-.themeTag:hover {
-  background: var(--primary-color);
-  border-color: var(--primary-color);
-  color: white;
-  transform: translateY(-1px);
 }
 
 /* Game Area Layout */
@@ -212,16 +233,25 @@
   margin-bottom: 1rem;
 }
 
-.themesHeader {
+.themesHeaderWithStepper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1rem 0.5rem;
+  padding: 1.5rem 1rem;
   border-bottom: 1px solid var(--card-border);
-  margin-bottom: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+  min-height: 4rem;
 }
 
-.themesHeader h3 {
+.themesHeaderInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.themesHeaderInfo h3 {
   margin: 0;
   font-size: 1.1rem;
   font-weight: 600;
@@ -234,28 +264,36 @@
   font-weight: 500;
 }
 
-.stepperNavigation {
+.stepperContainer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
   gap: 1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .navButton {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-radius: 8px;
+  border-radius: 6px;
   color: var(--color-foreground);
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .navButton:hover {
@@ -276,7 +314,8 @@
   gap: 0;
   flex: 1;
   overflow-x: auto;
-  padding: 0 1rem;
+  min-width: 0;
+  padding: 0.5rem 0;
 }
 
 .stepperItem {
@@ -289,10 +328,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -310,7 +349,7 @@
   background: #2563eb;
   color: white;
   border: 2px solid #2563eb;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
 }
 
 .stepCircle.upcoming {
@@ -328,7 +367,7 @@
 }
 
 .stepLine {
-  width: 60px;
+  width: 1.5rem;
   height: 2px;
   background: var(--card-border);
   transition: all 0.3s ease;
@@ -342,39 +381,42 @@
 
 .currentThemeInfo {
   text-align: center;
-  padding: 0 1rem 1rem;
-  border-top: 1px solid var(--card-border);
-  margin-top: 1rem;
-  padding-top: 1rem;
+  padding: 1rem;
 }
 
 .themeName {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--color-foreground);
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
-.themeActions {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+.themeDescription {
+  font-size: 0.9rem;
+  color: var(--color-secondary-text);
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
+
+
 
 .actionButton {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   border: none;
-  min-width: 140px;
   justify-content: center;
+  white-space: nowrap;
 }
 
 .actionButton:disabled {
@@ -409,6 +451,112 @@
 
 .completeGameButton:disabled {
   background: #ef4444;
+}
+
+/* Player Scores Section */
+.scoresCard {
+  margin-bottom: 1rem;
+}
+
+.scoresHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1rem 0.5rem;
+  border-bottom: 1px solid var(--card-border);
+  margin-bottom: 1rem;
+}
+
+.scoresHeader h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-foreground);
+}
+
+.scoresCount {
+  font-size: 0.9rem;
+  color: var(--color-secondary-text);
+  font-weight: 500;
+}
+
+.scoresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  padding: 0 1rem 1rem;
+}
+
+.scoreItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--accent-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.scoreItem:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-color);
+}
+
+.avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.rankBadge {
+  position: absolute;
+  top: -0.25rem;
+  right: -0.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: var(--primary-color);
+  border: 2px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  z-index: 1;
+}
+
+.scoreItem .playerInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.scoreItem .playerName {
+  font-weight: 600;
+  color: var(--color-foreground);
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scoreItem .playerScore {
+  font-size: 0.9rem;
+  color: var(--color-secondary-text);
+  font-weight: 500;
+}
+
+.scoreItem .extraResult {
+  color: var(--primary-color);
+  font-weight: 600;
 }
 
 /* Game Grid */
@@ -470,19 +618,20 @@
   background: inherit;
 }
 
-.playerRank {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.playerCell .avatar {
   width: 2rem;
   height: 2rem;
-  background: var(--primary-color);
-  color: white;
-  border-radius: 50%;
-  font-weight: 600;
-  font-size: 0.9rem;
-  flex-shrink: 0;
+  font-size: 0.8rem;
 }
+
+.playerCell .rankBadge {
+  width: 1rem;
+  height: 1rem;
+  font-size: 0.6rem;
+  top: -0.2rem;
+  right: -0.2rem;
+}
+
 
 .playerInfo {
   flex: 1;
@@ -624,7 +773,7 @@
 
   .themesInfoSection {
     margin-top: 0.75rem;
-    padding-top: 0.75rem;
+    padding: 0.5rem;
   }
 
   .themesInfoHeader {
@@ -640,31 +789,39 @@
     padding: 0.2rem 0.6rem;
   }
 
-  .stepperNavigation {
+  .themesHeaderWithStepper {
     flex-direction: column;
     gap: 1rem;
     padding: 0.75rem;
   }
 
-  .navButton {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.8rem;
+  .themesHeaderInfo {
+    justify-content: center;
   }
 
-  .themesStepper {
-    padding: 0;
-    gap: 0;
-    order: 2;
+  .stepperContainer {
+    justify-content: center;
+  }
+
+  .headerActions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .navButton {
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.7rem;
   }
 
   .stepCircle {
-    width: 32px;
-    height: 32px;
-    font-size: 0.8rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.65rem;
   }
 
   .stepLine {
-    width: 30px;
+    width: 1rem;
   }
 
   .currentThemeInfo {
@@ -676,15 +833,59 @@
     font-size: 1rem;
   }
 
-  .themeActions {
-    flex-direction: column;
-    gap: 0.75rem;
+  .themeDescription {
+    font-size: 0.8rem;
   }
 
   .actionButton {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    gap: 0.25rem;
+  }
+
+  .scoresHeader {
+    padding: 0.75rem 0.75rem 0.5rem;
+  }
+
+  .scoresHeader h3 {
+    font-size: 1rem;
+  }
+
+  .scoresCount {
     font-size: 0.8rem;
-    min-width: 120px;
+  }
+
+  .scoresGrid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 0 0.75rem 0.75rem;
+  }
+
+  .scoreItem {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .avatar {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.8rem;
+  }
+
+  .rankBadge {
+    width: 1rem;
+    height: 1rem;
+    font-size: 0.6rem;
+    top: -0.2rem;
+    right: -0.2rem;
+  }
+
+  .scoreItem .playerName {
+    font-size: 0.9rem;
+  }
+
+  .scoreItem .playerScore {
+    font-size: 0.8rem;
   }
 
   .gameGrid {
@@ -701,10 +902,16 @@
     gap: 0.5rem;
   }
 
-  .playerRank {
-    width: 1.5rem;
-    height: 1.5rem;
-    font-size: 0.8rem;
+  .playerCell .avatar {
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.7rem;
+  }
+
+  .playerCell .rankBadge {
+    width: 0.9rem;
+    height: 0.9rem;
+    font-size: 0.55rem;
   }
 
   .playerName {
