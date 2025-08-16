@@ -5,6 +5,7 @@ import { useParams, useSearchParams, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { FaCalendarAlt, FaInfoCircle, FaSitemap, FaUsers, FaChevronDown, FaChevronUp, FaChevronRight } from 'react-icons/fa';
 import Link from 'next/link';
+import InfoComponent from '../../UI/InfoComponent/InfoComponent';
 import TournamentTabs from './components/TournamentTabs';
 import ParticipantsTab from './components/ParticipantsTab';
 import BracketTab from './components/BracketTab';
@@ -26,7 +27,6 @@ export default function TournamentDetailPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('participants');
-  const [isInfoExpanded, setIsInfoExpanded] = useState(false);
   
   const { data: tournament, isLoading, isError } = useQuery({
     queryKey: ['tournament', id],
@@ -101,24 +101,19 @@ export default function TournamentDetailPage() {
           </div>
         </div>
         
-        <div className={styles.tournamentInfo}>
-          <div className={styles.titleSection}>
-            <h1 className={styles.title}>{tournament.name}</h1>
-            {tournament.type && (
-              <div className={`${styles.typeLabel} ${styles[typeLabel]}`}>
-                {typeLabel}
-              </div>
-            )}
-          </div>
+        <InfoComponent 
+          title={tournament.name}
+          icon={FaInfoCircle}
+          headerContent={tournament.type && (
+            <div className={`${styles.typeLabel} ${styles[typeLabel]}`}>
+              {typeLabel}
+            </div>
+          )}
+          defaultCollapsed={true}
+          className={styles.tournamentInfo}
+        >
           
-          <div className={styles.infoHeader} onClick={() => setIsInfoExpanded(!isInfoExpanded)}>
-            <span className={styles.detailsTitle}>Подробная информация</span>
-            <button className={styles.toggleButton}>
-              {isInfoExpanded ? <FaChevronUp /> : <FaChevronDown />}
-            </button>
-          </div>
-          
-          <div className={`${styles.details} ${isInfoExpanded ? styles.expanded : styles.collapsed}`}>
+          <div className={styles.details}>
             <div className={styles.detail}>
               <div className={styles.detailHeader}>
                 <FaCalendarAlt className={styles.detailIcon} />
@@ -159,7 +154,7 @@ export default function TournamentDetailPage() {
               </div>
             </div>
           </div>
-        </div>
+        </InfoComponent>
       </div>
 
       <TournamentTabs 

@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { FaUsers, FaMicrophone, FaTrophy, FaUserTimes, FaCheckCircle, FaChevronLeft, FaChevronRight, FaCheck, FaInfoCircle, FaChevronRight as FaBreadcrumbChevron, FaPlus, FaMinus, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import Link from 'next/link';
 import Card from '../../../../../../UI/Card/Card';
+import InfoComponent from '../../../../../../UI/InfoComponent/InfoComponent';
 import ConfirmationDialog from '../../../../../../UI/ConfirmationDialog';
 import { useToast } from '../../../../../../util/ToastContext';
 import styles from './GameDetailsPage.module.css';
@@ -436,6 +437,18 @@ export default function GameDetailsPage() {
   };
 
   const handleCompleteGame = async () => {
+    // Client-side validation: Check if all themes are completed
+    if (!allThemesCompleted) {
+      showError('Невозможно завершить игру: не все темы завершены. Завершите все темы перед окончанием игры.');
+      return;
+    }
+
+    // Additional check: game should not already be completed
+    if (game?.status === 'completed') {
+      showError('Игра уже завершена.');
+      return;
+    }
+
     try {
       const response = await fetch(`/api/tournaments/${tournamentId}/stages/${stageId}/games/${gameId}`, {
         method: 'PUT',
@@ -445,11 +458,16 @@ export default function GameDetailsPage() {
         body: JSON.stringify({
           ...game,
           status: 'completed',
-          completedAt: new Date().toISOString()
+          completedAt: new Date().toISOString(),
+          // Send completed themes for server-side validation
+          completedThemes: Array.from(completedThemes)
         }),
       });
 
-      if (!response.ok) throw new Error('Failed to complete game');
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to complete game');
+      }
       
       const updatedGame = await response.json();
       setGame(updatedGame);
@@ -460,7 +478,7 @@ export default function GameDetailsPage() {
       
     } catch (error) {
       console.error('Error completing game:', error);
-      showError('Ошибка при завершении игры');
+      showError(`Ошибка при завершении игры: ${error.message}`);
     }
   };
 
@@ -492,6 +510,9 @@ export default function GameDetailsPage() {
 
   const { winners, losers } = getWinnersAndLosers();
   const selectedTheme = themes[selectedThemeIndex] || { name: 'Загрузка...', description: '' };
+  
+  // Check if all themes are completed
+  const allThemesCompleted = themes.length > 0 && themes.every((_, index) => completedThemes.has(index));
 
   return (
     <div className={styles.container}>
@@ -525,16 +546,11 @@ export default function GameDetailsPage() {
       </div>
 
       {/* Game Information Section */}
-      <Card className={styles.gameInfoCard}>
-        <div className={styles.gameInfoHeader}>
-          <div className={styles.detailInline}>
-            <div className={styles.detailHeader}>
-              <FaInfoCircle className={styles.detailIcon} />
-              <strong>Информация о бое:</strong>
-            </div>
-          </div>
-        </div>
-        
+      <InfoComponent 
+        title="Информация о бое" 
+        icon={FaInfoCircle}
+        defaultCollapsed={false}
+      >
         <div className={styles.gameInfoGrid}>
           <div className={styles.gameInfoItem}>
             <FaUsers className={styles.infoIcon} />
@@ -543,7 +559,6 @@ export default function GameDetailsPage() {
               <div className={styles.infoValue}>{players.length}</div>
             </div>
           </div>
-          
           
           {presenter && (
             <div className={styles.gameInfoItem}>
@@ -573,22 +588,7 @@ export default function GameDetailsPage() {
             </div>
           </div>
         </div>
-        
-        {/* Themes Section */}
-        {/*<div className={styles.themesInfoSection}>
-          <div className={styles.themesInfoHeader}>
-            <div className={styles.themesInfoIcon}>📚</div>
-            <div className={styles.themesInfoLabel}>Темы игры ({themes.length})</div>
-          </div>
-          <div className={styles.themesInfoList}>
-            {themes.map((theme, index) => (
-              <span key={theme.id} className={styles.themeTag}>
-                {theme.name}
-              </span>
-            ))}
-          </div>
-        </div>*/}
-      </Card>
+      </InfoComponent>
 
       {/* Main Game Area */}
       <div className={styles.gameArea}>
@@ -807,7 +807,8 @@ export default function GameDetailsPage() {
               <button
                 onClick={handleCompleteGame}
                 className={`${styles.actionButton} ${styles.completeGameButton}`}
-                disabled={game?.status === 'completed'}
+                disabled={game?.status === 'completed' || !allThemesCompleted}
+                title={!allThemesCompleted ? 'Завершите все темы перед окончанием игры' : ''}
               >
                 <FaTrophy />
                 {game?.status === 'completed' ? 'Завершена' : 'Закончить игру'}

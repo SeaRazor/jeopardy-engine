@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { FaUsers, FaTrophy, FaInfoCircle, FaGamepad, FaUserSlash, FaChevronDown, FaChevronUp, FaEdit } from 'react-icons/fa';
+import InfoComponent from '../../../UI/InfoComponent/InfoComponent';
 import GameCard from '../../../components/GameCard';
 import { getPlayerManagementState } from '../../../util/playerManagementUtils';
 import ThemeEditModal from './ThemeEditModal';
@@ -29,8 +30,6 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
     completed: true
   });
 
-  // Collapsible state for mobile
-  const [isStageInfoExpanded, setIsStageInfoExpanded] = useState(true);
   
   // Theme names management
   const [stageThemes, setStageThemes] = useState([]);
@@ -194,9 +193,6 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
     setFilters({ upper: true, lower: true, ongoing: true, completed: true });
   };
 
-  const toggleStageInfo = () => {
-    setIsStageInfoExpanded(prev => !prev);
-  };
 
   const hasActiveFilters = filters.upper || filters.lower || filters.ongoing || filters.completed;
 
@@ -401,27 +397,12 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
 
   return (
     <>
-      <div className={styles.stageInfo}>
-        <div className={styles.stageInfoHeader}>
-          <div className={styles.detailInline}>
-            <div className={styles.detailHeader}>
-              <FaInfoCircle className={styles.detailIcon} />
-              <strong>Описание стадии:</strong>
-            </div>
-            <div className={styles.detailValue}>
-              {stage.description || 'Описание не указано'}
-            </div>
-          </div>
-          <button 
-            onClick={toggleStageInfo}
-            className={styles.toggleButton}
-            title={isStageInfoExpanded ? "Свернуть информацию" : "Развернуть информацию"}
-          >
-            {isStageInfoExpanded ? <FaChevronUp /> : <FaChevronDown />}
-          </button>
-        </div>
-        
-        <div className={`${styles.details} ${isStageInfoExpanded ? styles.expanded : styles.collapsed}`}>
+      <InfoComponent 
+        title={`Описание стадии: ${stage.description || 'Описание не указано'}`}
+        icon={FaInfoCircle}
+        defaultCollapsed={true}
+      >
+        <div className={styles.details}>
           
           {!stage.isFinal && (
             <div className={styles.statsRow}>
@@ -537,7 +518,7 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
             isSaving={saveThemesMutation.isPending}
           />
         </div>
-      </div>
+      </InfoComponent>
 
       {/* Games Section */}
       <div className={styles.gamesSection}>
