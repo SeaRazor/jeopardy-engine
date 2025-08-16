@@ -789,7 +789,37 @@
     "id": 16,
     "gameNumber": 1,
     "tournamentId": 5,
-    "stageId": 1
+    "stageId": 1,
+    "stageThemes": [
+      {
+        "name": "-ОРО- (Матричная)",
+        "description": ""
+      },
+      {
+        "name": "Не только города Германии",
+        "description": ""
+      },
+      {
+        "name": "Неустроенность (гиперматрица)",
+        "description": "Все ответы в теме состоят из букв слова \"Неустроенность\""
+      },
+      {
+        "name": "С.И. (инициальная)",
+        "description": ""
+      },
+      {
+        "name": "Людовики разных стран",
+        "description": ""
+      },
+      {
+        "name": "Последняя",
+        "description": ""
+      }
+    ],
+    "completedThemes": [
+
+    ],
+    "updatedAt": "2025-08-16T12:51:50.007Z"
   },
   {
     "gameDate": "2025-08-14",

@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { FaUsers, FaMicrophone, FaTrophy, FaUserTimes, FaCheckCircle, FaChevronLeft, FaChevronRight, FaCheck, FaInfoCircle, FaChevronRight as FaBreadcrumbChevron, FaPlus, FaMinus } from 'react-icons/fa';
+import { FaUsers, FaMicrophone, FaTrophy, FaUserTimes, FaCheckCircle, FaChevronLeft, FaChevronRight, FaCheck, FaInfoCircle, FaChevronRight as FaBreadcrumbChevron, FaPlus, FaMinus, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import Link from 'next/link';
 import Card from '../../../../../../UI/Card/Card';
+import ConfirmationDialog from '../../../../../../UI/ConfirmationDialog';
 import { useToast } from '../../../../../../util/ToastContext';
 import styles from './GameDetailsPage.module.css';
 
@@ -23,6 +24,8 @@ export default function GameDetailsPage() {
   const [completedThemes, setCompletedThemes] = useState(new Set());
   const [revealedQuestions, setRevealedQuestions] = useState(new Map());
   const [loading, setLoading] = useState(true);
+  const [themeToComplete, setThemeToComplete] = useState(null);
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
   const { id: tournamentId, stageId, gameId } = params;
 
@@ -117,6 +120,11 @@ export default function GameDetailsPage() {
         });
         setThemes(initialThemes);
 
+        // Load completed themes from game data
+        if (gameData.completedThemes && Array.isArray(gameData.completedThemes)) {
+          setCompletedThemes(new Set(gameData.completedThemes));
+        }
+
       } catch (error) {
         console.error('Error fetching game data:', error);
         showError('Ошибка загрузки данных игры');
@@ -205,60 +213,223 @@ export default function GameDetailsPage() {
   };
 
   const handleCompleteTheme = () => {
-    setCompletedThemes(prev => {
-      const newCompleted = new Set(prev);
-      newCompleted.add(selectedThemeIndex);
-      return newCompleted;
+    // Validate theme before allowing completion
+    const currentTheme = themes[selectedThemeIndex];
+    if (!currentTheme) return;
+    
+    // Check each nominal value (10, 20, 30, 40, 50) for validation
+    const validationErrors = [];
+    
+    // Check if multiple players have been awarded points for the same nominal value
+    // This detects the real issue: multiple players getting correct scores for same question
+    currentTheme.questions.forEach((question, questionIndex) => {
+      const nominal = question.value;
+      
+      // Count how many players are in revealedQuestions for this question
+      // This tracks who has actually been awarded points (either + or -)
+      let playersWithThisQuestion = 0;
+      let playersWithCorrectAnswer = 0;
+      
+      players.forEach(player => {
+        const playerRevealed = revealedQuestions.get(player.playerId);
+        if (playerRevealed && playerRevealed.has(question.id)) {
+          playersWithThisQuestion++;
+          
+          // Check if this player would show as having correct answer
+          // (either currently shown as correct, or was correct before being overwritten)
+          if (question.answered && question.answeredBy === player.playerId) {
+            playersWithCorrectAnswer++;
+          }
+        }
+      });
+      
+      // Now we can properly validate using the new correctAnswers array
+      const currentIncorrectCount = question.incorrectAnswers ? question.incorrectAnswers.length : 0;
+      const currentCorrectCount = question.correctAnswers ? question.correctAnswers.length : 0;
+      
+      console.log(`Nominal ${nominal}: revealed=${playersWithThisQuestion}, currentCorrect=${currentCorrectCount}, currentIncorrect=${currentIncorrectCount}`);
+      
+      // Simple validation: ensure at most 1 correct answer per nominal
+      if (currentCorrectCount > 1) {
+        validationErrors.push(`Вопрос на ${nominal} очков имеет ${currentCorrectCount} правильных ответа`);
+      }
     });
+    
+    if (validationErrors.length > 0) {
+      showError(`Невозможно завершить тему:\n${validationErrors.join('\n')}`);
+      return;
+    }
+    
+    const themeData = {
+      index: selectedThemeIndex,
+      name: themes[selectedThemeIndex]?.name || `Тема ${selectedThemeIndex + 1}`
+    };
+    setThemeToComplete(themeData);
+  };
+
+  const handleConfirmThemeCompletion = async () => {
+    if (!themeToComplete) return;
+    
+    try {
+      // Update local state first for immediate UI feedback
+      setCompletedThemes(prev => {
+        const newCompleted = new Set(prev);
+        newCompleted.add(themeToComplete.index);
+        return newCompleted;
+      });
+      
+      // Save theme completion state to API
+      const updatedCompletedThemes = Array.from(new Set([...completedThemes, themeToComplete.index]));
+      
+      const response = await fetch(`/api/tournaments/${tournamentId}/stages/${stageId}/games/${gameId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...game,
+          completedThemes: updatedCompletedThemes,
+          updatedAt: new Date().toISOString()
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save theme completion');
+      }
+      
+      // Update game state with saved data
+      const updatedGame = await response.json();
+      setGame(updatedGame);
+      
+      // Close dialog
+      setThemeToComplete(null);
+      
+    } catch (error) {
+      console.error('Error completing theme:', error);
+      showError('Ошибка при завершении темы');
+      
+      // Revert local state on error
+      setCompletedThemes(prev => {
+        const newCompleted = new Set(prev);
+        newCompleted.delete(themeToComplete.index);
+        return newCompleted;
+      });
+      
+      // Close dialog
+      setThemeToComplete(null);
+    }
   };
 
   const handleScoreAdjustment = (playerId, adjustment, event, questionId, themeIndex, questionIndex) => {
     event.stopPropagation();
     event.preventDefault();
     
-    const isCorrectAnswer = adjustment > 0;
+    // Check if the theme is completed and prevent any changes
+    if (completedThemes.has(themeIndex)) {
+      return;
+    }
     
-    // Reveal the question value for this specific player
+    const isCorrectAnswer = adjustment > 0;
+    const currentQuestion = themes[themeIndex].questions[questionIndex];
+    
+    // Determine if this is a correction based on current state
+    const isCorrectingIncorrect = isCorrectAnswer && currentQuestion.incorrectAnswers && currentQuestion.incorrectAnswers.includes(playerId);
+    const isCorrectingCorrect = !isCorrectAnswer && currentQuestion.correctAnswers && currentQuestion.correctAnswers.includes(playerId);
+    const isCorrection = isCorrectingIncorrect || isCorrectingCorrect;
+    
+
+    // Handle revealed questions based on action type
     setRevealedQuestions(prev => {
       const newMap = new Map(prev);
       const playerQuestions = newMap.get(playerId) || new Set();
-      playerQuestions.add(questionId);
-      newMap.set(playerId, playerQuestions);
+      
+      if (isCorrection) {
+        // Any correction - remove from revealed (return to empty)
+        playerQuestions.delete(questionId);
+      } else {
+        // New answer - add to revealed
+        playerQuestions.add(questionId);
+      }
+      
+      if (playerQuestions.size === 0) {
+        newMap.delete(playerId);
+      } else {
+        newMap.set(playerId, playerQuestions);
+      }
       return newMap;
     });
     
     // Update question state
     setThemes(prevThemes => {
       const newThemes = [...prevThemes];
-      if (isCorrectAnswer) {
-        // Correct answer: mark as answered and completed for all players
+      const currentQuestionInThemes = newThemes[themeIndex].questions[questionIndex];
+      
+      if (isCorrectingIncorrect) {
+        // Correcting incorrect answer - return to empty state
+        const cleanedIncorrectAnswers = (currentQuestionInThemes.incorrectAnswers || []).filter(id => id !== playerId);
         newThemes[themeIndex].questions[questionIndex] = {
-          ...newThemes[themeIndex].questions[questionIndex],
+          ...currentQuestionInThemes,
+          incorrectAnswers: cleanedIncorrectAnswers.length > 0 ? cleanedIncorrectAnswers : undefined
+        };
+      } else if (isCorrectingCorrect) {
+        // Correcting correct answer - return to empty state
+        const existingCorrectAnswers = currentQuestionInThemes.correctAnswers || [];
+        const cleanedCorrectAnswers = existingCorrectAnswers.filter(id => id !== playerId);
+        newThemes[themeIndex].questions[questionIndex] = {
+          ...currentQuestionInThemes,
+          correctAnswers: cleanedCorrectAnswers.length > 0 ? cleanedCorrectAnswers : undefined,
+          // Keep old fields for backward compatibility during transition
+          answered: cleanedCorrectAnswers.length > 0,
+          answeredBy: cleanedCorrectAnswers.length > 0 ? cleanedCorrectAnswers[cleanedCorrectAnswers.length - 1] : null
+        };
+      } else if (isCorrectAnswer) {
+        // New correct answer
+        const existingCorrectAnswers = currentQuestionInThemes.correctAnswers || [];
+        const newCorrectAnswers = existingCorrectAnswers.includes(playerId) 
+          ? existingCorrectAnswers 
+          : [...existingCorrectAnswers, playerId];
+        newThemes[themeIndex].questions[questionIndex] = {
+          ...currentQuestionInThemes,
+          correctAnswers: newCorrectAnswers,
+          // Keep old fields for backward compatibility during transition  
           answered: true,
-          answeredBy: playerId,
-          isCompleted: true
+          answeredBy: playerId
         };
       } else {
-        // Incorrect answer: mark as answered by this player but keep available for others
-        newThemes[themeIndex].questions[questionIndex] = {
-          ...newThemes[themeIndex].questions[questionIndex],
-          answeredBy: playerId,
-          incorrectAnswers: [
-            ...(newThemes[themeIndex].questions[questionIndex].incorrectAnswers || []),
-            playerId
-          ]
-        };
+        // New incorrect answer on empty cell
+        const existingIncorrect = currentQuestionInThemes.incorrectAnswers || [];
+        // Only add if not already in the array (prevent duplicates)
+        if (!existingIncorrect.includes(playerId)) {
+          newThemes[themeIndex].questions[questionIndex] = {
+            ...currentQuestionInThemes,
+            incorrectAnswers: [...existingIncorrect, playerId]
+          };
+        }
       }
       return newThemes;
     });
     
-    // Update player scores
+    // Update player scores using the correction detection logic
+    let scoreAdjustment = 0;
+    
+    if (isCorrectingIncorrect) {
+      // Correcting incorrect answer - remove the penalty (return to 0)
+      scoreAdjustment = Math.abs(adjustment); // Remove penalty
+    } else if (isCorrectingCorrect) {
+      // Correcting correct answer - remove the points (return to 0)
+      scoreAdjustment = adjustment; // Remove points (adjustment is negative)
+    } else {
+      // New answer (either correct or incorrect)
+      scoreAdjustment = adjustment;
+    }
+    
     setPlayers(prevPlayers => {
-      const newPlayers = prevPlayers.map(player => 
-        player.playerId === playerId 
-          ? { ...player, points: player.points + adjustment }
-          : player
-      );
+      const newPlayers = prevPlayers.map(player => {
+        if (player.playerId === playerId) {
+          return { ...player, points: player.points + scoreAdjustment };
+        }
+        return player;
+      });
       
       return newPlayers;
     });
@@ -421,96 +592,41 @@ export default function GameDetailsPage() {
 
       {/* Main Game Area */}
       <div className={styles.gameArea}>
-        {/* Themes Stepper */}
-        {themes.length > 0 && (
-          <Card className={styles.themesCard}>
-            <div className={styles.themesHeaderWithStepper}>
-              <div className={styles.themesHeaderInfo}>
-                <h3>Темы игры</h3>
-                <div className={styles.themeCounter}>
-                  {selectedThemeIndex + 1} из {themes.length}
-                </div>
-              </div>
-              
-              <div className={styles.stepperContainer}>
-                <button
-                  onClick={handlePrevTheme}
-                  className={styles.navButton}
-                  aria-label="Предыдущая тема"
-                >
-                  <FaChevronLeft />
-                </button>
-                
-                <div className={styles.themesStepper}>
-                  {themes.map((theme, index) => (
-                    <div key={theme.id} className={styles.stepperItem}>
-                      <div 
-                        className={`${styles.stepCircle} ${
-                          completedThemes.has(index) ? styles.completed : 
-                          index === selectedThemeIndex ? styles.current : styles.upcoming
-                        }`}
-                        onClick={() => setSelectedThemeIndex(index)}
-                      >
-                        {completedThemes.has(index) ? (
-                          <FaCheckCircle className={styles.checkIcon} />
-                        ) : (
-                          index + 1
-                        )}
-                      </div>
-                      {index < themes.length - 1 && (
-                        <div 
-                          className={`${styles.stepLine} ${
-                            completedThemes.has(index) ? styles.completed : ''
-                          }`}
-                        />
-                      )}
-                    </div>
-                  ))}
-                </div>
-                
-                <button
-                  onClick={handleNextTheme}
-                  className={styles.navButton}
-                  aria-label="Следующая тема"
-                >
-                  <FaChevronRight />
-                </button>
-              </div>
-              
-              <div className={styles.headerActions}>
-                <button
-                  onClick={handleCompleteTheme}
-                  className={`${styles.actionButton} ${styles.completeThemeButton}`}
-                  disabled={completedThemes.has(selectedThemeIndex)}
-                >
-                  <FaCheck />
-                  {completedThemes.has(selectedThemeIndex) ? 'Завершена' : 'Завершить'}
-                </button>
-                
-                <button
-                  onClick={handleCompleteGame}
-                  className={`${styles.actionButton} ${styles.completeGameButton}`}
-                  disabled={game?.status === 'completed'}
-                >
-                  <FaTrophy />
-                  {game?.status === 'completed' ? 'Завершена' : 'Завершить игру'}
-                </button>
-              </div>
-            </div>
-            
-            <div className={styles.currentThemeInfo}>
-              <div className={styles.themeName}>{selectedTheme.name}</div>
-              {selectedTheme.description && (
-                <div className={styles.themeDescription}>{selectedTheme.description}</div>
-              )}
-            </div>
-          </Card>
-        )}
 
 
         {/* Game Grid */}
         <Card className={styles.gameGridCard}>
-          <div className={styles.gameGrid}>
+          {/* Theme Header Section */}
+          {themes.length > 0 && (
+            <div className={styles.themeHeader}>
+              <div className={styles.themeMainRow}>
+                <div className={styles.themeInfo}>
+                  <h3 className={styles.themeName}>
+                    {selectedTheme.name}
+                    {selectedTheme.description && (
+                      <span className={styles.themeDescriptionInline}> — {selectedTheme.description}</span>
+                    )}
+                  </h3>
+                </div>
+                
+                <div className={styles.themeControls}>
+                  <div className={styles.themeActions}>
+                    <button
+                      onClick={handleCompleteTheme}
+                      className={`${styles.actionButton} ${styles.completeThemeButton}`}
+                      disabled={completedThemes.has(selectedThemeIndex)}
+                    >
+                      <FaCheck />
+                      {completedThemes.has(selectedThemeIndex) ? 'Завершена' : 'Закончить тему'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          
+          <div className={styles.gameGridContainer}>
+            <div className={styles.gameGrid}>
             {/* Header Row */}
             <div className={styles.gridHeader}>
               <div></div>
@@ -542,9 +658,9 @@ export default function GameDetailsPage() {
                 
                 {selectedTheme.questions.map((question, questionIndex) => (
                   <div 
-                    key={question.id} 
+                    key={question.id}
                     className={`${styles.questionCell} ${
-                      question.answered && question.answeredBy === player.playerId 
+                      (question.correctAnswers && question.correctAnswers.includes(player.playerId))
                         ? styles.answeredCorrect 
                         : (question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId))
                           ? styles.answeredIncorrect
@@ -552,36 +668,164 @@ export default function GameDetailsPage() {
                     }`}
                   >
                     <div className={styles.questionContent}>
-                      {!(question.isCompleted || (question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId))) && (
-                        <button 
-                          className={`${styles.adjustButton} ${styles.minusButton}`}
-                          onClick={(e) => handleScoreAdjustment(player.playerId, -question.value, e, question.id, selectedThemeIndex, questionIndex)}
-                          aria-label="Уменьшить счет"
-                        >
-                          <FaMinus />
-                        </button>
-                      )}
+                      <button 
+                        className={`${styles.adjustButton} ${styles.minusButton}`}
+                        onClick={(e) => handleScoreAdjustment(player.playerId, -question.value, e, question.id, selectedThemeIndex, questionIndex)}
+                        aria-label="Отметить как неверный ответ"
+                        style={{
+                          visibility: (!completedThemes.has(selectedThemeIndex) && !(question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId))) ? 'visible' : 'hidden',
+                          pointerEvents: (!completedThemes.has(selectedThemeIndex) && !(question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId))) ? 'auto' : 'none'
+                        }}
+                      >
+                        <FaMinus />
+                      </button>
                       <span className={styles.questionValue}>
-                        {question.answered && question.answeredBy === player.playerId ? '✓' : 
-                         (question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId)) ? '✗' : 
+                        {(question.correctAnswers && question.correctAnswers.includes(player.playerId)) ? question.value : 
+                         (question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId)) ? `-${question.value}` : 
                          (revealedQuestions && revealedQuestions.get && revealedQuestions.get(player.playerId) && revealedQuestions.get(player.playerId).has(question.id)) ? question.value : ''}
                       </span>
-                      {!(question.isCompleted || (question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId))) && (
-                        <button 
-                          className={`${styles.adjustButton} ${styles.plusButton}`}
-                          onClick={(e) => handleScoreAdjustment(player.playerId, question.value, e, question.id, selectedThemeIndex, questionIndex)}
-                          aria-label="Увеличить счет"
-                        >
-                          <FaPlus />
-                        </button>
-                      )}
+                      <button 
+                        className={`${styles.adjustButton} ${styles.plusButton}`}
+                        onClick={(e) => handleScoreAdjustment(player.playerId, question.value, e, question.id, selectedThemeIndex, questionIndex)}
+                        aria-label="Отметить как верный ответ"
+                        style={{
+                          visibility: (!completedThemes.has(selectedThemeIndex) && !(question.correctAnswers && question.correctAnswers.includes(player.playerId))) ? 'visible' : 'hidden',
+                          pointerEvents: (!completedThemes.has(selectedThemeIndex) && !(question.correctAnswers && question.correctAnswers.includes(player.playerId))) ? 'auto' : 'none'
+                        }}
+                      >
+                        <FaPlus />
+                      </button>
                     </div>
                   </div>
                 ))}
               </div>
             ))}
+            </div>
+          </div>
+          
+          {/* Theme Stepper and End Game Section */}
+          <div className={styles.gameFooter}>
+            {/* Desktop Stepper */}
+            <div className={styles.stepperSection}>
+              <button
+                onClick={handlePrevTheme}
+                className={styles.navButton}
+                aria-label="Предыдущая тема"
+              >
+                <FaChevronLeft />
+              </button>
+              
+              <div className={styles.stepperContainer}>
+                <div className={styles.themeStepper}>
+                  {themes.map((theme, index) => (
+                    <div key={theme.id} className={styles.stepperItem}>
+                      <div 
+                        className={`${styles.stepCircle} ${
+                          completedThemes.has(index) ? styles.completed : 
+                          index === selectedThemeIndex ? styles.current : styles.upcoming
+                        }`}
+                        onClick={() => setSelectedThemeIndex(index)}
+                      >
+                        {completedThemes.has(index) ? (
+                          <FaCheck className={styles.checkIcon} />
+                        ) : (
+                          index + 1
+                        )}
+                      </div>
+                      {index < themes.length - 1 && (
+                        <div 
+                          className={`${styles.stepLine} ${
+                            completedThemes.has(index) ? styles.completed : ''
+                          }`}
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <button
+                onClick={handleNextTheme}
+                className={styles.navButton}
+                aria-label="Следующая тема"
+              >
+                <FaChevronRight />
+              </button>
+            </div>
+
+            {/* Mobile Accordion */}
+            <div className={styles.accordionSection}>
+              <button
+                onClick={() => setIsAccordionOpen(!isAccordionOpen)}
+                className={styles.accordionToggle}
+                aria-label={isAccordionOpen ? 'Скрыть темы' : 'Показать темы'}
+              >
+                <span className={styles.accordionLabel}>
+                  Тема {selectedThemeIndex + 1} из {themes.length}
+                  {completedThemes.has(selectedThemeIndex) && (
+                    <FaCheck className={styles.accordionCheckIcon} />
+                  )}
+                </span>
+                {isAccordionOpen ? <FaChevronUp /> : <FaChevronDown />}
+              </button>
+              
+              {isAccordionOpen && (
+                <div className={styles.accordionContent}>
+                  {themes.map((theme, index) => (
+                    <div 
+                      key={theme.id}
+                      className={`${styles.accordionItem} ${
+                        index === selectedThemeIndex ? styles.accordionItemActive : ''
+                      } ${
+                        completedThemes.has(index) ? styles.accordionItemCompleted : ''
+                      }`}
+                      onClick={() => {
+                        setSelectedThemeIndex(index);
+                        setIsAccordionOpen(false);
+                      }}
+                    >
+                      <div className={styles.accordionItemContent}>
+                        <span className={styles.accordionItemNumber}>
+                          {completedThemes.has(index) ? (
+                            <FaCheck className={styles.accordionItemCheckIcon} />
+                          ) : (
+                            index + 1
+                          )}
+                        </span>
+                        <span className={styles.accordionItemName}>{theme.name}</span>
+                        {index === selectedThemeIndex && (
+                          <span className={styles.accordionItemCurrent}>Текущая</span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            
+            <div className={styles.endGameSection}>
+              <button
+                onClick={handleCompleteGame}
+                className={`${styles.actionButton} ${styles.completeGameButton}`}
+                disabled={game?.status === 'completed'}
+              >
+                <FaTrophy />
+                {game?.status === 'completed' ? 'Завершена' : 'Закончить игру'}
+              </button>
+            </div>
           </div>
         </Card>
+        
+        {/* Theme Completion Confirmation Dialog */}
+        <ConfirmationDialog
+          isOpen={!!themeToComplete}
+          onClose={() => setThemeToComplete(null)}
+          onConfirm={handleConfirmThemeCompletion}
+          title="Завершение темы"
+          message={`Вы уверены, что хотите завершить тему "${themeToComplete?.name}"?\n\nПосле завершения темы изменения в этой теме будут невозможны.`}
+          confirmText="Завершить тему"
+          cancelText="Отмена"
+        />
       </div>
     </div>
   );
