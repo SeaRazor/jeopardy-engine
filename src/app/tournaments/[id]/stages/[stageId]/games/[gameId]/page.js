@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { FaUsers, FaMicrophone, FaTrophy, FaUserTimes, FaCheckCircle, FaChevronLeft, FaChevronRight, FaCheck, FaInfoCircle, FaChevronRight as FaBreadcrumbChevron, FaPlus, FaMinus, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import Link from 'next/link';
@@ -26,7 +26,11 @@ export default function GameDetailsPage() {
   const [revealedQuestions, setRevealedQuestions] = useState(new Map());
   const [loading, setLoading] = useState(true);
   const [themeToComplete, setThemeToComplete] = useState(null);
+  const [gameToComplete, setGameToComplete] = useState(null);
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+  const [pendingScoreChanges, setPendingScoreChanges] = useState(new Map());
+  const [isSavingScores, setIsSavingScores] = useState(false);
+  const saveTimeoutRef = useRef(null);
 
   const { id: tournamentId, stageId, gameId } = params;
 
@@ -92,38 +96,62 @@ export default function GameDetailsPage() {
         const stageThemes = gameData.stageThemes || [];
         const numberOfThemes = stageThemes.length || stageData?.numberOfThemesInGame || 6;
         
-        const initialThemes = Array.from({ length: numberOfThemes }, (_, index) => {
-          const themeData = stageThemes[index];
-          let themeName = `Тема ${index + 1}`;
-          let themeDescription = '';
-          
-          // Handle both string and object formats
-          if (themeData) {
-            if (typeof themeData === 'string') {
-              themeName = themeData;
-            } else if (typeof themeData === 'object' && themeData.name) {
-              themeName = themeData.name;
-              themeDescription = themeData.description || '';
+        // Check if we have saved game state with question answers
+        const savedGameState = gameData.gameState;
+        let initialThemes;
+
+        if (savedGameState && savedGameState.themes) {
+          // Restore themes with all question answers from saved state
+          initialThemes = savedGameState.themes;
+        } else {
+          // Initialize fresh themes if no saved state exists
+          initialThemes = Array.from({ length: numberOfThemes }, (_, index) => {
+            const themeData = stageThemes[index];
+            let themeName = `Тема ${index + 1}`;
+            let themeDescription = '';
+            
+            // Handle both string and object formats
+            if (themeData) {
+              if (typeof themeData === 'string') {
+                themeName = themeData;
+              } else if (typeof themeData === 'object' && themeData.name) {
+                themeName = themeData.name;
+                themeDescription = themeData.description || '';
+              }
             }
-          }
-          
-          return {
-            id: index + 1,
-            name: themeName,
-            description: themeDescription,
-            questions: Array.from({ length: 5 }, (_, qIndex) => ({
-              id: `${index + 1}-${qIndex + 1}`,
-              value: (qIndex + 1) * 10,
-              answered: false,
-              answeredBy: null
-            }))
-          };
-        });
+            
+            return {
+              id: index + 1,
+              name: themeName,
+              description: themeDescription,
+              questions: Array.from({ length: 5 }, (_, qIndex) => ({
+                id: `${index + 1}-${qIndex + 1}`,
+                value: (qIndex + 1) * 10,
+                answered: false,
+                answeredBy: null
+              }))
+            };
+          });
+        }
+        
         setThemes(initialThemes);
 
-        // Load completed themes from game data
-        if (gameData.completedThemes && Array.isArray(gameData.completedThemes)) {
-          setCompletedThemes(new Set(gameData.completedThemes));
+        // Load completed themes from saved game state or legacy field
+        let completedThemesData = [];
+        if (savedGameState && savedGameState.completedThemes) {
+          completedThemesData = savedGameState.completedThemes;
+        } else if (gameData.completedThemes && Array.isArray(gameData.completedThemes)) {
+          completedThemesData = gameData.completedThemes;
+        }
+        setCompletedThemes(new Set(completedThemesData));
+
+        // Restore revealed questions from saved game state
+        if (savedGameState && savedGameState.revealedQuestions) {
+          const restoredRevealedQuestions = new Map();
+          Object.entries(savedGameState.revealedQuestions).forEach(([playerId, questionIds]) => {
+            restoredRevealedQuestions.set(playerId, new Set(questionIds));
+          });
+          setRevealedQuestions(restoredRevealedQuestions);
         }
 
       } catch (error) {
@@ -138,6 +166,134 @@ export default function GameDetailsPage() {
       fetchGameData();
     }
   }, [tournamentId, stageId, gameId, showError]);
+
+  // Batch save scores with debouncing
+  const batchSaveScores = useCallback(async () => {
+    if (pendingScoreChanges.size === 0 || !game) return;
+
+    try {
+      setIsSavingScores(true);
+      
+      // Get current player scores from the players state (which includes optimistic updates)
+      const currentPlayerScores = {};
+      players.forEach(player => {
+        currentPlayerScores[player.playerId] = player.points;
+      });
+
+      // Apply current scores to game participants
+      const updatedParticipants = game.participants?.map(participant => {
+        const currentScore = currentPlayerScores[participant.playerId];
+        if (currentScore !== undefined) {
+          return {
+            ...participant,
+            points: currentScore
+          };
+        }
+        return participant;
+      }) || [];
+
+      // Convert revealedQuestions Map to serializable object
+      const revealedQuestionsData = {};
+      revealedQuestions.forEach((questionSet, playerId) => {
+        revealedQuestionsData[playerId] = Array.from(questionSet);
+      });
+
+      const response = await fetch(`/api/tournaments/${tournamentId}/stages/${stageId}/games/${gameId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...game,
+          participants: updatedParticipants,
+          // Save complete game state including all question answers
+          gameState: {
+            themes: themes,
+            revealedQuestions: revealedQuestionsData,
+            completedThemes: Array.from(completedThemes)
+          },
+          updatedAt: new Date().toISOString()
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save score changes');
+      }
+
+      const updatedGame = await response.json();
+      setGame(updatedGame);
+      
+      // Clear pending changes after successful save
+      setPendingScoreChanges(new Map());
+      
+    } catch (error) {
+      console.error('Error saving scores:', error);
+      showError('Ошибка сохранения очков. Попробуйте еще раз.');
+      
+      // Retry after 5 seconds
+      setTimeout(() => {
+        if (pendingScoreChanges.size > 0) {
+          batchSaveScores();
+        }
+      }, 5000);
+    } finally {
+      setIsSavingScores(false);
+    }
+  }, [game, pendingScoreChanges, players, themes, revealedQuestions, completedThemes, tournamentId, stageId, gameId, showError]);
+
+  // Debounced save trigger
+  const triggerDebouncedSave = useCallback(() => {
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+    }
+    
+    saveTimeoutRef.current = setTimeout(() => {
+      batchSaveScores();
+    }, 2500); // 2.5 second delay
+  }, [batchSaveScores]);
+
+  // Force save on page unload to prevent data loss
+  useEffect(() => {
+    const handleBeforeUnload = async (event) => {
+      if (pendingScoreChanges.size > 0) {
+        // Cancel the event to show browser confirmation dialog
+        event.preventDefault();
+        event.returnValue = 'Есть несохраненные изменения. Хотите покинуть страницу?';
+        
+        // Try to save data synchronously
+        try {
+          await batchSaveScores();
+        } catch (error) {
+          console.error('Failed to save on page unload:', error);
+        }
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden' && pendingScoreChanges.size > 0) {
+        // Force save when page becomes hidden
+        batchSaveScores();
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      // Clean up timeout and force save any pending changes
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current);
+      }
+      
+      // Force save on unmount if there are pending changes
+      if (pendingScoreChanges.size > 0) {
+        batchSaveScores();
+      }
+
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [pendingScoreChanges, batchSaveScores]);
 
   const getPlayerName = (playerInfo) => {
     if (!playerInfo) return 'Unknown Player';
@@ -272,6 +428,11 @@ export default function GameDetailsPage() {
     if (!themeToComplete) return;
     
     try {
+      // Save any pending score changes first
+      if (pendingScoreChanges.size > 0) {
+        await batchSaveScores();
+      }
+
       // Update local state first for immediate UI feedback
       setCompletedThemes(prev => {
         const newCompleted = new Set(prev);
@@ -282,6 +443,12 @@ export default function GameDetailsPage() {
       // Save theme completion state to API
       const updatedCompletedThemes = Array.from(new Set([...completedThemes, themeToComplete.index]));
       
+      // Convert revealedQuestions Map to serializable object
+      const revealedQuestionsData = {};
+      revealedQuestions.forEach((questionSet, playerId) => {
+        revealedQuestionsData[playerId] = Array.from(questionSet);
+      });
+
       const response = await fetch(`/api/tournaments/${tournamentId}/stages/${stageId}/games/${gameId}`, {
         method: 'PUT',
         headers: {
@@ -290,6 +457,12 @@ export default function GameDetailsPage() {
         body: JSON.stringify({
           ...game,
           completedThemes: updatedCompletedThemes,
+          // Save complete game state including all question answers
+          gameState: {
+            themes: themes,
+            revealedQuestions: revealedQuestionsData,
+            completedThemes: updatedCompletedThemes
+          },
           updatedAt: new Date().toISOString()
         }),
       });
@@ -304,6 +477,16 @@ export default function GameDetailsPage() {
       
       // Close dialog
       setThemeToComplete(null);
+
+      // Auto-navigate to next uncompleted theme
+      const updatedCompletedSet = new Set([...completedThemes, themeToComplete.index]);
+      const nextUncompletedTheme = themes.findIndex((_, index) => 
+        index > themeToComplete.index && !updatedCompletedSet.has(index)
+      );
+      
+      if (nextUncompletedTheme !== -1) {
+        setSelectedThemeIndex(nextUncompletedTheme);
+      }
       
     } catch (error) {
       console.error('Error completing theme:', error);
@@ -410,7 +593,7 @@ export default function GameDetailsPage() {
       return newThemes;
     });
     
-    // Update player scores using the correction detection logic
+    // Calculate score adjustment using the correction detection logic
     let scoreAdjustment = 0;
     
     if (isCorrectingIncorrect) {
@@ -424,6 +607,7 @@ export default function GameDetailsPage() {
       scoreAdjustment = adjustment;
     }
     
+    // Update player scores optimistically (immediate UI feedback)
     setPlayers(prevPlayers => {
       const newPlayers = prevPlayers.map(player => {
         if (player.playerId === playerId) {
@@ -434,9 +618,30 @@ export default function GameDetailsPage() {
       
       return newPlayers;
     });
+
+    // Add to pending score changes for batch saving
+    setPendingScoreChanges(prev => {
+      const newPending = new Map(prev);
+      const currentPending = newPending.get(playerId) || { totalAdjustment: 0, changes: [] };
+      
+      const newPending_value = {
+        totalAdjustment: currentPending.totalAdjustment + scoreAdjustment,
+        changes: [...currentPending.changes, {
+          questionId,
+          adjustment: scoreAdjustment,
+          timestamp: Date.now()
+        }]
+      };
+      
+      newPending.set(playerId, newPending_value);
+      return newPending;
+    });
+
+    // Trigger debounced save
+    triggerDebouncedSave();
   };
 
-  const handleCompleteGame = async () => {
+  const handleCompleteGame = () => {
     // Client-side validation: Check if all themes are completed
     if (!allThemesCompleted) {
       showError('Невозможно завершить игру: не все темы завершены. Завершите все темы перед окончанием игры.');
@@ -449,7 +654,25 @@ export default function GameDetailsPage() {
       return;
     }
 
+    // Show confirmation dialog
+    setGameToComplete(true);
+  };
+
+  const handleConfirmGameCompletion = async () => {
+    if (!gameToComplete) return;
+
     try {
+      // Save any pending score changes first
+      if (pendingScoreChanges.size > 0) {
+        await batchSaveScores();
+      }
+
+      // Convert revealedQuestions Map to serializable object
+      const revealedQuestionsData = {};
+      revealedQuestions.forEach((questionSet, playerId) => {
+        revealedQuestionsData[playerId] = Array.from(questionSet);
+      });
+
       const response = await fetch(`/api/tournaments/${tournamentId}/stages/${stageId}/games/${gameId}`, {
         method: 'PUT',
         headers: {
@@ -460,7 +683,13 @@ export default function GameDetailsPage() {
           status: 'completed',
           completedAt: new Date().toISOString(),
           // Send completed themes for server-side validation
-          completedThemes: Array.from(completedThemes)
+          completedThemes: Array.from(completedThemes),
+          // Save complete game state including all question answers
+          gameState: {
+            themes: themes,
+            revealedQuestions: revealedQuestionsData,
+            completedThemes: Array.from(completedThemes)
+          }
         }),
       });
 
@@ -472,6 +701,9 @@ export default function GameDetailsPage() {
       const updatedGame = await response.json();
       setGame(updatedGame);
       
+      // Close dialog
+      setGameToComplete(null);
+      
       // Show success message and redirect back
       alert('Игра завершена успешно!');
       router.back();
@@ -479,6 +711,9 @@ export default function GameDetailsPage() {
     } catch (error) {
       console.error('Error completing game:', error);
       showError(`Ошибка при завершении игры: ${error.message}`);
+      
+      // Close dialog on error
+      setGameToComplete(null);
     }
   };
 
@@ -630,7 +865,14 @@ export default function GameDetailsPage() {
             {/* Header Row */}
             <div className={styles.gridHeader}>
               <div></div>
-              <div className={styles.scoreHeader}>Счет</div>
+              <div className={styles.scoreHeader}>
+                Счет
+                {(isSavingScores || pendingScoreChanges.size > 0) && (
+                  <span className={styles.savingIndicator}>
+                    {isSavingScores ? ' 💾' : ' ⏱️'}
+                  </span>
+                )}
+              </div>
               {selectedTheme.questions.map((question) => (
                 <div key={question.id} className={styles.questionHeader}>
                   {question.value}
@@ -825,6 +1067,17 @@ export default function GameDetailsPage() {
           title="Завершение темы"
           message={`Вы уверены, что хотите завершить тему "${themeToComplete?.name}"?\n\nПосле завершения темы изменения в этой теме будут невозможны.`}
           confirmText="Завершить тему"
+          cancelText="Отмена"
+        />
+
+        {/* Game Completion Confirmation Dialog */}
+        <ConfirmationDialog
+          isOpen={!!gameToComplete}
+          onClose={() => setGameToComplete(null)}
+          onConfirm={handleConfirmGameCompletion}
+          title="Завершение игры"
+          message="Вы уверены, что хотите завершить игру?\n\nПосле завершения игры изменения в ней будут невозможны. Убедитесь, что все темы завершены и результаты корректны."
+          confirmText="Завершить игру"
           cancelText="Отмена"
         />
       </div>

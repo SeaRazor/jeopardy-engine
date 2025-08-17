@@ -748,7 +748,7 @@
       {
         "playerId": "213q2ebumnk6xcjoejfml2",
         "sourceReference": null,
-        "points": 0,
+        "points": -30,
         "extraResult": "",
         "resolved": true,
         "lossBracket": false,
@@ -757,7 +757,7 @@
       {
         "playerId": "l8v4lc5bqsd98xpqve8tm7",
         "sourceReference": null,
-        "points": 0,
+        "points": -10,
         "extraResult": "",
         "resolved": true,
         "lossBracket": false,
@@ -766,7 +766,7 @@
       {
         "playerId": "2n8htqiwlncxzfz2huqj9",
         "sourceReference": null,
-        "points": 0,
+        "points": 50,
         "extraResult": "",
         "resolved": true,
         "lossBracket": false,
@@ -775,7 +775,7 @@
       {
         "playerId": "4jpqi2d1j7a4jy91lo6wl3",
         "sourceReference": null,
-        "points": 0,
+        "points": 150,
         "extraResult": "",
         "resolved": true,
         "lossBracket": false,
@@ -817,9 +817,368 @@
       }
     ],
     "completedThemes": [
-
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
     ],
-    "updatedAt": "2025-08-16T12:51:50.007Z"
+    "updatedAt": "2025-08-17T10:05:01.499Z",
+    "gameState": {
+      "themes": [
+        {
+          "id": 1,
+          "name": "-ОРО- (Матричная)",
+          "description": "",
+          "questions": [
+            {
+              "id": "1-1",
+              "value": 10,
+              "answered": true,
+              "answeredBy": "l8v4lc5bqsd98xpqve8tm7",
+              "correctAnswers": [
+                "l8v4lc5bqsd98xpqve8tm7"
+              ]
+            },
+            {
+              "id": "1-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null,
+              "incorrectAnswers": [
+                "213q2ebumnk6xcjoejfml2"
+              ]
+            },
+            {
+              "id": "1-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Не только города Германии",
+          "description": "",
+          "questions": [
+            {
+              "id": "2-1",
+              "value": 10,
+              "answered": true,
+              "answeredBy": "2n8htqiwlncxzfz2huqj9",
+              "correctAnswers": [
+                "2n8htqiwlncxzfz2huqj9"
+              ],
+              "incorrectAnswers": [
+                "213q2ebumnk6xcjoejfml2"
+              ]
+            },
+            {
+              "id": "2-2",
+              "value": 20,
+              "answered": true,
+              "answeredBy": "l8v4lc5bqsd98xpqve8tm7",
+              "correctAnswers": [
+                "l8v4lc5bqsd98xpqve8tm7"
+              ],
+              "incorrectAnswers": [
+                "4jpqi2d1j7a4jy91lo6wl3"
+              ]
+            },
+            {
+              "id": "2-3",
+              "value": 30,
+              "answered": true,
+              "answeredBy": "4jpqi2d1j7a4jy91lo6wl3",
+              "correctAnswers": [
+                "4jpqi2d1j7a4jy91lo6wl3"
+              ],
+              "incorrectAnswers": [
+                "l8v4lc5bqsd98xpqve8tm7"
+              ]
+            },
+            {
+              "id": "2-4",
+              "value": 40,
+              "answered": true,
+              "answeredBy": "213q2ebumnk6xcjoejfml2",
+              "correctAnswers": [
+                "213q2ebumnk6xcjoejfml2"
+              ],
+              "incorrectAnswers": [
+                "2n8htqiwlncxzfz2huqj9"
+              ]
+            },
+            {
+              "id": "2-5",
+              "value": 50,
+              "answered": true,
+              "answeredBy": "4jpqi2d1j7a4jy91lo6wl3",
+              "correctAnswers": [
+                "4jpqi2d1j7a4jy91lo6wl3"
+              ],
+              "incorrectAnswers": [
+                "l8v4lc5bqsd98xpqve8tm7"
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Неустроенность (гиперматрица)",
+          "description": "Все ответы в теме состоят из букв слова \"Неустроенность\"",
+          "questions": [
+            {
+              "id": "3-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-3",
+              "value": 30,
+              "answered": true,
+              "answeredBy": "2n8htqiwlncxzfz2huqj9",
+              "correctAnswers": [
+                "2n8htqiwlncxzfz2huqj9"
+              ]
+            },
+            {
+              "id": "3-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "С.И. (инициальная)",
+          "description": "",
+          "questions": [
+            {
+              "id": "4-1",
+              "value": 10,
+              "answered": true,
+              "answeredBy": "213q2ebumnk6xcjoejfml2",
+              "correctAnswers": [
+                "213q2ebumnk6xcjoejfml2"
+              ]
+            },
+            {
+              "id": "4-2",
+              "value": 20,
+              "answered": true,
+              "answeredBy": "2n8htqiwlncxzfz2huqj9",
+              "incorrectAnswers": [
+                "213q2ebumnk6xcjoejfml2"
+              ],
+              "correctAnswers": [
+                "2n8htqiwlncxzfz2huqj9"
+              ]
+            },
+            {
+              "id": "4-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-4",
+              "value": 40,
+              "answered": true,
+              "answeredBy": "4jpqi2d1j7a4jy91lo6wl3",
+              "correctAnswers": [
+                "4jpqi2d1j7a4jy91lo6wl3"
+              ]
+            },
+            {
+              "id": "4-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null,
+              "incorrectAnswers": [
+                "l8v4lc5bqsd98xpqve8tm7"
+              ]
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Людовики разных стран",
+          "description": "",
+          "questions": [
+            {
+              "id": "5-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-2",
+              "value": 20,
+              "answered": true,
+              "answeredBy": "4jpqi2d1j7a4jy91lo6wl3",
+              "correctAnswers": [
+                "4jpqi2d1j7a4jy91lo6wl3"
+              ]
+            },
+            {
+              "id": "5-3",
+              "value": 30,
+              "answered": true,
+              "answeredBy": "4jpqi2d1j7a4jy91lo6wl3",
+              "correctAnswers": [
+                "4jpqi2d1j7a4jy91lo6wl3"
+              ]
+            },
+            {
+              "id": "5-4",
+              "value": 40,
+              "answered": true,
+              "answeredBy": "l8v4lc5bqsd98xpqve8tm7",
+              "incorrectAnswers": [
+                "213q2ebumnk6xcjoejfml2"
+              ],
+              "correctAnswers": [
+                "l8v4lc5bqsd98xpqve8tm7"
+              ]
+            },
+            {
+              "id": "5-5",
+              "value": 50,
+              "answered": true,
+              "answeredBy": "2n8htqiwlncxzfz2huqj9",
+              "correctAnswers": [
+                "2n8htqiwlncxzfz2huqj9"
+              ]
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "Последняя",
+          "description": "",
+          "questions": [
+            {
+              "id": "6-1",
+              "value": 10,
+              "answered": true,
+              "answeredBy": "213q2ebumnk6xcjoejfml2",
+              "correctAnswers": [
+                "213q2ebumnk6xcjoejfml2"
+              ]
+            },
+            {
+              "id": "6-2",
+              "value": 20,
+              "answered": true,
+              "answeredBy": "l8v4lc5bqsd98xpqve8tm7",
+              "incorrectAnswers": [
+                "2n8htqiwlncxzfz2huqj9"
+              ],
+              "correctAnswers": [
+                "l8v4lc5bqsd98xpqve8tm7"
+              ]
+            },
+            {
+              "id": "6-3",
+              "value": 30,
+              "answered": true,
+              "answeredBy": "l8v4lc5bqsd98xpqve8tm7",
+              "correctAnswers": [
+                "l8v4lc5bqsd98xpqve8tm7"
+              ]
+            },
+            {
+              "id": "6-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        }
+      ],
+      "revealedQuestions": {
+        "l8v4lc5bqsd98xpqve8tm7": [
+          "1-1",
+          "2-2",
+          "2-3",
+          "2-5",
+          "4-5",
+          "5-4",
+          "6-2",
+          "6-3"
+        ],
+        "213q2ebumnk6xcjoejfml2": [
+          "1-2",
+          "2-4",
+          "2-1",
+          "4-1",
+          "4-2",
+          "5-4",
+          "6-1"
+        ],
+        "2n8htqiwlncxzfz2huqj9": [
+          "2-1",
+          "2-4",
+          "3-3",
+          "4-2",
+          "5-5",
+          "6-2"
+        ],
+        "4jpqi2d1j7a4jy91lo6wl3": [
+          "2-3",
+          "2-5",
+          "2-2",
+          "4-4",
+          "5-2",
+          "5-3"
+        ]
+      },
+      "completedThemes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "status": "completed",
+    "completedAt": "2025-08-17T10:05:20.533Z"
   },
   {
     "gameDate": "2025-08-14",
