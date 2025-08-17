@@ -25,7 +25,7 @@ function writeGames(games) {
   }
 }
 
-// Sort participants by ranking (points desc, then extraResult)
+// Sort participants by ranking (points desc, then tieBreakResult)
 function sortParticipantsByRanking(participants) {
   return [...participants].sort((a, b) => {
     // Primary sort: points (higher is better)
@@ -33,20 +33,12 @@ function sortParticipantsByRanking(participants) {
       return b.points - a.points;
     }
     
-    // Secondary sort: extraResult as tiebreaker
-    const aExtra = a.extraResult || '';
-    const bExtra = b.extraResult || '';
+    // Secondary sort: tieBreakResult as tiebreaker
+    const aTieBreak = a.tieBreakResult || 0;
+    const bTieBreak = b.tieBreakResult || 0;
     
-    // Try to parse as numbers
-    const aNum = parseFloat(aExtra);
-    const bNum = parseFloat(bExtra);
-    
-    if (!isNaN(aNum) && !isNaN(bNum)) {
-      return bNum - aNum; // Higher numeric extraResult wins
-    }
-    
-    // Fall back to string comparison
-    return aExtra.localeCompare(bExtra);
+    // tieBreakResult is always a number (higher is better)
+    return bTieBreak - aTieBreak;
   });
 }
 
@@ -156,7 +148,7 @@ export async function POST(request, { params }) {
       );
     }
     
-    const hasResults = game.participants.some(p => p.points > 0 || p.extraResult);
+    const hasResults = game.participants.some(p => p.points > 0 || p.tieBreakResult);
     if (!hasResults) {
       return NextResponse.json(
         { error: 'Cannot finish game without results' },

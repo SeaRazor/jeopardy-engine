@@ -85,8 +85,8 @@ export default function GameDetailsPage() {
               if (b.points !== a.points) {
                 return b.points - a.points;
               }
-              const aExtra = parseFloat(a.extraResult) || 0;
-              const bExtra = parseFloat(b.extraResult) || 0;
+              const aExtra = parseFloat(a.tieBreakResult) || 0;
+              const bExtra = parseFloat(b.tieBreakResult) || 0;
               return bExtra - aExtra;
             });
 
@@ -932,10 +932,10 @@ export default function GameDetailsPage() {
                 </div>
                 
                 <div className={styles.scoreCell} style={{ color: getPlayerColor(player.playerInfo, playerIndex) }}>
-                  {player.points}
-                  {player.extraResult && (
-                    <span className={styles.extraResult}> ({player.extraResult})</span>
+                  {player.tieBreakResult !== 0 && (
+                    <span className={styles.tieBreakResult}>({player.tieBreakResult}) </span>
                   )}
+                  {player.points}
                 </div>
                 
                 {selectedTheme.questions.map((question, questionIndex) => (

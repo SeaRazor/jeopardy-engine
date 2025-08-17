@@ -133,7 +133,7 @@ export class ReferenceResolver {
       return null; // Cannot resolve yet, game not completed
     }
 
-    // Get sorted participants (by points + extraResult)
+    // Get sorted participants (by points + tieBreakResult)
     const sortedParticipants = this.sortParticipantsByRanking(sourceGame.participants || []);
     
     if (placement > sortedParticipants.length) {
@@ -149,7 +149,7 @@ export class ReferenceResolver {
     return targetParticipant.playerId;
   }
 
-  // Sort participants by their ranking (points desc, then extraResult)
+  // Sort participants by their ranking (points desc, then tieBreakResult)
   sortParticipantsByRanking(participants) {
     return [...participants].sort((a, b) => {
       // Primary sort: points (higher is better)
@@ -157,20 +157,12 @@ export class ReferenceResolver {
         return b.points - a.points;
       }
       
-      // Secondary sort: extraResult as tiebreaker
-      const aExtra = a.extraResult || '';
-      const bExtra = b.extraResult || '';
+      // Secondary sort: tieBreakResult as tiebreaker
+      const aTieBreak = a.tieBreakResult || 0;
+      const bTieBreak = b.tieBreakResult || 0;
       
-      // Try to parse as numbers
-      const aNum = parseFloat(aExtra);
-      const bNum = parseFloat(bExtra);
-      
-      if (!isNaN(aNum) && !isNaN(bNum)) {
-        return bNum - aNum; // Higher numeric extraResult wins
-      }
-      
-      // Fall back to string comparison
-      return aExtra.localeCompare(bExtra);
+      // tieBreakResult is always a number (higher is better)
+      return bTieBreak - aTieBreak;
     });
   }
 

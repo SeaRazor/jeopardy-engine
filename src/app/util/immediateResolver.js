@@ -111,7 +111,7 @@ export class ImmediateReferenceResolver {
     return references;
   }
 
-  // Sort participants by their ranking (points + extraResult)
+  // Sort participants by their ranking (points + tieBreakResult)
   sortParticipantsByRanking(participants) {
     if (!participants || participants.length === 0) return [];
     
@@ -121,20 +121,12 @@ export class ImmediateReferenceResolver {
         return b.points - a.points;
       }
       
-      // Secondary sort: extraResult as tiebreaker
-      const aExtra = a.extraResult || '';
-      const bExtra = b.extraResult || '';
+      // Secondary sort: tieBreakResult as tiebreaker
+      const aTieBreak = a.tieBreakResult || 0;
+      const bTieBreak = b.tieBreakResult || 0;
       
-      // Try to parse as numbers
-      const aNum = parseFloat(aExtra);
-      const bNum = parseFloat(bExtra);
-      
-      if (!isNaN(aNum) && !isNaN(bNum)) {
-        return bNum - aNum; // Higher numeric extraResult wins
-      }
-      
-      // Fall back to string comparison
-      return aExtra.localeCompare(bExtra);
+      // tieBreakResult is always a number (higher is better)
+      return bTieBreak - aTieBreak;
     });
   }
 

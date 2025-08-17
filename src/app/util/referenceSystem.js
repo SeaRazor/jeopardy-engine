@@ -40,7 +40,7 @@ export const createParticipantWithReference = (sourceReference, options = {}) =>
     playerId: null,
     sourceReference: sourceReference,
     points: options.points || 0,
-    extraResult: options.extraResult || "",
+    tieBreakResult: options.tieBreakResult || "",
     resolved: false,
     lossBracket: options.lossBracket || false,
     eliminationCount: options.eliminationCount || 0
@@ -53,7 +53,7 @@ export const createResolvedParticipant = (playerId, options = {}) => {
     playerId: playerId,
     sourceReference: null,
     points: options.points || 0,
-    extraResult: options.extraResult || "",
+    tieBreakResult: options.tieBreakResult || "",
     resolved: true,
     lossBracket: options.lossBracket || false,
     eliminationCount: options.eliminationCount || 0

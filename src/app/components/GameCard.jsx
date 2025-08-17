@@ -96,29 +96,19 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
             };
           }).filter(p => p.playerInfo);
 
-          // Sort by points descending, then by extraResult as tiebreaker
+          // Sort by points descending, then by tieBreakResult as tiebreaker
           gameParticipants.sort((a, b) => {
             // Primary sort: points (higher is better)
             if (b.points !== a.points) {
               return b.points - a.points;
             }
             
-            // Secondary sort: extraResult as tiebreaker
-            // If extraResult is numeric (like +1, -2), sort numerically
-            // Otherwise sort alphabetically
-            const aExtra = a.extraResult || '';
-            const bExtra = b.extraResult || '';
+            // Secondary sort: tieBreakResult as tiebreaker
+            const aTieBreak = a.tieBreakResult || 0;
+            const bTieBreak = b.tieBreakResult || 0;
             
-            // Try to parse as numbers
-            const aNum = parseFloat(aExtra);
-            const bNum = parseFloat(bExtra);
-            
-            if (!isNaN(aNum) && !isNaN(bNum)) {
-              return bNum - aNum; // Higher numeric extraResult wins
-            }
-            
-            // Fall back to string comparison
-            return aExtra.localeCompare(bExtra);
+            // tieBreakResult is always a number (higher is better)
+            return bTieBreak - aTieBreak;
           });
           
           setPlayers(gameParticipants);
@@ -280,7 +270,7 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
         newParticipants[index] = {
           playerId: playerId,
           points: 0,
-          extraResult: ""
+          tieBreakResult: 0
         };
       } else {
         newParticipants.splice(index, 1);
@@ -345,7 +335,7 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
       newParticipants.push({
         playerId: playerId,
         points: 0,
-        extraResult: ""
+        tieBreakResult: 0
       });
       
       return {
@@ -470,7 +460,7 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
         return;
       }
 
-      const hasResults = currentGame.participants.some(p => p.points !== 0 || p.extraResult);
+      const hasResults = currentGame.participants.some(p => p.points !== 0 || p.tieBreakResult);
       if (!hasResults) {
         showError('Нельзя завершить игру без результатов. Введите очки хотя бы одному участнику.');
         return;
@@ -762,8 +752,8 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
                   </div>
                   <div className={styles.participantScore}>
                     <span className={styles.points}>
-                      {participant.extraResult && (
-                        <span className={styles.extraResultInline}>({participant.extraResult}) </span>
+                      {participant.tieBreakResult !== 0 && (
+                        <span className={styles.tieBreakResultInline}>({participant.tieBreakResult}) </span>
                       )}
                       {participant.points}
                     </span>
@@ -831,7 +821,7 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
                 </div>
               ))
             ) : (
-              // Participants exist: Points and extraResult editing for ALL stages
+              // Participants exist: Points and tieBreakResult editing for ALL stages
               <>
                 {(editForm.participants.length > 0 ? editForm.participants : currentGame.participants || []).map((participant, index) => (
                   <div key={participant.playerId || index} className={styles.participantEditRow}>
@@ -868,8 +858,8 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
                         <label>Доп. результат:</label>
                         <input
                           type="number"
-                          value={participant.extraResult || ''}
-                          onChange={(e) => handleParticipantUpdate(index, 'extraResult', parseInt(e.target.value) || 0)}
+                          value={participant.tieBreakResult || 0}
+                          onChange={(e) => handleParticipantUpdate(index, 'tieBreakResult', parseInt(e.target.value) || 0)}
                           className={styles.extraInput}
                           placeholder="Доп. очки (может быть отрицательным)"
                         />

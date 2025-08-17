@@ -716,7 +716,7 @@
   font-size: 0.7rem;
 }
 
-.extraResult {
+.tieBreakResult {
   padding: 0.25rem 0.5rem;
   background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.1);
   border: 1px solid rgba(var(--primary-color-rgb, 0, 123, 255), 0.2);
@@ -728,7 +728,7 @@
   min-width: 120px;
 }
 
-.extraResultInline {
+.tieBreakResultInline {
   margin-right: 0.3rem;
   font-size: 0.8rem;
   color: var(--color-secondary-text);
@@ -1241,7 +1241,7 @@
     min-width: 3rem;
   }
 
-  .extraResultInline {
+  .tieBreakResultInline {
     font-size: 0.7rem;
     margin-right: 0.2rem;
   }

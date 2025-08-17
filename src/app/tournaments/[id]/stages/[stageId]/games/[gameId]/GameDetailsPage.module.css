@@ -926,7 +926,7 @@
   color: var(--color-secondary-text);
 }
 
-.extraResult {
+.tieBreakResult {
   opacity: 0.8;
   font-weight: 500;
 }
