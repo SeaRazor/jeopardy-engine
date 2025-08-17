@@ -148,12 +148,8 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
   // Helper function to check if game is completed
   const isGameCompleted = (game) => {
     if (!game.participants || game.participants.length === 0) return false;
-    if (game.completed === true) return true;
-    
-    const allResolved = game.participants.every(p => p.resolved || !p.sourceReference);
-    const hasResults = game.participants.some(p => p.points !== 0 || p.extraResult);
-    
-    return allResolved && hasResults;
+    // Only consider a game completed if it has the explicit completed status
+    return game.completed === true || game.status === 'completed';
   };
 
   // Apply filters to games

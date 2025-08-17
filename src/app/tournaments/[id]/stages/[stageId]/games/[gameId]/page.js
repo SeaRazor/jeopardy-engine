@@ -8,12 +8,13 @@ import Card from '../../../../../../UI/Card/Card';
 import InfoComponent from '../../../../../../UI/InfoComponent/InfoComponent';
 import ConfirmationDialog from '../../../../../../UI/ConfirmationDialog';
 import { useToast } from '../../../../../../util/ToastContext';
+import { resolveReferencesForGame } from '../../../../../../util/immediateResolver';
 import styles from './GameDetailsPage.module.css';
 
 export default function GameDetailsPage() {
   const params = useParams();
   const router = useRouter();
-  const { showError } = useToast();
+  const { showError, showSuccess, showInfo } = useToast();
   
   const [game, setGame] = useState(null);
   const [tournament, setTournament] = useState(null);
@@ -30,6 +31,7 @@ export default function GameDetailsPage() {
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [pendingScoreChanges, setPendingScoreChanges] = useState(new Map());
   const [isSavingScores, setIsSavingScores] = useState(false);
+  const [isProcessingProgression, setIsProcessingProgression] = useState(false);
   const saveTimeoutRef = useRef(null);
 
   const { id: tournamentId, stageId, gameId } = params;
@@ -703,9 +705,47 @@ export default function GameDetailsPage() {
       
       // Close dialog
       setGameToComplete(null);
+
+      // Trigger automatic reference resolution for dependent games
+      try {
+        setIsProcessingProgression(true);
+        console.log('Starting automatic reference resolution for completed game...');
+        const resolutionResult = await resolveReferencesForGame(tournamentId, updatedGame);
+        
+        if (resolutionResult.success) {
+          console.log(`Tournament progression: Resolved ${resolutionResult.resolvedReferences} references in ${resolutionResult.resolvedGames} dependent games`);
+          
+          // Dispatch custom event for other components to react
+          if (typeof window !== 'undefined') {
+            window.dispatchEvent(new CustomEvent('gameCompleted', {
+              detail: {
+                gameId: updatedGame.id,
+                stageId: updatedGame.stageId,
+                tournamentId: tournamentId,
+                resolvedGames: resolutionResult.resolvedGames,
+                resolvedReferences: resolutionResult.resolvedReferences
+              }
+            }));
+          }
+          
+          // Show enhanced success message with progression info
+          let successMessage = 'Игра завершена успешно!';
+          if (resolutionResult.resolvedReferences > 0) {
+            successMessage += ` Автоматически добавлено ${resolutionResult.resolvedReferences} игроков в следующие этапы турнира.`;
+          }
+          showSuccess(successMessage);
+        } else {
+          console.warn('Reference resolution failed:', resolutionResult.error);
+          showInfo('Игра завершена успешно! Внимание: Возможны проблемы с автоматическим продвижением игроков. Проверьте следующие этапы турнира.');
+        }
+      } catch (error) {
+        console.error('Error during automatic reference resolution:', error);
+        showInfo('Игра завершена успешно! Внимание: Ошибка при автоматическом продвижении игроков. Проверьте следующие этапы турнира.');
+      } finally {
+        setIsProcessingProgression(false);
+      }
       
-      // Show success message and redirect back
-      alert('Игра завершена успешно!');
+      // Redirect back
       router.back();
       
     } catch (error) {
@@ -1073,12 +1113,17 @@ export default function GameDetailsPage() {
         {/* Game Completion Confirmation Dialog */}
         <ConfirmationDialog
           isOpen={!!gameToComplete}
-          onClose={() => setGameToComplete(null)}
+          onClose={() => !isProcessingProgression && setGameToComplete(null)}
           onConfirm={handleConfirmGameCompletion}
           title="Завершение игры"
-          message="Вы уверены, что хотите завершить игру?\n\nПосле завершения игры изменения в ней будут невозможны. Убедитесь, что все темы завершены и результаты корректны."
-          confirmText="Завершить игру"
+          message={isProcessingProgression 
+            ? "Завершаем игру и обновляем турнирную сетку...\n\nПожалуйста, подождите. Это может занять несколько секунд."
+            : "Вы уверены, что хотите завершить игру?\n\nПосле завершения игры изменения в ней будут невозможны. Убедитесь, что все темы завершены и результаты корректны."
+          }
+          confirmText={isProcessingProgression ? "Обработка..." : "Завершить игру"}
           cancelText="Отмена"
+          confirmDisabled={isProcessingProgression}
+          cancelDisabled={isProcessingProgression}
         />
       </div>
     </div>

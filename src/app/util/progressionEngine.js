@@ -82,9 +82,8 @@ export class TournamentProgressionEngine {
     if (!game.participants || game.participants.length === 0) {
       return false;
     }
-    const allResolved = game.participants.every(p => p.resolved || !p.sourceReference);
-    const hasResults = game.participants.some(p => p.points > 0 || p.extraResult);
-    return allResolved && hasResults;
+    // Only consider a game completed if it has the explicit completed status
+    return game.completed === true || game.status === 'completed';
   }
 
   generateProgressionMetadata() {

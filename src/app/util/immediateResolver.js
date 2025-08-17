@@ -99,13 +99,13 @@ export class ImmediateReferenceResolver {
 
   // Generate all possible references that point to this game
   generatePossibleReferences(completedGame) {
-    const stageOrder = completedGame.stageOrder || 1;
-    const gamePosition = stageOrder;
+    // Use the correct reference format: tournamentId.gameNumber.placement
+    const gameNumber = completedGame.gameNumber || completedGame.id;
     
     // Generate references for all possible placements (1st, 2nd, 3rd, 4th)
     const references = [];
     for (let placement = 1; placement <= 4; placement++) {
-      references.push(`${completedGame.stageId || 1}.${gamePosition}.${placement}`);
+      references.push(`${this.tournamentId}.${gameNumber}.${placement}`);
     }
     
     return references;
@@ -183,11 +183,11 @@ export class ImmediateReferenceResolver {
     const parsed = parsePlayerReference(participant.sourceReference);
     if (!parsed) return null;
 
-    const { stageOrder, gamePosition, placement } = parsed;
+    const { tournamentId, gameNumber, placement } = parsed;
     
     // Verify this reference points to the completed game
-    const expectedReference = `${completedGame.stageId || 1}.${completedGame.stageOrder || 1}.${placement}`;
-    if (participant.sourceReference !== expectedReference) {
+    const completedGameNumber = completedGame.gameNumber || completedGame.id;
+    if (tournamentId !== parseInt(this.tournamentId) || gameNumber !== completedGameNumber) {
       return null; // This reference doesn't match the completed game
     }
 
@@ -210,53 +210,57 @@ export class ImmediateReferenceResolver {
     };
   }
 
-  // API helper functions
+  // API helper functions - read directly from JSON file
   async fetchAllTournamentGames() {
     try {
-      const tournament = await this.fetchTournament();
-      const allGames = [];
-
-      // Fetch games from all stages
-      for (const stage of tournament.schema.stages) {
-        const stageGames = await this.fetchStageGames(stage.id);
-        allGames.push(...stageGames);
-      }
-
-      return allGames;
+      const fs = await import('fs');
+      const path = await import('path');
+      
+      const gamesDbPath = path.join(process.cwd(), 'src/app/api/games/db.json');
+      const data = fs.readFileSync(gamesDbPath, 'utf8');
+      const allGames = JSON.parse(data);
+      
+      // Filter games for this tournament
+      return allGames.filter(game => game.tournamentId === parseInt(this.tournamentId));
     } catch (error) {
-      console.error('Error fetching tournament games:', error);
+      console.error('Error reading tournament games from db.json:', error);
       return [];
     }
   }
 
   async fetchTournament() {
-    const response = await fetch(`/api/tournaments/${this.tournamentId}`);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch tournament: ${response.statusText}`);
-    }
-    return response.json();
+    // Not needed for immediate resolution, but keeping for compatibility
+    return { schema: { stages: [] } };
   }
 
   async fetchStageGames(stageId) {
-    const response = await fetch(`/api/tournaments/${this.tournamentId}/stages/${stageId}/games`);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch stage games: ${response.statusText}`);
-    }
-    return response.json();
+    // Not needed for immediate resolution, but keeping for compatibility
+    return [];
   }
 
   async updateGame(game) {
-    const response = await fetch(`/api/tournaments/${this.tournamentId}/stages/${game.stageId}/games/${game.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(game),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to update game: ${response.statusText}`);
+    try {
+      const fs = await import('fs');
+      const path = await import('path');
+      
+      const gamesDbPath = path.join(process.cwd(), 'src/app/api/games/db.json');
+      const data = fs.readFileSync(gamesDbPath, 'utf8');
+      const allGames = JSON.parse(data);
+      
+      // Find and update the game
+      const gameIndex = allGames.findIndex(g => g.id === game.id);
+      if (gameIndex !== -1) {
+        allGames[gameIndex] = game;
+        fs.writeFileSync(gamesDbPath, JSON.stringify(allGames, null, 2));
+        console.log(`Updated game ${game.id} in db.json`);
+        return game;
+      } else {
+        throw new Error(`Game ${game.id} not found in db.json`);
+      }
+    } catch (error) {
+      console.error('Error updating game in db.json:', error);
+      throw error;
     }
-    
-    return response.json();
   }
 
   // Get immediate resolution status for a tournament
@@ -269,7 +273,7 @@ export class ImmediateReferenceResolver {
       let resolvedReferences = 0;
       
       allGames.forEach(game => {
-        if (game.completed) {
+        if (game.completed === true || game.status === 'completed') {
           completedGames++;
         }
         

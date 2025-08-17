@@ -45,21 +45,8 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
       return false;
     }
     
-    // Check if game is explicitly marked as completed
-    if (gameData.completed === true) {
-      return true;
-    }
-    
-    // All participants must be resolved (no pending references)
-    const allResolved = gameData.participants.every(p => p.resolved || !p.sourceReference);
-    if (!allResolved) {
-      return false;
-    }
-    
-    // At least one participant must have results
-    const hasResults = gameData.participants.some(p => p.points !== 0 || p.extraResult);
-    
-    return hasResults;
+    // Only consider a game completed if it has the explicit completed status
+    return gameData.completed === true || gameData.status === 'completed';
   };
   
   // Close menu when clicking outside

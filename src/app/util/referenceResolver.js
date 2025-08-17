@@ -179,17 +179,8 @@ export class ReferenceResolver {
     if (!game.participants || game.participants.length === 0) {
       return false;
     }
-
-    // All participants must be resolved (no pending references)
-    const allResolved = game.participants.every(p => p.resolved || !p.sourceReference);
-    if (!allResolved) {
-      return false;
-    }
-
-    // At least one participant must have results
-    const hasResults = game.participants.some(p => p.points > 0 || p.extraResult);
-    
-    return hasResults;
+    // Only consider a game completed if it has the explicit completed status
+    return game.completed === true || game.status === 'completed';
   }
 
   // Check if a stage is ready for progression (all games completed)
