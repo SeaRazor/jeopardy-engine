@@ -36,6 +36,72 @@ export default function GameDetailsPage() {
 
   const { id: tournamentId, stageId, gameId } = params;
 
+  // Utility functions for tiebreak management
+  const getTieBreakThemes = useCallback(() => {
+    return themes.filter(theme => theme.name.startsWith('Перестрелка'));
+  }, [themes]);
+
+  const getLatestTieBreakTheme = useCallback(() => {
+    const tieBreakThemes = getTieBreakThemes();
+    if (tieBreakThemes.length === 0) return null;
+    
+    // Sort by tiebreak number (extracted from name)
+    return tieBreakThemes.sort((a, b) => {
+      const aNum = getTieBreakNumber(a.name);
+      const bNum = getTieBreakNumber(b.name);
+      return bNum - aNum; // Descending order to get latest
+    })[0];
+  }, [getTieBreakThemes]);
+
+  const getTieBreakNumber = useCallback((themeName) => {
+    if (themeName === 'Перестрелка') return 1;
+    const match = themeName.match(/Перестрелка (\d+)/);
+    return match ? parseInt(match[1]) : 1;
+  }, []);
+
+  const generateTieBreakName = useCallback(() => {
+    const tieBreakThemes = getTieBreakThemes();
+    if (tieBreakThemes.length === 0) return 'Перестрелка';
+    
+    const maxNumber = Math.max(...tieBreakThemes.map(theme => getTieBreakNumber(theme.name)));
+    return `Перестрелка ${maxNumber + 1}`;
+  }, [getTieBreakThemes, getTieBreakNumber]);
+
+  const calculateMainScore = useCallback((playerId) => {
+    const regularThemes = themes.filter(theme => !theme.name.startsWith('Перестрелка'));
+    let mainScore = 0;
+    
+    regularThemes.forEach(theme => {
+      theme.questions.forEach(question => {
+        if (question.correctAnswers && question.correctAnswers.includes(playerId)) {
+          mainScore += question.value;
+        }
+        if (question.incorrectAnswers && question.incorrectAnswers.includes(playerId)) {
+          mainScore -= question.value;
+        }
+      });
+    });
+    
+    return mainScore;
+  }, [themes]);
+
+  const calculateLatestTieBreakScore = useCallback((playerId) => {
+    const latestTieBreak = getLatestTieBreakTheme();
+    if (!latestTieBreak) return 0;
+    
+    let tieBreakScore = 0;
+    latestTieBreak.questions.forEach(question => {
+      if (question.correctAnswers && question.correctAnswers.includes(playerId)) {
+        tieBreakScore += question.value;
+      }
+      if (question.incorrectAnswers && question.incorrectAnswers.includes(playerId)) {
+        tieBreakScore -= question.value;
+      }
+    });
+    
+    return tieBreakScore;
+  }, [getLatestTieBreakTheme]);
+
   useEffect(() => {
     const fetchGameData = async () => {
       try {
@@ -67,34 +133,7 @@ export default function GameDetailsPage() {
           }
         }
 
-        // Fetch players data
-        if (gameData.participants?.length > 0) {
-          const playersResponse = await fetch('/api/players');
-          if (playersResponse.ok) {
-            const allPlayers = await playersResponse.json();
-            const gameParticipants = gameData.participants.map(participant => {
-              const playerInfo = allPlayers.find(p => p.id === participant.playerId);
-              return {
-                ...participant,
-                playerInfo
-              };
-            }).filter(p => p.playerInfo);
-
-            // Sort by points descending
-            gameParticipants.sort((a, b) => {
-              if (b.points !== a.points) {
-                return b.points - a.points;
-              }
-              const aExtra = parseFloat(a.tieBreakResult) || 0;
-              const bExtra = parseFloat(b.tieBreakResult) || 0;
-              return bExtra - aExtra;
-            });
-
-            setPlayers(gameParticipants);
-          }
-        }
-
-        // Initialize themes using real theme names from the API
+        // Initialize themes first so we can calculate scores
         const stageThemes = gameData.stageThemes || [];
         const numberOfThemes = stageThemes.length || stageData?.numberOfThemesInGame || 6;
         
@@ -138,6 +177,24 @@ export default function GameDetailsPage() {
         
         setThemes(initialThemes);
 
+        // Fetch players data
+        if (gameData.participants?.length > 0) {
+          const playersResponse = await fetch('/api/players');
+          if (playersResponse.ok) {
+            const allPlayers = await playersResponse.json();
+            const gameParticipants = gameData.participants.map(participant => {
+              const playerInfo = allPlayers.find(p => p.id === participant.playerId);
+              return {
+                ...participant,
+                playerInfo
+              };
+            }).filter(p => p.playerInfo);
+
+            setPlayers(gameParticipants);
+          }
+        }
+
+
         // Load completed themes from saved game state or legacy field
         let completedThemesData = [];
         if (savedGameState && savedGameState.completedThemes) {
@@ -169,6 +226,7 @@ export default function GameDetailsPage() {
     }
   }, [tournamentId, stageId, gameId, showError]);
 
+
   // Batch save scores with debouncing
   const batchSaveScores = useCallback(async () => {
     if (pendingScoreChanges.size === 0 || !game) return;
@@ -176,22 +234,16 @@ export default function GameDetailsPage() {
     try {
       setIsSavingScores(true);
       
-      // Get current player scores from the players state (which includes optimistic updates)
-      const currentPlayerScores = {};
-      players.forEach(player => {
-        currentPlayerScores[player.playerId] = player.points;
-      });
-
-      // Apply current scores to game participants
+      // Recalculate scores based on current theme state (instead of optimistic updates)
       const updatedParticipants = game.participants?.map(participant => {
-        const currentScore = currentPlayerScores[participant.playerId];
-        if (currentScore !== undefined) {
-          return {
-            ...participant,
-            points: currentScore
-          };
-        }
-        return participant;
+        const mainScore = calculateMainScore(participant.playerId);
+        const latestTieBreakScore = calculateLatestTieBreakScore(participant.playerId);
+        
+        return {
+          ...participant,
+          points: mainScore,
+          tieBreakResult: latestTieBreakScore
+        };
       }) || [];
 
       // Convert revealedQuestions Map to serializable object
@@ -516,7 +568,17 @@ export default function GameDetailsPage() {
     }
     
     const isCorrectAnswer = adjustment > 0;
-    const currentQuestion = themes[themeIndex].questions[questionIndex];
+    
+    // Find the correct question by ID to avoid index mismatches
+    const targetTheme = themes[themeIndex];
+    const actualQuestionIndex = targetTheme.questions.findIndex(q => q.id === questionId);
+    
+    if (actualQuestionIndex === -1) {
+      console.error('Question not found:', questionId);
+      return;
+    }
+    
+    const currentQuestion = targetTheme.questions[actualQuestionIndex];
     
     // Determine if this is a correction based on current state
     const isCorrectingIncorrect = isCorrectAnswer && currentQuestion.incorrectAnswers && currentQuestion.incorrectAnswers.includes(playerId);
@@ -548,12 +610,12 @@ export default function GameDetailsPage() {
     // Update question state
     setThemes(prevThemes => {
       const newThemes = [...prevThemes];
-      const currentQuestionInThemes = newThemes[themeIndex].questions[questionIndex];
+      const currentQuestionInThemes = newThemes[themeIndex].questions[actualQuestionIndex];
       
       if (isCorrectingIncorrect) {
         // Correcting incorrect answer - return to empty state
         const cleanedIncorrectAnswers = (currentQuestionInThemes.incorrectAnswers || []).filter(id => id !== playerId);
-        newThemes[themeIndex].questions[questionIndex] = {
+        newThemes[themeIndex].questions[actualQuestionIndex] = {
           ...currentQuestionInThemes,
           incorrectAnswers: cleanedIncorrectAnswers.length > 0 ? cleanedIncorrectAnswers : undefined
         };
@@ -561,7 +623,7 @@ export default function GameDetailsPage() {
         // Correcting correct answer - return to empty state
         const existingCorrectAnswers = currentQuestionInThemes.correctAnswers || [];
         const cleanedCorrectAnswers = existingCorrectAnswers.filter(id => id !== playerId);
-        newThemes[themeIndex].questions[questionIndex] = {
+        newThemes[themeIndex].questions[actualQuestionIndex] = {
           ...currentQuestionInThemes,
           correctAnswers: cleanedCorrectAnswers.length > 0 ? cleanedCorrectAnswers : undefined,
           // Keep old fields for backward compatibility during transition
@@ -574,7 +636,7 @@ export default function GameDetailsPage() {
         const newCorrectAnswers = existingCorrectAnswers.includes(playerId) 
           ? existingCorrectAnswers 
           : [...existingCorrectAnswers, playerId];
-        newThemes[themeIndex].questions[questionIndex] = {
+        newThemes[themeIndex].questions[actualQuestionIndex] = {
           ...currentQuestionInThemes,
           correctAnswers: newCorrectAnswers,
           // Keep old fields for backward compatibility during transition  
@@ -586,7 +648,7 @@ export default function GameDetailsPage() {
         const existingIncorrect = currentQuestionInThemes.incorrectAnswers || [];
         // Only add if not already in the array (prevent duplicates)
         if (!existingIncorrect.includes(playerId)) {
-          newThemes[themeIndex].questions[questionIndex] = {
+          newThemes[themeIndex].questions[actualQuestionIndex] = {
             ...currentQuestionInThemes,
             incorrectAnswers: [...existingIncorrect, playerId]
           };
@@ -613,7 +675,22 @@ export default function GameDetailsPage() {
     setPlayers(prevPlayers => {
       const newPlayers = prevPlayers.map(player => {
         if (player.playerId === playerId) {
-          return { ...player, points: player.points + scoreAdjustment };
+          // For immediate feedback, just adjust the current scores
+          const isCurrentThemeTieBreak = themes[themeIndex].name.startsWith('Перестрелка');
+          
+          if (isCurrentThemeTieBreak) {
+            // Tiebreak theme: adjust tieBreakResult only
+            return { 
+              ...player, 
+              tieBreakResult: player.tieBreakResult + scoreAdjustment
+            };
+          } else {
+            // Regular theme: adjust main points only
+            return { 
+              ...player, 
+              points: player.points + scoreAdjustment
+            };
+          }
         }
         return player;
       });
@@ -641,6 +718,68 @@ export default function GameDetailsPage() {
 
     // Trigger debounced save
     triggerDebouncedSave();
+  };
+
+  const handleStartTiebreak = async () => {
+    try {
+      // Create new tiebreak theme
+      const tieBreakName = generateTieBreakName();
+      const newThemeId = themes.length + 1;
+      
+      const newTieBreakTheme = {
+        id: newThemeId,
+        name: tieBreakName,
+        description: '',
+        questions: Array.from({ length: 5 }, (_, qIndex) => ({
+          id: `${newThemeId}-${qIndex + 1}`,
+          value: (qIndex + 1) * 10,
+          answered: false,
+          answeredBy: null
+        }))
+      };
+      
+      // Add tiebreak theme to themes array
+      const updatedThemes = [...themes, newTieBreakTheme];
+      setThemes(updatedThemes);
+      
+      // Select the new tiebreak theme
+      setSelectedThemeIndex(updatedThemes.length - 1);
+      
+      // Save to API
+      const revealedQuestionsData = {};
+      revealedQuestions.forEach((questionSet, playerId) => {
+        revealedQuestionsData[playerId] = Array.from(questionSet);
+      });
+      
+      const response = await fetch(`/api/tournaments/${tournamentId}/stages/${stageId}/games/${gameId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...game,
+          gameState: {
+            themes: updatedThemes,
+            revealedQuestions: revealedQuestionsData,
+            completedThemes: Array.from(completedThemes)
+          },
+          updatedAt: new Date().toISOString()
+        }),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to save tiebreak theme');
+      }
+      
+      const updatedGame = await response.json();
+      setGame(updatedGame);
+      
+      showSuccess(`Добавлена тема "${tieBreakName}"`);
+      
+    } catch (error) {
+      console.error('Error creating tiebreak theme:', error);
+      showError('Ошибка при создании темы перестрелки');
+    }
   };
 
   const handleCompleteGame = () => {
@@ -786,7 +925,14 @@ export default function GameDetailsPage() {
   const { winners, losers } = getWinnersAndLosers();
   const selectedTheme = themes[selectedThemeIndex] || { name: 'Загрузка...', description: '' };
   
-  // Check if all themes are completed
+  // Check if all regular themes are completed (excludes tiebreak themes)
+  const regularThemes = themes.filter(theme => !theme.name.startsWith('Перестрелка'));
+  const allRegularThemesCompleted = regularThemes.length > 0 && regularThemes.every((theme, index) => {
+    const originalIndex = themes.findIndex(t => t.id === theme.id);
+    return completedThemes.has(originalIndex);
+  });
+  
+  // Check if all themes (including tiebreaks) are completed
   const allThemesCompleted = themes.length > 0 && themes.every((_, index) => completedThemes.has(index));
 
   return (
@@ -1086,6 +1232,15 @@ export default function GameDetailsPage() {
             </div>
             
             <div className={styles.endGameSection}>
+              <button
+                onClick={handleStartTiebreak}
+                className={`${styles.actionButton} ${styles.tieBreakButton}`}
+                disabled={game?.status === 'completed' || !allRegularThemesCompleted}
+                title={!allRegularThemesCompleted ? 'Завершите все основные темы для добавления перестрелки' : ''}
+              >
+                <FaPlus />
+                {generateTieBreakName()}
+              </button>
               <button
                 onClick={handleCompleteGame}
                 className={`${styles.actionButton} ${styles.completeGameButton}`}
