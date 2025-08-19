@@ -1,0 +1,157 @@
+.content {
+  padding: 0.5rem 0;
+}
+
+.description {
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  color: var(--color-secondary-text);
+  line-height: 1.4;
+}
+
+.participantsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.participantItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: var(--background);
+  border: 1px solid var(--color-border);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.participantItem:hover {
+  border-color: var(--primary-color);
+  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.05);
+}
+
+.participantCheckbox {
+  /* Hide default checkbox */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+  /* Custom checkbox styling */
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--background);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.participantCheckbox:hover {
+  border-color: var(--primary-color);
+  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.05);
+}
+
+.participantCheckbox:checked {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.participantCheckbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.participantCheckbox:focus {
+  outline: 2px solid rgba(var(--primary-color-rgb, 0, 123, 255), 0.3);
+  outline-offset: 2px;
+}
+
+.participantName {
+  font-weight: 500;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem 0 1rem 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.participantCount {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-secondary-text);
+  transition: color 0.2s ease;
+}
+
+.participantCountError {
+  color: #ef4444;
+}
+
+.validationMessage {
+  font-weight: 600;
+  color: #ef4444;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+  .content {
+    padding: 0.25rem 0;
+  }
+  
+  .description {
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .participantsList {
+    gap: 0.4rem;
+    max-height: 250px;
+  }
+  
+  .participantItem {
+    padding: 0.6rem;
+  }
+  
+  .participantName {
+    font-size: 0.8rem;
+  }
+
+  .footer {
+    padding: 0.5rem 0 0.75rem 0;
+  }
+  
+  .participantCount {
+    font-size: 0.8rem;
+  }
+
+  .actions {
+    gap: 0.5rem;
+  }
+}

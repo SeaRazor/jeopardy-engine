@@ -770,6 +770,43 @@
               "answeredBy": null
             }
           ]
+        },
+        {
+          "id": 7,
+          "name": "Перестрелка",
+          "description": "",
+          "questions": [
+            {
+              "id": "7-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "7-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "7-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "7-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "7-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
         }
       ],
       "revealedQuestions": {},
@@ -782,7 +819,7 @@
         5
       ]
     },
-    "updatedAt": "2025-08-19T14:56:00.561Z"
+    "updatedAt": "2025-08-19T15:08:01.185Z"
   },
   {
     "gameDate": "2025-08-18",
@@ -793,7 +830,7 @@
         "playerId": "qh1l3ut6qxunkm864njl",
         "sourceReference": null,
         "points": 0,
-        "tieBreakResult": null,
+        "tieBreakResult": 60,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
@@ -811,7 +848,7 @@
         "playerId": "2n8htqiwlncxzfz2huqj9",
         "sourceReference": null,
         "points": 0,
-        "tieBreakResult": null,
+        "tieBreakResult": -20,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
@@ -833,7 +870,340 @@
     "id": 3,
     "gameNumber": 3,
     "tournamentId": 5,
-    "stageId": 1
+    "stageId": 1,
+    "stageThemes": [
+      {
+        "name": "-ОРО- (Матричная)",
+        "description": ""
+      },
+      {
+        "name": "Не только города Германии",
+        "description": ""
+      },
+      {
+        "name": "Неустроенность (гиперматрица)",
+        "description": "Все ответы в теме состоят из букв слова \"Неустроенность\""
+      },
+      {
+        "name": "С.И. (инициальная)",
+        "description": ""
+      },
+      {
+        "name": "Людовики разных стран",
+        "description": ""
+      },
+      {
+        "name": "Последняя",
+        "description": ""
+      }
+    ],
+    "completedThemes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "gameState": {
+      "themes": [
+        {
+          "id": 1,
+          "name": "-ОРО- (Матричная)",
+          "description": "",
+          "questions": [
+            {
+              "id": "1-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Не только города Германии",
+          "description": "",
+          "questions": [
+            {
+              "id": "2-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "2-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "2-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "2-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "2-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Неустроенность (гиперматрица)",
+          "description": "Все ответы в теме состоят из букв слова \"Неустроенность\"",
+          "questions": [
+            {
+              "id": "3-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "С.И. (инициальная)",
+          "description": "",
+          "questions": [
+            {
+              "id": "4-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Людовики разных стран",
+          "description": "",
+          "questions": [
+            {
+              "id": "5-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "Последняя",
+          "description": "",
+          "questions": [
+            {
+              "id": "6-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "Перестрелка",
+          "description": "",
+          "questions": [
+            {
+              "id": "7-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "7-2",
+              "value": 20,
+              "answered": true,
+              "answeredBy": "qh1l3ut6qxunkm864njl",
+              "correctAnswers": [
+                "qh1l3ut6qxunkm864njl"
+              ]
+            },
+            {
+              "id": "7-3",
+              "value": 30,
+              "answered": true,
+              "answeredBy": "2n8htqiwlncxzfz2huqj9",
+              "correctAnswers": [
+                "2n8htqiwlncxzfz2huqj9"
+              ]
+            },
+            {
+              "id": "7-4",
+              "value": 40,
+              "answered": true,
+              "answeredBy": "qh1l3ut6qxunkm864njl",
+              "correctAnswers": [
+                "qh1l3ut6qxunkm864njl"
+              ]
+            },
+            {
+              "id": "7-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null,
+              "incorrectAnswers": [
+                "2n8htqiwlncxzfz2huqj9"
+              ]
+            }
+          ]
+        }
+      ],
+      "revealedQuestions": {
+        "qh1l3ut6qxunkm864njl": [
+          "7-2",
+          "7-4"
+        ],
+        "2n8htqiwlncxzfz2huqj9": [
+          "7-3",
+          "7-5"
+        ]
+      },
+      "completedThemes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    "updatedAt": "2025-08-19T19:30:27.768Z",
+    "status": "completed",
+    "completedAt": "2025-08-19T19:30:31.375Z",
+    "lastUpdated": "2025-08-19T19:30:31.375Z"
   },
   {
     "gameDate": "2025-08-18",
@@ -843,8 +1213,8 @@
       {
         "playerId": "vfab0wfcvn9w43yhmq4ag",
         "sourceReference": null,
-        "points": 0,
-        "tieBreakResult": null,
+        "points": 50,
+        "tieBreakResult": 30,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
@@ -852,8 +1222,8 @@
       {
         "playerId": "egsnm1l5wotmqiykm5bhqa",
         "sourceReference": null,
-        "points": 0,
-        "tieBreakResult": null,
+        "points": 50,
+        "tieBreakResult": -40,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
@@ -861,7 +1231,7 @@
       {
         "playerId": "9rrekkana350ujqm3luy7",
         "sourceReference": null,
-        "points": 0,
+        "points": -10,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -870,7 +1240,7 @@
       {
         "playerId": "me1sxwx3y1lspufs7",
         "sourceReference": null,
-        "points": 0,
+        "points": -40,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -884,7 +1254,372 @@
     "id": 4,
     "gameNumber": 4,
     "tournamentId": 5,
-    "stageId": 1
+    "stageId": 1,
+    "stageThemes": [
+      {
+        "name": "-ОРО- (Матричная)",
+        "description": ""
+      },
+      {
+        "name": "Не только города Германии",
+        "description": ""
+      },
+      {
+        "name": "Неустроенность (гиперматрица)",
+        "description": "Все ответы в теме состоят из букв слова \"Неустроенность\""
+      },
+      {
+        "name": "С.И. (инициальная)",
+        "description": ""
+      },
+      {
+        "name": "Людовики разных стран",
+        "description": ""
+      },
+      {
+        "name": "Последняя",
+        "description": ""
+      }
+    ],
+    "gameState": {
+      "themes": [
+        {
+          "id": 1,
+          "name": "-ОРО- (Матричная)",
+          "description": "",
+          "questions": [
+            {
+              "id": "1-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-2",
+              "value": 20,
+              "answered": true,
+              "answeredBy": "vfab0wfcvn9w43yhmq4ag",
+              "correctAnswers": [
+                "vfab0wfcvn9w43yhmq4ag"
+              ]
+            },
+            {
+              "id": "1-3",
+              "value": 30,
+              "answered": true,
+              "answeredBy": "9rrekkana350ujqm3luy7",
+              "correctAnswers": [
+                "9rrekkana350ujqm3luy7"
+              ]
+            },
+            {
+              "id": "1-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Не только города Германии",
+          "description": "",
+          "questions": [
+            {
+              "id": "2-1",
+              "value": 10,
+              "answered": true,
+              "answeredBy": "egsnm1l5wotmqiykm5bhqa",
+              "correctAnswers": [
+                "egsnm1l5wotmqiykm5bhqa"
+              ],
+              "incorrectAnswers": [
+                "me1sxwx3y1lspufs7"
+              ]
+            },
+            {
+              "id": "2-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "2-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "2-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null,
+              "incorrectAnswers": [
+                "9rrekkana350ujqm3luy7"
+              ]
+            },
+            {
+              "id": "2-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Неустроенность (гиперматрица)",
+          "description": "Все ответы в теме состоят из букв слова \"Неустроенность\"",
+          "questions": [
+            {
+              "id": "3-1",
+              "value": 10,
+              "answered": true,
+              "answeredBy": "egsnm1l5wotmqiykm5bhqa",
+              "correctAnswers": [
+                "egsnm1l5wotmqiykm5bhqa"
+              ]
+            },
+            {
+              "id": "3-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null,
+              "incorrectAnswers": [
+                "me1sxwx3y1lspufs7"
+              ]
+            },
+            {
+              "id": "3-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "С.И. (инициальная)",
+          "description": "",
+          "questions": [
+            {
+              "id": "4-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Людовики разных стран",
+          "description": "",
+          "questions": [
+            {
+              "id": "5-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-3",
+              "value": 30,
+              "answered": true,
+              "answeredBy": "vfab0wfcvn9w43yhmq4ag",
+              "correctAnswers": [
+                "vfab0wfcvn9w43yhmq4ag"
+              ]
+            },
+            {
+              "id": "5-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "Последняя",
+          "description": "",
+          "questions": [
+            {
+              "id": "6-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-3",
+              "value": 30,
+              "answered": true,
+              "answeredBy": "egsnm1l5wotmqiykm5bhqa",
+              "correctAnswers": [
+                "egsnm1l5wotmqiykm5bhqa"
+              ]
+            },
+            {
+              "id": "6-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "Перестрелка",
+          "description": "",
+          "questions": [
+            {
+              "id": "7-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "7-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "7-3",
+              "value": 30,
+              "answered": true,
+              "answeredBy": "vfab0wfcvn9w43yhmq4ag",
+              "correctAnswers": [
+                "vfab0wfcvn9w43yhmq4ag"
+              ]
+            },
+            {
+              "id": "7-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null,
+              "incorrectAnswers": [
+                "egsnm1l5wotmqiykm5bhqa"
+              ]
+            },
+            {
+              "id": "7-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        }
+      ],
+      "revealedQuestions": {
+        "vfab0wfcvn9w43yhmq4ag": [
+          "1-2",
+          "5-3",
+          "7-3"
+        ],
+        "9rrekkana350ujqm3luy7": [
+          "1-3",
+          "2-4"
+        ],
+        "egsnm1l5wotmqiykm5bhqa": [
+          "2-1",
+          "3-1",
+          "6-3",
+          "7-4"
+        ],
+        "me1sxwx3y1lspufs7": [
+          "2-1",
+          "3-3"
+        ]
+      },
+      "completedThemes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    "updatedAt": "2025-08-19T19:39:21.489Z",
+    "completedThemes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "status": "completed",
+    "completedAt": "2025-08-19T19:39:24.080Z",
+    "lastUpdated": "2025-08-19T19:39:24.080Z"
   },
   {
     "gameDate": "2025-08-18",
@@ -1116,13 +1851,14 @@
         "eliminationCount": 0
       },
       {
-        "playerId": null,
+        "playerId": "udbq5tcjbciyeoibwz7eg",
         "sourceReference": "5.3.2",
         "points": 0,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
-        "eliminationCount": 0
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-19T19:30:31.376Z"
       },
       {
         "playerId": null,
@@ -1141,7 +1877,7 @@
     "id": 9,
     "tournamentId": 5,
     "stageId": 2,
-    "lastUpdated": "2025-08-18T14:55:52.349Z"
+    "lastUpdated": "2025-08-19T19:30:31.376Z"
   },
   {
     "gameDate": "2025-08-18T14:46:03.837Z",
@@ -1168,13 +1904,14 @@
         "eliminationCount": 0
       },
       {
-        "playerId": null,
+        "playerId": "egsnm1l5wotmqiykm5bhqa",
         "sourceReference": "5.4.2",
         "points": 0,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
-        "eliminationCount": 0
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-19T19:39:24.081Z"
       },
       {
         "playerId": null,
@@ -1192,7 +1929,8 @@
     "gameNumber": 10,
     "id": 10,
     "tournamentId": 5,
-    "stageId": 2
+    "stageId": 2,
+    "lastUpdated": "2025-08-19T19:39:24.081Z"
   },
   {
     "gameDate": "2025-08-18T14:46:03.892Z",
@@ -1201,13 +1939,14 @@
     "stageOrder": 11,
     "participants": [
       {
-        "playerId": null,
+        "playerId": "qh1l3ut6qxunkm864njl",
         "sourceReference": "5.3.1",
         "points": 0,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
-        "eliminationCount": 0
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-19T19:30:31.376Z"
       },
       {
         "playerId": null,
@@ -1245,7 +1984,7 @@
     "id": 11,
     "tournamentId": 5,
     "stageId": 2,
-    "lastUpdated": "2025-08-18T14:55:52.349Z"
+    "lastUpdated": "2025-08-19T19:30:31.376Z"
   },
   {
     "gameDate": "2025-08-18T14:46:03.942Z",
@@ -1254,13 +1993,14 @@
     "stageOrder": 12,
     "participants": [
       {
-        "playerId": null,
+        "playerId": "vfab0wfcvn9w43yhmq4ag",
         "sourceReference": "5.4.1",
         "points": 0,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
-        "eliminationCount": 0
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-19T19:39:24.081Z"
       },
       {
         "playerId": null,
@@ -1296,7 +2036,8 @@
     "gameNumber": 12,
     "id": 12,
     "tournamentId": 5,
-    "stageId": 2
+    "stageId": 2,
+    "lastUpdated": "2025-08-19T19:39:24.081Z"
   },
   {
     "gameDate": "2025-08-18T14:46:03.990Z",
@@ -1324,13 +2065,14 @@
         "eliminationCount": 1
       },
       {
-        "playerId": null,
+        "playerId": "2n8htqiwlncxzfz2huqj9",
         "sourceReference": "5.3.4",
         "points": 0,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": true,
-        "eliminationCount": 1
+        "eliminationCount": 1,
+        "resolvedAt": "2025-08-19T19:30:31.377Z"
       },
       {
         "playerId": null,
@@ -1349,7 +2091,7 @@
     "id": 13,
     "tournamentId": 5,
     "stageId": 2,
-    "lastUpdated": "2025-08-18T14:55:52.349Z"
+    "lastUpdated": "2025-08-19T19:30:31.377Z"
   },
   {
     "gameDate": "2025-08-18T14:46:04.041Z",
@@ -1376,13 +2118,14 @@
         "eliminationCount": 1
       },
       {
-        "playerId": null,
+        "playerId": "me1sxwx3y1lspufs7",
         "sourceReference": "5.4.4",
         "points": 0,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": true,
-        "eliminationCount": 1
+        "eliminationCount": 1,
+        "resolvedAt": "2025-08-19T19:39:24.082Z"
       },
       {
         "playerId": null,
@@ -1400,7 +2143,8 @@
     "gameNumber": 14,
     "id": 14,
     "tournamentId": 5,
-    "stageId": 2
+    "stageId": 2,
+    "lastUpdated": "2025-08-19T19:39:24.082Z"
   },
   {
     "gameDate": "2025-08-18T14:46:04.092Z",
@@ -1409,13 +2153,14 @@
     "stageOrder": 15,
     "participants": [
       {
-        "playerId": null,
+        "playerId": "4jpqi2d1j7a4jy91lo6wl3",
         "sourceReference": "5.3.3",
         "points": 0,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": true,
-        "eliminationCount": 1
+        "eliminationCount": 1,
+        "resolvedAt": "2025-08-19T19:30:31.377Z"
       },
       {
         "playerId": null,
@@ -1453,7 +2198,7 @@
     "id": 15,
     "tournamentId": 5,
     "stageId": 2,
-    "lastUpdated": "2025-08-18T14:55:52.350Z"
+    "lastUpdated": "2025-08-19T19:30:31.377Z"
   },
   {
     "gameDate": "2025-08-18T14:46:04.142Z",
@@ -1462,13 +2207,14 @@
     "stageOrder": 16,
     "participants": [
       {
-        "playerId": null,
+        "playerId": "9rrekkana350ujqm3luy7",
         "sourceReference": "5.4.3",
         "points": 0,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": true,
-        "eliminationCount": 1
+        "eliminationCount": 1,
+        "resolvedAt": "2025-08-19T19:39:24.082Z"
       },
       {
         "playerId": null,
@@ -1504,7 +2250,8 @@
     "gameNumber": 16,
     "id": 16,
     "tournamentId": 5,
-    "stageId": 2
+    "stageId": 2,
+    "lastUpdated": "2025-08-19T19:39:24.082Z"
   },
   {
     "gameDate": "2025-08-18T14:46:04.276Z",

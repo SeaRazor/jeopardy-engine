@@ -82,6 +82,54 @@ export async function PUT(request, { params }) {
     return NextResponse.json({ error: 'Game not found' }, { status: 404 });
   }
   
+  // Server-side validation for tiebreak creation
+  if (updates.gameState?.themes || updates.participants) {
+    const currentGame = games[gameIndex];
+    const newThemes = updates.gameState?.themes;
+    const newParticipants = updates.participants;
+    
+    // Check if a new tiebreak theme is being added
+    if (newThemes && currentGame.gameState?.themes) {
+      const currentThemeCount = currentGame.gameState.themes.length;
+      const newThemeCount = newThemes.length;
+      
+      // If themes are being added, check if any are tiebreak themes
+      if (newThemeCount > currentThemeCount) {
+        const addedThemes = newThemes.slice(currentThemeCount);
+        const hasTiebreakTheme = addedThemes.some(theme => 
+          theme.name?.startsWith('Перестрелка')
+        );
+        
+        // If adding a tiebreak theme, validate participant count
+        if (hasTiebreakTheme && newParticipants) {
+          const tiebreakParticipants = newParticipants.filter(p => 
+            p.tieBreakResult !== null && p.tieBreakResult !== undefined
+          );
+          
+          if (tiebreakParticipants.length < 2) {
+            return NextResponse.json({ 
+              error: 'Tiebreak must have at least 2 participants' 
+            }, { status: 400 });
+          }
+        }
+      }
+    }
+    
+    // Additional validation: if updating participants with tiebreak results
+    if (newParticipants) {
+      const tiebreakParticipants = newParticipants.filter(p => 
+        p.tieBreakResult !== null && p.tieBreakResult !== undefined
+      );
+      
+      // If there are tiebreak results being set, ensure at least 2 participants
+      if (tiebreakParticipants.length === 1) {
+        return NextResponse.json({ 
+          error: 'Tiebreak must have at least 2 participants' 
+        }, { status: 400 });
+      }
+    }
+  }
+  
   // Update game while preserving ID and tournament/stage references
   games[gameIndex] = {
     ...games[gameIndex],

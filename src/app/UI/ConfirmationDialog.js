@@ -12,7 +12,9 @@ export default function ConfirmationDialog({
   title = "Подтверждение",
   message, 
   confirmText = "Подтвердить", 
-  cancelText = "Отмена" 
+  cancelText = "Отмена",
+  confirmDisabled = false,
+  cancelDisabled = false
 }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title}>
@@ -25,6 +27,7 @@ export default function ConfirmationDialog({
             text={cancelText} 
             title={cancelText}
             variant="secondary"
+            disabled={cancelDisabled}
           />
           <AdaptiveButton 
             onClick={onConfirm} 
@@ -32,6 +35,7 @@ export default function ConfirmationDialog({
             text={confirmText} 
             title={confirmText}
             variant="primary"
+            disabled={confirmDisabled}
           />
         </div>
       </div>

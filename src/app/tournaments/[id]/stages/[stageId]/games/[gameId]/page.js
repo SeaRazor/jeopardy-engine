@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Card from '../../../../../../UI/Card/Card';
 import InfoComponent from '../../../../../../UI/InfoComponent/InfoComponent';
 import ConfirmationDialog from '../../../../../../UI/ConfirmationDialog';
+import TiebreakSelectionDialog from '../../../../../../UI/TiebreakSelectionDialog';
 import AdaptiveButton from '../../../../../../UI/AdaptiveButton';
 import { useToast } from '../../../../../../util/ToastContext';
 // Removed client-side import - now handled server-side
@@ -33,6 +34,9 @@ export default function GameDetailsPage() {
   const [pendingScoreChanges, setPendingScoreChanges] = useState(new Map());
   const [isSavingScores, setIsSavingScores] = useState(false);
   const [isProcessingProgression, setIsProcessingProgression] = useState(false);
+  const [tiebreakParticipants, setTiebreakParticipants] = useState(new Set());
+  const [isTiebreakSelectionOpen, setIsTiebreakSelectionOpen] = useState(false);
+  const [tempTiebreakParticipants, setTempTiebreakParticipants] = useState(new Set());
   const saveTimeoutRef = useRef(null);
 
   const { id: tournamentId, stageId, gameId } = params;
@@ -238,12 +242,17 @@ export default function GameDetailsPage() {
       // Recalculate scores based on current theme state (instead of optimistic updates)
       const updatedParticipants = game.participants?.map(participant => {
         const mainScore = calculateMainScore(participant.playerId);
-        const latestTieBreakScore = calculateLatestTieBreakScore(participant.playerId);
+        
+        // Only calculate tiebreak score if player is a tiebreak participant
+        const currentTieBreakResult = participant.tieBreakResult;
+        const newTieBreakResult = currentTieBreakResult !== null 
+          ? calculateLatestTieBreakScore(participant.playerId)
+          : null;
         
         return {
           ...participant,
           points: mainScore,
-          tieBreakResult: latestTieBreakScore
+          tieBreakResult: newTieBreakResult
         };
       }) || [];
 
@@ -353,28 +362,13 @@ export default function GameDetailsPage() {
   const getPlayerName = (playerInfo) => {
     if (!playerInfo) return 'Unknown Player';
     
-    let fullName;
     if (playerInfo.name) {
-      fullName = playerInfo.name; // Team name
+      return playerInfo.name; // Team name
     } else if (playerInfo.firstName && playerInfo.lastName) {
-      fullName = `${playerInfo.firstName} ${playerInfo.lastName}`;
+      return `${playerInfo.firstName} ${playerInfo.lastName}`;
     } else {
-      fullName = playerInfo.firstName || 'Unknown Player';
+      return playerInfo.firstName || 'Unknown Player';
     }
-    
-    // Split name by space and show on separate lines if two words
-    const words = fullName.split(' ');
-    if (words.length === 2) {
-      return (
-        <>
-          {words[0]}
-          <br />
-          {words[1]}
-        </>
-      );
-    }
-    
-    return fullName;
   };
 
   const getPlayerInitials = (playerInfo) => {
@@ -680,13 +674,17 @@ export default function GameDetailsPage() {
           const isCurrentThemeTieBreak = themes[themeIndex].name.startsWith('Перестрелка');
           
           if (isCurrentThemeTieBreak) {
-            // Tiebreak theme: recalculate fresh tiebreak score
-            // Calculate current score for the latest tiebreak theme only
-            const latestTieBreakScore = calculateLatestTieBreakScore(playerId) + scoreAdjustment;
-            return { 
-              ...player, 
-              tieBreakResult: latestTieBreakScore
-            };
+            // Tiebreak theme: only adjust score if player is a tiebreak participant
+            if (player.tieBreakResult !== null) {
+              const latestTieBreakScore = calculateLatestTieBreakScore(playerId) + scoreAdjustment;
+              return { 
+                ...player, 
+                tieBreakResult: latestTieBreakScore
+              };
+            } else {
+              // Player is not a tiebreak participant, don't change their tieBreakResult
+              return player;
+            }
           } else {
             // Regular theme: adjust main points only
             return { 
@@ -723,8 +721,50 @@ export default function GameDetailsPage() {
     triggerDebouncedSave();
   };
 
-  const handleStartTiebreak = async () => {
+  const handleToggleTiebreakParticipant = (playerId) => {
+    setTiebreakParticipants(prev => {
+      const newParticipants = new Set(prev);
+      if (newParticipants.has(playerId)) {
+        newParticipants.delete(playerId);
+        
+        // Remove tiebreak result for deselected player
+        setPlayers(prevPlayers => 
+          prevPlayers.map(player =>
+            player.playerId === playerId 
+              ? { ...player, tieBreakResult: null }
+              : player
+          )
+        );
+      } else {
+        newParticipants.add(playerId);
+        
+        // Initialize tiebreak result to 0 for newly selected player
+        setPlayers(prevPlayers => 
+          prevPlayers.map(player =>
+            player.playerId === playerId 
+              ? { ...player, tieBreakResult: 0 }
+              : player
+          )
+        );
+      }
+      return newParticipants;
+    });
+    
+    // Trigger save to persist the changes
+    triggerDebouncedSave();
+  };
+
+  const handleStartTiebreak = () => {
+    // Open participant selection modal
+    setTempTiebreakParticipants(new Set());
+    setIsTiebreakSelectionOpen(true);
+  };
+
+  const handleTiebreakSelectionConfirm = async () => {
     try {
+      // Set the selected participants
+      setTiebreakParticipants(new Set(tempTiebreakParticipants));
+      
       // Create new tiebreak theme
       const tieBreakName = generateTieBreakName();
       const newThemeId = themes.length + 1;
@@ -748,6 +788,20 @@ export default function GameDetailsPage() {
       // Select the new tiebreak theme
       setSelectedThemeIndex(updatedThemes.length - 1);
       
+      // Update participants with tiebreak results based on selection
+      const updatedParticipants = game.participants?.map(participant => ({
+        ...participant,
+        tieBreakResult: tempTiebreakParticipants.has(participant.playerId) ? 0 : null
+      })) || [];
+      
+      // Update local player state as well
+      setPlayers(prevPlayers => 
+        prevPlayers.map(player => ({
+          ...player,
+          tieBreakResult: tempTiebreakParticipants.has(player.playerId) ? 0 : null
+        }))
+      );
+      
       // Save to API
       const revealedQuestionsData = {};
       revealedQuestions.forEach((questionSet, playerId) => {
@@ -761,6 +815,7 @@ export default function GameDetailsPage() {
         },
         body: JSON.stringify({
           ...game,
+          participants: updatedParticipants,
           gameState: {
             themes: updatedThemes,
             revealedQuestions: revealedQuestionsData,
@@ -771,18 +826,40 @@ export default function GameDetailsPage() {
       });
       
       if (!response.ok) {
-        throw new Error('Failed to save tiebreak theme');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to save tiebreak theme');
       }
       
       const updatedGame = await response.json();
       setGame(updatedGame);
       
-      showSuccess(`Добавлена тема "${tieBreakName}"`);
+      // Close modal
+      setIsTiebreakSelectionOpen(false);
+      setTempTiebreakParticipants(new Set());
+      
+      showSuccess(`Добавлена тема "${tieBreakName}" с ${tempTiebreakParticipants.size} участниками`);
       
     } catch (error) {
       console.error('Error creating tiebreak theme:', error);
-      showError('Ошибка при создании темы перестрелки');
+      showError(error.message || 'Ошибка при создании темы перестрелки');
     }
+  };
+
+  const handleTiebreakSelectionCancel = () => {
+    setIsTiebreakSelectionOpen(false);
+    setTempTiebreakParticipants(new Set());
+  };
+
+  const handleTempToggleTiebreakParticipant = (playerId) => {
+    setTempTiebreakParticipants(prev => {
+      const newParticipants = new Set(prev);
+      if (newParticipants.has(playerId)) {
+        newParticipants.delete(playerId);
+      } else {
+        newParticipants.add(playerId);
+      }
+      return newParticipants;
+    });
   };
 
   const handleCompleteGame = () => {
@@ -934,6 +1011,9 @@ export default function GameDetailsPage() {
   // Check if all themes (including tiebreaks) are completed
   const allThemesCompleted = themes.length > 0 && themes.every((_, index) => completedThemes.has(index));
 
+  // Check if current theme is a tiebreak theme
+  const isCurrentThemeTiebreak = selectedTheme.name?.startsWith('Перестрелка');
+
   return (
     <div className={styles.container}>
       {/* Header with breadcrumbs and game title */}
@@ -1045,6 +1125,7 @@ export default function GameDetailsPage() {
               </div>
             </div>
           )}
+
           
           <div className={styles.gameGridContainer}>
             <div className={styles.gameGrid}>
@@ -1078,7 +1159,7 @@ export default function GameDetailsPage() {
                 </div>
                 
                 <div className={styles.scoreCell} style={{ color: getPlayerColor(player.playerInfo, playerIndex) }}>
-                  {player.tieBreakResult && player.tieBreakResult !== 0 && (
+                  {player.tieBreakResult !== null && player.tieBreakResult !== undefined && (
                     <span className={styles.tieBreakResult}>({player.tieBreakResult}) </span>
                   )}
                   {player.points}
@@ -1101,8 +1182,12 @@ export default function GameDetailsPage() {
                         onClick={(e) => handleScoreAdjustment(player.playerId, -question.value, e, question.id, selectedThemeIndex, questionIndex)}
                         aria-label="Отметить как неверный ответ"
                         style={{
-                          visibility: (!completedThemes.has(selectedThemeIndex) && !(question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId))) ? 'visible' : 'hidden',
-                          pointerEvents: (!completedThemes.has(selectedThemeIndex) && !(question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId))) ? 'auto' : 'none'
+                          visibility: (!completedThemes.has(selectedThemeIndex) && 
+                                     !(question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId)) &&
+                                     (!isCurrentThemeTiebreak || tiebreakParticipants.has(player.playerId))) ? 'visible' : 'hidden',
+                          pointerEvents: (!completedThemes.has(selectedThemeIndex) && 
+                                        !(question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId)) &&
+                                        (!isCurrentThemeTiebreak || tiebreakParticipants.has(player.playerId))) ? 'auto' : 'none'
                         }}
                       >
                         <FaMinus />
@@ -1117,8 +1202,12 @@ export default function GameDetailsPage() {
                         onClick={(e) => handleScoreAdjustment(player.playerId, question.value, e, question.id, selectedThemeIndex, questionIndex)}
                         aria-label="Отметить как верный ответ"
                         style={{
-                          visibility: (!completedThemes.has(selectedThemeIndex) && !(question.correctAnswers && question.correctAnswers.includes(player.playerId))) ? 'visible' : 'hidden',
-                          pointerEvents: (!completedThemes.has(selectedThemeIndex) && !(question.correctAnswers && question.correctAnswers.includes(player.playerId))) ? 'auto' : 'none'
+                          visibility: (!completedThemes.has(selectedThemeIndex) && 
+                                     !(question.correctAnswers && question.correctAnswers.includes(player.playerId)) &&
+                                     (!isCurrentThemeTiebreak || tiebreakParticipants.has(player.playerId))) ? 'visible' : 'hidden',
+                          pointerEvents: (!completedThemes.has(selectedThemeIndex) && 
+                                        !(question.correctAnswers && question.correctAnswers.includes(player.playerId)) &&
+                                        (!isCurrentThemeTiebreak || tiebreakParticipants.has(player.playerId))) ? 'auto' : 'none'
                         }}
                       >
                         <FaPlus />
@@ -1274,6 +1363,18 @@ export default function GameDetailsPage() {
           cancelText="Отмена"
           confirmDisabled={isProcessingProgression}
           cancelDisabled={isProcessingProgression}
+        />
+
+        {/* Tiebreak Participant Selection Modal */}
+        <TiebreakSelectionDialog
+          isOpen={isTiebreakSelectionOpen}
+          onClose={handleTiebreakSelectionCancel}
+          onConfirm={handleTiebreakSelectionConfirm}
+          players={players}
+          selectedParticipants={tempTiebreakParticipants}
+          onToggleParticipant={handleTempToggleTiebreakParticipant}
+          getPlayerName={getPlayerName}
+          getPlayerColor={getPlayerColor}
         />
       </div>
     </div>
