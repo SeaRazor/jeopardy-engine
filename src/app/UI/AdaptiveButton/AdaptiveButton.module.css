@@ -1,0 +1,61 @@
+.adaptiveButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: none;
+  min-height: 44px;
+  justify-content: center;
+}
+
+.adaptiveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.primary {
+  background-color: var(--primary-color);
+  color: var(--primary-text-color);
+}
+
+.primary:hover:not(:disabled) {
+  background-color: var(--primary-hover-color);
+}
+
+.secondary {
+  background-color: var(--secondary-button-bg);
+  color: var(--secondary-button-text);
+  border: 1px solid var(--secondary-button-border);
+}
+
+.secondary:hover:not(:disabled) {
+  background-color: var(--secondary-button-hover-bg);
+  color: var(--secondary-button-hover-text);
+  border-color: var(--secondary-button-hover-border);
+}
+
+.icon {
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+.text {
+  display: inline;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .text {
+    display: none;
+  }
+  
+  .adaptiveButton {
+    padding: 0.5rem;
+    min-width: 44px;
+    gap: 0;
+  }
+}

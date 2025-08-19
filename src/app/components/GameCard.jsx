@@ -716,8 +716,8 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
               // Determine bracket type based on stage and gameWinnersNum
               let participantClass = styles.participant;
               
-              if (!isFinalStage) {
-                // Non-final stage: add border colors
+              if (!isFinalStage && gameCompleted) {
+                // Non-final stage: add border colors only if game is completed
                 // Use gameWinnersNum from stage, fallback to half of players, minimum 1
                 const winnersCount = stage?.gameWinnersNum || Math.max(1, Math.floor(players.length / 2));
                 if (index < winnersCount) {
@@ -752,7 +752,7 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
                   </div>
                   <div className={styles.participantScore}>
                     <span className={styles.points}>
-                      {participant.tieBreakResult !== 0 && (
+                      {participant.tieBreakResult !== null && (
                         <span className={styles.tieBreakResultInline}>({participant.tieBreakResult}) </span>
                       )}
                       {participant.points}

@@ -2,6 +2,7 @@
 
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import Modal from './Modal';
+import AdaptiveButton from './AdaptiveButton';
 import styles from './ConfirmationDialog.module.css';
 
 export default function ConfirmationDialog({ 
@@ -18,12 +19,20 @@ export default function ConfirmationDialog({
       <div className={styles.content}>
         <p>{message}</p>
         <div className={styles.actions}>
-          <button onClick={onClose} className={styles.cancelButton} title={cancelText}>
-            <FaTimes /> <span className={styles.buttonText}>{cancelText}</span>
-          </button>
-          <button onClick={onConfirm} className={styles.confirmButton} title={confirmText}>
-            <FaCheck /> <span className={styles.buttonText}>{confirmText}</span>
-          </button>
+          <AdaptiveButton 
+            onClick={onClose} 
+            icon={FaTimes} 
+            text={cancelText} 
+            title={cancelText}
+            variant="secondary"
+          />
+          <AdaptiveButton 
+            onClick={onConfirm} 
+            icon={FaCheck} 
+            text={confirmText} 
+            title={confirmText}
+            variant="primary"
+          />
         </div>
       </div>
     </Modal>

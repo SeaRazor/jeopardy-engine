@@ -18,3 +18,10 @@
 - use pure css only, no UI packages
 - use react-icons
 - all data changes should be made via api. For the first stage json is used as db. In future PostgreSQL will be used
+
+# Data Management
+- Always bear in mind that although now we use local json files as database, they will be replaced by remote postgresql in the future
+- Any data interactions must be implemented via API abstraction to make it easier to replace local files with actual db in the future
+
+# UI/UX Guidelines
+- any time UI changes are made they should be checked for mobile screens

@@ -7,6 +7,7 @@ import TournamentCard from './components/TournamentCard';
 import TournamentFilters from './components/TournamentFilters/TournamentFilters';
 import AddTournamentForm from './components/AddTournamentForm/AddTournamentForm';
 import Modal from '../UI/Modal';
+import AdaptiveButton from '../UI/AdaptiveButton';
 import styles from './tournaments.module.css';
 import { getTournamentStatus } from '../util/tournament';
 
@@ -71,9 +72,13 @@ export default function TournamentsPage() {
         )}
       </div>
 
-      <button onClick={() => setIsFormOpen(true)} className="fab">
-        <FaPlus />
-      </button>
+      <AdaptiveButton 
+        onClick={() => setIsFormOpen(true)} 
+        icon={FaPlus} 
+        title="Добавить турнир"
+        variant="primary"
+        className="fab"
+      />
 
       <Modal isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} title="Добавить турнир">
         <AddTournamentForm onClose={() => setIsFormOpen(false)} />

@@ -7,8 +7,9 @@ import Link from 'next/link';
 import Card from '../../../../../../UI/Card/Card';
 import InfoComponent from '../../../../../../UI/InfoComponent/InfoComponent';
 import ConfirmationDialog from '../../../../../../UI/ConfirmationDialog';
+import AdaptiveButton from '../../../../../../UI/AdaptiveButton';
 import { useToast } from '../../../../../../util/ToastContext';
-import { resolveReferencesForGame } from '../../../../../../util/immediateResolver';
+// Removed client-side import - now handled server-side
 import styles from './GameDetailsPage.module.css';
 
 export default function GameDetailsPage() {
@@ -679,10 +680,12 @@ export default function GameDetailsPage() {
           const isCurrentThemeTieBreak = themes[themeIndex].name.startsWith('Перестрелка');
           
           if (isCurrentThemeTieBreak) {
-            // Tiebreak theme: adjust tieBreakResult only
+            // Tiebreak theme: recalculate fresh tiebreak score
+            // Calculate current score for the latest tiebreak theme only
+            const latestTieBreakScore = calculateLatestTieBreakScore(playerId) + scoreAdjustment;
             return { 
               ...player, 
-              tieBreakResult: player.tieBreakResult + scoreAdjustment
+              tieBreakResult: latestTieBreakScore
             };
           } else {
             // Regular theme: adjust main points only
@@ -814,15 +817,14 @@ export default function GameDetailsPage() {
         revealedQuestionsData[playerId] = Array.from(questionSet);
       });
 
-      const response = await fetch(`/api/tournaments/${tournamentId}/stages/${stageId}/games/${gameId}`, {
-        method: 'PUT',
+      // Use new completion endpoint that handles both completion and progression
+      const response = await fetch(`/api/tournaments/${tournamentId}/stages/${stageId}/games/${gameId}/complete`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           ...game,
-          status: 'completed',
-          completedAt: new Date().toISOString(),
           // Send completed themes for server-side validation
           completedThemes: Array.from(completedThemes),
           // Save complete game state including all question answers
@@ -839,49 +841,46 @@ export default function GameDetailsPage() {
         throw new Error(errorData.message || 'Failed to complete game');
       }
       
-      const updatedGame = await response.json();
-      setGame(updatedGame);
+      const result = await response.json();
       
-      // Close dialog
-      setGameToComplete(null);
-
-      // Trigger automatic reference resolution for dependent games
-      try {
-        setIsProcessingProgression(true);
-        console.log('Starting automatic reference resolution for completed game...');
-        const resolutionResult = await resolveReferencesForGame(tournamentId, updatedGame);
+      if (result.success) {
+        setGame(result.game);
         
-        if (resolutionResult.success) {
-          console.log(`Tournament progression: Resolved ${resolutionResult.resolvedReferences} references in ${resolutionResult.resolvedGames} dependent games`);
-          
-          // Dispatch custom event for other components to react
-          if (typeof window !== 'undefined') {
-            window.dispatchEvent(new CustomEvent('gameCompleted', {
-              detail: {
-                gameId: updatedGame.id,
-                stageId: updatedGame.stageId,
-                tournamentId: tournamentId,
-                resolvedGames: resolutionResult.resolvedGames,
-                resolvedReferences: resolutionResult.resolvedReferences
-              }
-            }));
-          }
-          
-          // Show enhanced success message with progression info
-          let successMessage = 'Игра завершена успешно!';
-          if (resolutionResult.resolvedReferences > 0) {
-            successMessage += ` Автоматически добавлено ${resolutionResult.resolvedReferences} игроков в следующие этапы турнира.`;
-          }
+        // Close dialog
+        setGameToComplete(null);
+        
+        // Set progression state for UI feedback
+        setIsProcessingProgression(true);
+        
+        // Dispatch custom event for other components to react
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('gameCompleted', {
+            detail: {
+              gameId: result.game.id,
+              stageId: result.game.stageId,
+              tournamentId: tournamentId,
+              resolvedGames: result.progression.resolvedGames || 0,
+              resolvedReferences: result.progression.resolvedReferences || 0
+            }
+          }));
+        }
+        
+        // Show appropriate success message based on progression result
+        let successMessage = 'Игра завершена успешно!';
+        if (result.summary.progressionSucceeded && result.summary.playersPromoted > 0) {
+          successMessage += ` Автоматически добавлено ${result.summary.playersPromoted} игроков в следующие этапы турнира.`;
+          showSuccess(successMessage);
+        } else if (result.summary.progressionSucceeded) {
+          successMessage += ' Нет игроков для продвижения на следующий этап.';
           showSuccess(successMessage);
         } else {
-          console.warn('Reference resolution failed:', resolutionResult.error);
           showInfo('Игра завершена успешно! Внимание: Возможны проблемы с автоматическим продвижением игроков. Проверьте следующие этапы турнира.');
+          console.warn('Progression failed:', result.progression.error);
         }
-      } catch (error) {
-        console.error('Error during automatic reference resolution:', error);
-        showInfo('Игра завершена успешно! Внимание: Ошибка при автоматическом продвижении игроков. Проверьте следующие этапы турнира.');
-      } finally {
+        
         setIsProcessingProgression(false);
+      } else {
+        throw new Error(result.error || 'Неизвестная ошибка при завершении игры');
       }
       
       // Redirect back
@@ -1032,14 +1031,15 @@ export default function GameDetailsPage() {
                 
                 <div className={styles.themeControls}>
                   <div className={styles.themeActions}>
-                    <button
+                    <AdaptiveButton
                       onClick={handleCompleteTheme}
                       className={`${styles.actionButton} ${styles.completeThemeButton}`}
                       disabled={completedThemes.has(selectedThemeIndex)}
-                    >
-                      <FaCheck />
-                      {completedThemes.has(selectedThemeIndex) ? 'Завершена' : 'Закончить тему'}
-                    </button>
+                      icon={FaCheck}
+                      text={completedThemes.has(selectedThemeIndex) ? 'Завершена' : 'Закончить тему'}
+                      title={completedThemes.has(selectedThemeIndex) ? 'Тема завершена' : 'Закончить тему'}
+                      variant="primary"
+                    />
                   </div>
                 </div>
               </div>
@@ -1078,7 +1078,7 @@ export default function GameDetailsPage() {
                 </div>
                 
                 <div className={styles.scoreCell} style={{ color: getPlayerColor(player.playerInfo, playerIndex) }}>
-                  {player.tieBreakResult !== 0 && (
+                  {player.tieBreakResult && player.tieBreakResult !== 0 && (
                     <span className={styles.tieBreakResult}>({player.tieBreakResult}) </span>
                   )}
                   {player.points}
@@ -1183,19 +1183,14 @@ export default function GameDetailsPage() {
 
             {/* Mobile Accordion */}
             <div className={styles.accordionSection}>
-              <button
+              <AdaptiveButton
                 onClick={() => setIsAccordionOpen(!isAccordionOpen)}
                 className={styles.accordionToggle}
-                aria-label={isAccordionOpen ? 'Скрыть темы' : 'Показать темы'}
-              >
-                <span className={styles.accordionLabel}>
-                  Тема {selectedThemeIndex + 1} из {themes.length}
-                  {completedThemes.has(selectedThemeIndex) && (
-                    <FaCheck className={styles.accordionCheckIcon} />
-                  )}
-                </span>
-                {isAccordionOpen ? <FaChevronUp /> : <FaChevronDown />}
-              </button>
+                icon={isAccordionOpen ? FaChevronUp : FaChevronDown}
+                text={`Тема ${selectedThemeIndex + 1} из ${themes.length}${completedThemes.has(selectedThemeIndex) ? ' ✓' : ''}`}
+                title={isAccordionOpen ? 'Скрыть темы' : 'Показать темы'}
+                variant="secondary"
+              />
               
               {isAccordionOpen && (
                 <div className={styles.accordionContent}>
@@ -1232,24 +1227,24 @@ export default function GameDetailsPage() {
             </div>
             
             <div className={styles.endGameSection}>
-              <button
+              <AdaptiveButton
                 onClick={handleStartTiebreak}
                 className={`${styles.actionButton} ${styles.tieBreakButton}`}
                 disabled={game?.status === 'completed' || !allRegularThemesCompleted}
                 title={!allRegularThemesCompleted ? 'Завершите все основные темы для добавления перестрелки' : ''}
-              >
-                <FaPlus />
-                {generateTieBreakName()}
-              </button>
-              <button
+                icon={FaPlus}
+                text={generateTieBreakName()}
+                variant="primary"
+              />
+              <AdaptiveButton
                 onClick={handleCompleteGame}
                 className={`${styles.actionButton} ${styles.completeGameButton}`}
                 disabled={game?.status === 'completed' || !allThemesCompleted}
                 title={!allThemesCompleted ? 'Завершите все темы перед окончанием игры' : ''}
-              >
-                <FaTrophy />
-                {game?.status === 'completed' ? 'Завершена' : 'Закончить игру'}
-              </button>
+                icon={FaTrophy}
+                text={game?.status === 'completed' ? 'Завершена' : 'Закончить игру'}
+                variant="primary"
+              />
             </div>
           </div>
         </Card>

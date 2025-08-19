@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { FaPlus, FaTimes } from 'react-icons/fa';
 import Modal from '../UI/Modal';
+import AdaptiveButton from '../UI/AdaptiveButton';
 import styles from './AddPresenterForm.module.css';
 
 export default function AddPresenterModal({ isOpen, onClose, onAddPresenter }) {
@@ -60,12 +61,20 @@ export default function AddPresenterModal({ isOpen, onClose, onAddPresenter }) {
         />
       </div>
       <div className={styles.actions}>
-        <button onClick={onClose} className={styles.cancelButton} title="Cancel">
-          <FaTimes /> <span className={styles.buttonText}>Cancel</span>
-        </button>
-        <button onClick={handleSubmit} className={styles.addButton} title="Add">
-          <FaPlus /> <span className={styles.buttonText}>Add</span>
-        </button>
+        <AdaptiveButton 
+          onClick={onClose} 
+          icon={FaTimes} 
+          text="Cancel" 
+          title="Cancel"
+          variant="secondary"
+        />
+        <AdaptiveButton 
+          onClick={handleSubmit} 
+          icon={FaPlus} 
+          text="Add" 
+          title="Add"
+          variant="primary"
+        />
       </div>
     </Modal>
   );

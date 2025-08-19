@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FaPlus, FaTimes } from 'react-icons/fa';
 import styles from './AddPlayerForm.module.css';
 import Modal from '../UI/Modal';
+import AdaptiveButton from '../UI/AdaptiveButton';
 
 const AddTeamModal = ({ isOpen, onClose, onAddTeam }) => {
   const [name, setName] = useState('');
@@ -26,12 +27,21 @@ const AddTeamModal = ({ isOpen, onClose, onAddTeam }) => {
           />
         </div>
         <div className={styles.actions}>
-          <button type="submit" className={styles.addButton} title="Add Team">
-            <FaPlus /> <span className={styles.buttonText}>Add Team</span>
-          </button>
-          <button type="button" onClick={onClose} className={styles.cancelButton} title="Cancel">
-            <FaTimes /> <span className={styles.buttonText}>Cancel</span>
-          </button>
+          <AdaptiveButton 
+            type="submit" 
+            icon={FaPlus} 
+            text="Add Team" 
+            title="Add Team"
+            variant="primary"
+          />
+          <AdaptiveButton 
+            type="button" 
+            onClick={onClose} 
+            icon={FaTimes} 
+            text="Cancel" 
+            title="Cancel"
+            variant="secondary"
+          />
         </div>
       </form>
     </Modal>
