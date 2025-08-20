@@ -12,15 +12,15 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
   const { showError, showSuccess } = useToast();
   const [presenter, setPresenter] = useState(null);
   const [players, setPlayers] = useState([]);
-  const [currentGame, setCurrentGame] = useState(game);
+  const [currentGame, setCurrentGame] = useState(() => game);
   const [isEditing, setIsEditing] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [editForm, setEditForm] = useState({
-    gamePlace: game.gamePlace || '',
-    gameDate: game.gameDate || '',
-    presenterId: game.presenterId || '',
-    participants: game.participants || []
-  });
+  const [editForm, setEditForm] = useState(() => ({
+    gamePlace: game?.gamePlace || '',
+    gameDate: game?.gameDate || '',
+    presenterId: game?.presenterId || '',
+    participants: game?.participants || []
+  }));
   const [availablePresenters, setAvailablePresenters] = useState([]);
   const [availablePlayers, setAvailablePlayers] = useState([]);
   // Tournament data now comes from props instead of state
@@ -51,6 +51,8 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
   
   // Close menu when clicking outside
   useEffect(() => {
+    if (typeof document === 'undefined') return;
+    
     const handleClickOutside = (event) => {
       if ((menuRef.current && !menuRef.current.contains(event.target)) &&
           (desktopMenuRef.current && !desktopMenuRef.current.contains(event.target))) {
@@ -71,6 +73,8 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
 
   // Fetch presenter data
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     if (currentGame.presenterId) {
       fetch('/api/presenters')
         .then(res => res.json())
@@ -84,6 +88,8 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
 
   // Fetch player data
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     if (currentGame.participants?.length > 0) {
       fetch('/api/players')
         .then(res => res.json())
@@ -119,6 +125,8 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
 
   // Fetch available presenters for editing
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     if (isEditing) {
       fetch('/api/presenters')
         .then(res => res.json())
@@ -135,14 +143,18 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
   }, [isEditing, tournamentData]);
 
   const formatDate = (dateString) => {
+    if (!dateString) return '';
+    
     const date = new Date(dateString);
-    return date.toLocaleDateString('ru-RU', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
+    
+    // Use a consistent format that works the same on server and client
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    
+    return `${day}.${month}.${year} ${hours}:${minutes}`;
   };
 
   const getRankIcon = (index) => {
@@ -752,7 +764,7 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
                   </div>
                   <div className={styles.participantScore}>
                     <span className={styles.points}>
-                      {participant.tieBreakResult !== null && (
+                      {participant.tieBreakResult !== null && participant.tieBreakResult !== "" && (
                         <span className={styles.tieBreakResultInline}>({participant.tieBreakResult}) </span>
                       )}
                       {participant.points}

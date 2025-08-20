@@ -63,7 +63,7 @@ export class BaseParticipantDistributor {
       playerId: null,
       sourceReference: null,
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,
       lossBracket: false,
       eliminationCount: 0

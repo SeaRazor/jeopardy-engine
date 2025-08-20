@@ -25,7 +25,7 @@ export const stage1GameExample = {
       playerId: "def456",
       sourceReference: null,
       points: 32,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: true,
       lossBracket: false,
       eliminationCount: 0
@@ -43,7 +43,7 @@ export const stage1GameExample = {
       playerId: "jkl012",
       sourceReference: null,
       points: 15,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: true,
       lossBracket: false,
       eliminationCount: 0
@@ -66,7 +66,7 @@ export const stage2UpperGameExample = {
       playerId: null,             // Not resolved yet
       sourceReference: "1.1.1",  // 1st place from stage 1, game 1
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,            // Needs resolution
       lossBracket: false,
       eliminationCount: 0
@@ -75,7 +75,7 @@ export const stage2UpperGameExample = {
       playerId: null,
       sourceReference: "1.1.2",  // 2nd place from stage 1, game 1
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,
       lossBracket: false,
       eliminationCount: 0
@@ -84,7 +84,7 @@ export const stage2UpperGameExample = {
       playerId: null,
       sourceReference: "1.2.1",  // 1st place from stage 1, game 2
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,
       lossBracket: false,
       eliminationCount: 0
@@ -93,7 +93,7 @@ export const stage2UpperGameExample = {
       playerId: null,
       sourceReference: "1.2.2",  // 2nd place from stage 1, game 2
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,
       lossBracket: false,
       eliminationCount: 0
@@ -116,7 +116,7 @@ export const stage2LowerGameExample = {
       playerId: null,
       sourceReference: "1.1.3",  // 3rd place from stage 1, game 1
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,
       lossBracket: true,          // Dropped to lower bracket
       eliminationCount: 1         // One loss
@@ -125,7 +125,7 @@ export const stage2LowerGameExample = {
       playerId: null,
       sourceReference: "1.1.4",  // 4th place from stage 1, game 1
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,
       lossBracket: true,
       eliminationCount: 1
@@ -134,7 +134,7 @@ export const stage2LowerGameExample = {
       playerId: null,
       sourceReference: "1.2.3",  // 3rd place from stage 1, game 2
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,
       lossBracket: true,
       eliminationCount: 1
@@ -143,7 +143,7 @@ export const stage2LowerGameExample = {
       playerId: null,
       sourceReference: "1.2.4",  // 4th place from stage 1, game 2
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,
       lossBracket: true,
       eliminationCount: 1
@@ -166,7 +166,7 @@ export const stage2ResolvedGameExample = {
       playerId: "abc123",         // Resolved from reference 1.1.1
       sourceReference: "1.1.1",  // Original reference preserved
       points: 38,                 // Points from stage 2 game
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: true,             // Now resolved
       lossBracket: false,
       eliminationCount: 0
@@ -184,7 +184,7 @@ export const stage2ResolvedGameExample = {
       playerId: "mno345",         // Resolved from reference 1.2.1
       sourceReference: "1.2.1",
       points: 30,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: true,
       lossBracket: false,
       eliminationCount: 0
@@ -214,7 +214,7 @@ export const olympicStage2Example = {
       playerId: null,
       sourceReference: "1.1.1",  // 1st from game 1
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,
       lossBracket: false,
       eliminationCount: 0         // Olympic doesn't track losses
@@ -223,7 +223,7 @@ export const olympicStage2Example = {
       playerId: null,
       sourceReference: "1.1.2",  // 2nd from game 1
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,
       lossBracket: false,
       eliminationCount: 0
@@ -232,7 +232,7 @@ export const olympicStage2Example = {
       playerId: null,
       sourceReference: "1.2.1",  // 1st from game 2
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,
       lossBracket: false,
       eliminationCount: 0
@@ -241,7 +241,7 @@ export const olympicStage2Example = {
       playerId: null,
       sourceReference: "1.2.2",  // 2nd from game 2
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,
       lossBracket: false,
       eliminationCount: 0
@@ -262,7 +262,7 @@ export const finalStageExample = {
       playerId: null,
       sourceReference: "8.1.1",  // Winner from upper bracket final
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,
       lossBracket: false,         // Upper bracket champion
       eliminationCount: 0
@@ -271,7 +271,7 @@ export const finalStageExample = {
       playerId: null,
       sourceReference: "8.2.1",  // Winner from lower bracket final
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,
       lossBracket: true,          // Lower bracket champion
       eliminationCount: 1
@@ -281,7 +281,7 @@ export const finalStageExample = {
       playerId: null,
       sourceReference: null,
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,
       lossBracket: false,
       eliminationCount: 0
@@ -290,7 +290,7 @@ export const finalStageExample = {
       playerId: null,
       sourceReference: null,
       points: 0,
-      tieBreakResult: "",
+      tieBreakResult: null,
       resolved: false,
       lossBracket: false,
       eliminationCount: 0

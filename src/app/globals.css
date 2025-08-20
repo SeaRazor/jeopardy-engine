@@ -10,6 +10,7 @@
   --color-secondary-text: #6c757d; /* For less important text */
   --color-border: #e9ecef;
   --color-shadow: rgba(0, 0, 0, 0.05);
+  --color-hover-bg: rgba(0, 0, 0, 0.02);
 
   /* Card Specifics - Light Mode */
   --card-bg: #ffffff;
@@ -53,6 +54,7 @@ html.dark {
   --color-secondary-text: #adb5bd;
   --color-border: #444444;
   --color-shadow: rgba(255, 255, 255, 0.05);
+  --color-hover-bg: rgba(255, 255, 255, 0.05);
 
   /* Card Specifics - Dark Mode */
   --card-bg: #2c2c2c;

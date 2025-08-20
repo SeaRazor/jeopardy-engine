@@ -35,6 +35,8 @@ export default function TournamentDetailPage() {
 
   // Set active tab from URL parameter
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const tabParam = searchParams.get('tab');
     if (tabParam) {
       setActiveTab(tabParam);

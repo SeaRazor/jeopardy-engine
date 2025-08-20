@@ -1159,7 +1159,7 @@ export default function GameDetailsPage() {
                 </div>
                 
                 <div className={styles.scoreCell} style={{ color: getPlayerColor(player.playerInfo, playerIndex) }}>
-                  {player.tieBreakResult !== null && player.tieBreakResult !== undefined && (
+                  {player.tieBreakResult !== null && player.tieBreakResult !== undefined && player.tieBreakResult !== "" && (
                     <span className={styles.tieBreakResult}>({player.tieBreakResult}) </span>
                   )}
                   {player.points}
