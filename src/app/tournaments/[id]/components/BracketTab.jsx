@@ -1,75 +1,144 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import styles from './BracketTab.module.css';
 
+// Fetch all games for tournament
+const fetchTournamentGames = async (tournamentId) => {
+  const res = await fetch(`/api/tournaments/${tournamentId}/games`);
+  if (!res.ok) throw new Error('Failed to fetch tournament games');
+  return res.json();
+};
+
 const BracketTab = ({ tournament }) => {
-  const [bracket, setBracket] = useState(null);
+  const [bracketData, setBracketData] = useState(null);
+  
+  // Fetch all tournament games
+  const { data: allGames = [], isLoading } = useQuery({
+    queryKey: ['tournament-games', tournament?.id],
+    queryFn: () => fetchTournamentGames(tournament.id),
+    enabled: !!tournament?.id
+  });
 
   useEffect(() => {
-    // Initialize bracket based on tournament schema
-    if (tournament?.schema) {
-      generateBracket(tournament);
+    if (tournament?.schema && allGames.length > 0) {
+      processTournamentData(tournament, allGames);
     }
-  }, [tournament]);
+  }, [tournament, allGames]);
 
-  const generateBracket = (tournament) => {
-    const schema = tournament.schema;
-    const participantsCount = tournament.participants?.length || 0;
+  const processTournamentData = (tournament, games) => {
+    const stages = tournament.schema.stages || [];
     
-    // Simple bracket generation logic
-    const rounds = [];
-    let currentRound = participantsCount;
-    let roundIndex = 0;
-
-    while (currentRound > 1) {
-      const matches = [];
-      const matchesInRound = Math.floor(currentRound / 2);
-      
-      for (let i = 0; i < matchesInRound; i++) {
-        matches.push({
-          id: `round-${roundIndex}-match-${i}`,
-          participant1: roundIndex === 0 ? tournament.participants?.[i * 2] : null,
-          participant2: roundIndex === 0 ? tournament.participants?.[i * 2 + 1] : null,
-          winner: null,
-          score1: null,
-          score2: null,
-        });
-      }
-      
-      rounds.push({
-        id: roundIndex,
-        name: getRoundName(roundIndex, rounds.length),
-        matches: matches
-      });
-      
-      currentRound = matchesInRound;
-      roundIndex++;
-    }
-
-    setBracket({ rounds });
-  };
-
-  const getRoundName = (roundIndex, totalRounds) => {
-    if (roundIndex === totalRounds - 1) return 'Финал';
-    if (roundIndex === totalRounds - 2) return 'Полуфинал';
-    if (roundIndex === totalRounds - 3) return 'Четвертьфинал';
-    return `Раунд ${roundIndex + 1}`;
+    // Group games by stage
+    const gamesByStage = {};
+    stages.forEach(stage => {
+      gamesByStage[stage.id] = games.filter(game => game.stageId === stage.id);
+    });
+    
+    // Find the maximum number of games in any stage to determine table height
+    const maxGamesInStage = Math.max(...stages.map(stage => 
+      (gamesByStage[stage.id] || []).length
+    ), 1);
+    
+    setBracketData({
+      stages,
+      gamesByStage,
+      maxGamesInStage,
+      tournament
+    });
   };
 
   const getParticipantName = (participant) => {
-    if (!participant) return 'TBD';
+    if (!participant) return null;
     if (participant.isManual) return participant.name;
     if (participant.name) return participant.name; // team
     return `${participant.firstName} ${participant.lastName}`; // person
   };
+  
+  const getParticipantInfo = (participant) => {
+    if (!participant) return null;
+    
+    // Handle unresolved participants (with source references)
+    if (!participant.resolved && participant.sourceReference) {
+      const refParts = participant.sourceReference.split('.');
+      if (refParts.length >= 3) {
+        const gameNum = refParts[1];
+        const placement = refParts[2];
+        const placements = { '1': '1-е место', '2': '2-е место', '3': '3-е место', '4': '4-е место' };
+        return {
+          name: `${placements[placement] || `${placement}-е место`} из Игры ${gameNum}`,
+          points: participant.points || 0,
+          tieBreakResult: participant.tieBreakResult,
+          resolved: false,
+          isReference: true
+        };
+      }
+    }
+    
+    // Handle resolved participants
+    if (participant.playerId) {
+      const participantData = tournament.participants?.find(p => p.id === participant.playerId);
+      if (participantData) {
+        return {
+          name: getParticipantName(participantData),
+          points: participant.points || 0,
+          tieBreakResult: participant.tieBreakResult,
+          resolved: participant.resolved,
+          isReference: false
+        };
+      }
+    }
+    
+    // Handle empty/null participants
+    if (!participant.playerId && !participant.sourceReference) {
+      return null;
+    }
+    
+    // Fallback
+    return {
+      name: getParticipantName(participant) || 'TBD',
+      points: participant.points || 0,
+      tieBreakResult: participant.tieBreakResult,
+      resolved: participant.resolved || false,
+      isReference: false
+    };
+  };
+  
+  const formatScore = (participant) => {
+    if (!participant) return '';
+    
+    const info = getParticipantInfo(participant);
+    if (!info) return '';
+    
+    let scoreText = info.points.toString();
+    
+    // Add tiebreak result if present and not null/empty
+    if (info.tieBreakResult !== null && info.tieBreakResult !== undefined && info.tieBreakResult !== '') {
+      const tieBreak = info.tieBreakResult;
+      const sign = tieBreak > 0 ? '+' : '';
+      scoreText += `(${sign}${tieBreak})`;
+    }
+    
+    return scoreText;
+  };
 
-  if (!bracket) {
+  if (isLoading) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.loadingState}>
+          <h3>Загрузка сетки турнира...</h3>
+        </div>
+      </div>
+    );
+  }
+
+  if (!bracketData || !bracketData.stages.length) {
     return (
       <div className={styles.container}>
         <div className={styles.emptyState}>
           <h3>Сетка турнира</h3>
-          <p>Сначала добавьте участников на вкладке "Участники"</p>
+          <p>Игры пока не созданы. Создайте игры на соответствующих этапах.</p>
         </div>
       </div>
     );
@@ -82,31 +151,54 @@ const BracketTab = ({ tournament }) => {
         <p>Схема: {tournament?.schema?.schemeName}</p>
       </div>
 
-      <div className={styles.bracket}>
-        {bracket.rounds.map((round, roundIndex) => (
-          <div key={round.id} className={styles.round}>
-            <h4 className={styles.roundTitle}>{round.name}</h4>
-            <div className={styles.matches}>
-              {round.matches.map((match, matchIndex) => (
-                <div key={match.id} className={styles.match}>
-                  <div className={`${styles.participant} ${match.winner === 1 ? styles.winner : ''}`}>
-                    <span className={styles.name}>
-                      {getParticipantName(match.participant1)}
-                    </span>
-                    <span className={styles.score}>{match.score1 || '-'}</span>
-                  </div>
-                  <div className={styles.vs}>VS</div>
-                  <div className={`${styles.participant} ${match.winner === 2 ? styles.winner : ''}`}>
-                    <span className={styles.name}>
-                      {getParticipantName(match.participant2)}
-                    </span>
-                    <span className={styles.score}>{match.score2 || '-'}</span>
-                  </div>
-                </div>
+      <div className={styles.bracketTableContainer}>
+        <table className={styles.bracketTable}>
+          <thead>
+            <tr>
+              {bracketData.stages.map((stage, index) => (
+                <th key={stage.id} className={`${styles.stageColumn} ${styles[`stageHeader${index % 4}`]}`}>
+                  <div className={styles.stageName}>{stage.name}</div>
+                  <div className={styles.stageOrder}>{stage.order} этап</div>
+                </th>
               ))}
-            </div>
-          </div>
-        ))}
+            </tr>
+          </thead>
+          <tbody>
+            {Array.from({ length: bracketData.maxGamesInStage }, (_, gameIndex) => (
+              <tr key={gameIndex} className={`${styles.gameRow} ${gameIndex % 2 === 0 ? styles.evenRow : styles.oddRow}`}>
+                {bracketData.stages.map((stage, stageIndex) => {
+                  const stageGames = bracketData.gamesByStage[stage.id] || [];
+                  const game = stageGames[gameIndex];
+                  const participants = game?.participants || [];
+                  
+                  return (
+                    <td key={stage.id} className={styles.stageCell}>
+                      <div className={styles.participantsList}>
+                        {participants.length > 0 ? (
+                          participants.map((participant, pIndex) => {
+                            const info = getParticipantInfo(participant);
+                            return info ? (
+                              <div key={pIndex} className={styles.participantRow}>
+                                <div className={`${styles.participantName} ${info.isReference ? styles.reference : ''}`}>
+                                  {info.name}
+                                </div>
+                                <div className={styles.participantScore}>
+                                  {info.isReference ? '' : formatScore(participant)}
+                                </div>
+                              </div>
+                            ) : null;
+                          })
+                        ) : (
+                          <div className={styles.emptyCell}>-</div>
+                        )}
+                      </div>
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
