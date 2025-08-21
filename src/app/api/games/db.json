@@ -2968,41 +2968,41 @@
     "stageId": 8
   },
   {
-    "gameDate": "2025-08-20",
+    "gameDate": "2025-08-20T00:00:00.000Z",
     "gamePlace": "TBD",
     "presenterId": 1,
     "participants": [
       {
-        "playerId": "g32rybnoyfmmxhvhm1kv4",
+        "playerId": "ptrzjuar3frgosfgmu57n",
         "sourceReference": null,
-        "points": 10,
+        "points": 120,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": "j0nft2skoxcqaha8025u9g",
+        "playerId": "twd6ieuc72ewlgjgv59dv",
         "sourceReference": null,
-        "points": 100,
+        "points": 150,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": "tv0hxavswblb0bhh78fhgv",
+        "playerId": "7u9vnwwp3rr2qi9295od",
         "sourceReference": null,
-        "points": 110,
+        "points": -20,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": "ribea9t5rphlaqlaobek",
+        "playerId": "z25esqzdpriu12mxn87uhk",
         "sourceReference": null,
-        "points": -90,
+        "points": 30,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -3014,386 +3014,46 @@
     "gameNumber": 1,
     "tournamentId": 6,
     "stageId": 1,
-    "stageThemes": [],
-    "gameState": {
-      "themes": [
-        {
-          "id": 1,
-          "name": "Тема 1",
-          "description": "",
-          "questions": [
-            {
-              "id": "1-1",
-              "value": 10,
-              "answered": true,
-              "answeredBy": "g32rybnoyfmmxhvhm1kv4",
-              "correctAnswers": [
-                "g32rybnoyfmmxhvhm1kv4"
-              ]
-            },
-            {
-              "id": "1-2",
-              "value": 20,
-              "answered": false,
-              "answeredBy": null,
-              "incorrectAnswers": [
-                "j0nft2skoxcqaha8025u9g"
-              ]
-            },
-            {
-              "id": "1-3",
-              "value": 30,
-              "answered": true,
-              "answeredBy": "tv0hxavswblb0bhh78fhgv",
-              "correctAnswers": [
-                "tv0hxavswblb0bhh78fhgv"
-              ]
-            },
-            {
-              "id": "1-4",
-              "value": 40,
-              "answered": false,
-              "answeredBy": null,
-              "incorrectAnswers": [
-                "ribea9t5rphlaqlaobek"
-              ]
-            },
-            {
-              "id": "1-5",
-              "value": 50,
-              "answered": true,
-              "answeredBy": "tv0hxavswblb0bhh78fhgv",
-              "correctAnswers": [
-                "tv0hxavswblb0bhh78fhgv"
-              ]
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "name": "Тема 2",
-          "description": "",
-          "questions": [
-            {
-              "id": "2-1",
-              "value": 10,
-              "answered": true,
-              "answeredBy": "ribea9t5rphlaqlaobek",
-              "correctAnswers": [
-                "ribea9t5rphlaqlaobek"
-              ]
-            },
-            {
-              "id": "2-2",
-              "value": 20,
-              "answered": false,
-              "answeredBy": null,
-              "incorrectAnswers": [
-                "tv0hxavswblb0bhh78fhgv"
-              ]
-            },
-            {
-              "id": "2-3",
-              "value": 30,
-              "answered": true,
-              "answeredBy": "j0nft2skoxcqaha8025u9g",
-              "correctAnswers": [
-                "j0nft2skoxcqaha8025u9g"
-              ]
-            },
-            {
-              "id": "2-4",
-              "value": 40,
-              "answered": false,
-              "answeredBy": null,
-              "incorrectAnswers": [
-                "g32rybnoyfmmxhvhm1kv4"
-              ]
-            },
-            {
-              "id": "2-5",
-              "value": 50,
-              "answered": true,
-              "answeredBy": "j0nft2skoxcqaha8025u9g",
-              "correctAnswers": [
-                "j0nft2skoxcqaha8025u9g"
-              ]
-            }
-          ]
-        },
-        {
-          "id": 3,
-          "name": "Тема 3",
-          "description": "",
-          "questions": [
-            {
-              "id": "3-1",
-              "value": 10,
-              "answered": false,
-              "answeredBy": null
-            },
-            {
-              "id": "3-2",
-              "value": 20,
-              "answered": false,
-              "answeredBy": null
-            },
-            {
-              "id": "3-3",
-              "value": 30,
-              "answered": true,
-              "answeredBy": "g32rybnoyfmmxhvhm1kv4",
-              "correctAnswers": [
-                "g32rybnoyfmmxhvhm1kv4"
-              ]
-            },
-            {
-              "id": "3-4",
-              "value": 40,
-              "answered": false,
-              "answeredBy": null
-            },
-            {
-              "id": "3-5",
-              "value": 50,
-              "answered": false,
-              "answeredBy": null
-            }
-          ]
-        },
-        {
-          "id": 4,
-          "name": "Тема 4",
-          "description": "",
-          "questions": [
-            {
-              "id": "4-1",
-              "value": 10,
-              "answered": false,
-              "answeredBy": null,
-              "incorrectAnswers": [
-                "tv0hxavswblb0bhh78fhgv"
-              ]
-            },
-            {
-              "id": "4-2",
-              "value": 20,
-              "answered": false,
-              "answeredBy": null,
-              "incorrectAnswers": [
-                "tv0hxavswblb0bhh78fhgv"
-              ]
-            },
-            {
-              "id": "4-3",
-              "value": 30,
-              "answered": true,
-              "answeredBy": "ribea9t5rphlaqlaobek",
-              "correctAnswers": [
-                "ribea9t5rphlaqlaobek"
-              ]
-            },
-            {
-              "id": "4-4",
-              "value": 40,
-              "answered": false,
-              "answeredBy": null
-            },
-            {
-              "id": "4-5",
-              "value": 50,
-              "answered": false,
-              "answeredBy": null
-            }
-          ]
-        },
-        {
-          "id": 5,
-          "name": "Тема 5",
-          "description": "",
-          "questions": [
-            {
-              "id": "5-1",
-              "value": 10,
-              "answered": true,
-              "answeredBy": "g32rybnoyfmmxhvhm1kv4",
-              "correctAnswers": [
-                "g32rybnoyfmmxhvhm1kv4"
-              ]
-            },
-            {
-              "id": "5-2",
-              "value": 20,
-              "answered": true,
-              "answeredBy": "tv0hxavswblb0bhh78fhgv",
-              "correctAnswers": [
-                "tv0hxavswblb0bhh78fhgv"
-              ]
-            },
-            {
-              "id": "5-3",
-              "value": 30,
-              "answered": false,
-              "answeredBy": null
-            },
-            {
-              "id": "5-4",
-              "value": 40,
-              "answered": false,
-              "answeredBy": null,
-              "incorrectAnswers": [
-                "ribea9t5rphlaqlaobek"
-              ]
-            },
-            {
-              "id": "5-5",
-              "value": 50,
-              "answered": false,
-              "answeredBy": null
-            }
-          ]
-        },
-        {
-          "id": 6,
-          "name": "Тема 6",
-          "description": "",
-          "questions": [
-            {
-              "id": "6-1",
-              "value": 10,
-              "answered": true,
-              "answeredBy": "j0nft2skoxcqaha8025u9g",
-              "correctAnswers": [
-                "j0nft2skoxcqaha8025u9g"
-              ]
-            },
-            {
-              "id": "6-2",
-              "value": 20,
-              "answered": true,
-              "answeredBy": "tv0hxavswblb0bhh78fhgv",
-              "correctAnswers": [
-                "tv0hxavswblb0bhh78fhgv"
-              ]
-            },
-            {
-              "id": "6-3",
-              "value": 30,
-              "answered": true,
-              "answeredBy": "j0nft2skoxcqaha8025u9g",
-              "correctAnswers": [
-                "j0nft2skoxcqaha8025u9g"
-              ]
-            },
-            {
-              "id": "6-4",
-              "value": 40,
-              "answered": true,
-              "answeredBy": "tv0hxavswblb0bhh78fhgv",
-              "correctAnswers": [
-                "tv0hxavswblb0bhh78fhgv"
-              ]
-            },
-            {
-              "id": "6-5",
-              "value": 50,
-              "answered": false,
-              "answeredBy": null,
-              "incorrectAnswers": [
-                "ribea9t5rphlaqlaobek"
-              ]
-            }
-          ]
-        }
-      ],
-      "revealedQuestions": {
-        "g32rybnoyfmmxhvhm1kv4": [
-          "1-1",
-          "2-4",
-          "3-3",
-          "5-1"
-        ],
-        "j0nft2skoxcqaha8025u9g": [
-          "1-2",
-          "2-3",
-          "2-5",
-          "6-1",
-          "6-3"
-        ],
-        "tv0hxavswblb0bhh78fhgv": [
-          "1-3",
-          "1-5",
-          "2-2",
-          "4-1",
-          "4-2",
-          "5-2",
-          "6-2",
-          "6-4"
-        ],
-        "ribea9t5rphlaqlaobek": [
-          "1-4",
-          "2-1",
-          "4-3",
-          "5-4",
-          "6-5"
-        ]
-      },
-      "completedThemes": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
-    },
-    "updatedAt": "2025-08-20T17:18:03.996Z",
-    "completedThemes": [
-      0,
-      1,
-      2,
-      3,
-      4,
-      5
-    ],
+    "completed": true,
+    "finishedAt": "2025-08-20T18:05:42.781Z",
+    "lastUpdated": "2025-08-20T18:11:59.345Z",
     "status": "completed",
-    "completedAt": "2025-08-20T17:18:11.608Z",
-    "lastUpdated": "2025-08-20T17:18:11.608Z"
+    "completedAt": "2025-08-20T18:11:59.345Z"
   },
   {
-    "gameDate": "2025-08-20",
+    "gameDate": "2025-08-20T00:00:00.000Z",
     "gamePlace": "TBD",
     "presenterId": 1,
     "participants": [
       {
-        "playerId": "kd0kljllygi8mn2eemj7p4",
+        "playerId": "q2jzpqpfwua77pzbg0rvgr",
         "sourceReference": null,
-        "points": 0,
+        "points": 50,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": "vfab0wfcvn9w43yhmq4ag",
+        "playerId": "ur4egod4q7b2gm7rq558",
         "sourceReference": null,
-        "points": 0,
+        "points": 110,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": "ffmp3w5rvnm4id5hexf6zj",
+        "playerId": "u0kt94y3c2ppljobftexwh",
         "sourceReference": null,
-        "points": 0,
+        "points": 130,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": "hpuka7ww5ilejbcbtz0lhg",
+        "playerId": "36o08plecr2ao4lfv7rpvt",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3406,7 +3066,12 @@
     "id": 32,
     "gameNumber": 2,
     "tournamentId": 6,
-    "stageId": 1
+    "stageId": 1,
+    "completed": true,
+    "finishedAt": "2025-08-20T19:42:31.959Z",
+    "status": "completed",
+    "completedAt": "2025-08-20T19:42:32.067Z",
+    "lastUpdated": "2025-08-20T19:42:32.067Z"
   },
   {
     "gameDate": "2025-08-20",
@@ -3414,7 +3079,7 @@
     "presenterId": 1,
     "participants": [
       {
-        "playerId": "ktwez8mw1s22yr0ta5sq1h",
+        "playerId": "mv7c6lb00yl6h2ypumocl",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3423,7 +3088,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "npcxnswtm5rvytec5i4xn",
+        "playerId": "j0dvberueyxfw51js8cc8",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3432,7 +3097,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "q566o181jgxbsa375cog",
+        "playerId": "044tgb6o5otktvqq1p59p8",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3441,7 +3106,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "yfh4myn55c5i1f5kext3q",
+        "playerId": "gmuxslmwaioggwazzimmo",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3462,7 +3127,7 @@
     "presenterId": 1,
     "participants": [
       {
-        "playerId": "idd8uufbl48o6kijgq9jr",
+        "playerId": "f75se8hh7anok35l6a2uc",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3471,7 +3136,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "5h9dbmp9s1e2hcbv6h25ig",
+        "playerId": "cxl9ntadfwj4pk7rgbz52t",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3480,7 +3145,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "qj48n33nkxpa061pymkttt",
+        "playerId": "gn26uiq2vqpj2kxvayrs8n",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3489,7 +3154,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "osz5hc4pxnmgg5etrbt9xm",
+        "playerId": "vypto7iuw1s5hig6a1q5",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3510,7 +3175,7 @@
     "presenterId": 1,
     "participants": [
       {
-        "playerId": "tqfjgx46h5eeq1fhooko3k",
+        "playerId": "4255sueabppy9uw3s1b1ok",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3519,7 +3184,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "urlu3qkr6axgty8ru37o",
+        "playerId": "5hc0e9di86dsqyw1bd4fe",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3528,7 +3193,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "354pu44fhm671pvk112hs",
+        "playerId": "u5xyf6r2rhdi41sjcetxxe",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3537,7 +3202,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "me2ldsg23242j1jxx",
+        "playerId": "ecpo9a3otu2fze7eh78xc",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3558,7 +3223,7 @@
     "presenterId": 1,
     "participants": [
       {
-        "playerId": "qh1l3ut6qxunkm864njl",
+        "playerId": "8dmvwaxzb1rzudkp6q3g6l",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3567,7 +3232,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "3nf6tmqfsw7toa4gubsp4",
+        "playerId": "umw2dg6cojuyyq6v8sfrr",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3576,7 +3241,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "163flh9l5kpil18mgsnv0nk",
+        "playerId": "tzorltjki6huma8jhljwk",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3585,7 +3250,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "s3njondzdq93b596afyci",
+        "playerId": "9ng3a2zp3w810bozuhumber",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3606,7 +3271,7 @@
     "presenterId": 1,
     "participants": [
       {
-        "playerId": "rxjigb8s3bk5e8f4wfskt",
+        "playerId": "bdzakmkdvqdfz1tus8kekk",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3615,7 +3280,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "tqlsgoskfux0tm909aqca",
+        "playerId": "er8irbmsx6frquukpjmc4o",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3624,7 +3289,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "p8lrjns2xgkxbjrmj5sr08",
+        "playerId": "yar87hummw8hbzt2ivrbn7",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3633,7 +3298,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "qalinv39pjqv13jgh6sr1k",
+        "playerId": "fqeprx62yilblyjvmlq86n",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3654,7 +3319,7 @@
     "presenterId": 1,
     "participants": [
       {
-        "playerId": "213q2ebumnk6xcjoejfml2",
+        "playerId": "t5acgd9sdwxmx3tz14qy8",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3663,7 +3328,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "hd116h7akvo28rb5hil66r",
+        "playerId": "b6tay2ukar7st43a8hz4we",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3672,7 +3337,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "udbq5tcjbciyeoibwz7eg",
+        "playerId": "uhznoufw2mc3owc5p2qo5",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3681,7 +3346,7 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "kbgbbu6cl8odlecwm1lte",
+        "playerId": "6ee9o0d9pwbgqz7n34w3s",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3697,20 +3362,20 @@
     "stageId": 1
   },
   {
-    "gameDate": "2025-08-20T17:16:18.742Z",
+    "gameDate": "2025-08-20T18:05:01.104Z",
     "gamePlace": "Арена 1",
     "presenterId": 1,
     "stageOrder": 9,
     "participants": [
       {
-        "playerId": "tv0hxavswblb0bhh78fhgv",
+        "playerId": "twd6ieuc72ewlgjgv59dv",
         "sourceReference": "6.1.1",
         "points": 0,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0,
-        "resolvedAt": "2025-08-20T17:18:11.609Z"
+        "resolvedAt": "2025-08-20T18:11:59.347Z"
       },
       {
         "playerId": null,
@@ -3747,22 +3412,23 @@
     "id": 39,
     "tournamentId": 6,
     "stageId": 2,
-    "lastUpdated": "2025-08-20T17:18:11.609Z"
+    "lastUpdated": "2025-08-20T18:11:59.347Z"
   },
   {
-    "gameDate": "2025-08-20T17:16:18.797Z",
+    "gameDate": "2025-08-20T18:05:01.155Z",
     "gamePlace": "Арена 2",
     "presenterId": 1,
     "stageOrder": 10,
     "participants": [
       {
-        "playerId": null,
+        "playerId": "u0kt94y3c2ppljobftexwh",
         "sourceReference": "6.2.1",
         "points": 0,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
-        "eliminationCount": 0
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-20T19:42:32.068Z"
       },
       {
         "playerId": null,
@@ -3798,10 +3464,11 @@
     "gameNumber": 10,
     "id": 40,
     "tournamentId": 6,
-    "stageId": 2
+    "stageId": 2,
+    "lastUpdated": "2025-08-20T19:42:32.068Z"
   },
   {
-    "gameDate": "2025-08-20T17:16:18.853Z",
+    "gameDate": "2025-08-20T18:05:01.209Z",
     "gamePlace": "Арена 3",
     "presenterId": 1,
     "stageOrder": 11,
@@ -3834,14 +3501,14 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "j0nft2skoxcqaha8025u9g",
+        "playerId": "ptrzjuar3frgosfgmu57n",
         "sourceReference": "6.1.2",
         "points": 0,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0,
-        "resolvedAt": "2025-08-20T17:18:11.610Z"
+        "resolvedAt": "2025-08-20T18:11:59.348Z"
       }
     ],
     "bracketType": "upper",
@@ -3851,10 +3518,10 @@
     "id": 41,
     "tournamentId": 6,
     "stageId": 2,
-    "lastUpdated": "2025-08-20T17:18:11.610Z"
+    "lastUpdated": "2025-08-20T18:11:59.348Z"
   },
   {
-    "gameDate": "2025-08-20T17:16:18.904Z",
+    "gameDate": "2025-08-20T18:05:01.270Z",
     "gamePlace": "Арена 4",
     "presenterId": 1,
     "stageOrder": 12,
@@ -3887,13 +3554,14 @@
         "eliminationCount": 0
       },
       {
-        "playerId": null,
+        "playerId": "ur4egod4q7b2gm7rq558",
         "sourceReference": "6.2.2",
         "points": 0,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
-        "eliminationCount": 0
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-20T19:42:32.069Z"
       }
     ],
     "bracketType": "upper",
@@ -3902,10 +3570,11 @@
     "gameNumber": 12,
     "id": 42,
     "tournamentId": 6,
-    "stageId": 2
+    "stageId": 2,
+    "lastUpdated": "2025-08-20T19:42:32.069Z"
   },
   {
-    "gameDate": "2025-08-20T17:16:19.016Z",
+    "gameDate": "2025-08-20T18:05:01.384Z",
     "gamePlace": "Арена 1",
     "presenterId": 1,
     "stageOrder": 13,
@@ -3956,7 +3625,7 @@
     "stageId": 3
   },
   {
-    "gameDate": "2025-08-20T17:16:19.067Z",
+    "gameDate": "2025-08-20T18:05:01.433Z",
     "gamePlace": "Арена 2",
     "presenterId": 1,
     "stageOrder": 14,
@@ -4007,7 +3676,7 @@
     "stageId": 3
   },
   {
-    "gameDate": "2025-08-20T17:16:19.195Z",
+    "gameDate": "2025-08-20T18:05:01.556Z",
     "gamePlace": "Арена 1",
     "presenterId": 1,
     "stageOrder": 15,
@@ -4058,7 +3727,7 @@
     "stageId": 4
   },
   {
-    "gameDate": "2025-08-20T17:16:19.323Z",
+    "gameDate": "2025-08-20T18:05:01.673Z",
     "gamePlace": "Арена 1",
     "presenterId": 1,
     "stageOrder": 16,

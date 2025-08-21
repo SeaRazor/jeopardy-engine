@@ -9,6 +9,7 @@ import { useToast } from '../../../util/ToastContext';
 import { drawTournament } from '../../../util/draw';
 import { createProgressionEngine } from '../../../util/progressionEngine';
 import { createResolvedParticipant } from '../../../util/referenceSystem';
+import { getRequiredPlayerType, validatePlayerForTournament } from '../../../util/tournamentUtils';
 import styles from './ParticipantsTab.module.css';
 
 const fetchAvailablePlayers = async (type) => {
@@ -54,8 +55,24 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
   const [isCreatingGames, setIsCreatingGames] = useState(false);
   const [isDrawing, setIsDrawing] = useState(false);
   const [gamesExist, setGamesExist] = useState(false);
+  const [participantType, setParticipantType] = useState('person');
 
-  const participantType = tournament?.type === 'Эрудит-квартет' ? 'team' : 'person';
+  // Fetch participant type based on tournament gameType
+  useEffect(() => {
+    const fetchParticipantType = async () => {
+      if (tournament?.type) {
+        try {
+          const requiredPlayerType = await getRequiredPlayerType(tournament);
+          setParticipantType(requiredPlayerType);
+        } catch (error) {
+          console.error('Error fetching participant type:', error);
+          // Keep default value on error
+        }
+      }
+    };
+    
+    fetchParticipantType();
+  }, [tournament?.type]);
 
   // Check if games exist for this tournament
   const checkExistingGames = async () => {

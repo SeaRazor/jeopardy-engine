@@ -478,8 +478,8 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
         return;
       }
 
-      // Call API to finish the game and resolve dependent references
-      const response = await fetch(`/api/tournaments/${currentGame.tournamentId}/stages/${currentGame.stageId}/games/${currentGame.id}/finish`, {
+      // Call API to complete the game and resolve dependent references
+      const response = await fetch(`/api/tournaments/${currentGame.tournamentId}/stages/${currentGame.stageId}/games/${currentGame.id}/complete`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -499,14 +499,16 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
       setCurrentGame({
         ...currentGame,
         completed: true,
-        finishedAt: result.finishedAt
+        finishedAt: result.game?.completedAt || new Date().toISOString()
       });
       setGameCompleted(true);
       
-      // Show success message with resolution info
+      // Show success message with progression info
       let successMessage = 'Игра завершена успешно!';
-      if (result.resolvedGames && result.resolvedGames > 0) {
-        successMessage += ` Автоматически обновлено участников в ${result.resolvedGames} играх следующих стадий.`;
+      if (result.progression?.success && result.progression.resolvedGames > 0) {
+        successMessage += ` Автоматически продвинуто ${result.progression.resolvedReferences} участников в ${result.progression.resolvedGames} играх следующих стадий.`;
+      } else if (result.progression?.resolvedReferences > 0) {
+        successMessage += ` Автоматически продвинуто ${result.progression.resolvedReferences} участников.`;
       }
       
       showSuccess(successMessage);
