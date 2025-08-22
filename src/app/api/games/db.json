@@ -2968,14 +2968,470 @@
     "stageId": 8
   },
   {
-    "gameDate": "2025-08-20T00:00:00.000Z",
+    "gameDate": "2025-08-22",
     "gamePlace": "TBD",
     "presenterId": 1,
     "participants": [
       {
-        "playerId": "ptrzjuar3frgosfgmu57n",
+        "playerId": "fqeprx62yilblyjvmlq86n",
         "sourceReference": null,
-        "points": 120,
+        "points": 100,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "7u9vnwwp3rr2qi9295od",
+        "sourceReference": null,
+        "points": 90,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "bdzakmkdvqdfz1tus8kekk",
+        "sourceReference": null,
+        "points": -60,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "ecpo9a3otu2fze7eh78xc",
+        "sourceReference": null,
+        "points": 130,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "Olympic",
+    "id": 31,
+    "gameNumber": 1,
+    "tournamentId": 6,
+    "stageId": 1,
+    "stageThemes": [],
+    "gameState": {
+      "themes": [
+        {
+          "id": 1,
+          "name": "Тема 1",
+          "description": "",
+          "questions": [
+            {
+              "id": "1-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-2",
+              "value": 20,
+              "answered": true,
+              "answeredBy": "7u9vnwwp3rr2qi9295od",
+              "correctAnswers": [
+                "7u9vnwwp3rr2qi9295od"
+              ]
+            },
+            {
+              "id": "1-3",
+              "value": 30,
+              "answered": true,
+              "answeredBy": "bdzakmkdvqdfz1tus8kekk",
+              "correctAnswers": [
+                "bdzakmkdvqdfz1tus8kekk"
+              ]
+            },
+            {
+              "id": "1-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Тема 2",
+          "description": "",
+          "questions": [
+            {
+              "id": "2-1",
+              "value": 10,
+              "answered": true,
+              "answeredBy": "fqeprx62yilblyjvmlq86n",
+              "correctAnswers": [
+                "fqeprx62yilblyjvmlq86n"
+              ]
+            },
+            {
+              "id": "2-2",
+              "value": 20,
+              "answered": true,
+              "answeredBy": "ecpo9a3otu2fze7eh78xc",
+              "incorrectAnswers": [
+                "fqeprx62yilblyjvmlq86n"
+              ],
+              "correctAnswers": [
+                "ecpo9a3otu2fze7eh78xc"
+              ]
+            },
+            {
+              "id": "2-3",
+              "value": 30,
+              "answered": true,
+              "answeredBy": "ecpo9a3otu2fze7eh78xc",
+              "correctAnswers": [
+                "ecpo9a3otu2fze7eh78xc"
+              ]
+            },
+            {
+              "id": "2-4",
+              "value": 40,
+              "answered": true,
+              "answeredBy": "ecpo9a3otu2fze7eh78xc",
+              "correctAnswers": [
+                "ecpo9a3otu2fze7eh78xc"
+              ]
+            },
+            {
+              "id": "2-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null,
+              "incorrectAnswers": [
+                "bdzakmkdvqdfz1tus8kekk"
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Тема 3",
+          "description": "",
+          "questions": [
+            {
+              "id": "3-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-2",
+              "value": 20,
+              "answered": true,
+              "answeredBy": "7u9vnwwp3rr2qi9295od",
+              "correctAnswers": [
+                "7u9vnwwp3rr2qi9295od"
+              ]
+            },
+            {
+              "id": "3-3",
+              "value": 30,
+              "answered": true,
+              "answeredBy": "7u9vnwwp3rr2qi9295od",
+              "correctAnswers": [
+                "7u9vnwwp3rr2qi9295od"
+              ]
+            },
+            {
+              "id": "3-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null,
+              "incorrectAnswers": [
+                "ecpo9a3otu2fze7eh78xc"
+              ]
+            },
+            {
+              "id": "3-5",
+              "value": 50,
+              "answered": true,
+              "answeredBy": "fqeprx62yilblyjvmlq86n",
+              "correctAnswers": [
+                "fqeprx62yilblyjvmlq86n"
+              ]
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Тема 4",
+          "description": "",
+          "questions": [
+            {
+              "id": "4-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-2",
+              "value": 20,
+              "answered": true,
+              "answeredBy": "fqeprx62yilblyjvmlq86n",
+              "correctAnswers": [
+                "fqeprx62yilblyjvmlq86n"
+              ]
+            },
+            {
+              "id": "4-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null,
+              "incorrectAnswers": [
+                "bdzakmkdvqdfz1tus8kekk"
+              ]
+            },
+            {
+              "id": "4-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Тема 5",
+          "description": "",
+          "questions": [
+            {
+              "id": "5-1",
+              "value": 10,
+              "answered": true,
+              "answeredBy": "fqeprx62yilblyjvmlq86n",
+              "correctAnswers": [
+                "fqeprx62yilblyjvmlq86n"
+              ]
+            },
+            {
+              "id": "5-2",
+              "value": 20,
+              "answered": true,
+              "answeredBy": "7u9vnwwp3rr2qi9295od",
+              "correctAnswers": [
+                "7u9vnwwp3rr2qi9295od"
+              ]
+            },
+            {
+              "id": "5-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-5",
+              "value": 50,
+              "answered": true,
+              "answeredBy": "ecpo9a3otu2fze7eh78xc",
+              "correctAnswers": [
+                "ecpo9a3otu2fze7eh78xc"
+              ]
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "Тема 6",
+          "description": "",
+          "questions": [
+            {
+              "id": "6-1",
+              "value": 10,
+              "answered": true,
+              "answeredBy": "ecpo9a3otu2fze7eh78xc",
+              "correctAnswers": [
+                "ecpo9a3otu2fze7eh78xc"
+              ]
+            },
+            {
+              "id": "6-2",
+              "value": 20,
+              "answered": true,
+              "answeredBy": "ecpo9a3otu2fze7eh78xc",
+              "correctAnswers": [
+                "ecpo9a3otu2fze7eh78xc"
+              ]
+            },
+            {
+              "id": "6-3",
+              "value": 30,
+              "answered": true,
+              "answeredBy": "fqeprx62yilblyjvmlq86n",
+              "correctAnswers": [
+                "fqeprx62yilblyjvmlq86n"
+              ]
+            },
+            {
+              "id": "6-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        }
+      ],
+      "revealedQuestions": {
+        "7u9vnwwp3rr2qi9295od": [
+          "1-2",
+          "3-2",
+          "3-3",
+          "5-2"
+        ],
+        "bdzakmkdvqdfz1tus8kekk": [
+          "1-3",
+          "2-5",
+          "4-4"
+        ],
+        "fqeprx62yilblyjvmlq86n": [
+          "2-1",
+          "2-2",
+          "3-5",
+          "4-2",
+          "5-1",
+          "6-3"
+        ],
+        "ecpo9a3otu2fze7eh78xc": [
+          "2-2",
+          "2-3",
+          "2-4",
+          "3-4",
+          "5-5",
+          "6-1",
+          "6-2"
+        ]
+      },
+      "completedThemes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "updatedAt": "2025-08-22T11:18:09.687Z",
+    "completedThemes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "status": "completed",
+    "completedAt": "2025-08-22T11:18:15.819Z",
+    "lastUpdated": "2025-08-22T11:18:15.819Z"
+  },
+  {
+    "gameDate": "2025-08-22T00:00:00.000Z",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "044tgb6o5otktvqq1p59p8",
+        "sourceReference": null,
+        "points": 130,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "j0dvberueyxfw51js8cc8",
+        "sourceReference": null,
+        "points": -110,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "f75se8hh7anok35l6a2uc",
+        "sourceReference": null,
+        "points": 50,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "u5xyf6r2rhdi41sjcetxxe",
+        "sourceReference": null,
+        "points": 40,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "Olympic",
+    "id": 32,
+    "gameNumber": 2,
+    "tournamentId": 6,
+    "stageId": 1,
+    "completed": true,
+    "finishedAt": "2025-08-22T11:23:33.984Z",
+    "status": "completed",
+    "completedAt": "2025-08-22T11:23:34.091Z",
+    "lastUpdated": "2025-08-22T11:23:34.091Z"
+  },
+  {
+    "gameDate": "2025-08-22T00:00:00.000Z",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "cxl9ntadfwj4pk7rgbz52t",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "b6tay2ukar7st43a8hz4we",
+        "sourceReference": null,
+        "points": 30,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "yar87hummw8hbzt2ivrbn7",
+        "sourceReference": null,
+        "points": 220,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -2989,9 +3445,35 @@
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "Olympic",
+    "id": 33,
+    "gameNumber": 3,
+    "tournamentId": 6,
+    "stageId": 1,
+    "completed": true,
+    "finishedAt": "2025-08-22T11:24:20.417Z",
+    "status": "completed",
+    "completedAt": "2025-08-22T11:24:20.521Z",
+    "lastUpdated": "2025-08-22T11:24:20.521Z"
+  },
+  {
+    "gameDate": "2025-08-22T00:00:00.000Z",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "9ng3a2zp3w810bozuhumber",
+        "sourceReference": null,
+        "points": 60,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
       },
       {
-        "playerId": "7u9vnwwp3rr2qi9295od",
+        "playerId": "8dmvwaxzb1rzudkp6q3g6l",
         "sourceReference": null,
         "points": -20,
         "tieBreakResult": null,
@@ -3000,145 +3482,9 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "z25esqzdpriu12mxn87uhk",
+        "playerId": "6ee9o0d9pwbgqz7n34w3s",
         "sourceReference": null,
-        "points": 30,
-        "tieBreakResult": null,
-        "resolved": true,
-        "lossBracket": false,
-        "eliminationCount": 0
-      }
-    ],
-    "tournamentType": "Olympic",
-    "id": 31,
-    "gameNumber": 1,
-    "tournamentId": 6,
-    "stageId": 1,
-    "completed": true,
-    "finishedAt": "2025-08-20T18:05:42.781Z",
-    "lastUpdated": "2025-08-20T18:11:59.345Z",
-    "status": "completed",
-    "completedAt": "2025-08-20T18:11:59.345Z"
-  },
-  {
-    "gameDate": "2025-08-20T00:00:00.000Z",
-    "gamePlace": "TBD",
-    "presenterId": 1,
-    "participants": [
-      {
-        "playerId": "q2jzpqpfwua77pzbg0rvgr",
-        "sourceReference": null,
-        "points": 50,
-        "tieBreakResult": null,
-        "resolved": true,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": "ur4egod4q7b2gm7rq558",
-        "sourceReference": null,
-        "points": 110,
-        "tieBreakResult": null,
-        "resolved": true,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": "u0kt94y3c2ppljobftexwh",
-        "sourceReference": null,
-        "points": 130,
-        "tieBreakResult": null,
-        "resolved": true,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": "36o08plecr2ao4lfv7rpvt",
-        "sourceReference": null,
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": true,
-        "lossBracket": false,
-        "eliminationCount": 0
-      }
-    ],
-    "tournamentType": "Olympic",
-    "id": 32,
-    "gameNumber": 2,
-    "tournamentId": 6,
-    "stageId": 1,
-    "completed": true,
-    "finishedAt": "2025-08-20T19:42:31.959Z",
-    "status": "completed",
-    "completedAt": "2025-08-20T19:42:32.067Z",
-    "lastUpdated": "2025-08-20T19:42:32.067Z"
-  },
-  {
-    "gameDate": "2025-08-20",
-    "gamePlace": "TBD",
-    "presenterId": 1,
-    "participants": [
-      {
-        "playerId": "mv7c6lb00yl6h2ypumocl",
-        "sourceReference": null,
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": true,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": "j0dvberueyxfw51js8cc8",
-        "sourceReference": null,
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": true,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": "044tgb6o5otktvqq1p59p8",
-        "sourceReference": null,
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": true,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": "gmuxslmwaioggwazzimmo",
-        "sourceReference": null,
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": true,
-        "lossBracket": false,
-        "eliminationCount": 0
-      }
-    ],
-    "tournamentType": "Olympic",
-    "id": 33,
-    "gameNumber": 3,
-    "tournamentId": 6,
-    "stageId": 1
-  },
-  {
-    "gameDate": "2025-08-20",
-    "gamePlace": "TBD",
-    "presenterId": 1,
-    "participants": [
-      {
-        "playerId": "f75se8hh7anok35l6a2uc",
-        "sourceReference": null,
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": true,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": "cxl9ntadfwj4pk7rgbz52t",
-        "sourceReference": null,
-        "points": 0,
+        "points": -40,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -3147,16 +3493,7 @@
       {
         "playerId": "gn26uiq2vqpj2kxvayrs8n",
         "sourceReference": null,
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": true,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": "vypto7iuw1s5hig6a1q5",
-        "sourceReference": null,
-        "points": 0,
+        "points": 80,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -3167,17 +3504,31 @@
     "id": 34,
     "gameNumber": 4,
     "tournamentId": 6,
-    "stageId": 1
+    "stageId": 1,
+    "completed": true,
+    "finishedAt": "2025-08-22T11:25:08.066Z",
+    "status": "completed",
+    "completedAt": "2025-08-22T11:25:08.172Z",
+    "lastUpdated": "2025-08-22T11:25:08.172Z"
   },
   {
-    "gameDate": "2025-08-20",
+    "gameDate": "2025-08-22T00:00:00.000Z",
     "gamePlace": "TBD",
     "presenterId": 1,
     "participants": [
       {
-        "playerId": "4255sueabppy9uw3s1b1ok",
+        "playerId": "uhznoufw2mc3owc5p2qo5",
         "sourceReference": null,
-        "points": 0,
+        "points": 50,
+        "tieBreakResult": 20,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "36o08plecr2ao4lfv7rpvt",
+        "sourceReference": null,
+        "points": 120,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -3186,23 +3537,14 @@
       {
         "playerId": "5hc0e9di86dsqyw1bd4fe",
         "sourceReference": null,
-        "points": 0,
-        "tieBreakResult": null,
+        "points": 50,
+        "tieBreakResult": -30,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": "u5xyf6r2rhdi41sjcetxxe",
-        "sourceReference": null,
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": true,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": "ecpo9a3otu2fze7eh78xc",
+        "playerId": "ptrzjuar3frgosfgmu57n",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3215,24 +3557,20 @@
     "id": 35,
     "gameNumber": 5,
     "tournamentId": 6,
-    "stageId": 1
+    "stageId": 1,
+    "completed": true,
+    "finishedAt": "2025-08-22T11:26:00.466Z",
+    "status": "completed",
+    "completedAt": "2025-08-22T11:26:00.573Z",
+    "lastUpdated": "2025-08-22T11:26:00.573Z"
   },
   {
-    "gameDate": "2025-08-20",
+    "gameDate": "2025-08-22T00:00:00.000Z",
     "gamePlace": "TBD",
     "presenterId": 1,
     "participants": [
       {
-        "playerId": "8dmvwaxzb1rzudkp6q3g6l",
-        "sourceReference": null,
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": true,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": "umw2dg6cojuyyq6v8sfrr",
+        "playerId": "t5acgd9sdwxmx3tz14qy8",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3250,9 +3588,18 @@
         "eliminationCount": 0
       },
       {
-        "playerId": "9ng3a2zp3w810bozuhumber",
+        "playerId": "vypto7iuw1s5hig6a1q5",
         "sourceReference": null,
-        "points": 0,
+        "points": 340,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "u0kt94y3c2ppljobftexwh",
+        "sourceReference": null,
+        "points": 20,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -3263,42 +3610,47 @@
     "id": 36,
     "gameNumber": 6,
     "tournamentId": 6,
-    "stageId": 1
+    "stageId": 1,
+    "completed": true,
+    "finishedAt": "2025-08-22T11:26:31.533Z",
+    "status": "completed",
+    "completedAt": "2025-08-22T11:26:31.639Z",
+    "lastUpdated": "2025-08-22T11:26:31.639Z"
   },
   {
-    "gameDate": "2025-08-20",
+    "gameDate": "2025-08-22T00:00:00.000Z",
     "gamePlace": "TBD",
     "presenterId": 1,
     "participants": [
       {
-        "playerId": "bdzakmkdvqdfz1tus8kekk",
-        "sourceReference": null,
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": true,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
         "playerId": "er8irbmsx6frquukpjmc4o",
         "sourceReference": null,
-        "points": 0,
+        "points": 220,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": "yar87hummw8hbzt2ivrbn7",
+        "playerId": "z25esqzdpriu12mxn87uhk",
         "sourceReference": null,
-        "points": 0,
+        "points": -60,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": "fqeprx62yilblyjvmlq86n",
+        "playerId": "mv7c6lb00yl6h2ypumocl",
+        "sourceReference": null,
+        "points": 100,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "4255sueabppy9uw3s1b1ok",
         "sourceReference": null,
         "points": 0,
         "tieBreakResult": null,
@@ -3311,44 +3663,49 @@
     "id": 37,
     "gameNumber": 7,
     "tournamentId": 6,
-    "stageId": 1
+    "stageId": 1,
+    "completed": true,
+    "finishedAt": "2025-08-22T11:27:09.998Z",
+    "status": "completed",
+    "completedAt": "2025-08-22T11:27:10.103Z",
+    "lastUpdated": "2025-08-22T11:27:10.103Z"
   },
   {
-    "gameDate": "2025-08-20",
+    "gameDate": "2025-08-22T00:00:00.000Z",
     "gamePlace": "TBD",
     "presenterId": 1,
     "participants": [
       {
-        "playerId": "t5acgd9sdwxmx3tz14qy8",
+        "playerId": "q2jzpqpfwua77pzbg0rvgr",
         "sourceReference": null,
-        "points": 0,
+        "points": 100,
+        "tieBreakResult": 10,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "ur4egod4q7b2gm7rq558",
+        "sourceReference": null,
+        "points": 100,
+        "tieBreakResult": 40,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "umw2dg6cojuyyq6v8sfrr",
+        "sourceReference": null,
+        "points": -80,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": "b6tay2ukar7st43a8hz4we",
+        "playerId": "gmuxslmwaioggwazzimmo",
         "sourceReference": null,
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": true,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": "uhznoufw2mc3owc5p2qo5",
-        "sourceReference": null,
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": true,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": "6ee9o0d9pwbgqz7n34w3s",
-        "sourceReference": null,
-        "points": 0,
+        "points": 20,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -3359,50 +3716,58 @@
     "id": 38,
     "gameNumber": 8,
     "tournamentId": 6,
-    "stageId": 1
+    "stageId": 1,
+    "completed": true,
+    "finishedAt": "2025-08-22T11:28:01.531Z",
+    "status": "completed",
+    "completedAt": "2025-08-22T11:28:01.633Z",
+    "lastUpdated": "2025-08-22T11:28:01.633Z"
   },
   {
-    "gameDate": "2025-08-20T18:05:01.104Z",
+    "gameDate": "2025-08-22T10:39:27.792Z",
     "gamePlace": "Арена 1",
     "presenterId": 1,
     "stageOrder": 9,
     "participants": [
       {
-        "playerId": "twd6ieuc72ewlgjgv59dv",
+        "playerId": "ecpo9a3otu2fze7eh78xc",
         "sourceReference": "6.1.1",
-        "points": 0,
+        "points": 140,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0,
-        "resolvedAt": "2025-08-20T18:11:59.347Z"
+        "resolvedAt": "2025-08-22T11:18:15.820Z"
       },
       {
-        "playerId": null,
+        "playerId": "36o08plecr2ao4lfv7rpvt",
         "sourceReference": "6.5.1",
-        "points": 0,
+        "points": 60,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
-        "eliminationCount": 0
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-22T11:26:00.573Z"
       },
       {
-        "playerId": null,
+        "playerId": "twd6ieuc72ewlgjgv59dv",
         "sourceReference": "6.3.2",
-        "points": 0,
+        "points": 30,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
-        "eliminationCount": 0
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-22T11:24:20.522Z"
       },
       {
-        "playerId": null,
+        "playerId": "mv7c6lb00yl6h2ypumocl",
         "sourceReference": "6.7.2",
-        "points": 0,
+        "points": -20,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
-        "eliminationCount": 0
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-22T11:27:10.104Z"
       }
     ],
     "bracketType": "upper",
@@ -3412,50 +3777,57 @@
     "id": 39,
     "tournamentId": 6,
     "stageId": 2,
-    "lastUpdated": "2025-08-20T18:11:59.347Z"
+    "lastUpdated": "2025-08-22T13:39:13.180Z",
+    "status": "completed",
+    "completed": true,
+    "completedAt": "2025-08-22T13:39:13.180Z",
+    "finishedAt": "2025-08-22T13:39:13.180Z"
   },
   {
-    "gameDate": "2025-08-20T18:05:01.155Z",
+    "gameDate": "2025-08-22T10:39:27.845Z",
     "gamePlace": "Арена 2",
     "presenterId": 1,
     "stageOrder": 10,
     "participants": [
       {
-        "playerId": "u0kt94y3c2ppljobftexwh",
+        "playerId": "044tgb6o5otktvqq1p59p8",
         "sourceReference": "6.2.1",
-        "points": 0,
+        "points": 130,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0,
-        "resolvedAt": "2025-08-20T19:42:32.068Z"
+        "resolvedAt": "2025-08-22T11:23:34.092Z"
       },
       {
-        "playerId": null,
+        "playerId": "vypto7iuw1s5hig6a1q5",
         "sourceReference": "6.6.1",
-        "points": 0,
+        "points": 100,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
-        "eliminationCount": 0
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-22T11:26:31.640Z"
       },
       {
-        "playerId": null,
+        "playerId": "9ng3a2zp3w810bozuhumber",
         "sourceReference": "6.4.2",
-        "points": 0,
+        "points": 60,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
-        "eliminationCount": 0
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-22T11:25:08.173Z"
       },
       {
-        "playerId": null,
+        "playerId": "q2jzpqpfwua77pzbg0rvgr",
         "sourceReference": "6.8.2",
-        "points": 0,
+        "points": 10,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
-        "eliminationCount": 0
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-22T11:28:01.633Z"
       }
     ],
     "bracketType": "upper",
@@ -3465,50 +3837,57 @@
     "id": 40,
     "tournamentId": 6,
     "stageId": 2,
-    "lastUpdated": "2025-08-20T19:42:32.068Z"
+    "lastUpdated": "2025-08-22T13:39:13.180Z",
+    "status": "completed",
+    "completed": true,
+    "completedAt": "2025-08-22T13:39:13.180Z",
+    "finishedAt": "2025-08-22T13:39:13.180Z"
   },
   {
-    "gameDate": "2025-08-20T18:05:01.209Z",
+    "gameDate": "2025-08-22T10:39:27.903Z",
     "gamePlace": "Арена 3",
     "presenterId": 1,
     "stageOrder": 11,
     "participants": [
       {
-        "playerId": null,
+        "playerId": "yar87hummw8hbzt2ivrbn7",
         "sourceReference": "6.3.1",
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": false,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": null,
-        "sourceReference": "6.7.1",
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": false,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": null,
-        "sourceReference": "6.5.2",
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": false,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": "ptrzjuar3frgosfgmu57n",
-        "sourceReference": "6.1.2",
-        "points": 0,
+        "points": 120,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0,
-        "resolvedAt": "2025-08-20T18:11:59.348Z"
+        "resolvedAt": "2025-08-22T11:24:20.524Z"
+      },
+      {
+        "playerId": "er8irbmsx6frquukpjmc4o",
+        "sourceReference": "6.7.1",
+        "points": 60,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-22T11:27:10.105Z"
+      },
+      {
+        "playerId": "uhznoufw2mc3owc5p2qo5",
+        "sourceReference": "6.5.2",
+        "points": -10,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-22T11:26:00.574Z"
+      },
+      {
+        "playerId": "fqeprx62yilblyjvmlq86n",
+        "sourceReference": "6.1.2",
+        "points": -20,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-22T11:18:15.821Z"
       }
     ],
     "bracketType": "upper",
@@ -3518,50 +3897,57 @@
     "id": 41,
     "tournamentId": 6,
     "stageId": 2,
-    "lastUpdated": "2025-08-20T18:11:59.348Z"
+    "lastUpdated": "2025-08-22T13:39:13.180Z",
+    "status": "completed",
+    "completed": true,
+    "completedAt": "2025-08-22T13:39:13.180Z",
+    "finishedAt": "2025-08-22T13:39:13.180Z"
   },
   {
-    "gameDate": "2025-08-20T18:05:01.270Z",
+    "gameDate": "2025-08-22T10:39:27.955Z",
     "gamePlace": "Арена 4",
     "presenterId": 1,
     "stageOrder": 12,
     "participants": [
       {
-        "playerId": null,
+        "playerId": "gn26uiq2vqpj2kxvayrs8n",
         "sourceReference": "6.4.1",
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": false,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": null,
-        "sourceReference": "6.8.1",
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": false,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": null,
-        "sourceReference": "6.6.2",
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": false,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": "ur4egod4q7b2gm7rq558",
-        "sourceReference": "6.2.2",
-        "points": 0,
+        "points": 240,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0,
-        "resolvedAt": "2025-08-20T19:42:32.069Z"
+        "resolvedAt": "2025-08-22T11:25:08.173Z"
+      },
+      {
+        "playerId": "ur4egod4q7b2gm7rq558",
+        "sourceReference": "6.8.1",
+        "points": 160,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-22T11:28:01.634Z"
+      },
+      {
+        "playerId": "u0kt94y3c2ppljobftexwh",
+        "sourceReference": "6.6.2",
+        "points": 70,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-22T11:26:31.641Z"
+      },
+      {
+        "playerId": "f75se8hh7anok35l6a2uc",
+        "sourceReference": "6.2.2",
+        "points": -40,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0,
+        "resolvedAt": "2025-08-22T11:23:34.093Z"
       }
     ],
     "bracketType": "upper",
@@ -3571,47 +3957,51 @@
     "id": 42,
     "tournamentId": 6,
     "stageId": 2,
-    "lastUpdated": "2025-08-20T19:42:32.069Z"
+    "lastUpdated": "2025-08-22T13:39:13.180Z",
+    "status": "completed",
+    "completed": true,
+    "completedAt": "2025-08-22T13:39:13.180Z",
+    "finishedAt": "2025-08-22T13:39:13.180Z"
   },
   {
-    "gameDate": "2025-08-20T18:05:01.384Z",
+    "gameDate": "2025-08-22T10:39:28.070Z",
     "gamePlace": "Арена 1",
     "presenterId": 1,
     "stageOrder": 13,
     "participants": [
       {
-        "playerId": null,
+        "playerId": "ecpo9a3otu2fze7eh78xc",
         "sourceReference": "6.9.1",
-        "points": 0,
+        "points": 150,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": null,
+        "playerId": "yar87hummw8hbzt2ivrbn7",
         "sourceReference": "6.11.1",
-        "points": 0,
+        "points": 120,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": null,
+        "playerId": "vypto7iuw1s5hig6a1q5",
         "sourceReference": "6.10.2",
-        "points": 0,
+        "points": 80,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": null,
+        "playerId": "ur4egod4q7b2gm7rq558",
         "sourceReference": "6.12.2",
-        "points": 0,
+        "points": 70,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       }
@@ -3622,47 +4012,50 @@
     "gameNumber": 13,
     "id": 43,
     "tournamentId": 6,
-    "stageId": 3
+    "stageId": 3,
+    "status": "completed",
+    "completedAt": "2025-08-22T13:56:44.467Z",
+    "lastUpdated": "2025-08-22T13:56:44.467Z"
   },
   {
-    "gameDate": "2025-08-20T18:05:01.433Z",
+    "gameDate": "2025-08-22T10:39:28.123Z",
     "gamePlace": "Арена 2",
     "presenterId": 1,
     "stageOrder": 14,
     "participants": [
       {
-        "playerId": null,
+        "playerId": "044tgb6o5otktvqq1p59p8",
         "sourceReference": "6.10.1",
-        "points": 0,
+        "points": 140,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": null,
+        "playerId": "gn26uiq2vqpj2kxvayrs8n",
         "sourceReference": "6.12.1",
-        "points": 0,
+        "points": 110,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": null,
+        "playerId": "er8irbmsx6frquukpjmc4o",
         "sourceReference": "6.11.2",
-        "points": 0,
+        "points": 90,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": null,
+        "playerId": "36o08plecr2ao4lfv7rpvt",
         "sourceReference": "6.9.2",
-        "points": 0,
+        "points": 60,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       }
@@ -3673,47 +4066,50 @@
     "gameNumber": 14,
     "id": 44,
     "tournamentId": 6,
-    "stageId": 3
+    "stageId": 3,
+    "status": "completed",
+    "completedAt": "2025-08-22T13:57:18.223Z",
+    "lastUpdated": "2025-08-22T13:57:18.223Z"
   },
   {
-    "gameDate": "2025-08-20T18:05:01.556Z",
+    "gameDate": "2025-08-22T10:39:28.254Z",
     "gamePlace": "Арена 1",
     "presenterId": 1,
     "stageOrder": 15,
     "participants": [
       {
-        "playerId": null,
+        "playerId": "ecpo9a3otu2fze7eh78xc",
         "sourceReference": "6.13.1",
-        "points": 0,
+        "points": 180,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": null,
+        "playerId": "yar87hummw8hbzt2ivrbn7",
         "sourceReference": "6.13.2",
-        "points": 0,
+        "points": 120,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": null,
+        "playerId": "044tgb6o5otktvqq1p59p8",
         "sourceReference": "6.14.1",
-        "points": 0,
+        "points": 160,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       },
       {
-        "playerId": null,
+        "playerId": "gn26uiq2vqpj2kxvayrs8n",
         "sourceReference": "6.14.2",
-        "points": 0,
+        "points": 140,
         "tieBreakResult": null,
-        "resolved": false,
+        "resolved": true,
         "lossBracket": false,
         "eliminationCount": 0
       }
@@ -3724,39 +4120,9 @@
     "gameNumber": 15,
     "id": 45,
     "tournamentId": 6,
-    "stageId": 4
-  },
-  {
-    "gameDate": "2025-08-20T18:05:01.673Z",
-    "gamePlace": "Арена 1",
-    "presenterId": 1,
-    "stageOrder": 16,
-    "participants": [
-      {
-        "playerId": null,
-        "sourceReference": "6.15.1",
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": false,
-        "lossBracket": false,
-        "eliminationCount": 0
-      },
-      {
-        "playerId": null,
-        "sourceReference": "6.15.2",
-        "points": 0,
-        "tieBreakResult": null,
-        "resolved": false,
-        "lossBracket": false,
-        "eliminationCount": 0
-      }
-    ],
-    "bracketType": "upper",
-    "bracketPosition": 1,
-    "tournamentType": "Olympic",
-    "gameNumber": 16,
-    "id": 46,
-    "tournamentId": 6,
-    "stageId": 5
+    "stageId": 4,
+    "lastUpdated": "2025-08-22T14:08:55.198Z",
+    "status": "completed",
+    "completedAt": "2025-08-22T14:08:55.198Z"
   }
 ]

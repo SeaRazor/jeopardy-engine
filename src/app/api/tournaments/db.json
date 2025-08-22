@@ -351,7 +351,8 @@
         }
       ]
     },
-    "participants": []
+    "participants": [],
+    "results": []
   },
   {
     "id": 2,
@@ -711,7 +712,8 @@
         "name": "Team 8",
         "poolId": 4
       }
-    ]
+    ],
+    "results": []
   },
   {
     "name": "Тест системы ",
@@ -1097,11 +1099,12 @@
         "poolId": 4
       }
     ],
+    "results": [],
     "id": 5
   },
   {
     "name": "Тест Олимпийки",
-    "startDate": "2025-08-23",
+    "startDate": "2025-08-22",
     "endDate": "2025-08-31",
     "type": 2,
     "schema": {
@@ -1110,9 +1113,9 @@
       "participantsNum": 32,
       "stages": [
         {
-          "description": "Топ-32",
+          "description": "Проходят первые два места",
           "id": 1,
-          "name": "1/16 финала",
+          "name": "1/8 финала",
           "order": 1,
           "topGameParticipantsNum": 4,
           "topGameWinnersNum": 2,
@@ -1121,7 +1124,7 @@
         {
           "description": "Проходят первые два места",
           "id": 2,
-          "name": "1/8 финала",
+          "name": "Четверьфиналы",
           "order": 2,
           "topGameParticipantsNum": 4,
           "topGameWinnersNum": 2,
@@ -1130,36 +1133,39 @@
         {
           "description": "Проходят первые два места",
           "id": 3,
-          "name": "Четверьфиналы",
+          "name": "Полуфиналы",
           "order": 3,
           "topGameParticipantsNum": 4,
           "topGameWinnersNum": 2,
           "participantsNum": 4
         },
         {
-          "description": "Проходят первые два места",
-          "id": 4,
-          "name": "Полуфиналы",
-          "order": 4,
-          "topGameParticipantsNum": 4,
-          "topGameWinnersNum": 2,
-          "participantsNum": 4
-        },
-        {
           "description": "Финал четырех",
-          "id": 5,
+          "id": 4,
           "isFinal": true,
           "name": "Финал",
-          "order": 5,
+          "order": 4,
           "participantsNum": 0
         }
       ]
     },
     "participants": [
       {
-        "id": "ptrzjuar3frgosfgmu57n",
+        "id": "er8irbmsx6frquukpjmc4o",
         "playerType": "team",
-        "name": "Team 32",
+        "name": "Team 19",
+        "poolId": 1
+      },
+      {
+        "id": "uhznoufw2mc3owc5p2qo5",
+        "playerType": "team",
+        "name": "Team 30",
+        "poolId": 1
+      },
+      {
+        "id": "cxl9ntadfwj4pk7rgbz52t",
+        "playerType": "team",
+        "name": "Team 27",
         "poolId": 1
       },
       {
@@ -1169,21 +1175,21 @@
         "poolId": 1
       },
       {
-        "id": "f75se8hh7anok35l6a2uc",
+        "id": "fqeprx62yilblyjvmlq86n",
         "playerType": "team",
-        "name": "Team 29",
+        "name": "Team 7",
         "poolId": 1
       },
       {
-        "id": "mv7c6lb00yl6h2ypumocl",
+        "id": "044tgb6o5otktvqq1p59p8",
         "playerType": "team",
-        "name": "Team 4",
+        "name": "Team 3",
         "poolId": 1
       },
       {
-        "id": "8dmvwaxzb1rzudkp6q3g6l",
+        "id": "9ng3a2zp3w810bozuhumber",
         "playerType": "team",
-        "name": "Team 5",
+        "name": "Team 17",
         "poolId": 1
       },
       {
@@ -1193,57 +1199,21 @@
         "poolId": 1
       },
       {
-        "id": "bdzakmkdvqdfz1tus8kekk",
-        "playerType": "team",
-        "name": "Team 16",
-        "poolId": 1
-      },
-      {
-        "id": "4255sueabppy9uw3s1b1ok",
-        "playerType": "team",
-        "name": "Team 1",
-        "poolId": 1
-      },
-      {
-        "id": "cxl9ntadfwj4pk7rgbz52t",
-        "playerType": "team",
-        "name": "Team 27",
-        "poolId": 2
-      },
-      {
-        "id": "j0dvberueyxfw51js8cc8",
-        "playerType": "team",
-        "name": "Team 28",
-        "poolId": 2
-      },
-      {
-        "id": "umw2dg6cojuyyq6v8sfrr",
-        "playerType": "team",
-        "name": "Team 2",
-        "poolId": 2
-      },
-      {
-        "id": "twd6ieuc72ewlgjgv59dv",
-        "playerType": "team",
-        "name": "Team 15",
-        "poolId": 2
-      },
-      {
-        "id": "5hc0e9di86dsqyw1bd4fe",
-        "playerType": "team",
-        "name": "Team 12",
-        "poolId": 2
-      },
-      {
-        "id": "er8irbmsx6frquukpjmc4o",
-        "playerType": "team",
-        "name": "Team 19",
-        "poolId": 2
-      },
-      {
         "id": "ur4egod4q7b2gm7rq558",
         "playerType": "team",
         "name": "Team 8",
+        "poolId": 2
+      },
+      {
+        "id": "36o08plecr2ao4lfv7rpvt",
+        "playerType": "team",
+        "name": "Team 14",
+        "poolId": 2
+      },
+      {
+        "id": "7u9vnwwp3rr2qi9295od",
+        "playerType": "team",
+        "name": "Team 20",
         "poolId": 2
       },
       {
@@ -1253,33 +1223,45 @@
         "poolId": 2
       },
       {
-        "id": "gn26uiq2vqpj2kxvayrs8n",
+        "id": "j0dvberueyxfw51js8cc8",
         "playerType": "team",
-        "name": "Team 11",
+        "name": "Team 28",
+        "poolId": 2
+      },
+      {
+        "id": "z25esqzdpriu12mxn87uhk",
+        "playerType": "team",
+        "name": "Team 26",
+        "poolId": 2
+      },
+      {
+        "id": "tzorltjki6huma8jhljwk",
+        "playerType": "team",
+        "name": "Team 18",
+        "poolId": 2
+      },
+      {
+        "id": "8dmvwaxzb1rzudkp6q3g6l",
+        "playerType": "team",
+        "name": "Team 5",
+        "poolId": 2
+      },
+      {
+        "id": "vypto7iuw1s5hig6a1q5",
+        "playerType": "team",
+        "name": "Team 25",
         "poolId": 3
       },
       {
-        "id": "uhznoufw2mc3owc5p2qo5",
+        "id": "6ee9o0d9pwbgqz7n34w3s",
         "playerType": "team",
-        "name": "Team 30",
+        "name": "Team 9",
         "poolId": 3
       },
       {
-        "id": "u5xyf6r2rhdi41sjcetxxe",
+        "id": "umw2dg6cojuyyq6v8sfrr",
         "playerType": "team",
-        "name": "Team 21",
-        "poolId": 3
-      },
-      {
-        "id": "044tgb6o5otktvqq1p59p8",
-        "playerType": "team",
-        "name": "Team 3",
-        "poolId": 3
-      },
-      {
-        "id": "u0kt94y3c2ppljobftexwh",
-        "playerType": "team",
-        "name": "Team 31",
+        "name": "Team 2",
         "poolId": 3
       },
       {
@@ -1289,21 +1271,33 @@
         "poolId": 3
       },
       {
-        "id": "tzorltjki6huma8jhljwk",
+        "id": "mv7c6lb00yl6h2ypumocl",
         "playerType": "team",
-        "name": "Team 18",
+        "name": "Team 4",
         "poolId": 3
       },
       {
-        "id": "7u9vnwwp3rr2qi9295od",
+        "id": "f75se8hh7anok35l6a2uc",
         "playerType": "team",
-        "name": "Team 20",
+        "name": "Team 29",
         "poolId": 3
       },
       {
-        "id": "9ng3a2zp3w810bozuhumber",
+        "id": "bdzakmkdvqdfz1tus8kekk",
         "playerType": "team",
-        "name": "Team 17",
+        "name": "Team 16",
+        "poolId": 3
+      },
+      {
+        "id": "5hc0e9di86dsqyw1bd4fe",
+        "playerType": "team",
+        "name": "Team 12",
+        "poolId": 3
+      },
+      {
+        "id": "twd6ieuc72ewlgjgv59dv",
+        "playerType": "team",
+        "name": "Team 15",
         "poolId": 4
       },
       {
@@ -1313,21 +1307,33 @@
         "poolId": 4
       },
       {
-        "id": "z25esqzdpriu12mxn87uhk",
+        "id": "ptrzjuar3frgosfgmu57n",
         "playerType": "team",
-        "name": "Team 26",
+        "name": "Team 32",
         "poolId": 4
       },
       {
-        "id": "fqeprx62yilblyjvmlq86n",
+        "id": "u5xyf6r2rhdi41sjcetxxe",
         "playerType": "team",
-        "name": "Team 7",
+        "name": "Team 21",
         "poolId": 4
       },
       {
-        "id": "6ee9o0d9pwbgqz7n34w3s",
+        "id": "4255sueabppy9uw3s1b1ok",
         "playerType": "team",
-        "name": "Team 9",
+        "name": "Team 1",
+        "poolId": 4
+      },
+      {
+        "id": "u0kt94y3c2ppljobftexwh",
+        "playerType": "team",
+        "name": "Team 31",
+        "poolId": 4
+      },
+      {
+        "id": "gn26uiq2vqpj2kxvayrs8n",
+        "playerType": "team",
+        "name": "Team 11",
         "poolId": 4
       },
       {
@@ -1335,20 +1341,554 @@
         "playerType": "team",
         "name": "Team 13",
         "poolId": 4
-      },
-      {
-        "id": "36o08plecr2ao4lfv7rpvt",
-        "playerType": "team",
-        "name": "Team 14",
-        "poolId": 4
-      },
-      {
-        "id": "vypto7iuw1s5hig6a1q5",
-        "playerType": "team",
-        "name": "Team 25",
-        "poolId": 4
       }
     ],
-    "id": 6
+    "id": 6,
+    "results": [
+      {
+        "playerId": "ecpo9a3otu2fze7eh78xc",
+        "playerInfo": {
+          "id": "ecpo9a3otu2fze7eh78xc",
+          "playerType": "team",
+          "name": "Team 22"
+        },
+        "finalPlacement": 1,
+        "eliminatedAtStage": 4,
+        "eliminatedAtStageName": "Финал",
+        "stageOrder": 4,
+        "totalPoints": 180,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "isFinalResults": true,
+        "eliminationDate": "2025-08-22T14:11:11.322Z"
+      },
+      {
+        "playerId": "044tgb6o5otktvqq1p59p8",
+        "playerInfo": {
+          "id": "044tgb6o5otktvqq1p59p8",
+          "playerType": "team",
+          "name": "Team 3"
+        },
+        "finalPlacement": 2,
+        "eliminatedAtStage": 4,
+        "eliminatedAtStageName": "Финал",
+        "stageOrder": 4,
+        "totalPoints": 160,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "isFinalResults": true,
+        "eliminationDate": "2025-08-22T14:11:11.323Z"
+      },
+      {
+        "playerId": "gn26uiq2vqpj2kxvayrs8n",
+        "playerInfo": {
+          "id": "gn26uiq2vqpj2kxvayrs8n",
+          "playerType": "team",
+          "name": "Team 11"
+        },
+        "finalPlacement": 3,
+        "eliminatedAtStage": 4,
+        "eliminatedAtStageName": "Финал",
+        "stageOrder": 4,
+        "totalPoints": 140,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "isFinalResults": true,
+        "eliminationDate": "2025-08-22T14:11:11.323Z"
+      },
+      {
+        "playerId": "yar87hummw8hbzt2ivrbn7",
+        "playerInfo": {
+          "id": "yar87hummw8hbzt2ivrbn7",
+          "playerType": "team",
+          "name": "Team 23"
+        },
+        "finalPlacement": 4,
+        "eliminatedAtStage": 4,
+        "eliminatedAtStageName": "Финал",
+        "stageOrder": 4,
+        "totalPoints": 120,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "isFinalResults": true,
+        "eliminationDate": "2025-08-22T14:11:11.323Z"
+      },
+      {
+        "playerId": "er8irbmsx6frquukpjmc4o",
+        "playerInfo": {
+          "id": "er8irbmsx6frquukpjmc4o",
+          "playerType": "team",
+          "name": "Team 19"
+        },
+        "eliminatedAtStage": 3,
+        "eliminatedAtStageName": "Полуфиналы",
+        "stageOrder": 3,
+        "totalPoints": 90,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 5,
+        "placementAmongEliminated": 1,
+        "eliminationDate": "2025-08-22T13:57:18.227Z"
+      },
+      {
+        "playerId": "vypto7iuw1s5hig6a1q5",
+        "playerInfo": {
+          "id": "vypto7iuw1s5hig6a1q5",
+          "playerType": "team",
+          "name": "Team 25"
+        },
+        "eliminatedAtStage": 3,
+        "eliminatedAtStageName": "Полуфиналы",
+        "stageOrder": 3,
+        "totalPoints": 80,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 6,
+        "placementAmongEliminated": 2,
+        "eliminationDate": "2025-08-22T13:57:18.227Z"
+      },
+      {
+        "playerId": "ur4egod4q7b2gm7rq558",
+        "playerInfo": {
+          "id": "ur4egod4q7b2gm7rq558",
+          "playerType": "team",
+          "name": "Team 8"
+        },
+        "eliminatedAtStage": 3,
+        "eliminatedAtStageName": "Полуфиналы",
+        "stageOrder": 3,
+        "totalPoints": 70,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 7,
+        "placementAmongEliminated": 3,
+        "eliminationDate": "2025-08-22T13:57:18.227Z"
+      },
+      {
+        "playerId": "36o08plecr2ao4lfv7rpvt",
+        "playerInfo": {
+          "id": "36o08plecr2ao4lfv7rpvt",
+          "playerType": "team",
+          "name": "Team 14"
+        },
+        "eliminatedAtStage": 3,
+        "eliminatedAtStageName": "Полуфиналы",
+        "stageOrder": 3,
+        "totalPoints": 60,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 8,
+        "placementAmongEliminated": 4,
+        "eliminationDate": "2025-08-22T13:57:18.227Z"
+      },
+      {
+        "playerId": "u0kt94y3c2ppljobftexwh",
+        "playerInfo": {
+          "id": "u0kt94y3c2ppljobftexwh",
+          "playerType": "team",
+          "name": "Team 31"
+        },
+        "eliminatedAtStage": 2,
+        "eliminatedAtStageName": "Четверьфиналы",
+        "stageOrder": 2,
+        "totalPoints": 70,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 9,
+        "placementAmongEliminated": 1,
+        "eliminationDate": "2025-08-22T13:48:52.105Z"
+      },
+      {
+        "playerId": "9ng3a2zp3w810bozuhumber",
+        "playerInfo": {
+          "id": "9ng3a2zp3w810bozuhumber",
+          "playerType": "team",
+          "name": "Team 17"
+        },
+        "eliminatedAtStage": 2,
+        "eliminatedAtStageName": "Четверьфиналы",
+        "stageOrder": 2,
+        "totalPoints": 60,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 10,
+        "placementAmongEliminated": 2,
+        "eliminationDate": "2025-08-22T13:48:52.106Z"
+      },
+      {
+        "playerId": "twd6ieuc72ewlgjgv59dv",
+        "playerInfo": {
+          "id": "twd6ieuc72ewlgjgv59dv",
+          "playerType": "team",
+          "name": "Team 15"
+        },
+        "eliminatedAtStage": 2,
+        "eliminatedAtStageName": "Четверьфиналы",
+        "stageOrder": 2,
+        "totalPoints": 30,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 11,
+        "placementAmongEliminated": 3,
+        "eliminationDate": "2025-08-22T13:48:52.106Z"
+      },
+      {
+        "playerId": "q2jzpqpfwua77pzbg0rvgr",
+        "playerInfo": {
+          "id": "q2jzpqpfwua77pzbg0rvgr",
+          "playerType": "team",
+          "name": "Team 10"
+        },
+        "eliminatedAtStage": 2,
+        "eliminatedAtStageName": "Четверьфиналы",
+        "stageOrder": 2,
+        "totalPoints": 10,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 12,
+        "placementAmongEliminated": 4,
+        "eliminationDate": "2025-08-22T13:48:52.106Z"
+      },
+      {
+        "playerId": "uhznoufw2mc3owc5p2qo5",
+        "playerInfo": {
+          "id": "uhznoufw2mc3owc5p2qo5",
+          "playerType": "team",
+          "name": "Team 30"
+        },
+        "eliminatedAtStage": 2,
+        "eliminatedAtStageName": "Четверьфиналы",
+        "stageOrder": 2,
+        "totalPoints": -10,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 13,
+        "placementAmongEliminated": 5,
+        "eliminationDate": "2025-08-22T13:48:52.106Z"
+      },
+      {
+        "playerId": "mv7c6lb00yl6h2ypumocl",
+        "playerInfo": {
+          "id": "mv7c6lb00yl6h2ypumocl",
+          "playerType": "team",
+          "name": "Team 4"
+        },
+        "eliminatedAtStage": 2,
+        "eliminatedAtStageName": "Четверьфиналы",
+        "stageOrder": 2,
+        "totalPoints": -20,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 14,
+        "placementAmongEliminated": 6,
+        "eliminationDate": "2025-08-22T13:48:52.106Z"
+      },
+      {
+        "playerId": "fqeprx62yilblyjvmlq86n",
+        "playerInfo": {
+          "id": "fqeprx62yilblyjvmlq86n",
+          "playerType": "team",
+          "name": "Team 7"
+        },
+        "eliminatedAtStage": 2,
+        "eliminatedAtStageName": "Четверьфиналы",
+        "stageOrder": 2,
+        "totalPoints": -20,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 15,
+        "placementAmongEliminated": 7,
+        "eliminationDate": "2025-08-22T13:48:52.106Z"
+      },
+      {
+        "playerId": "f75se8hh7anok35l6a2uc",
+        "playerInfo": {
+          "id": "f75se8hh7anok35l6a2uc",
+          "playerType": "team",
+          "name": "Team 29"
+        },
+        "eliminatedAtStage": 2,
+        "eliminatedAtStageName": "Четверьфиналы",
+        "stageOrder": 2,
+        "totalPoints": -40,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 16,
+        "placementAmongEliminated": 8,
+        "eliminationDate": "2025-08-22T13:48:52.106Z"
+      },
+      {
+        "playerId": "7u9vnwwp3rr2qi9295od",
+        "playerInfo": {
+          "id": "7u9vnwwp3rr2qi9295od",
+          "playerType": "team",
+          "name": "Team 20"
+        },
+        "eliminatedAtStage": 1,
+        "eliminatedAtStageName": "1/8 финала",
+        "stageOrder": 1,
+        "totalPoints": 90,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 17,
+        "placementAmongEliminated": 1,
+        "eliminationDate": "2025-08-22T11:28:01.638Z"
+      },
+      {
+        "playerId": "5hc0e9di86dsqyw1bd4fe",
+        "playerInfo": {
+          "id": "5hc0e9di86dsqyw1bd4fe",
+          "playerType": "team",
+          "name": "Team 12"
+        },
+        "eliminatedAtStage": 1,
+        "eliminatedAtStageName": "1/8 финала",
+        "stageOrder": 1,
+        "totalPoints": 50,
+        "totalTieBreak": -30,
+        "gamesPlayed": 1,
+        "finalPlacement": 18,
+        "placementAmongEliminated": 2,
+        "eliminationDate": "2025-08-22T11:28:01.638Z"
+      },
+      {
+        "playerId": "u5xyf6r2rhdi41sjcetxxe",
+        "playerInfo": {
+          "id": "u5xyf6r2rhdi41sjcetxxe",
+          "playerType": "team",
+          "name": "Team 21"
+        },
+        "eliminatedAtStage": 1,
+        "eliminatedAtStageName": "1/8 финала",
+        "stageOrder": 1,
+        "totalPoints": 40,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 19,
+        "placementAmongEliminated": 3,
+        "eliminationDate": "2025-08-22T11:28:01.638Z"
+      },
+      {
+        "playerId": "b6tay2ukar7st43a8hz4we",
+        "playerInfo": {
+          "id": "b6tay2ukar7st43a8hz4we",
+          "playerType": "team",
+          "name": "Team 6"
+        },
+        "eliminatedAtStage": 1,
+        "eliminatedAtStageName": "1/8 финала",
+        "stageOrder": 1,
+        "totalPoints": 30,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 20,
+        "placementAmongEliminated": 4,
+        "eliminationDate": "2025-08-22T11:28:01.638Z"
+      },
+      {
+        "playerId": "gmuxslmwaioggwazzimmo",
+        "playerInfo": {
+          "id": "gmuxslmwaioggwazzimmo",
+          "playerType": "team",
+          "name": "Team 13"
+        },
+        "eliminatedAtStage": 1,
+        "eliminatedAtStageName": "1/8 финала",
+        "stageOrder": 1,
+        "totalPoints": 20,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 21,
+        "placementAmongEliminated": 5,
+        "eliminationDate": "2025-08-22T11:28:01.638Z"
+      },
+      {
+        "playerId": "cxl9ntadfwj4pk7rgbz52t",
+        "playerInfo": {
+          "id": "cxl9ntadfwj4pk7rgbz52t",
+          "playerType": "team",
+          "name": "Team 27"
+        },
+        "eliminatedAtStage": 1,
+        "eliminatedAtStageName": "1/8 финала",
+        "stageOrder": 1,
+        "totalPoints": 0,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 22,
+        "placementAmongEliminated": 6,
+        "eliminationDate": "2025-08-22T11:28:01.638Z"
+      },
+      {
+        "playerId": "ptrzjuar3frgosfgmu57n",
+        "playerInfo": {
+          "id": "ptrzjuar3frgosfgmu57n",
+          "playerType": "team",
+          "name": "Team 32"
+        },
+        "eliminatedAtStage": 1,
+        "eliminatedAtStageName": "1/8 финала",
+        "stageOrder": 1,
+        "totalPoints": 0,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 23,
+        "placementAmongEliminated": 7,
+        "eliminationDate": "2025-08-22T11:28:01.638Z"
+      },
+      {
+        "playerId": "t5acgd9sdwxmx3tz14qy8",
+        "playerInfo": {
+          "id": "t5acgd9sdwxmx3tz14qy8",
+          "playerType": "team",
+          "name": "Team 24"
+        },
+        "eliminatedAtStage": 1,
+        "eliminatedAtStageName": "1/8 финала",
+        "stageOrder": 1,
+        "totalPoints": 0,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 24,
+        "placementAmongEliminated": 8,
+        "eliminationDate": "2025-08-22T11:28:01.638Z"
+      },
+      {
+        "playerId": "u0kt94y3c2ppljobftexwh",
+        "playerInfo": {
+          "id": "u0kt94y3c2ppljobftexwh",
+          "playerType": "team",
+          "name": "Team 31"
+        },
+        "eliminatedAtStage": 2,
+        "eliminatedAtStageName": "Четверьфиналы",
+        "stageOrder": 2,
+        "totalPoints": 70,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 25,
+        "placementAmongEliminated": 1,
+        "eliminationDate": "2025-08-22T13:41:54.840Z"
+      },
+      {
+        "playerId": "9ng3a2zp3w810bozuhumber",
+        "playerInfo": {
+          "id": "9ng3a2zp3w810bozuhumber",
+          "playerType": "team",
+          "name": "Team 17"
+        },
+        "eliminatedAtStage": 2,
+        "eliminatedAtStageName": "Четверьфиналы",
+        "stageOrder": 2,
+        "totalPoints": 60,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 26,
+        "placementAmongEliminated": 2,
+        "eliminationDate": "2025-08-22T13:41:54.840Z"
+      },
+      {
+        "playerId": "twd6ieuc72ewlgjgv59dv",
+        "playerInfo": {
+          "id": "twd6ieuc72ewlgjgv59dv",
+          "playerType": "team",
+          "name": "Team 15"
+        },
+        "eliminatedAtStage": 2,
+        "eliminatedAtStageName": "Четверьфиналы",
+        "stageOrder": 2,
+        "totalPoints": 30,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 27,
+        "placementAmongEliminated": 3,
+        "eliminationDate": "2025-08-22T13:41:54.840Z"
+      },
+      {
+        "playerId": "q2jzpqpfwua77pzbg0rvgr",
+        "playerInfo": {
+          "id": "q2jzpqpfwua77pzbg0rvgr",
+          "playerType": "team",
+          "name": "Team 10"
+        },
+        "eliminatedAtStage": 2,
+        "eliminatedAtStageName": "Четверьфиналы",
+        "stageOrder": 2,
+        "totalPoints": 10,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 28,
+        "placementAmongEliminated": 4,
+        "eliminationDate": "2025-08-22T13:41:54.840Z"
+      },
+      {
+        "playerId": "uhznoufw2mc3owc5p2qo5",
+        "playerInfo": {
+          "id": "uhznoufw2mc3owc5p2qo5",
+          "playerType": "team",
+          "name": "Team 30"
+        },
+        "eliminatedAtStage": 2,
+        "eliminatedAtStageName": "Четверьфиналы",
+        "stageOrder": 2,
+        "totalPoints": -10,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 29,
+        "placementAmongEliminated": 5,
+        "eliminationDate": "2025-08-22T13:41:54.840Z"
+      },
+      {
+        "playerId": "mv7c6lb00yl6h2ypumocl",
+        "playerInfo": {
+          "id": "mv7c6lb00yl6h2ypumocl",
+          "playerType": "team",
+          "name": "Team 4"
+        },
+        "eliminatedAtStage": 2,
+        "eliminatedAtStageName": "Четверьфиналы",
+        "stageOrder": 2,
+        "totalPoints": -20,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 30,
+        "placementAmongEliminated": 6,
+        "eliminationDate": "2025-08-22T13:41:54.840Z"
+      },
+      {
+        "playerId": "fqeprx62yilblyjvmlq86n",
+        "playerInfo": {
+          "id": "fqeprx62yilblyjvmlq86n",
+          "playerType": "team",
+          "name": "Team 7"
+        },
+        "eliminatedAtStage": 2,
+        "eliminatedAtStageName": "Четверьфиналы",
+        "stageOrder": 2,
+        "totalPoints": -20,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 31,
+        "placementAmongEliminated": 7,
+        "eliminationDate": "2025-08-22T13:41:54.840Z"
+      },
+      {
+        "playerId": "f75se8hh7anok35l6a2uc",
+        "playerInfo": {
+          "id": "f75se8hh7anok35l6a2uc",
+          "playerType": "team",
+          "name": "Team 29"
+        },
+        "eliminatedAtStage": 2,
+        "eliminatedAtStageName": "Четверьфиналы",
+        "stageOrder": 2,
+        "totalPoints": -40,
+        "totalTieBreak": 0,
+        "gamesPlayed": 1,
+        "finalPlacement": 32,
+        "placementAmongEliminated": 8,
+        "eliminationDate": "2025-08-22T13:41:54.840Z"
+      }
+    ]
   }
 ]

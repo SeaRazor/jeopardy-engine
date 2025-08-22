@@ -25,3 +25,14 @@
 
 # UI/UX Guidelines
 - any time UI changes are made they should be checked for mobile screens
+- all UI elements must be good-looking, modern and UX-friendly.
+
+# Architecture
+## Storage
+ - Initially local json files
+ - Later will be switched to PostgreSQL
+## API
+ - all data operations (query and manipulation) must be implemented via API
+## Authentication/Authorization
+ - On the first stage (implementing functional requirements) authorization is not needed
+ - On the second stage role-based access functionality to application features must be implemented

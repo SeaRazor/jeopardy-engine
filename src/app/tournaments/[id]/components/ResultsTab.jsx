@@ -1,23 +1,165 @@
 'use client';
 
-import { useState } from 'react';
-import { FaMedal, FaTrophy, FaAward } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { FaMedal, FaTrophy, FaAward, FaClock, FaSpinner } from 'react-icons/fa';
+import { useToast } from '../../../util/ToastContext';
+import { generateColorFromString } from '../../../util/color';
 import styles from './ResultsTab.module.css';
 
 const ResultsTab = ({ tournament }) => {
-  // Mock results data - in real app this would come from tournament state
-  const [results, setResults] = useState([
-    { place: 1, participant: { name: 'Команда А' }, points: 150, matches: { won: 5, lost: 0 } },
-    { place: 2, participant: { name: 'Команда Б' }, points: 120, matches: { won: 4, lost: 1 } },
-    { place: 3, participant: { name: 'Команда В' }, points: 100, matches: { won: 3, lost: 2 } },
-    { place: 4, participant: { name: 'Команда Г' }, points: 80, matches: { won: 2, lost: 3 } },
-  ]);
+  const { showError } = useToast();
+  
+  // Fetch tournament results from API
+  const { 
+    data: resultsData, 
+    isLoading, 
+    error, 
+    refetch 
+  } = useQuery({
+    queryKey: ['tournamentResults', tournament?.id],
+    queryFn: async () => {
+      if (!tournament?.id) return null;
+      
+      const response = await fetch(`/api/tournaments/${tournament.id}/results`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch tournament results');
+      }
+      return response.json();
+    },
+    enabled: !!tournament?.id,
+    refetchInterval: 30000, // Refetch every 30 seconds for live updates
+    refetchOnWindowFocus: true
+  });
 
-  const getParticipantName = (participant) => {
-    if (participant.isManual) return participant.name;
-    if (participant.name) return participant.name; // team
-    return `${participant.firstName} ${participant.lastName}`; // person
+  // Show error if fetch failed
+  useEffect(() => {
+    if (error) {
+      showError(`Ошибка загрузки результатов: ${error.message}`);
+    }
+  }, [error, showError]);
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.emptyState}>
+          <FaSpinner className={styles.spinner} />
+          <h3>Загрузка результатов...</h3>
+        </div>
+      </div>
+    );
+  }
+
+  // No tournament or no data
+  if (!tournament || !resultsData) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.emptyState}>
+          <h3>Результаты турнира</h3>
+          <p>Нет данных для отображения</p>
+        </div>
+      </div>
+    );
+  }
+
+  const { results = [], podium = [], stats, tournament: tournamentData } = resultsData;
+
+  const getParticipantName = (playerInfo) => {
+    if (!playerInfo) return 'Неизвестный участник';
+    
+    // Team
+    if (playerInfo.name) return playerInfo.name;
+    
+    // Person
+    if (playerInfo.firstName && playerInfo.lastName) {
+      return `${playerInfo.firstName} ${playerInfo.lastName}`;
+    }
+    
+    if (playerInfo.firstName) return playerInfo.firstName;
+    
+    return 'Неизвестный участник';
   };
+
+  const getParticipantAvatar = (playerInfo) => {
+    if (!playerInfo) {
+      return (
+        <div className={styles.avatar} style={{ backgroundColor: '#cccccc' }}>
+          ??
+        </div>
+      );
+    }
+    
+    const avatarColor = generateColorFromString(playerInfo.id?.toString() || '0');
+    
+    // Team
+    if (playerInfo.name) {
+      return (
+        <div className={styles.avatar} style={{ backgroundColor: avatarColor }}>
+          {playerInfo.name.substring(0, 2).toUpperCase()}
+        </div>
+      );
+    }
+    
+    // Person
+    if (playerInfo.firstName && playerInfo.lastName) {
+      return (
+        <div className={styles.avatar} style={{ backgroundColor: avatarColor }}>
+          {playerInfo.firstName[0]}{playerInfo.lastName[0]}
+        </div>
+      );
+    }
+    
+    // Fallback for incomplete person info
+    return (
+      <div className={styles.avatar} style={{ backgroundColor: avatarColor }}>
+        {(playerInfo.firstName?.[0] || '?').toUpperCase()}
+      </div>
+    );
+  };
+
+  // Get tournament status display
+  const getStatusDisplay = () => {
+    switch (stats?.tournamentStatus) {
+      case 'pending':
+        return <span className={styles.statusPending}>Не начат</span>;
+      case 'ongoing':
+        return <span className={styles.statusOngoing}>В процессе</span>;
+      case 'completed':
+        return <span className={styles.statusCompleted}>Завершен</span>;
+      default:
+        return <span className={styles.status}>Неизвестно</span>;
+    }
+  };
+
+  // Check if we have any results data at all
+  const hasResults = results && results.length > 0;
+  const eliminatedPlayers = results.filter(result => result !== null);
+  
+  if (!hasResults) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h3>Результаты турнира</h3>
+          <div className={styles.tournamentInfo}>
+            <p><strong>Турнир:</strong> {tournament.name}</p>
+            <p><strong>Схема:</strong> {tournament.schema?.schemeName}</p>
+            <p><strong>Статус:</strong> {getStatusDisplay()}</p>
+          </div>
+        </div>
+        
+        <div className={styles.emptyState}>
+          <FaClock className={styles.emptyIcon} />
+          <h4>Результаты еще не готовы</h4>
+          <p>Турнир еще не завершил ни одной стадии</p>
+          <p>Участников: {stats?.totalParticipants || 0}</p>
+          {stats?.tournamentStatus === 'ongoing' && (
+            <p className={styles.liveIndicator}>Турнир в процессе...</p>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   const getPlaceIcon = (place) => {
     switch (place) {
@@ -37,26 +179,18 @@ const ResultsTab = ({ tournament }) => {
     }
   };
 
-  if (!tournament) {
-    return (
-      <div className={styles.container}>
-        <div className={styles.emptyState}>
-          <h3>Результаты турнира</h3>
-          <p>Турнир еще не завершен</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h3>Результаты турнира</h3>
         <div className={styles.tournamentInfo}>
           <p><strong>Турнир:</strong> {tournament.name}</p>
-          <p><strong>Тип:</strong> {tournament.type}</p>
           <p><strong>Схема:</strong> {tournament.schema?.schemeName}</p>
-          <p><strong>Статус:</strong> <span className={styles.status}>Завершен</span></p>
+          <p><strong>Статус:</strong> {getStatusDisplay()}</p>
+          <p><strong>Участников:</strong> {stats?.totalParticipants || 0}</p>
+          {stats?.eliminatedCount > 0 && (
+            <p><strong>Исключено:</strong> {stats.eliminatedCount}</p>
+          )}
         </div>
       </div>
 
@@ -67,8 +201,18 @@ const ResultsTab = ({ tournament }) => {
               <FaMedal className={styles.silverIcon} />
             </div>
             <div className={styles.podiumInfo}>
-              <h4>{getParticipantName(results[1]?.participant) || 'TBD'}</h4>
-              <p>{results[1]?.points || 0} очков</p>
+              {(() => {
+                const secondPlace = results.find(r => r && r.finalPlacement === 2);
+                return (
+                  <>
+                    <div className={styles.podiumParticipant}>
+                      {secondPlace && getParticipantAvatar(secondPlace.playerInfo)}
+                      <h4>{secondPlace ? getParticipantName(secondPlace.playerInfo) : ''}</h4>
+                    </div>
+                    <p>{secondPlace ? `${secondPlace.totalPoints || 0}${secondPlace.totalTieBreak && secondPlace.totalTieBreak !== 0 ? ` (${secondPlace.totalTieBreak})` : ''}` : '-'}</p>
+                  </>
+                );
+              })()}
             </div>
           </div>
           <div className={styles.podiumBar}>2</div>
@@ -80,8 +224,18 @@ const ResultsTab = ({ tournament }) => {
               <FaTrophy className={styles.goldIcon} />
             </div>
             <div className={styles.podiumInfo}>
-              <h4>{getParticipantName(results[0]?.participant) || 'TBD'}</h4>
-              <p>{results[0]?.points || 0} очков</p>
+              {(() => {
+                const firstPlace = results.find(r => r && r.finalPlacement === 1);
+                return (
+                  <>
+                    <div className={styles.podiumParticipant}>
+                      {firstPlace && getParticipantAvatar(firstPlace.playerInfo)}
+                      <h4>{firstPlace ? getParticipantName(firstPlace.playerInfo) : ''}</h4>
+                    </div>
+                    <p>{firstPlace ? `${firstPlace.totalPoints || 0}${firstPlace.totalTieBreak && firstPlace.totalTieBreak !== 0 ? ` (${firstPlace.totalTieBreak})` : ''}` : '-'}</p>
+                  </>
+                );
+              })()}
             </div>
           </div>
           <div className={styles.podiumBar}>1</div>
@@ -93,53 +247,127 @@ const ResultsTab = ({ tournament }) => {
               <FaAward className={styles.bronzeIcon} />
             </div>
             <div className={styles.podiumInfo}>
-              <h4>{getParticipantName(results[2]?.participant) || 'TBD'}</h4>
-              <p>{results[2]?.points || 0} очков</p>
+              {(() => {
+                const thirdPlace = results.find(r => r && r.finalPlacement === 3);
+                return (
+                  <>
+                    <div className={styles.podiumParticipant}>
+                      {thirdPlace && getParticipantAvatar(thirdPlace.playerInfo)}
+                      <h4>{thirdPlace ? getParticipantName(thirdPlace.playerInfo) : ''}</h4>
+                    </div>
+                    <p>{thirdPlace ? `${thirdPlace.totalPoints || 0}${thirdPlace.totalTieBreak && thirdPlace.totalTieBreak !== 0 ? ` (${thirdPlace.totalTieBreak})` : ''}` : '-'}</p>
+                  </>
+                );
+              })()}
             </div>
           </div>
           <div className={styles.podiumBar}>3</div>
         </div>
       </div>
 
-      <div className={styles.table}>
-        <div className={styles.tableHeader}>
-          <h4>Полная таблица результатов</h4>
-        </div>
-        <div className={styles.tableContent}>
+      {(() => {
+        // Calculate table sections based on total participants (excluding top 3)
+        const totalParticipants = results.length;
+        const eliminatedPlayers = results.filter(r => r !== null);
+        const remainingSlots = totalParticipants - 3; // Exclude top 3 from tables
+        const section3Size = Math.ceil(remainingSlots / 3); // Bottom section
+        const section12Size = Math.ceil((remainingSlots - section3Size) / 2); // Equal size for sections 1 and 2
+        
+        // Define sections with equal sizes for sections 1 and 2
+        // Only show sections that have actual positions to display
+        const sections = [
+          {
+            title: `Места 4-${3 + section12Size}`,
+            start: 3,
+            end: 3 + section12Size
+          },
+          {
+            title: `Места ${3 + section12Size + 1}-${3 + 2 * section12Size}`,
+            start: 3 + section12Size,
+            end: 3 + 2 * section12Size
+          },
+          {
+            title: `Места ${3 + 2 * section12Size + 1}-${totalParticipants}`,
+            start: 3 + 2 * section12Size,
+            end: totalParticipants
+          }
+        ].filter(section => section.start < totalParticipants);
+
+        const renderTableHeader = () => (
           <div className={styles.tableRow}>
             <div className={styles.tableCell}><strong>Место</strong></div>
             <div className={styles.tableCell}><strong>Участник</strong></div>
             <div className={styles.tableCell}><strong>Очки</strong></div>
-            <div className={styles.tableCell}><strong>Матчи</strong></div>
-            <div className={styles.tableCell}><strong>Процент побед</strong></div>
           </div>
-          {results.map((result, index) => (
-            <div key={index} className={`${styles.tableRow} ${getPlaceClass(result.place)}`}>
+        );
+
+        const renderTableRow = (result, index) => {
+          const actualPosition = index + 1; // Actual tournament position (1-32)
+          
+          if (result === null) {
+            return (
+              <div key={`empty-${actualPosition}`} className={styles.tableRow}>
+                <div className={styles.tableCell}>
+                  <div className={styles.place}>
+                    {getPlaceIcon(actualPosition)}
+                  </div>
+                </div>
+                <div className={styles.tableCell}>
+                  <span className={styles.emptySlot}></span>
+                </div>
+                <div className={styles.tableCell}>-</div>
+              </div>
+            );
+          }
+          
+          return (
+            <div key={result.playerId} className={`${styles.tableRow} ${getPlaceClass(result.finalPlacement)}`}>
               <div className={styles.tableCell}>
                 <div className={styles.place}>
-                  {getPlaceIcon(result.place)}
+                  {getPlaceIcon(result.finalPlacement)}
                 </div>
               </div>
               <div className={styles.tableCell}>
-                <strong>{getParticipantName(result.participant)}</strong>
+                <div className={styles.participantInfo}>
+                  {getParticipantAvatar(result.playerInfo)}
+                  <div className={styles.participantName}>
+                    <strong>{getParticipantName(result.playerInfo)}</strong>
+                    {result.isFinalResults && (
+                      <span className={styles.finalIndicator}> (Финалист)</span>
+                    )}
+                  </div>
+                </div>
               </div>
               <div className={styles.tableCell}>
-                <span className={styles.points}>{result.points}</span>
-              </div>
-              <div className={styles.tableCell}>
-                <span className={styles.matches}>
-                  {result.matches.won}W - {result.matches.lost}L
-                </span>
-              </div>
-              <div className={styles.tableCell}>
-                <span className={styles.winRate}>
-                  {Math.round((result.matches.won / (result.matches.won + result.matches.lost)) * 100)}%
+                <span className={styles.points}>
+                  {result.totalPoints || 0}
+                  {(result.totalTieBreak != null && result.totalTieBreak !== 0) && (
+                    <span className={styles.tieBreakPoints}> ({result.totalTieBreak})</span>
+                  )}
                 </span>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
+          );
+        };
+
+        return (
+          <div className={styles.tablesContainer}>
+            {sections.map((section, sectionIndex) => (
+              <div key={sectionIndex} className={styles.compactTable}>
+                <div className={styles.tableHeader}>
+                  <h4>{section.title}</h4>
+                </div>
+                <div className={styles.tableContent}>
+                  {renderTableHeader()}
+                  {results.slice(section.start, section.end).map((result, index) => 
+                    renderTableRow(result, section.start + index)
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        );
+      })()}
     </div>
   );
 };

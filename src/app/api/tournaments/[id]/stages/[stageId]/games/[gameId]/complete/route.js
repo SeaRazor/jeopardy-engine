@@ -2,7 +2,9 @@
 // Handles game completion AND automatic player progression in a single atomic operation
 
 import { NextResponse } from 'next/server';
-import { resolveReferencesForGame } from '../../../../../../../../util/immediateResolver.js';
+import { resolveReferencesForGame } from '@/app/util/immediateResolver';
+import { didStageJustComplete, getStageGames } from '@/app/util/stageCompletionChecker';
+import { processCompletedStage } from '@/app/util/resultsTableUpdater';
 import fs from 'fs';
 import path from 'path';
 
@@ -102,17 +104,77 @@ export async function POST(request, { params }) {
       };
     }
     
+    // Check if stage just completed and update results table
+    let resultsUpdateResult = {
+      stageCompleted: false,
+      eliminatedPlayersCount: 0,
+      error: null
+    };
+    
+    try {
+      const stageJustCompleted = didStageJustComplete(tournamentId, stageId, gameId);
+      
+      if (stageJustCompleted) {
+        console.log(`[COMPLETE] Stage ${stageId} just completed! Updating results table...`);
+        
+        // Get tournament data to find stage configuration
+        const tournamentsDbPath = path.join(process.cwd(), 'src/app/api/tournaments/db.json');
+        const tournamentsData = JSON.parse(fs.readFileSync(tournamentsDbPath, 'utf8'));
+        const tournament = tournamentsData.find(t => t.id === parseInt(tournamentId));
+        
+        if (tournament && tournament.schema && tournament.schema.stages) {
+          const stage = tournament.schema.stages.find(s => s.id === parseInt(stageId));
+          
+          if (stage) {
+            // Get all completed games for this stage
+            const stageGames = getStageGames(tournamentId, stageId);
+            const completedStageGames = stageGames.filter(g => g.completed === true || g.status === 'completed');
+            
+            // Process the completed stage
+            const stageProcessResult = await processCompletedStage(tournamentId, stage, completedStageGames);
+            
+            resultsUpdateResult = {
+              stageCompleted: true,
+              eliminatedPlayersCount: stageProcessResult.eliminatedCount || 0,
+              isLastStage: stageProcessResult.isLastStage || false,
+              stageName: stage.name,
+              stageOrder: stage.order,
+              success: stageProcessResult.success,
+              error: stageProcessResult.error || null
+            };
+            
+            console.log(`[COMPLETE] Results update result:`, resultsUpdateResult);
+          } else {
+            console.log(`[COMPLETE] Stage ${stageId} not found in tournament schema`);
+          }
+        } else {
+          console.log(`[COMPLETE] Tournament ${tournamentId} not found or missing schema`);
+        }
+      }
+    } catch (resultsError) {
+      console.error(`[COMPLETE] Error updating results table:`, resultsError);
+      resultsUpdateResult = {
+        stageCompleted: false,
+        eliminatedPlayersCount: 0,
+        error: resultsError.message
+      };
+    }
+    
     // Return comprehensive response
     const response = {
       success: true,
       message: 'Game completed successfully',
       game: updatedGame,
       progression: progressionResult,
+      results: resultsUpdateResult,
       summary: {
         gameCompleted: true,
         playersPromoted: progressionResult.resolvedReferences || 0,
         gamesAffected: progressionResult.resolvedGames || 0,
-        progressionSucceeded: progressionResult.success
+        progressionSucceeded: progressionResult.success,
+        stageCompleted: resultsUpdateResult.stageCompleted,
+        playersEliminated: resultsUpdateResult.eliminatedPlayersCount,
+        resultsUpdated: resultsUpdateResult.success !== false
       }
     };
     

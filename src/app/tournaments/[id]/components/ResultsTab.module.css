@@ -47,6 +47,52 @@
   color: var(--color-foreground);
 }
 
+.emptySlot {
+  color: var(--color-secondary-text);
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.participantInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.participantName {
+  flex: 1;
+}
+
+.podiumParticipant {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.podiumParticipant .avatar {
+  width: 28px;
+  height: 28px;
+  font-size: 0.8rem;
+}
+
+.podiumParticipant h4 {
+  margin: 0;
+}
+
 .podium {
   display: flex;
   justify-content: center;
@@ -159,6 +205,17 @@
   margin-top: 3rem;
 }
 
+.tablesContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.compactTable {
+  margin-top: 0;
+}
+
 .tableHeader {
   margin-bottom: 1rem;
 }
@@ -178,7 +235,7 @@
 
 .tableRow {
   display: grid;
-  grid-template-columns: 80px 1fr 100px 120px 120px;
+  grid-template-columns: 80px 1fr 100px;
   align-items: center;
   padding: 1rem;
   border-bottom: 1px solid var(--card-border);
@@ -246,6 +303,67 @@
   color: var(--status-ongoing-color);
 }
 
+.tieBreakPoints {
+  font-weight: 500;
+  color: var(--color-secondary-text);
+}
+
+.eliminationStage {
+  font-size: 0.85rem;
+  color: var(--color-secondary-text);
+  font-style: italic;
+}
+
+.finalIndicator {
+  color: var(--primary-color);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.statusPending {
+  color: var(--color-secondary-text);
+  font-weight: 600;
+}
+
+.statusOngoing {
+  color: var(--status-ongoing-color);
+  font-weight: 600;
+}
+
+.statusCompleted {
+  color: var(--status-success-color);
+  font-weight: 600;
+}
+
+.liveIndicator {
+  color: var(--status-ongoing-color);
+  font-weight: 600;
+  animation: pulse 2s infinite;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  color: var(--color-secondary-text);
+  margin-bottom: 1rem;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
 @media (max-width: 768px) {
   .tournamentInfo {
     flex-direction: column;
@@ -271,14 +389,14 @@
     height: 60px !important;
   }
   
+  .tablesContainer {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
   .tableRow {
     grid-template-columns: 60px 1fr 80px;
     gap: 0.5rem;
-  }
-  
-  .tableRow .tableCell:nth-child(4),
-  .tableRow .tableCell:nth-child(5) {
-    display: none;
   }
 }
 

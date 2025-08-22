@@ -744,7 +744,7 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
               return (
                 <div key={participant.playerId} className={participantClass}>
                   <div className={styles.participantRank}>
-                    {isFinalStage ? (
+                    {isFinalStage && gameCompleted ? (
                       <>
                         {getRankIcon(index)}
                         <span className={styles.rankNumber}>{index + 1}</span>

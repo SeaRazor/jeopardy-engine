@@ -188,9 +188,9 @@
     "participantsNum": 32,
     "stages": [
       {
-        "description": "Топ-32",
+        "description": "Проходят первые два места",
         "id": 1,
-        "name": "1/16 финала",
+        "name": "1/8 финала",
         "order": 1,
         "topGameParticipantsNum": 4,
         "topGameWinnersNum": 2
@@ -198,7 +198,7 @@
       {
         "description": "Проходят первые два места",
         "id": 2,
-        "name": "1/8 финала",
+        "name": "Четверьфиналы",
         "order": 2,
         "topGameParticipantsNum": 4,
         "topGameWinnersNum": 2
@@ -206,25 +206,17 @@
       {
         "description": "Проходят первые два места",
         "id": 3,
-        "name": "Четверьфиналы",
+        "name": "Полуфиналы",
         "order": 3,
         "topGameParticipantsNum": 4,
         "topGameWinnersNum": 2
       },
       {
-        "description": "Проходят первые два места",
-        "id": 4,
-        "name": "Полуфиналы",
-        "order": 4,
-        "topGameParticipantsNum": 4,
-        "topGameWinnersNum": 2
-      },
-      {
         "description": "Финал четырех",
-        "id": 5,
+        "id": 4,
         "isFinal": true,
         "name": "Финал",
-        "order": 5
+        "order": 4
       }
     ]
   }
