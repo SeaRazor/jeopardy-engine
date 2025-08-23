@@ -1,6 +1,6 @@
 'use client';
 
-import { createBracketTabComponent } from '../../../util/bracketTabs/BracketTabFactory';
+import { createBracketTabComponent } from '../../../components/brackets/BracketTabFactory';
 
 const BracketTab = ({ tournament }) => {
   // Use factory to get the appropriate bracket component

@@ -741,17 +741,21 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
                 }
               }
               
+              // Add colored borders for final stage placement (1st, 2nd, 3rd)
+              if (isFinalStage && gameCompleted) {
+                if (index === 0) {
+                  participantClass += ` ${styles.participantFirst}`;
+                } else if (index === 1) {
+                  participantClass += ` ${styles.participantSecond}`;
+                } else if (index === 2) {
+                  participantClass += ` ${styles.participantThird}`;
+                }
+              }
+              
               return (
                 <div key={participant.playerId} className={participantClass}>
                   <div className={styles.participantRank}>
-                    {isFinalStage && gameCompleted ? (
-                      <>
-                        {getRankIcon(index)}
-                        <span className={styles.rankNumber}>{index + 1}</span>
-                      </>
-                    ) : (
-                      <span className={styles.rankNumber}>{index + 1}</span>
-                    )}
+                    <span className={styles.rankNumber}>{index + 1}</span>
                   </div>
                   <div className={styles.participantInfo}>
                     <span className={styles.participantName}>

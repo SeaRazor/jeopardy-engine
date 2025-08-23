@@ -693,6 +693,12 @@
   gap: 1.5rem;
 }
 
+.finalGameCentered {
+  justify-content: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
 .loading,
 .error,
 .noGames {

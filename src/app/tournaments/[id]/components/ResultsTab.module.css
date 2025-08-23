@@ -94,15 +94,65 @@
 }
 
 .podium {
+  margin: 3rem 0;
+}
+
+.podiumDesktop {
   display: flex;
   justify-content: center;
   align-items: flex-end;
   gap: 1rem;
-  margin: 3rem 0;
   padding: 2rem 1rem;
   background: linear-gradient(135deg, var(--card-bg) 0%, var(--color-background) 100%);
   border-radius: 16px;
   border: 1px solid var(--card-border);
+}
+
+.podiumMobile {
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.podiumMobileEntry {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+}
+
+.podiumMobileEntry.place1 {
+  border-color: #ffd700;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(230, 194, 0, 0.05));
+}
+
+.podiumMobileEntry.place2 {
+  border-color: #c0c0c0;
+  background: linear-gradient(135deg, rgba(192, 192, 192, 0.1), rgba(168, 168, 168, 0.05));
+}
+
+.podiumMobileEntry.place3 {
+  border-color: #cd7f32;
+  background: linear-gradient(135deg, rgba(205, 127, 50, 0.1), rgba(184, 114, 45, 0.05));
+}
+
+.podiumMobilePosition {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.podiumMobileParticipant {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
 }
 
 .podiumItem {
@@ -364,66 +414,129 @@
   50% { opacity: 0.5; }
 }
 
+/* Default desktop behavior - no accordion functionality */
+.accordionSection .tableHeader {
+  cursor: default;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accordionToggle {
+  display: none;
+}
+
+.tableContent {
+  display: block;
+  max-height: none;
+  opacity: 1;
+  overflow: visible;
+}
+
 @media (max-width: 768px) {
   .tournamentInfo {
     flex-direction: column;
     gap: 0.5rem;
   }
   
-  .podium {
-    flex-direction: column;
-    align-items: center;
+  .podiumDesktop {
+    display: none;
   }
   
-  .podiumItem {
-    width: 100%;
-    max-width: 300px;
-  }
-  
-  .podiumItem:nth-child(2) {
-    order: -1; /* Put first place at top on mobile */
-  }
-  
-  .podiumBar {
-    width: 100%;
-    height: 60px !important;
+  .podiumMobile {
+    display: flex;
   }
   
   .tablesContainer {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .table {
+    margin-top: 0;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  /* Enable accordion functionality on mobile */
+  .accordionSection .tableHeader {
+    cursor: pointer;
+    padding: 1rem;
+    background: none;
+    border-bottom: 1px solid var(--card-border);
+    transition: background-color 0.2s;
+  }
+  
+  .accordionSection .tableHeader:hover {
+    background: var(--color-background);
+  }
+  
+  .accordionSection .tableHeader h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--color-foreground);
+    text-align: left;
+  }
+  
+  .accordionToggle {
+    display: block;
+    color: var(--color-secondary-text);
+    transition: transform 0.2s;
+  }
+  
+  .tableContent {
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border-top: none;
+  }
+  
+  .accordionExpanded {
+    max-height: 1000px;
+    opacity: 1;
+  }
+  
+  .accordionCollapsed {
+    max-height: 0;
+    opacity: 0;
   }
   
   .tableRow {
     grid-template-columns: 60px 1fr 80px;
     gap: 0.5rem;
+    padding: 0.75rem;
   }
 }
+
+
+
+
 
 @media (max-width: 480px) {
   .container {
     padding: 0.5rem;
   }
   
-  .podiumPlace {
-    padding: 1rem;
-    min-width: unset;
+  .podiumEntry {
+    padding: 0.75rem;
   }
   
-  .podiumIcon {
-    font-size: 2rem;
+  .podiumPosition {
+    font-size: 1.25rem;
   }
   
-  .podiumInfo h4 {
-    font-size: 1rem;
+  .mobileTableRow {
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
   }
   
-  .tableRow {
-    padding: 0.75rem 0.5rem;
+  .participantCell .participantInfo {
+    gap: 0.5rem;
+  }
+  
+  .stageCell {
     font-size: 0.8rem;
-  }
-  
-  .place {
-    font-size: 1rem;
   }
 }

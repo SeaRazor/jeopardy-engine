@@ -589,7 +589,7 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
         )}
 
         {!gamesLoading && !gamesError && games.length > 0 && (
-          <div className={styles.gamesGrid}>
+          <div className={`${styles.gamesGrid} ${games.length === 1 ? styles.finalGameCentered : ''}`}>
             {games.map((game) => (
               <GameCard 
                 key={game.id} 

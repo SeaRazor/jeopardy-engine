@@ -2,14 +2,22 @@
 
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { FaMedal, FaTrophy, FaAward, FaClock, FaSpinner } from 'react-icons/fa';
+import { FaMedal, FaTrophy, FaAward, FaClock, FaSpinner, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { useToast } from '../../../util/ToastContext';
 import { generateColorFromString } from '../../../util/color';
 import styles from './ResultsTab.module.css';
 
 const ResultsTab = ({ tournament }) => {
   const { showError } = useToast();
+  const [expandedSections, setExpandedSections] = useState({});
   
+  const toggleSection = (sectionIndex) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [sectionIndex]: !prev[sectionIndex]
+    }));
+  };
+
   // Fetch tournament results from API
   const { 
     data: resultsData, 
@@ -195,179 +203,171 @@ const ResultsTab = ({ tournament }) => {
       </div>
 
       <div className={styles.podium}>
-        <div className={styles.podiumItem}>
-          <div className={`${styles.podiumPlace} ${styles.second}`}>
-            <div className={styles.podiumIcon}>
-              <FaMedal className={styles.silverIcon} />
-            </div>
-            <div className={styles.podiumInfo}>
-              {(() => {
-                const secondPlace = results.find(r => r && r.finalPlacement === 2);
-                return (
-                  <>
-                    <div className={styles.podiumParticipant}>
-                      {secondPlace && getParticipantAvatar(secondPlace.playerInfo)}
-                      <h4>{secondPlace ? getParticipantName(secondPlace.playerInfo) : ''}</h4>
-                    </div>
-                    <p>{secondPlace ? `${secondPlace.totalPoints || 0}${secondPlace.totalTieBreak && secondPlace.totalTieBreak !== 0 ? ` (${secondPlace.totalTieBreak})` : ''}` : '-'}</p>
-                  </>
-                );
-              })()}
-            </div>
-          </div>
-          <div className={styles.podiumBar}>2</div>
-        </div>
-
-        <div className={styles.podiumItem}>
-          <div className={`${styles.podiumPlace} ${styles.first}`}>
-            <div className={styles.podiumIcon}>
-              <FaTrophy className={styles.goldIcon} />
-            </div>
-            <div className={styles.podiumInfo}>
-              {(() => {
-                const firstPlace = results.find(r => r && r.finalPlacement === 1);
-                return (
-                  <>
-                    <div className={styles.podiumParticipant}>
-                      {firstPlace && getParticipantAvatar(firstPlace.playerInfo)}
-                      <h4>{firstPlace ? getParticipantName(firstPlace.playerInfo) : ''}</h4>
-                    </div>
-                    <p>{firstPlace ? `${firstPlace.totalPoints || 0}${firstPlace.totalTieBreak && firstPlace.totalTieBreak !== 0 ? ` (${firstPlace.totalTieBreak})` : ''}` : '-'}</p>
-                  </>
-                );
-              })()}
-            </div>
-          </div>
-          <div className={styles.podiumBar}>1</div>
-        </div>
-
-        <div className={styles.podiumItem}>
-          <div className={`${styles.podiumPlace} ${styles.third}`}>
-            <div className={styles.podiumIcon}>
-              <FaAward className={styles.bronzeIcon} />
-            </div>
-            <div className={styles.podiumInfo}>
-              {(() => {
-                const thirdPlace = results.find(r => r && r.finalPlacement === 3);
-                return (
-                  <>
-                    <div className={styles.podiumParticipant}>
-                      {thirdPlace && getParticipantAvatar(thirdPlace.playerInfo)}
-                      <h4>{thirdPlace ? getParticipantName(thirdPlace.playerInfo) : ''}</h4>
-                    </div>
-                    <p>{thirdPlace ? `${thirdPlace.totalPoints || 0}${thirdPlace.totalTieBreak && thirdPlace.totalTieBreak !== 0 ? ` (${thirdPlace.totalTieBreak})` : ''}` : '-'}</p>
-                  </>
-                );
-              })()}
-            </div>
-          </div>
-          <div className={styles.podiumBar}>3</div>
-        </div>
-      </div>
-
-      {(() => {
-        // Calculate table sections based on total participants (excluding top 3)
-        const totalParticipants = results.length;
-        const eliminatedPlayers = results.filter(r => r !== null);
-        const remainingSlots = totalParticipants - 3; // Exclude top 3 from tables
-        const section3Size = Math.ceil(remainingSlots / 3); // Bottom section
-        const section12Size = Math.ceil((remainingSlots - section3Size) / 2); // Equal size for sections 1 and 2
-        
-        // Define sections with equal sizes for sections 1 and 2
-        // Only show sections that have actual positions to display
-        const sections = [
-          {
-            title: `Места 4-${3 + section12Size}`,
-            start: 3,
-            end: 3 + section12Size
-          },
-          {
-            title: `Места ${3 + section12Size + 1}-${3 + 2 * section12Size}`,
-            start: 3 + section12Size,
-            end: 3 + 2 * section12Size
-          },
-          {
-            title: `Места ${3 + 2 * section12Size + 1}-${totalParticipants}`,
-            start: 3 + 2 * section12Size,
-            end: totalParticipants
-          }
-        ].filter(section => section.start < totalParticipants);
-
-        const renderTableHeader = () => (
-          <div className={styles.tableRow}>
-            <div className={styles.tableCell}><strong>Место</strong></div>
-            <div className={styles.tableCell}><strong>Участник</strong></div>
-            <div className={styles.tableCell}><strong>Очки</strong></div>
-          </div>
-        );
-
-        const renderTableRow = (result, index) => {
-          const actualPosition = index + 1; // Actual tournament position (1-32)
-          
-          if (result === null) {
+        {/* Desktop podium */}
+        <div className={styles.podiumDesktop}>
+          {[
+            results.find(r => r && r.finalPlacement === 2), // Second
+            results.find(r => r && r.finalPlacement === 1), // First (center)
+            results.find(r => r && r.finalPlacement === 3)  // Third
+          ].map((result, index) => {
+            const place = index === 0 ? 2 : index === 1 ? 1 : 3;
+            
             return (
-              <div key={`empty-${actualPosition}`} className={styles.tableRow}>
-                <div className={styles.tableCell}>
-                  <div className={styles.place}>
-                    {getPlaceIcon(actualPosition)}
+              <div key={place} className={styles.podiumItem}>
+                <div className={styles.podiumBar}>{place}</div>
+                <div className={`${styles.podiumPlace} ${place === 1 ? styles.first : place === 2 ? styles.second : styles.third}`}>
+                  <div className={styles.podiumIcon}>
+                    {place === 1 ? <FaTrophy className={styles.goldIcon} /> :
+                     place === 2 ? <FaMedal className={styles.silverIcon} /> :
+                     <FaAward className={styles.bronzeIcon} />}
                   </div>
-                </div>
-                <div className={styles.tableCell}>
-                  <span className={styles.emptySlot}></span>
-                </div>
-                <div className={styles.tableCell}>-</div>
-              </div>
-            );
-          }
-          
-          return (
-            <div key={result.playerId} className={`${styles.tableRow} ${getPlaceClass(result.finalPlacement)}`}>
-              <div className={styles.tableCell}>
-                <div className={styles.place}>
-                  {getPlaceIcon(result.finalPlacement)}
-                </div>
-              </div>
-              <div className={styles.tableCell}>
-                <div className={styles.participantInfo}>
-                  {getParticipantAvatar(result.playerInfo)}
-                  <div className={styles.participantName}>
-                    <strong>{getParticipantName(result.playerInfo)}</strong>
-                    {result.isFinalResults && (
-                      <span className={styles.finalIndicator}> (Финалист)</span>
+                  <div className={styles.podiumInfo}>
+                    {result ? (
+                      <div className={styles.podiumParticipant}>
+                        {getParticipantAvatar(result.playerInfo)}
+                        <h4>{getParticipantName(result.playerInfo)}</h4>
+                      </div>
+                    ) : (
+                      <div className={styles.podiumParticipant}>
+                        <div className={styles.avatar} style={{ backgroundColor: '#cccccc' }}>??</div>
+                        <h4>-</h4>
+                      </div>
                     )}
                   </div>
                 </div>
               </div>
-              <div className={styles.tableCell}>
-                <span className={styles.points}>
-                  {result.totalPoints || 0}
-                  {(result.totalTieBreak != null && result.totalTieBreak !== 0) && (
-                    <span className={styles.tieBreakPoints}> ({result.totalTieBreak})</span>
-                  )}
-                </span>
+            );
+          })}
+        </div>
+        
+        {/* Mobile podium */}
+        <div className={styles.podiumMobile}>
+          {[1, 2, 3].map(place => {
+            const result = results.find(r => r && r.finalPlacement === place);
+            const icon = place === 1 ? <FaTrophy className={styles.goldIcon} /> :
+                       place === 2 ? <FaMedal className={styles.silverIcon} /> :
+                       <FaAward className={styles.bronzeIcon} />;
+            
+            return (
+              <div key={place} className={`${styles.podiumMobileEntry} ${styles[`place${place}`]}`}>
+                <div className={styles.podiumMobilePosition}>
+                  {icon}
+                  <span className={styles.placeNumber}>{place}</span>
+                </div>
+                <div className={styles.podiumMobileParticipant}>
+                  {result && getParticipantAvatar(result.playerInfo)}
+                  <span className={styles.participantName}>
+                    {result ? getParticipantName(result.playerInfo) : '-'}
+                  </span>
+                </div>
               </div>
-            </div>
-          );
-        };
+            );
+          })}
+        </div>
+      </div>
 
-        return (
-          <div className={styles.tablesContainer}>
-            {sections.map((section, sectionIndex) => (
-              <div key={sectionIndex} className={styles.compactTable}>
-                <div className={styles.tableHeader}>
+      <div className={styles.tablesContainer}>
+        {(() => {
+          // Calculate table sections based on total participants (excluding top 3)
+          const totalParticipants = results.length;
+          const remainingSlots = totalParticipants - 3; // Exclude top 3 from tables
+          const section3Size = Math.ceil(remainingSlots / 3); // Bottom section
+          const section12Size = Math.ceil((remainingSlots - section3Size) / 2); // Equal size for sections 1 and 2
+          
+          // Define sections with equal sizes for sections 1 and 2
+          const sections = [
+            {
+              title: `Места 4-${3 + section12Size}`,
+              start: 3,
+              end: 3 + section12Size
+            },
+            {
+              title: `Места ${3 + section12Size + 1}-${3 + 2 * section12Size}`,
+              start: 3 + section12Size,
+              end: 3 + 2 * section12Size
+            },
+            {
+              title: `Места ${3 + 2 * section12Size + 1}-${totalParticipants}`,
+              start: 3 + 2 * section12Size,
+              end: totalParticipants
+            }
+          ].filter(section => section.start < totalParticipants);
+
+          return sections.map((section, sectionIndex) => {
+            const sectionResults = results.slice(section.start, section.end);
+            const hasData = sectionResults.some(r => r !== null);
+            
+            if (!hasData) return null;
+            
+            const isExpanded = expandedSections[sectionIndex];
+            
+            return (
+              <div key={sectionIndex} className={`${styles.table} ${styles.compactTable} ${styles.accordionSection}`}>
+                <div className={styles.tableHeader} 
+                     onClick={() => toggleSection(sectionIndex)}>
                   <h4>{section.title}</h4>
+                  <span className={styles.accordionToggle}>
+                    {isExpanded ? <FaChevronUp /> : <FaChevronDown />}
+                  </span>
                 </div>
-                <div className={styles.tableContent}>
-                  {renderTableHeader()}
-                  {results.slice(section.start, section.end).map((result, index) => 
-                    renderTableRow(result, section.start + index)
-                  )}
+                
+                <div className={`${styles.tableContent} ${isExpanded ? styles.accordionExpanded : styles.accordionCollapsed}`}>
+                  <div className={styles.tableRow}>
+                    <div className={styles.tableCell}><strong>Место</strong></div>
+                    <div className={styles.tableCell}><strong>Участник</strong></div>
+                    <div className={styles.tableCell}><strong>Исключен</strong></div>
+                  </div>
+                  {sectionResults.map((result, index) => {
+                    const actualPosition = section.start + index + 1;
+                    
+                    if (result === null) {
+                      return (
+                        <div key={`empty-${actualPosition}`} className={styles.tableRow}>
+                          <div className={styles.tableCell}>
+                            <div className={styles.place}>
+                              {getPlaceIcon(actualPosition)}
+                            </div>
+                          </div>
+                          <div className={styles.tableCell}>
+                            <span className={styles.emptySlot}>-</span>
+                          </div>
+                          <div className={styles.tableCell}>-</div>
+                        </div>
+                      );
+                    }
+                    
+                    return (
+                      <div key={result.playerId} className={`${styles.tableRow} ${getPlaceClass(result.finalPlacement)}`}>
+                        <div className={styles.tableCell}>
+                          <div className={styles.place}>
+                            {getPlaceIcon(result.finalPlacement)}
+                          </div>
+                        </div>
+                        <div className={styles.tableCell}>
+                          <div className={styles.participantInfo}>
+                            {getParticipantAvatar(result.playerInfo)}
+                            <div className={styles.participantName}>
+                              <strong>{getParticipantName(result.playerInfo)}</strong>
+                              {result.isFinalResults && result.finalPlacement <= 3 && (
+                                <span className={styles.finalIndicator}> (Финалист)</span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                        <div className={styles.tableCell}>
+                          <span className={styles.eliminationStage}>
+                            {result.eliminatedAtStageName}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
-            ))}
-          </div>
-        );
-      })()}
+            );
+          });
+        })()}
+      </div>
     </div>
   );
 };

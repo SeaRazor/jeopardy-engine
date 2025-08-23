@@ -647,6 +647,18 @@
   border-left: 4px solid #dc3545 !important; /* Red for eliminated */
 }
 
+.participantFirst {
+  border-left: 4px solid #ffd700 !important; /* Gold for 1st place */
+}
+
+.participantSecond {
+  border-left: 4px solid #c0c0c0 !important; /* Silver for 2nd place */
+}
+
+.participantThird {
+  border-left: 4px solid #cd7f32 !important; /* Bronze for 3rd place */
+}
+
 .participantRank {
   display: flex;
   align-items: center;

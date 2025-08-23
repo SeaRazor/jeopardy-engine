@@ -118,6 +118,7 @@
   border-right: none;
 }
 
+
 /* Upper Bracket Styling - matches GameCard colors */
 .upperBracket {
   background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), rgba(255, 107, 53, 0.03));
