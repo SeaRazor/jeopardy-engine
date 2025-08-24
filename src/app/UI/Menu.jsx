@@ -6,6 +6,7 @@ import {
   FaTrophy,
   FaUsers,
   FaUsersCog,
+  FaGamepad,
   FaSignInAlt,
   FaSignOutAlt
 } from 'react-icons/fa';
@@ -28,6 +29,11 @@ const menuItems = [
     label: 'Users',
     href: '/users',
     icon: <FaUsersCog className={styles.menuIcon} />
+  },
+  {
+    label: 'Assigned Games',
+    href: '/assigned-games',
+    icon: <FaGamepad className={styles.menuIcon} />
   },
 ];
 

@@ -1,0 +1,194 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .controls {
+    padding: 0 0.5rem;
+    max-width: 100%;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.input, .select {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--input-bg);
+  color: var(--color-foreground);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus, .select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--input-focus-shadow);
+}
+
+.input {
+  flex-grow: 1;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.select {
+  min-width: 150px;
+  max-width: 200px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236c757d' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 1.25em 1.25em;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .input, .select {
+    width: 100%;
+    min-width: unset;
+    max-width: 100%;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+}
+
+.tableContainer {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableHeader {
+  background-color: var(--color-background);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.tableHeader th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-foreground);
+  white-space: nowrap;
+}
+
+.tableRow {
+  border-bottom: 1px solid var(--card-border);
+  transition: background-color 0.2s ease;
+}
+
+.tableRow:hover {
+  background-color: var(--color-hover-bg);
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.tableCell {
+  padding: 1rem;
+  vertical-align: top;
+}
+
+.gameLink {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.gameLink:hover {
+  color: var(--primary-hover-color);
+  text-decoration: underline;
+}
+
+.presenterInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.presenterAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  flex-shrink: 0;
+}
+
+.presenterDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.presenterName {
+  font-weight: 500;
+  color: var(--color-foreground);
+}
+
+.presenterEmail {
+  font-size: 0.875rem;
+  color: var(--color-secondary-text);
+}
+
+.dateCell {
+  color: var(--color-secondary-text);
+  white-space: nowrap;
+}
+
+.noGames {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--color-secondary-text);
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .table {
+    font-size: 0.875rem;
+  }
+  
+  .tableHeader th,
+  .tableCell {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .presenterDetails {
+    display: none; /* Hide email on mobile */
+  }
+  
+  .presenterInfo {
+    justify-content: flex-start;
+  }
+}
