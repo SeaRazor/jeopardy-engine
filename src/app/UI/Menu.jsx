@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import {
   FaTrophy,
   FaUsers,
-  FaMicrophone,
+  FaUsersCog,
   FaSignInAlt,
   FaSignOutAlt
 } from 'react-icons/fa';
@@ -25,9 +25,9 @@ const menuItems = [
     icon: <FaUsers className={styles.menuIcon} />
   },
   {
-    label: 'Presenters',
-    href: '/presenters',
-    icon: <FaMicrophone className={styles.menuIcon} />
+    label: 'Users',
+    href: '/users',
+    icon: <FaUsersCog className={styles.menuIcon} />
   },
 ];
 

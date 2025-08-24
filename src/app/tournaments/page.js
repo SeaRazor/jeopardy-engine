@@ -53,8 +53,7 @@ export default function TournamentsPage() {
   if (isError) return <p>Ошибка загрузки турниров.</p>;
 
   return (
-    <div className="container">
-      <h1>Турниры</h1>
+    <div className={styles.container}>
       <div className={styles.controls}>
         <TournamentFilters
           filters={filters}

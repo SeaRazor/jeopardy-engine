@@ -2,6 +2,7 @@
   {
     "id": 1,
     "schemeName": "Double Elimination",
+    "description": "Double Elimination",
     "participantsNum": 64,
     "stages": [
       {
@@ -96,6 +97,7 @@
   {
     "id": 2,
     "schemeName": "Double Elimination",
+    "description": "Double Elimination",
     "participantsNum": 32,
     "stages": [
       {
@@ -185,6 +187,7 @@
   {
     "id": 3,
     "schemeName": "Олимпийская",
+    "description": "Олимпийская",
     "participantsNum": 32,
     "stages": [
       {

@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Alex Trebek",
+    "email": "alex.trebek@jeopardy.com",
+    "role": "presenter",
+    "color": "#e57373"
+  },
+  {
+    "id": 2,
+    "name": "Mayim Bialik",
+    "email": "mayim.bialik@jeopardy.com",
+    "role": "presenter",
+    "color": "#81c784"
+  },
+  {
+    "id": 3,
+    "name": "Admin User",
+    "email": "admin@jeopardy.com",
+    "role": "systemAdmin",
+    "color": "#64b5f6"
+  },
+  {
+    "id": 4,
+    "name": "Tournament Manager",
+    "email": "tournament.manager@jeopardy.com",
+    "role": "tournamentAdmin",
+    "color": "#ffb74d"
+  }
+]

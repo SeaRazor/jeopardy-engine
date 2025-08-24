@@ -54,19 +54,27 @@ export default function TournamentDetailPage() {
     }
   }, [isError, router]);
 
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId);
+    // Update URL with query parameter
+    const url = new URL(window.location);
+    url.searchParams.set('tab', tabId);
+    router.push(url.pathname + url.search, undefined, { shallow: true });
+  };
+
   const handleUpdateParticipants = (participants) => {
     // In a real app, this would update the tournament via API
     console.log('Updated participants:', participants);
   };
 
   if (isLoading) return (
-    <div className="container">
+    <div className={styles.container}>
       <div className={styles.loading}>Загрузка турнира...</div>
     </div>
   );
 
   if (isError) return (
-    <div className="container">
+    <div className={styles.container}>
       <div className={styles.error}>
         <div className={styles.errorTitle}>
           <FaInfoCircle className={styles.errorIcon} />
@@ -89,7 +97,7 @@ export default function TournamentDetailPage() {
   const typeLabel = getTypeLabel(tournament.type);
 
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.pageHeader}>
           <div className={styles.breadcrumbTrail}>
@@ -144,6 +152,9 @@ export default function TournamentDetailPage() {
               </div>
               <div className={styles.detailValue}>
                 {tournament.schema?.schemeName}
+                {tournament.schema?.description  && (
+                  <span className={styles.schemaDescription}> - {tournament.schema.description}</span>
+                )}
               </div>
             </div>
             <div className={styles.detail}>
@@ -162,7 +173,7 @@ export default function TournamentDetailPage() {
       <TournamentTabs 
         tournament={tournament}
         activeTab={activeTab}
-        onTabChange={setActiveTab}
+        onTabChange={handleTabChange}
       />
 
       <div >
@@ -190,6 +201,6 @@ export default function TournamentDetailPage() {
           );
         })()}
       </div>
-    </>
+    </div>
   );
 }
