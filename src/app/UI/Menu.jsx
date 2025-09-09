@@ -12,6 +12,7 @@ import {
 } from 'react-icons/fa';
 import { isAuthenticated, getCurrentUser, logout } from '../util/auth';
 import ThemeSwitcher from './ThemeSwitcher'; // Import the ThemeSwitcher
+import RoleGuard from '../components/auth/RoleGuard';
 import styles from './Menu.module.css';
 
 const menuItems = [
@@ -68,17 +69,32 @@ export default function Menu() {
         <img src="/je_transparent.png" alt="Jeopardy Engine" className={styles.logoImage} />
       </Link>
       <ul className={styles.menuList}>
-        {menuItems.map(item => (
-          <li key={item.label}>
-            <Link
-              href={item.href}
-              className={`${styles.menuItem} ${pathname === item.href || (pathname === '/' && item.href === '/tournaments') ? styles.menuItemActive : ''}`}
-            >
-              <span className={styles.menuIcon}>{item.icon}</span>
-              <span>{item.label}</span>
-            </Link>
-          </li>
-        ))}
+        {menuItems.map(item => {
+          // Define role-based visibility
+          let allowedRoles = ['guest', 'presenter', 'tournamentAdmin', 'systemAdmin']; // All roles by default
+          
+          if (item.href === '/users') {
+            allowedRoles = ['systemAdmin']; // Only system admins can access users
+          } else if (item.href === '/players') {
+            allowedRoles = ['tournamentAdmin', 'systemAdmin']; // Tournament admins and system admins
+          } else if (item.href === '/assigned-games') {
+            allowedRoles = ['presenter', 'tournamentAdmin', 'systemAdmin']; // No guests
+          }
+
+          return (
+            <RoleGuard key={item.label} allowedRoles={allowedRoles}>
+              <li>
+                <Link
+                  href={item.href}
+                  className={`${styles.menuItem} ${pathname === item.href || (pathname === '/' && item.href === '/tournaments') ? styles.menuItemActive : ''}`}
+                >
+                  <span className={styles.menuIcon}>{item.icon}</span>
+                  <span>{item.label}</span>
+                </Link>
+              </li>
+            </RoleGuard>
+          );
+        })}
       </ul>
       <div className={styles.authSection}>
         <ThemeSwitcher /> {/* Add the ThemeSwitcher here */}
@@ -122,18 +138,33 @@ export default function Menu() {
       </button>
       {open && (
         <ul className={styles.mobileMenu}>
-          {menuItems.map(item => (
-            <li key={item.label}>
-              <Link
-                href={item.href}
-                className={`${styles.menuItem} ${pathname === item.href || (pathname === '/' && item.href === '/tournaments') ? styles.menuItemActive : ''}`}
-                onClick={() => setOpen(false)}
-              >
-                <span className={styles.menuIcon}>{item.icon}</span>
-                <span>{item.label}</span>
-              </Link>
-            </li>
-          ))}
+          {menuItems.map(item => {
+            // Define role-based visibility (same logic as desktop)
+            let allowedRoles = ['guest', 'presenter', 'tournamentAdmin', 'systemAdmin']; 
+            
+            if (item.href === '/users') {
+              allowedRoles = ['systemAdmin'];
+            } else if (item.href === '/players') {
+              allowedRoles = ['tournamentAdmin', 'systemAdmin'];
+            } else if (item.href === '/assigned-games') {
+              allowedRoles = ['presenter', 'tournamentAdmin', 'systemAdmin'];
+            }
+
+            return (
+              <RoleGuard key={item.label} allowedRoles={allowedRoles}>
+                <li>
+                  <Link
+                    href={item.href}
+                    className={`${styles.menuItem} ${pathname === item.href || (pathname === '/' && item.href === '/tournaments') ? styles.menuItemActive : ''}`}
+                    onClick={() => setOpen(false)}
+                  >
+                    <span className={styles.menuIcon}>{item.icon}</span>
+                    <span>{item.label}</span>
+                  </Link>
+                </li>
+              </RoleGuard>
+            );
+          })}
           {/* Add ThemeSwitcher to mobile menu as well */}
           <li>
             <ThemeSwitcher />
