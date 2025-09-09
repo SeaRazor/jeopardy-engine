@@ -65,6 +65,7 @@ export default function GameDetailsPage() {
   const [isTiebreakSelectionOpen, setIsTiebreakSelectionOpen] = useState(false);
   const [tempTiebreakParticipants, setTempTiebreakParticipants] = useState(new Set());
   const [isProcessingThemeCompletion, setIsProcessingThemeCompletion] = useState(false);
+  const [mobileQuestionIndex, setMobileQuestionIndex] = useState(0);
   const saveTimeoutRef = useRef(null);
 
   const { id: tournamentId, stageId, gameId } = params;
@@ -476,6 +477,19 @@ export default function GameDetailsPage() {
 
   const handleNextTheme = () => {
     setSelectedThemeIndex(prev => prev < themes.length - 1 ? prev + 1 : 0);
+  };
+
+  // Mobile question navigation functions
+  const handleNextQuestion = () => {
+    if (mobileQuestionIndex < 4) { // 5 questions (0-4)
+      setMobileQuestionIndex(mobileQuestionIndex + 1);
+    }
+  };
+
+  const handlePrevQuestion = () => {
+    if (mobileQuestionIndex > 0) {
+      setMobileQuestionIndex(mobileQuestionIndex - 1);
+    }
   };
 
   const handleQuestionClick = (themeIndex, questionIndex, playerId = null) => {
@@ -1232,14 +1246,44 @@ export default function GameDetailsPage() {
                   </span>
                 )}
               </div>
-              {selectedTheme.questions.map((question) => (
-                <div key={question.id} className={styles.questionHeader}>
-                  {question.value}
+              
+              {/* Mobile: Question Navigation, Desktop: Question Headers */}
+              {typeof window !== 'undefined' && window.innerWidth <= 767 ? (
+                <div className={styles.questionNavHeader}>
+                  <button 
+                    className={styles.questionNavButton}
+                    onClick={handlePrevQuestion}
+                    disabled={mobileQuestionIndex === 0}
+                    aria-label="Предыдущий вопрос"
+                  >
+                    <FaChevronLeft />
+                  </button>
+                  
+                  <div className={styles.questionNavInfo}>
+                    <span className={styles.questionNavValue}>
+                      {(mobileQuestionIndex + 1) * 10}
+                    </span>
+                  </div>
+                  
+                  <button 
+                    className={styles.questionNavButton}
+                    onClick={handleNextQuestion}
+                    disabled={mobileQuestionIndex === 4}
+                    aria-label="Следующий вопрос"
+                  >
+                    <FaChevronRight />
+                  </button>
                 </div>
-              ))}
+              ) : (
+                selectedTheme.questions.map((question) => (
+                  <div key={question.id} className={styles.questionHeader}>
+                    {question.value}
+                  </div>
+                ))
+              )}
             </div>
 
-            {/* Player Rows */}
+            {/* Desktop: All Players with All Questions, Mobile: All Players with Score and Question Cell */}
             {players.map((player, playerIndex) => (
               <div key={player.playerId} className={styles.gridRow}>
                 <div className={styles.playerCell}>
@@ -1257,7 +1301,14 @@ export default function GameDetailsPage() {
                   {player.points}
                 </div>
                 
-                {selectedTheme.questions.map((question, questionIndex) => (
+                {/* Question Cell - Desktop: All Questions, Mobile: Single Question */}
+                {(typeof window !== 'undefined' && window.innerWidth <= 767 
+                  ? [selectedTheme.questions[mobileQuestionIndex]].filter(Boolean).map(q => ({...q, index: mobileQuestionIndex}))
+                  : selectedTheme.questions.map((q, i) => ({...q, index: i}))
+                ).map((questionObj, displayIndex) => {
+                  const question = questionObj;
+                  const questionIndex = questionObj.index;
+                  return (
                   <div 
                     key={question.id}
                     className={`${styles.questionCell} ${
@@ -1306,7 +1357,8 @@ export default function GameDetailsPage() {
                       </button>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             ))}
             </div>
@@ -1364,14 +1416,19 @@ export default function GameDetailsPage() {
 
             {/* Mobile Accordion */}
             <div className={styles.accordionSection}>
-              <AdaptiveButton
+              <button
                 onClick={() => setIsAccordionOpen(!isAccordionOpen)}
                 className={styles.accordionToggle}
-                icon={isAccordionOpen ? FaChevronUp : FaChevronDown}
-                text={`Тема ${selectedThemeIndex + 1} из ${themes.length}${completedThemes.has(selectedThemeIndex) ? ' ✓' : ''}`}
                 title={isAccordionOpen ? 'Скрыть темы' : 'Показать темы'}
-                variant="secondary"
-              />
+              >
+                <span className={styles.accordionLabel}>
+                  {completedThemes.has(selectedThemeIndex) && (
+                    <FaCheck className={styles.accordionCheckIcon} />
+                  )}
+                  {themes[selectedThemeIndex]?.name || `Тема ${selectedThemeIndex + 1}`} ({selectedThemeIndex + 1}/{themes.length})
+                </span>
+                {isAccordionOpen ? <FaChevronUp /> : <FaChevronDown />}
+              </button>
               
               {isAccordionOpen && (
                 <div className={styles.accordionContent}>

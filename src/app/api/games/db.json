@@ -4133,7 +4133,7 @@
       {
         "playerId": "hd116h7akvo28rb5hil66r",
         "sourceReference": null,
-        "points": 20,
+        "points": 30,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -4142,7 +4142,7 @@
       {
         "playerId": "vaqr45n4j3ozo42mhw3fd",
         "sourceReference": null,
-        "points": -40,
+        "points": -50,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -4410,8 +4410,14 @@
             {
               "id": "6-1",
               "value": 10,
-              "answered": false,
-              "answeredBy": null
+              "answered": true,
+              "answeredBy": "hd116h7akvo28rb5hil66r",
+              "correctAnswers": [
+                "hd116h7akvo28rb5hil66r"
+              ],
+              "incorrectAnswers": [
+                "vaqr45n4j3ozo42mhw3fd"
+              ]
             },
             {
               "id": "6-2",
@@ -4444,7 +4450,8 @@
         "hd116h7akvo28rb5hil66r": [
           "1-2",
           "4-4",
-          "5-4"
+          "5-4",
+          "6-1"
         ],
         "vaqr45n4j3ozo42mhw3fd": [
           "1-3",
@@ -4452,7 +4459,8 @@
           "2-2",
           "2-3",
           "3-1",
-          "4-2"
+          "4-2",
+          "6-1"
         ],
         "urlu3qkr6axgty8ru37o": [
           "1-3",
@@ -4471,7 +4479,7 @@
         4
       ]
     },
-    "updatedAt": "2025-09-09T09:03:33.441Z",
+    "updatedAt": "2025-09-09T10:39:23.184Z",
     "completedThemes": [
       0,
       1,
