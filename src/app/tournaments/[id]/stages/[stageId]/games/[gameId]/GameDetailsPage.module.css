@@ -1812,7 +1812,8 @@
   }
 
   .questionContent {
-    flex-direction: row !important;
+    flex-direction: row;
+    justify-content: space-between;
     gap: 0.25rem;
     padding: 0.4rem;
     align-items: center;
@@ -1891,7 +1892,8 @@
   }
 
   .questionContent {
-    flex-direction: row !important;
+    flex-direction: row;
+    justify-content: space-between;
     gap: 0.2rem;
     padding: 0.3rem;
     align-items: center;
@@ -2063,7 +2065,8 @@
   }
 
   .questionContent {
-    flex-direction: row !important;
+    flex-direction: row;
+    justify-content: space-between;
     gap: 0.2rem;
     padding: 0.25rem;
     align-items: center;
@@ -2508,9 +2511,6 @@
     font-size: 1rem;
   }
 
-  .questionContent {
-    padding-right: 88px;
-  }
 
   .playerHeader {
     padding: 0.75rem 0.5rem;

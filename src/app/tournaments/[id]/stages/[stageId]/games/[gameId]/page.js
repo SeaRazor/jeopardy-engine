@@ -1215,19 +1215,6 @@ export default function GameDetailsPage() {
                   </h3>
                 </div>
                 
-                <div className={styles.themeControls}>
-                  <div className={styles.themeActions}>
-                    <AdaptiveButton
-                      onClick={handleCompleteTheme}
-                      className={`${styles.actionButton} ${styles.completeThemeButton}`}
-                      disabled={completedThemes.has(selectedThemeIndex)}
-                      icon={FaCheck}
-                      text={completedThemes.has(selectedThemeIndex) ? 'Завершена' : 'Закончить тему'}
-                      title={completedThemes.has(selectedThemeIndex) ? 'Тема завершена' : 'Закончить тему'}
-                      variant="primary"
-                    />
-                  </div>
-                </div>
               </div>
             </div>
           )}
@@ -1465,6 +1452,15 @@ export default function GameDetailsPage() {
             </div>
             
             <div className={styles.endGameSection}>
+              <AdaptiveButton
+                onClick={handleCompleteTheme}
+                className={`${styles.actionButton} ${styles.completeThemeButton}`}
+                disabled={completedThemes.has(selectedThemeIndex)}
+                icon={FaCheck}
+                text={completedThemes.has(selectedThemeIndex) ? 'Завершена' : 'Закончить тему'}
+                title={completedThemes.has(selectedThemeIndex) ? 'Тема завершена' : 'Закончить тему'}
+                variant="primary"
+              />
               <AdaptiveButton
                 onClick={handleStartTiebreak}
                 className={`${styles.actionButton} ${styles.tieBreakButton}`}
