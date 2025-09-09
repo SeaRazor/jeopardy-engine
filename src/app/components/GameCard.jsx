@@ -6,6 +6,7 @@ import Card from '../UI/Card/Card';
 import ConfirmationDialog from '../UI/ConfirmationDialog';
 import { getReferenceDisplayText, needsResolution, parsePlayerReference, getPositionText } from '../util/referenceSystem';
 import { useToast } from '../util/ToastContext';
+import { isGameActive, isGameCompleted } from '../util/gamePollingUtils';
 import styles from './GameCard.module.css';
 
 export default function GameCard({ game, stage, showActions = false, onEdit, onDelete, playerManagementState, tournamentData = null, allTournamentGames = [] }) {
@@ -549,6 +550,12 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
             >
               {isFinalStage ? 'Финал' : `Бой ${currentGame.gameNumber || currentGame.id}`}
             </a>
+            {isGameActive(currentGame) && (
+              <span className={`${styles.liveBadge} ${styles.active}`}>
+                <span className={styles.liveDot}></span>
+                LIVE
+              </span>
+            )}
           </h4>
           <div className={styles.accordionSummary}>
             <span className={styles.accordionLocation}>{currentGame.gamePlace}</span>
@@ -598,6 +605,7 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
         </div>
       </div>
 
+
       {/* Desktop Card Title */}
       <div className={styles.desktopCardTitle}>
         <div className={styles.desktopTitleContent}>
@@ -608,6 +616,12 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
             >
               {isFinalStage ? 'Финал' : `Бой ${currentGame.gameNumber || currentGame.id}`}
             </a>
+            {isGameActive(currentGame) && (
+              <span className={`${styles.liveBadge} ${styles.active}`}>
+                <span className={styles.liveDot}></span>
+                LIVE
+              </span>
+            )}
           </h4>
           {showActions && !isEditing && (
             gameCompleted ? (

@@ -1339,3 +1339,56 @@
     text-align: center;
   }
 }
+
+/* Live Badge */
+.liveBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: 4px;
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  transition: all 0.3s ease;
+}
+
+.liveBadge.active {
+  background: rgba(220, 38, 38, 0.1);
+  color: rgb(220, 38, 38);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.liveDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .liveBadge {
+    font-size: 0.5rem;
+    padding: 0.0625rem 0.25rem;
+    margin-left: 0.375rem;
+  }
+  
+  .liveDot {
+    width: 3px;
+    height: 3px;
+  }
+}

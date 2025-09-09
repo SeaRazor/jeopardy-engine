@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { getTournamentPollingInterval } from '../../util/gamePollingUtils';
 import styles from './OlympicBracketTab.module.css';
 
 // Fetch all games for tournament
@@ -14,11 +15,15 @@ const fetchTournamentGames = async (tournamentId) => {
 export const OlympicBracketTab = ({ tournament }) => {
   const [bracketData, setBracketData] = useState(null);
   
-  // Fetch all tournament games
-  const { data: allGames = [], isLoading } = useQuery({
+  // Fetch all tournament games with smart polling
+  const { data: allGames = [], isLoading, isFetching } = useQuery({
     queryKey: ['tournament-games', tournament?.id],
     queryFn: () => fetchTournamentGames(tournament.id),
-    enabled: !!tournament?.id
+    enabled: !!tournament?.id,
+    refetchInterval: (data) => getTournamentPollingInterval(data?.data || []),
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
+    staleTime: 5000
   });
 
   useEffect(() => {

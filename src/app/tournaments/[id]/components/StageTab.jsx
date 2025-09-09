@@ -6,6 +6,7 @@ import { FaUsers, FaTrophy, FaInfoCircle, FaGamepad, FaUserSlash, FaChevronDown,
 import InfoComponent from '../../../UI/InfoComponent/InfoComponent';
 import GameCard from '../../../components/GameCard';
 import { getPlayerManagementState } from '../../../util/playerManagementUtils';
+import { getStagePollingInterval, getActiveGamesCount, getCompletedGamesCount } from '../../../util/gamePollingUtils';
 import ThemeEditModal from './ThemeEditModal';
 import styles from './StageTab.module.css';
 
@@ -114,10 +115,14 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
     );
   }
 
-  // Fetch games for this stage
+  // Fetch games for this stage with smart polling
   const { data: gamesData = [], isLoading: gamesLoading, isError: gamesError, isFetching } = useQuery({
     queryKey: ['stage-games', tournament.id, stage.id],
     queryFn: () => fetchStageGames(tournament.id, stage.id),
+    refetchInterval: (data) => getStagePollingInterval(data?.data || []),
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
+    staleTime: 3000
   });
 
   // Fetch all tournament games for reference resolution
@@ -565,6 +570,19 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
             
             
           </div>
+          
+          {/* Real-time Status Indicator */}
+          {getActiveGamesCount(allGames) > 0 && (
+            <div className={`${styles.liveStatus} ${isFetching ? styles.updating : ''}`}>
+              <span className={styles.liveIcon}>🔴</span>
+              <span className={styles.liveText}>
+                {isFetching ? 'Обновление...' : 'Live обновления'}
+              </span>
+              <span className={styles.liveStats}>
+                {getActiveGamesCount(allGames)} активных, {getCompletedGamesCount(allGames)} завершено
+              </span>
+            </div>
+          )}
         </div>
 
         {gamesLoading && (

@@ -1379,3 +1379,59 @@
     gap: 0.25rem;
   }
 }
+
+/* Live Status Indicator */
+.liveStatus {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--accent-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.liveStatus.updating {
+  background: rgba(var(--primary-color-rgb, 59, 130, 246), 0.05);
+  border-color: rgba(var(--primary-color-rgb, 59, 130, 246), 0.2);
+}
+
+.liveIcon {
+  font-size: 0.875rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.liveText {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-primary-text);
+}
+
+.liveStats {
+  font-size: 0.8125rem;
+  color: var(--color-secondary-text);
+  margin-left: auto;
+}
+
+@media (max-width: 767px) {
+  .liveStatus {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .liveStats {
+    margin-left: 0;
+  }
+}

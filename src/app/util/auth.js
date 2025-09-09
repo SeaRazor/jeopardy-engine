@@ -3,11 +3,13 @@
 // Check if user is authenticated
 const isAuthenticated = () => {
   // For now, just check if user data exists in localStorage
+  if (typeof window === 'undefined') return false;
   return !!localStorage.getItem('user');
 };
 
 // Get current user data
 const getCurrentUser = () => {
+  if (typeof window === 'undefined') return null;
   const user = localStorage.getItem('user');
   return user ? JSON.parse(user) : null;
 };
@@ -45,7 +47,9 @@ const login = async (email, password) => {
         name: email.split('@')[0],
         role: role
       };
-      localStorage.setItem('user', JSON.stringify(user));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('user', JSON.stringify(user));
+      }
       resolve(user);
     }, 500);
   });
@@ -66,7 +70,9 @@ const signup = async (email, password, name) => {
         name: name,
         role: role
       };
-      localStorage.setItem('user', JSON.stringify(user));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('user', JSON.stringify(user));
+      }
       resolve(user);
     }, 500);
   });
@@ -74,7 +80,9 @@ const signup = async (email, password, name) => {
 
 // Logout function
 const logout = () => {
-  localStorage.removeItem('user');
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('user');
+  }
   return true;
 };
 

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { FaUsers, FaMicrophone, FaTrophy, FaUserTimes, FaCheckCircle, FaChevronLeft, FaChevronRight, FaCheck, FaInfoCircle, FaChevronRight as FaBreadcrumbChevron, FaPlus, FaMinus, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import Link from 'next/link';
 import Card from '../../../../../../UI/Card/Card';
@@ -10,12 +11,38 @@ import ConfirmationDialog from '../../../../../../UI/ConfirmationDialog';
 import TiebreakSelectionDialog from '../../../../../../UI/TiebreakSelectionDialog';
 import AdaptiveButton from '../../../../../../UI/AdaptiveButton';
 import { useToast } from '../../../../../../util/ToastContext';
-// Removed client-side import - now handled server-side
+import { getGamePollingInterval, isGameActive } from '../../../../../../util/gamePollingUtils';
 import styles from './GameDetailsPage.module.css';
+
+// Fetch functions for TanStack Query
+const fetchGameData = async (tournamentId, stageId, gameId) => {
+  const response = await fetch(`/api/tournaments/${tournamentId}/stages/${stageId}/games/${gameId}`);
+  if (!response.ok) throw new Error('Failed to fetch game');
+  return response.json();
+};
+
+const fetchTournamentData = async (tournamentId) => {
+  const response = await fetch(`/api/tournaments/${tournamentId}`);
+  if (!response.ok) throw new Error('Failed to fetch tournament');
+  return response.json();
+};
+
+const fetchPresenters = async () => {
+  const response = await fetch('/api/presenters');
+  if (!response.ok) throw new Error('Failed to fetch presenters');
+  return response.json();
+};
+
+const fetchPlayers = async () => {
+  const response = await fetch('/api/players');
+  if (!response.ok) throw new Error('Failed to fetch players');
+  return response.json();
+};
 
 export default function GameDetailsPage() {
   const params = useParams();
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { showError, showSuccess, showInfo } = useToast();
   
   const [game, setGame] = useState(null);
@@ -37,9 +64,52 @@ export default function GameDetailsPage() {
   const [tiebreakParticipants, setTiebreakParticipants] = useState(new Set());
   const [isTiebreakSelectionOpen, setIsTiebreakSelectionOpen] = useState(false);
   const [tempTiebreakParticipants, setTempTiebreakParticipants] = useState(new Set());
+  const [isProcessingThemeCompletion, setIsProcessingThemeCompletion] = useState(false);
   const saveTimeoutRef = useRef(null);
 
   const { id: tournamentId, stageId, gameId } = params;
+
+  // TanStack Query hooks for data fetching with smart polling
+  const { 
+    data: gameData, 
+    isLoading: gameLoading, 
+    error: gameError,
+    isFetching: gameIsFetching 
+  } = useQuery({
+    queryKey: ['game', tournamentId, stageId, gameId],
+    queryFn: () => fetchGameData(tournamentId, stageId, gameId),
+    enabled: !!(tournamentId && stageId && gameId),
+    refetchInterval: (data) => getGamePollingInterval(data?.data),
+    refetchOnWindowFocus: (query) => isGameActive(query.state.data),
+    refetchOnReconnect: true,
+    staleTime: 2000
+  });
+
+  const { 
+    data: tournamentData, 
+    isLoading: tournamentLoading 
+  } = useQuery({
+    queryKey: ['tournament', tournamentId],
+    queryFn: () => fetchTournamentData(tournamentId),
+    enabled: !!tournamentId,
+    staleTime: 30000
+  });
+
+  const { 
+    data: presentersData 
+  } = useQuery({
+    queryKey: ['presenters'],
+    queryFn: fetchPresenters,
+    staleTime: 60000
+  });
+
+  const { 
+    data: playersData 
+  } = useQuery({
+    queryKey: ['players'],
+    queryFn: fetchPlayers,
+    staleTime: 60000
+  });
 
   // Utility functions for tiebreak management
   const getTieBreakThemes = useCallback(() => {
@@ -107,100 +177,101 @@ export default function GameDetailsPage() {
     return tieBreakScore;
   }, [getLatestTieBreakTheme]);
 
+  // Process query data when it changes
   useEffect(() => {
-    const fetchGameData = async () => {
-      try {
-        setLoading(true);
+    if (gameError) {
+      console.error('Error fetching game data:', gameError);
+      showError('Ошибка загрузки данных игры');
+      setLoading(false);
+      return;
+    }
 
-        // Fetch game data
-        const gameResponse = await fetch(`/api/tournaments/${tournamentId}/stages/${stageId}/games/${gameId}`);
-        if (!gameResponse.ok) throw new Error('Failed to fetch game');
-        const gameData = await gameResponse.json();
-        setGame(gameData);
+    if (gameLoading || tournamentLoading) {
+      setLoading(true);
+      return;
+    }
 
-        // Fetch tournament data
-        const tournamentResponse = await fetch(`/api/tournaments/${tournamentId}`);
-        if (!tournamentResponse.ok) throw new Error('Failed to fetch tournament');
-        const tournamentData = await tournamentResponse.json();
-        setTournament(tournamentData);
+    if (!gameData || !tournamentData) {
+      return;
+    }
 
-        // Find the stage
-        const stageData = tournamentData.schema.stages.find(s => s.id === parseInt(stageId));
-        setStage(stageData);
+    try {
+      // Set game data
+      setGame(gameData);
+      
+      // Set tournament data
+      setTournament(tournamentData);
 
-        // Fetch presenter if exists
-        if (gameData.presenterId) {
-          const presenterResponse = await fetch('/api/presenters');
-          if (presenterResponse.ok) {
-            const presenters = await presenterResponse.json();
-            const gamePresenter = presenters.find(p => p.id === gameData.presenterId);
-            setPresenter(gamePresenter);
-          }
-        }
+      // Find the stage
+      const stageData = tournamentData.schema.stages.find(s => s.id === parseInt(stageId));
+      setStage(stageData);
 
-        // Initialize themes first so we can calculate scores
-        const stageThemes = gameData.stageThemes || [];
-        const numberOfThemes = stageThemes.length || stageData?.numberOfThemesInGame || 6;
-        
-        // Check if we have saved game state with question answers
-        const savedGameState = gameData.gameState;
-        let initialThemes;
+      // Set presenter if exists
+      if (gameData.presenterId && presentersData) {
+        const gamePresenter = presentersData.find(p => p.id === gameData.presenterId);
+        setPresenter(gamePresenter);
+      }
 
-        if (savedGameState && savedGameState.themes) {
-          // Restore themes with all question answers from saved state
-          initialThemes = savedGameState.themes;
-        } else {
-          // Initialize fresh themes if no saved state exists
-          initialThemes = Array.from({ length: numberOfThemes }, (_, index) => {
-            const themeData = stageThemes[index];
-            let themeName = `Тема ${index + 1}`;
-            let themeDescription = '';
-            
-            // Handle both string and object formats
-            if (themeData) {
-              if (typeof themeData === 'string') {
-                themeName = themeData;
-              } else if (typeof themeData === 'object' && themeData.name) {
-                themeName = themeData.name;
-                themeDescription = themeData.description || '';
-              }
+      // Initialize themes first so we can calculate scores
+      const stageThemes = gameData.stageThemes || [];
+      const numberOfThemes = stageThemes.length || stageData?.numberOfThemesInGame || 6;
+      
+      // Check if we have saved game state with question answers
+      const savedGameState = gameData.gameState;
+      let initialThemes;
+
+      if (savedGameState && savedGameState.themes) {
+        // Restore themes with all question answers from saved state
+        initialThemes = savedGameState.themes;
+      } else {
+        // Initialize fresh themes if no saved state exists
+        initialThemes = Array.from({ length: numberOfThemes }, (_, index) => {
+          const themeData = stageThemes[index];
+          let themeName = `Тема ${index + 1}`;
+          let themeDescription = '';
+          
+          // Handle both string and object formats
+          if (themeData) {
+            if (typeof themeData === 'string') {
+              themeName = themeData;
+            } else if (typeof themeData === 'object' && themeData.name) {
+              themeName = themeData.name;
+              themeDescription = themeData.description || '';
             }
-            
-            return {
-              id: index + 1,
-              name: themeName,
-              description: themeDescription,
-              questions: Array.from({ length: 5 }, (_, qIndex) => ({
-                id: `${index + 1}-${qIndex + 1}`,
-                value: (qIndex + 1) * 10,
-                answered: false,
-                answeredBy: null
-              }))
-            };
-          });
-        }
-        
-        setThemes(initialThemes);
-
-        // Fetch players data
-        if (gameData.participants?.length > 0) {
-          const playersResponse = await fetch('/api/players');
-          if (playersResponse.ok) {
-            const allPlayers = await playersResponse.json();
-            const gameParticipants = gameData.participants.map(participant => {
-              const playerInfo = allPlayers.find(p => p.id === participant.playerId);
-              return {
-                ...participant,
-                playerInfo
-              };
-            }).filter(p => p.playerInfo);
-
-            setPlayers(gameParticipants);
           }
-        }
+          
+          return {
+            id: index + 1,
+            name: themeName,
+            description: themeDescription,
+            questions: Array.from({ length: 5 }, (_, qIndex) => ({
+              id: `${index + 1}-${qIndex + 1}`,
+              value: (qIndex + 1) * 10,
+              answered: false,
+              answeredBy: null
+            }))
+          };
+        });
+      }
+      
+      setThemes(initialThemes);
 
+      // Set players data
+      if (gameData.participants?.length > 0 && playersData) {
+        const gameParticipants = gameData.participants.map(participant => {
+          const playerInfo = playersData.find(p => p.id === participant.playerId);
+          return {
+            ...participant,
+            playerInfo
+          };
+        }).filter(p => p.playerInfo);
 
-        // Load completed themes from saved game state or legacy field
+        setPlayers(gameParticipants);
+      }
+
+      // Load completed themes from saved game state or legacy field
+      // Only update if we don't have a pending theme completion operation
+      if (!themeToComplete && !isProcessingThemeCompletion) {
         let completedThemesData = [];
         if (savedGameState && savedGameState.completedThemes) {
           completedThemesData = savedGameState.completedThemes;
@@ -208,28 +279,24 @@ export default function GameDetailsPage() {
           completedThemesData = gameData.completedThemes;
         }
         setCompletedThemes(new Set(completedThemesData));
-
-        // Restore revealed questions from saved game state
-        if (savedGameState && savedGameState.revealedQuestions) {
-          const restoredRevealedQuestions = new Map();
-          Object.entries(savedGameState.revealedQuestions).forEach(([playerId, questionIds]) => {
-            restoredRevealedQuestions.set(playerId, new Set(questionIds));
-          });
-          setRevealedQuestions(restoredRevealedQuestions);
-        }
-
-      } catch (error) {
-        console.error('Error fetching game data:', error);
-        showError('Ошибка загрузки данных игры');
-      } finally {
-        setLoading(false);
       }
-    };
 
-    if (tournamentId && stageId && gameId) {
-      fetchGameData();
+      // Restore revealed questions from saved game state
+      if (savedGameState && savedGameState.revealedQuestions) {
+        const restoredRevealedQuestions = new Map();
+        Object.entries(savedGameState.revealedQuestions).forEach(([playerId, questionIds]) => {
+          restoredRevealedQuestions.set(playerId, new Set(questionIds));
+        });
+        setRevealedQuestions(restoredRevealedQuestions);
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.error('Error processing game data:', error);
+      showError('Ошибка обработки данных игры');
+      setLoading(false);
     }
-  }, [tournamentId, stageId, gameId, showError]);
+  }, [gameData, tournamentData, presentersData, playersData, gameError, gameLoading, tournamentLoading, stageId, showError, themeToComplete, isProcessingThemeCompletion]);
 
 
   // Batch save scores with debouncing
@@ -289,6 +356,11 @@ export default function GameDetailsPage() {
       
       // Clear pending changes after successful save
       setPendingScoreChanges(new Map());
+
+      // Invalidate related queries to trigger real-time updates in other components
+      queryClient.invalidateQueries({ queryKey: ['game', tournamentId, stageId, gameId] });
+      queryClient.invalidateQueries({ queryKey: ['stage-games', tournamentId, stageId] });
+      queryClient.invalidateQueries({ queryKey: ['tournament-games', tournamentId] });
       
     } catch (error) {
       console.error('Error saving scores:', error);
@@ -303,7 +375,7 @@ export default function GameDetailsPage() {
     } finally {
       setIsSavingScores(false);
     }
-  }, [game, pendingScoreChanges, players, themes, revealedQuestions, completedThemes, tournamentId, stageId, gameId, showError]);
+  }, [game, pendingScoreChanges, players, themes, revealedQuestions, completedThemes, tournamentId, stageId, gameId, showError, queryClient, calculateMainScore, calculateLatestTieBreakScore]);
 
   // Debounced save trigger
   const triggerDebouncedSave = useCallback(() => {
@@ -477,20 +549,18 @@ export default function GameDetailsPage() {
     if (!themeToComplete) return;
     
     try {
+      setIsProcessingThemeCompletion(true);
+      
       // Save any pending score changes first
       if (pendingScoreChanges.size > 0) {
         await batchSaveScores();
       }
 
-      // Update local state first for immediate UI feedback
-      setCompletedThemes(prev => {
-        const newCompleted = new Set(prev);
-        newCompleted.add(themeToComplete.index);
-        return newCompleted;
-      });
-      
-      // Save theme completion state to API
+      // Calculate updated completed themes including the new one
       const updatedCompletedThemes = Array.from(new Set([...completedThemes, themeToComplete.index]));
+      
+      // Update local state for immediate UI feedback
+      setCompletedThemes(new Set(updatedCompletedThemes));
       
       // Convert revealedQuestions Map to serializable object
       const revealedQuestionsData = {};
@@ -524,13 +594,17 @@ export default function GameDetailsPage() {
       const updatedGame = await response.json();
       setGame(updatedGame);
       
-      // Close dialog
+      // Close dialog and clear processing state
       setThemeToComplete(null);
+      
+      // Wait a moment before clearing processing state to let any pending queries settle
+      setTimeout(() => {
+        setIsProcessingThemeCompletion(false);
+      }, 1000);
 
       // Auto-navigate to next uncompleted theme
-      const updatedCompletedSet = new Set([...completedThemes, themeToComplete.index]);
       const nextUncompletedTheme = themes.findIndex((_, index) => 
-        index > themeToComplete.index && !updatedCompletedSet.has(index)
+        index > themeToComplete.index && !updatedCompletedThemes.includes(index)
       );
       
       if (nextUncompletedTheme !== -1) {
@@ -548,8 +622,9 @@ export default function GameDetailsPage() {
         return newCompleted;
       });
       
-      // Close dialog
+      // Close dialog and clear processing state
       setThemeToComplete(null);
+      setIsProcessingThemeCompletion(false);
     }
   };
 
@@ -1089,6 +1164,23 @@ export default function GameDetailsPage() {
           </div>
         </div>
       </InfoComponent>
+
+      {/* Real-time Status Indicator */}
+      {isGameActive(game) && (
+        <div className={`${styles.realTimeStatus} ${gameIsFetching ? styles.updating : ''}`}>
+          <div className={styles.statusIndicator}>
+            <span className={styles.liveIcon}>🔴</span>
+            <span className={styles.statusText}>
+              {gameIsFetching ? 'Обновление данных...' : 'Live обновления активны'}
+            </span>
+            {(isSavingScores || pendingScoreChanges.size > 0) && (
+              <span className={styles.saveStatus}>
+                {isSavingScores ? '💾 Сохранение...' : '⏱️ Есть несохраненные изменения'}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Main Game Area */}
       <div className={styles.gameArea}>

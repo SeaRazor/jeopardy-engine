@@ -1874,3 +1874,72 @@
   }
 }
 
+/* Real-time Status Indicator */
+.realTimeStatus {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background: var(--accent-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.realTimeStatus.updating {
+  background: rgba(var(--primary-color-rgb, 59, 130, 246), 0.05);
+  border-color: rgba(var(--primary-color-rgb, 59, 130, 246), 0.2);
+}
+
+.statusIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.liveIcon {
+  font-size: 0.875rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.statusText {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-primary-text);
+}
+
+.saveStatus {
+  font-size: 0.8125rem;
+  color: var(--color-secondary-text);
+  padding: 0.25rem 0.5rem;
+  background: rgba(var(--warning-color-rgb, 245, 158, 11), 0.1);
+  border-radius: 12px;
+  margin-left: auto;
+}
+
+/* Mobile adjustments for real-time status */
+@media (max-width: 767px) {
+  .realTimeStatus {
+    margin: 0.75rem 0;
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .statusIndicator {
+    gap: 0.5rem;
+  }
+  
+  .saveStatus {
+    margin-left: 0;
+    margin-top: 0.25rem;
+    flex-basis: 100%;
+  }
+}
+
