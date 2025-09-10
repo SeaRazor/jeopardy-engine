@@ -479,9 +479,9 @@ export default function GameDetailsPage() {
     setSelectedThemeIndex(prev => prev < themes.length - 1 ? prev + 1 : 0);
   };
 
-  // Mobile question navigation functions
+  // Mobile question navigation functions for two-column layout
   const handleNextQuestion = () => {
-    if (mobileQuestionIndex < 4) { // 5 questions (0-4)
+    if (mobileQuestionIndex < 2) { // 3 pages (0-2): [10,20], [30,40], [50]
       setMobileQuestionIndex(mobileQuestionIndex + 1);
     }
   };
@@ -1234,33 +1234,37 @@ export default function GameDetailsPage() {
                 )}
               </div>
               
-              {/* Mobile: Question Navigation, Desktop: Question Headers */}
+              {/* Question Headers */}
               {typeof window !== 'undefined' && window.innerWidth <= 767 ? (
-                <div className={styles.questionNavHeader}>
-                  <button 
-                    className={styles.questionNavButton}
-                    onClick={handlePrevQuestion}
-                    disabled={mobileQuestionIndex === 0}
-                    aria-label="Предыдущий вопрос"
-                  >
-                    <FaChevronLeft />
-                  </button>
-                  
-                  <div className={styles.questionNavInfo}>
-                    <span className={styles.questionNavValue}>
-                      {(mobileQuestionIndex + 1) * 10}
-                    </span>
+                <>
+                  {/* Mobile: Navigation spanning question columns */}
+                  <div className={styles.questionNavHeader}>
+                    <button 
+                      className={styles.questionNavButton}
+                      onClick={handlePrevQuestion}
+                      disabled={mobileQuestionIndex === 0}
+                      aria-label="Предыдущий вопрос"
+                    >
+                      <FaChevronLeft />
+                    </button>
+                    
+                    <div className={styles.questionNavInfo}>
+                      <span className={styles.questionNavValue}>
+                        {mobileQuestionIndex === 0 ? '10 - 20' : 
+                         mobileQuestionIndex === 1 ? '30 - 40' : '50'}
+                      </span>
+                    </div>
+                    
+                    <button 
+                      className={styles.questionNavButton}
+                      onClick={handleNextQuestion}
+                      disabled={mobileQuestionIndex === 2}
+                      aria-label="Следующий вопрос"
+                    >
+                      <FaChevronRight />
+                    </button>
                   </div>
-                  
-                  <button 
-                    className={styles.questionNavButton}
-                    onClick={handleNextQuestion}
-                    disabled={mobileQuestionIndex === 4}
-                    aria-label="Следующий вопрос"
-                  >
-                    <FaChevronRight />
-                  </button>
-                </div>
+                </>
               ) : (
                 selectedTheme.questions.map((question) => (
                   <div key={question.id} className={styles.questionHeader}>
@@ -1269,6 +1273,7 @@ export default function GameDetailsPage() {
                 ))
               )}
             </div>
+
 
             {/* Desktop: All Players with All Questions, Mobile: All Players with Score and Question Cell */}
             {players.map((player, playerIndex) => (
@@ -1288,9 +1293,12 @@ export default function GameDetailsPage() {
                   {player.points}
                 </div>
                 
-                {/* Question Cell - Desktop: All Questions, Mobile: Single Question */}
+                {/* Question Cell - Desktop: All Questions, Mobile: Two Questions */}
                 {(typeof window !== 'undefined' && window.innerWidth <= 767 
-                  ? [selectedTheme.questions[mobileQuestionIndex]].filter(Boolean).map(q => ({...q, index: mobileQuestionIndex}))
+                  ? selectedTheme.questions.slice(
+                      mobileQuestionIndex === 2 ? 4 : mobileQuestionIndex * 2, 
+                      mobileQuestionIndex === 2 ? 5 : mobileQuestionIndex * 2 + 2
+                    ).map((q, i) => ({...q, index: mobileQuestionIndex === 2 ? 4 : mobileQuestionIndex * 2 + i}))
                   : selectedTheme.questions.map((q, i) => ({...q, index: i}))
                 ).map((questionObj, displayIndex) => {
                   const question = questionObj;

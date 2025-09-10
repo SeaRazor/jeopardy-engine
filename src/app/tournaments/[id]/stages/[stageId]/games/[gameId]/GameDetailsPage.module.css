@@ -1284,6 +1284,10 @@
     justify-content: space-between;
     padding: 0.5rem;
     gap: 0.25rem;
+    grid-column: 3 / 5;
+    background: var(--accent-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
   }
 
   .questionNavInfo {
@@ -1337,11 +1341,11 @@
     box-sizing: border-box;
   }
 
-  /* Mobile-specific 3-column grid */
+  /* Mobile-specific 4-column grid: player, score, question1, question2 */
   .gameGrid .gridHeader,
   .gameGrid .gridRow {
     display: grid;
-    grid-template-columns: 30% 15% 55%;
+    grid-template-columns: 25% 15% 30% 30%;
     width: 100%;
     max-width: 100vw;
     align-items: center;
