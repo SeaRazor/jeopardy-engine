@@ -65,7 +65,7 @@ export default function GameDetailsPage() {
   const [isTiebreakSelectionOpen, setIsTiebreakSelectionOpen] = useState(false);
   const [tempTiebreakParticipants, setTempTiebreakParticipants] = useState(new Set());
   const [isProcessingThemeCompletion, setIsProcessingThemeCompletion] = useState(false);
-  const [mobileQuestionIndex, setMobileQuestionIndex] = useState(0);
+  const [breadcrumbExpanded, setBreadcrumbExpanded] = useState(false);
   const saveTimeoutRef = useRef(null);
 
   const { id: tournamentId, stageId, gameId } = params;
@@ -477,19 +477,6 @@ export default function GameDetailsPage() {
 
   const handleNextTheme = () => {
     setSelectedThemeIndex(prev => prev < themes.length - 1 ? prev + 1 : 0);
-  };
-
-  // Mobile question navigation functions for two-column layout
-  const handleNextQuestion = () => {
-    if (mobileQuestionIndex < 2) { // 3 pages (0-2): [10,20], [30,40], [50]
-      setMobileQuestionIndex(mobileQuestionIndex + 1);
-    }
-  };
-
-  const handlePrevQuestion = () => {
-    if (mobileQuestionIndex > 0) {
-      setMobileQuestionIndex(mobileQuestionIndex - 1);
-    }
   };
 
   const handleQuestionClick = (themeIndex, questionIndex, playerId = null) => {
@@ -1108,25 +1095,42 @@ export default function GameDetailsPage() {
       {/* Header with breadcrumbs and game title */}
       <div className={styles.header}>
         <div className={styles.pageHeader}>
-          <div className={styles.breadcrumbTrail}>
+          <div className={`${styles.breadcrumbTrail} ${breadcrumbExpanded ? styles.breadcrumbExpanded : ''}`}>
             <Link href="/tournaments" className={styles.breadcrumbLink}>
               Турниры
             </Link>
             <span className={styles.breadcrumbSeparator}>
               <FaBreadcrumbChevron />
             </span>
-            <Link href={`/tournaments/${tournamentId}`} className={styles.breadcrumbLink}>
-              {tournament.name}
-            </Link>
-            <span className={styles.breadcrumbSeparator}>
+
+            {/* Ellipsis — mobile only, hidden when expanded */}
+            <button
+              className={styles.breadcrumbEllipsis}
+              onClick={() => setBreadcrumbExpanded(true)}
+              aria-label="Показать полный путь"
+            >
+              •••
+            </button>
+            <span className={styles.ellipsisSep}>
               <FaBreadcrumbChevron />
             </span>
-            <Link href={`/tournaments/${tournamentId}?tab=stage-${(stage?.order || 1) - 1}`} className={styles.breadcrumbLink}>
-              {stage.name}
-            </Link>
-            <span className={styles.breadcrumbSeparator}>
-              <FaBreadcrumbChevron />
+
+            {/* Middle items — desktop always visible, mobile hidden until expanded */}
+            <span className={styles.breadcrumbMiddle}>
+              <Link href={`/tournaments/${tournamentId}`} className={styles.breadcrumbLink}>
+                {tournament.name}
+              </Link>
+              <span className={styles.breadcrumbSeparator}>
+                <FaBreadcrumbChevron />
+              </span>
+              <Link href={`/tournaments/${tournamentId}?tab=stage-${(stage?.order || 1) - 1}`} className={styles.breadcrumbLink}>
+                {stage.name}
+              </Link>
+              <span className={styles.breadcrumbSeparator}>
+                <FaBreadcrumbChevron />
+              </span>
             </span>
+
             <span className={styles.currentPage}>
               {stage.isFinal ? 'Финал' : `Бой ${game.gameNumber || game.id}`}
             </span>
@@ -1235,125 +1239,89 @@ export default function GameDetailsPage() {
               </div>
               
               {/* Question Headers */}
-              {typeof window !== 'undefined' && window.innerWidth <= 767 ? (
-                <>
-                  {/* Mobile: Navigation spanning question columns */}
-                  <div className={styles.questionNavHeader}>
-                    <button 
-                      className={styles.questionNavButton}
-                      onClick={handlePrevQuestion}
-                      disabled={mobileQuestionIndex === 0}
-                      aria-label="Предыдущий вопрос"
-                    >
-                      <FaChevronLeft />
-                    </button>
-                    
-                    <div className={styles.questionNavInfo}>
-                      <span className={styles.questionNavValue}>
-                        {mobileQuestionIndex === 0 ? '10 - 20' : 
-                         mobileQuestionIndex === 1 ? '30 - 40' : '50'}
-                      </span>
-                    </div>
-                    
-                    <button 
-                      className={styles.questionNavButton}
-                      onClick={handleNextQuestion}
-                      disabled={mobileQuestionIndex === 2}
-                      aria-label="Следующий вопрос"
-                    >
-                      <FaChevronRight />
-                    </button>
-                  </div>
-                </>
-              ) : (
-                selectedTheme.questions.map((question) => (
-                  <div key={question.id} className={styles.questionHeader}>
-                    {question.value}
-                  </div>
-                ))
-              )}
+              {selectedTheme.questions.map((question) => (
+                <div key={question.id} className={styles.questionHeader}>
+                  {question.value}
+                </div>
+              ))}
             </div>
 
 
-            {/* Desktop: All Players with All Questions, Mobile: All Players with Score and Question Cell */}
+            {/* Player Rows */}
             {players.map((player, playerIndex) => (
               <div key={player.playerId} className={styles.gridRow}>
-                <div className={styles.playerCell}>
-                  <div className={styles.playerInfo}>
-                    <div className={styles.playerName} style={{ color: getPlayerColor(player.playerInfo, playerIndex) }}>
-                      {getPlayerName(player.playerInfo)}
+                <div className={styles.rowTop}>
+                  <div className={styles.playerCell}>
+                    <div className={styles.playerInfo}>
+                      <div className={styles.playerName} style={{ color: getPlayerColor(player.playerInfo, playerIndex) }}>
+                        {getPlayerName(player.playerInfo)}
+                      </div>
                     </div>
                   </div>
-                </div>
-                
-                <div className={styles.scoreCell} style={{ color: getPlayerColor(player.playerInfo, playerIndex) }}>
-                  {player.tieBreakResult !== null && player.tieBreakResult !== undefined && player.tieBreakResult !== "" && (
-                    <span className={styles.tieBreakResult}>({player.tieBreakResult}) </span>
-                  )}
-                  {player.points}
-                </div>
-                
-                {/* Question Cell - Desktop: All Questions, Mobile: Two Questions */}
-                {(typeof window !== 'undefined' && window.innerWidth <= 767 
-                  ? selectedTheme.questions.slice(
-                      mobileQuestionIndex === 2 ? 4 : mobileQuestionIndex * 2, 
-                      mobileQuestionIndex === 2 ? 5 : mobileQuestionIndex * 2 + 2
-                    ).map((q, i) => ({...q, index: mobileQuestionIndex === 2 ? 4 : mobileQuestionIndex * 2 + i}))
-                  : selectedTheme.questions.map((q, i) => ({...q, index: i}))
-                ).map((questionObj, displayIndex) => {
-                  const question = questionObj;
-                  const questionIndex = questionObj.index;
-                  return (
-                  <div 
-                    key={question.id}
-                    className={`${styles.questionCell} ${
-                      (question.correctAnswers && question.correctAnswers.includes(player.playerId))
-                        ? styles.answeredCorrect 
-                        : (question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId))
-                          ? styles.answeredIncorrect
-                          : ''
-                    }`}
-                  >
-                    <div className={styles.questionContent}>
-                      <button 
-                        className={`${styles.adjustButton} ${styles.minusButton}`}
-                        onClick={(e) => handleScoreAdjustment(player.playerId, -question.value, e, question.id, selectedThemeIndex, questionIndex)}
-                        aria-label="Отметить как неверный ответ"
-                        style={{
-                          visibility: (!completedThemes.has(selectedThemeIndex) && 
-                                     !(question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId)) &&
-                                     (!isCurrentThemeTiebreak || tiebreakParticipants.has(player.playerId))) ? 'visible' : 'hidden',
-                          pointerEvents: (!completedThemes.has(selectedThemeIndex) && 
-                                        !(question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId)) &&
-                                        (!isCurrentThemeTiebreak || tiebreakParticipants.has(player.playerId))) ? 'auto' : 'none'
-                        }}
-                      >
-                        <FaMinus />
-                      </button>
-                      <span className={styles.questionValue}>
-                        {(question.correctAnswers && question.correctAnswers.includes(player.playerId)) ? question.value : 
-                         (question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId)) ? `-${question.value}` : 
-                         (revealedQuestions && revealedQuestions.get && revealedQuestions.get(player.playerId) && revealedQuestions.get(player.playerId).has(question.id)) ? question.value : ''}
-                      </span>
-                      <button 
-                        className={`${styles.adjustButton} ${styles.plusButton}`}
-                        onClick={(e) => handleScoreAdjustment(player.playerId, question.value, e, question.id, selectedThemeIndex, questionIndex)}
-                        aria-label="Отметить как верный ответ"
-                        style={{
-                          visibility: (!completedThemes.has(selectedThemeIndex) && 
-                                     !(question.correctAnswers && question.correctAnswers.includes(player.playerId)) &&
-                                     (!isCurrentThemeTiebreak || tiebreakParticipants.has(player.playerId))) ? 'visible' : 'hidden',
-                          pointerEvents: (!completedThemes.has(selectedThemeIndex) && 
-                                        !(question.correctAnswers && question.correctAnswers.includes(player.playerId)) &&
-                                        (!isCurrentThemeTiebreak || tiebreakParticipants.has(player.playerId))) ? 'auto' : 'none'
-                        }}
-                      >
-                        <FaPlus />
-                      </button>
-                    </div>
+
+                  <div className={styles.scoreCell} style={{ color: getPlayerColor(player.playerInfo, playerIndex) }}>
+                    {player.tieBreakResult !== null && player.tieBreakResult !== undefined && player.tieBreakResult !== "" && (
+                      <span className={styles.tieBreakResult}>({player.tieBreakResult}) </span>
+                    )}
+                    {player.points}
                   </div>
-                  );
-                })}
+                </div>
+
+                {/* Question Cells */}
+                <div className={styles.rowBadges}>
+                  {selectedTheme.questions.map((q, i) => ({...q, index: i})).map((questionObj, displayIndex) => {
+                    const question = questionObj;
+                    const questionIndex = questionObj.index;
+                    return (
+                    <div
+                      key={question.id}
+                      className={`${styles.questionCell} ${
+                        (question.correctAnswers && question.correctAnswers.includes(player.playerId))
+                          ? styles.answeredCorrect
+                          : (question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId))
+                            ? styles.answeredIncorrect
+                            : ''
+                      }`}
+                    >
+                      <div className={styles.questionContent}>
+                        <button
+                          className={`${styles.adjustButton} ${styles.minusButton}`}
+                          onClick={(e) => handleScoreAdjustment(player.playerId, -question.value, e, question.id, selectedThemeIndex, questionIndex)}
+                          aria-label="Отметить как неверный ответ"
+                          style={{
+                            visibility: (!completedThemes.has(selectedThemeIndex) &&
+                                       !(question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId)) &&
+                                       (!isCurrentThemeTiebreak || tiebreakParticipants.has(player.playerId))) ? 'visible' : 'hidden',
+                            pointerEvents: (!completedThemes.has(selectedThemeIndex) &&
+                                          !(question.incorrectAnswers && question.incorrectAnswers.includes(player.playerId)) &&
+                                          (!isCurrentThemeTiebreak || tiebreakParticipants.has(player.playerId))) ? 'auto' : 'none'
+                          }}
+                        >
+                          <FaMinus />
+                        </button>
+                        <span className={styles.questionValue}>
+                          {question.value}
+                        </span>
+                        <button
+                          className={`${styles.adjustButton} ${styles.plusButton}`}
+                          onClick={(e) => handleScoreAdjustment(player.playerId, question.value, e, question.id, selectedThemeIndex, questionIndex)}
+                          aria-label="Отметить как верный ответ"
+                          style={{
+                            visibility: (!completedThemes.has(selectedThemeIndex) &&
+                                       !(question.correctAnswers && question.correctAnswers.includes(player.playerId)) &&
+                                       (!isCurrentThemeTiebreak || tiebreakParticipants.has(player.playerId))) ? 'visible' : 'hidden',
+                            pointerEvents: (!completedThemes.has(selectedThemeIndex) &&
+                                          !(question.correctAnswers && question.correctAnswers.includes(player.playerId)) &&
+                                          (!isCurrentThemeTiebreak || tiebreakParticipants.has(player.playerId))) ? 'auto' : 'none'
+                          }}
+                        >
+                          <FaPlus />
+                        </button>
+                      </div>
+                    </div>
+                    );
+                  })}
+                </div>
               </div>
             ))}
             </div>

@@ -5970,5 +5970,663 @@
     "id": 75,
     "tournamentId": 7,
     "stageId": 8
+  },
+  {
+    "gameDate": "2026-03-09",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "b6tay2ukar7st43a8hz4we",
+        "sourceReference": null,
+        "points": 10,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "t5acgd9sdwxmx3tz14qy8",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "fqeprx62yilblyjvmlq86n",
+        "sourceReference": null,
+        "points": -10,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "7u9vnwwp3rr2qi9295od",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "А",
+    "bracketType": "upper",
+    "bracketPosition": 1,
+    "id": 76,
+    "gameNumber": 1,
+    "tournamentId": 2,
+    "stageId": 1,
+    "stageThemes": [
+      "Детская литература",
+      "Фольклор и мифы",
+      "Модернизм и авангард",
+      "Драматургия",
+      "Зарубежная литература",
+      "Современные авторы"
+    ],
+    "gameState": {
+      "themes": [
+        {
+          "id": 1,
+          "name": "Детская литература",
+          "description": "",
+          "questions": [
+            {
+              "id": "1-1",
+              "value": 10,
+              "answered": true,
+              "answeredBy": "b6tay2ukar7st43a8hz4we",
+              "correctAnswers": [
+                "b6tay2ukar7st43a8hz4we"
+              ],
+              "incorrectAnswers": [
+                "fqeprx62yilblyjvmlq86n"
+              ]
+            },
+            {
+              "id": "1-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Фольклор и мифы",
+          "description": "",
+          "questions": [
+            {
+              "id": "2-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "2-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "2-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "2-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "2-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Модернизм и авангард",
+          "description": "",
+          "questions": [
+            {
+              "id": "3-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Драматургия",
+          "description": "",
+          "questions": [
+            {
+              "id": "4-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Зарубежная литература",
+          "description": "",
+          "questions": [
+            {
+              "id": "5-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "Современные авторы",
+          "description": "",
+          "questions": [
+            {
+              "id": "6-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        }
+      ],
+      "revealedQuestions": {
+        "b6tay2ukar7st43a8hz4we": [
+          "1-1"
+        ],
+        "fqeprx62yilblyjvmlq86n": [
+          "1-1"
+        ]
+      },
+      "completedThemes": []
+    },
+    "updatedAt": "2026-03-09T16:42:22.899Z"
+  },
+  {
+    "gameDate": "2026-03-09",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "6ee9o0d9pwbgqz7n34w3s",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "yar87hummw8hbzt2ivrbn7",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "cxl9ntadfwj4pk7rgbz52t",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "ur4egod4q7b2gm7rq558",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Б",
+    "bracketType": "upper",
+    "bracketPosition": 2,
+    "id": 77,
+    "gameNumber": 2,
+    "tournamentId": 2,
+    "stageId": 1
+  },
+  {
+    "gameDate": "2026-03-09",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "u0kt94y3c2ppljobftexwh",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "umw2dg6cojuyyq6v8sfrr",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "ptrzjuar3frgosfgmu57n",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "uhznoufw2mc3owc5p2qo5",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "В",
+    "bracketType": "upper",
+    "bracketPosition": 3,
+    "id": 78,
+    "gameNumber": 3,
+    "tournamentId": 2,
+    "stageId": 1
+  },
+  {
+    "gameDate": "2026-03-09",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "5hc0e9di86dsqyw1bd4fe",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "q2jzpqpfwua77pzbg0rvgr",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "bdzakmkdvqdfz1tus8kekk",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "j0dvberueyxfw51js8cc8",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Г",
+    "bracketType": "upper",
+    "bracketPosition": 4,
+    "id": 79,
+    "gameNumber": 4,
+    "tournamentId": 2,
+    "stageId": 1
+  },
+  {
+    "gameDate": "2026-03-09",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "36o08plecr2ao4lfv7rpvt",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "044tgb6o5otktvqq1p59p8",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "f75se8hh7anok35l6a2uc",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "gn26uiq2vqpj2kxvayrs8n",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Д",
+    "bracketType": "upper",
+    "bracketPosition": 5,
+    "id": 80,
+    "gameNumber": 5,
+    "tournamentId": 2,
+    "stageId": 1
+  },
+  {
+    "gameDate": "2026-03-09",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "er8irbmsx6frquukpjmc4o",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "z25esqzdpriu12mxn87uhk",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "u5xyf6r2rhdi41sjcetxxe",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "vypto7iuw1s5hig6a1q5",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Е",
+    "bracketType": "upper",
+    "bracketPosition": 6,
+    "id": 81,
+    "gameNumber": 6,
+    "tournamentId": 2,
+    "stageId": 1
+  },
+  {
+    "gameDate": "2026-03-09",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "tzorltjki6huma8jhljwk",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "ecpo9a3otu2fze7eh78xc",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "9ng3a2zp3w810bozuhumber",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "mv7c6lb00yl6h2ypumocl",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Ж",
+    "bracketType": "upper",
+    "bracketPosition": 7,
+    "id": 82,
+    "gameNumber": 7,
+    "tournamentId": 2,
+    "stageId": 1
+  },
+  {
+    "gameDate": "2026-03-09",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "4255sueabppy9uw3s1b1ok",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "gmuxslmwaioggwazzimmo",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "8dmvwaxzb1rzudkp6q3g6l",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "twd6ieuc72ewlgjgv59dv",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "З",
+    "bracketType": "upper",
+    "bracketPosition": 8,
+    "id": 83,
+    "gameNumber": 8,
+    "tournamentId": 2,
+    "stageId": 1
   }
 ]

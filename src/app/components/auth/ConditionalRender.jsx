@@ -13,7 +13,7 @@ import { useAuth } from '../../hooks/useAuth';
 export default function ConditionalRender({ 
   condition, 
   children, 
-  fallback = null,
+fallback = null,
   showLoading = false 
 }) {
   const { user, role, isAuthenticated, loading } = useAuth();
