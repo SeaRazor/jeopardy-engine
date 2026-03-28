@@ -3,7 +3,7 @@ import { getTournamentById, updateTournament } from '../../../../../../../lib/da
 
 export async function GET(request, { params }) {
   try {
-    const { id: tournamentId, stageId } = params;
+    const { id: tournamentId, stageId } = await params;
 
     const tournament = await getTournamentById(tournamentId);
 
@@ -34,7 +34,7 @@ export async function GET(request, { params }) {
 
 export async function PUT(request, { params }) {
   try {
-    const { id: tournamentId, stageId } = params;
+    const { id: tournamentId, stageId } = await params;
     let { themes } = await request.json();
 
     if (!Array.isArray(themes)) {

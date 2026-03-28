@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getGamesByTournament } from '../../../../../lib/data/games.js';
 
 export async function GET(request, { params }) {
-  const { id: tournamentId } = params;
+  const { id: tournamentId } = await params;
 
   const tournamentGames = await getGamesByTournament(tournamentId);
 

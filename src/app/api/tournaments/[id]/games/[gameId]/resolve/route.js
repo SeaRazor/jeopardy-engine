@@ -8,7 +8,7 @@ import { getGameById } from '../../../../../../../lib/data/games.js';
 // POST /api/tournaments/[id]/games/[gameId]/resolve
 export async function POST(request, { params }) {
   try {
-    const { id: tournamentId, gameId } = params;
+    const { id: tournamentId, gameId } = await params;
 
     console.log(`[DEBUG] Manual resolution triggered for tournament ${tournamentId}, game ${gameId}`);
 

@@ -3,7 +3,7 @@ import { getGameById, updateGame, deleteGame } from '../../../../../../../../lib
 import { getTournamentById } from '../../../../../../../../lib/data/tournaments.js';
 
 export async function GET(request, { params }) {
-  const { id: tournamentId, stageId, gameId } = params;
+  const { id: tournamentId, stageId, gameId } = await params;
 
   const game = await getGameById(gameId);
 
@@ -30,7 +30,7 @@ export async function GET(request, { params }) {
 }
 
 export async function PUT(request, { params }) {
-  const { id: tournamentId, stageId, gameId } = params;
+  const { id: tournamentId, stageId, gameId } = await params;
   const updates = await request.json();
 
   const currentGame = await getGameById(gameId);
@@ -98,7 +98,7 @@ export async function PUT(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
-  const { id: tournamentId, stageId, gameId } = params;
+  const { id: tournamentId, stageId, gameId } = await params;
 
   const game = await getGameById(gameId);
 

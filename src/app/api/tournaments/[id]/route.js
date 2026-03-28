@@ -3,7 +3,7 @@ import { getTournamentById, updateTournament, deleteTournament } from '../../../
 import { getGamesByTournament, deleteGame } from '../../../../lib/data/games.js';
 
 export async function GET(request, { params }) {
-  const { id } = params;
+  const { id } = await params;
   const tournament = await getTournamentById(id);
 
   if (!tournament) {
@@ -14,7 +14,7 @@ export async function GET(request, { params }) {
 }
 
 export async function PUT(request, { params }) {
-  const { id } = params;
+  const { id } = await params;
   const updates = await request.json();
 
   const updated = await updateTournament(id, updates);
@@ -27,7 +27,7 @@ export async function PUT(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
-  const { id } = params;
+  const { id } = await params;
   const tournamentId = parseInt(id);
 
   try {

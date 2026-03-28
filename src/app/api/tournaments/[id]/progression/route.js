@@ -8,7 +8,7 @@ import { createReferenceResolver, getProgressionStatus } from '../../../../util/
 // Returns progression status for the tournament
 export async function GET(request, { params }) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const tournamentId = parseInt(id);
 
     const status = await getProgressionStatus(tournamentId);
@@ -34,7 +34,7 @@ export async function GET(request, { params }) {
 // Triggers progression actions (resolve references, advance stages)
 export async function POST(request, { params }) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const tournamentId = parseInt(id);
     const body = await request.json();
     const { action, stageId } = body;

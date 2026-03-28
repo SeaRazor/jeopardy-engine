@@ -29,7 +29,7 @@ async function enrichResultsWithPlayerInfo(results) {
 
 export async function GET(request, { params }) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const tournamentId = parseInt(id);
 
     const tournament = await getTournamentById(tournamentId);

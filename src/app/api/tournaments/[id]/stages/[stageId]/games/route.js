@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getGamesByStage, createGame } from '../../../../../../../lib/data/games.js';
 
 export async function GET(request, { params }) {
-  const { id: tournamentId, stageId } = params;
+  const { id: tournamentId, stageId } = await params;
 
   const stageGames = await getGamesByStage(tournamentId, stageId);
 
@@ -10,7 +10,7 @@ export async function GET(request, { params }) {
 }
 
 export async function POST(request, { params }) {
-  const { id: tournamentId, stageId } = params;
+  const { id: tournamentId, stageId } = await params;
   const gameData = await request.json();
 
   // Add Double Elimination specific validation and defaults

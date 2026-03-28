@@ -11,7 +11,7 @@ import { getTournamentById } from '../../../../../../../../../lib/data/tournamen
 // POST /api/tournaments/[id]/stages/[stageId]/games/[gameId]/complete
 export async function POST(request, { params }) {
   try {
-    const { id: tournamentId, stageId, gameId } = params;
+    const { id: tournamentId, stageId, gameId } = await params;
     const body = await request.json();
 
     console.log(`[COMPLETE] Starting completion process for game ${gameId}`);

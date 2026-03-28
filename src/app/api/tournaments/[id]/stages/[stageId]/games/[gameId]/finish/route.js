@@ -86,7 +86,7 @@ function resolveGameReferences(game, completedGame) {
 // POST /api/tournaments/[id]/stages/[stageId]/games/[gameId]/finish
 export async function POST(request, { params }) {
   try {
-    const { id: tournamentId, stageId, gameId } = params;
+    const { id: tournamentId, stageId, gameId } = await params;
     const body = await request.json();
 
     const game = await getGameById(gameId);

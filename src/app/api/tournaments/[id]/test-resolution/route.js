@@ -3,7 +3,7 @@ import { resolveReferencesForGame, createImmediateResolver } from '../../../../u
 import { getGamesByTournament, getGameById } from '../../../../../lib/data/games.js';
 
 export async function POST(request, { params }) {
-  const { id: tournamentId } = params;
+  const { id: tournamentId } = await params;
   const { gameId } = await request.json();
 
   try {

@@ -8,7 +8,7 @@ import { createReferenceResolver } from '../../../../../../util/referenceResolve
 // Resolve all references for a specific stage
 export async function POST(request, { params }) {
   try {
-    const { id, stageId } = params;
+    const { id, stageId } = await params;
     const tournamentId = parseInt(id);
     const parsedStageId = parseInt(stageId);
 
@@ -77,7 +77,7 @@ export async function POST(request, { params }) {
 // Check resolution status for a specific stage
 export async function GET(request, { params }) {
   try {
-    const { id, stageId } = params;
+    const { id, stageId } = await params;
     const tournamentId = parseInt(id);
     const parsedStageId = parseInt(stageId);
 
