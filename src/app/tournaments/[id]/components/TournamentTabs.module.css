@@ -100,66 +100,29 @@
 }
 
 .stageNumber {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  font-size: 0.75rem;
-  font-weight: bold;
-  color: #ffffff;
-  transition: all 0.3s ease;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  letter-spacing: 0.03em;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: color 0.3s ease;
 }
 
-
-.stageNumber0 {
-  background: linear-gradient(135deg, #ff7675, #fd79a8);
-  box-shadow: 0 4px 12px rgba(255, 118, 117, 0.5);
-  border: 1px solid rgba(255, 118, 117, 0.3);
+.stageNumber::after {
+  content: ' │';
+  opacity: 0.35;
+  font-weight: 300;
+  letter-spacing: 0;
 }
 
-.stageNumber1 {
-  background: linear-gradient(135deg, #00b894, #00cec9);
-  box-shadow: 0 4px 12px rgba(0, 184, 148, 0.5);
-  border: 1px solid rgba(0, 184, 148, 0.3);
+.tab.active .stageNumber {
+  color: inherit;
 }
 
-.stageNumber2 {
-  background: linear-gradient(135deg, #0984e3, #74b9ff);
-  box-shadow: 0 4px 12px rgba(9, 132, 227, 0.5);
-  border: 1px solid rgba(9, 132, 227, 0.3);
-}
-
-.stageNumber3 {
-  background: linear-gradient(135deg, #fdcb6e, #f39c12);
-  box-shadow: 0 4px 12px rgba(253, 203, 110, 0.5);
-  border: 1px solid rgba(253, 203, 110, 0.3);
-}
-
-.stageNumber4 {
-  background: linear-gradient(135deg, #a29bfe, #6c5ce7);
-  box-shadow: 0 4px 12px rgba(162, 155, 254, 0.5);
-  border: 1px solid rgba(162, 155, 254, 0.3);
-}
-
-.stageNumber5 {
-  background: linear-gradient(135deg, #fd79a8, #e84393);
-  box-shadow: 0 4px 12px rgba(253, 121, 168, 0.5);
-  border: 1px solid rgba(253, 121, 168, 0.3);
-}
-
-.stageNumber6 {
-  background: linear-gradient(135deg, #55a3ff, #3742fa);
-  box-shadow: 0 4px 12px rgba(85, 163, 255, 0.5);
-  border: 1px solid rgba(85, 163, 255, 0.3);
-}
-
-.stageNumber7 {
-  background: linear-gradient(135deg, #ff9ff3, #f368e0);
-  box-shadow: 0 4px 12px rgba(255, 159, 243, 0.5);
-  border: 1px solid rgba(255, 159, 243, 0.3);
+.tab.active .stageNumber::after {
+  opacity: 0.5;
 }
 
 .label {
@@ -329,42 +292,7 @@ html.dark .scrollButton:hover {
   box-shadow: 0 8px 24px rgba(var(--primary-color-rgb, 0, 123, 255), 0.4);
 }
 
-/* Enhanced stage numbers for dark theme */
-html.dark .stageNumber {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-html.dark .stageNumber0 {
-  box-shadow: 0 4px 12px rgba(255, 118, 117, 0.6);
-}
-
-html.dark .stageNumber1 {
-  box-shadow: 0 4px 12px rgba(0, 184, 148, 0.6);
-}
-
-html.dark .stageNumber2 {
-  box-shadow: 0 4px 12px rgba(9, 132, 227, 0.6);
-}
-
-html.dark .stageNumber3 {
-  box-shadow: 0 4px 12px rgba(253, 203, 110, 0.6);
-}
-
-html.dark .stageNumber4 {
-  box-shadow: 0 4px 12px rgba(162, 155, 254, 0.6);
-}
-
-html.dark .stageNumber5 {
-  box-shadow: 0 4px 12px rgba(253, 121, 168, 0.6);
-}
-
-html.dark .stageNumber6 {
-  box-shadow: 0 4px 12px rgba(85, 163, 255, 0.6);
-}
-
-html.dark .stageNumber7 {
-  box-shadow: 0 4px 12px rgba(255, 159, 243, 0.6);
-}
+/* Stage number in dark theme — color inherited from primary, no extra overrides needed */
 
 @media (max-width: 768px) {
   .tabsContainer {

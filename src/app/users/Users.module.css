@@ -40,7 +40,7 @@
 
   
   .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-2px);
     box-shadow: 0 4px 12px var(--color-shadow);
   }
   
@@ -89,15 +89,15 @@
 }
 
 .systemAdmin {
-    background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%);
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
 }
 
 .tournamentAdmin {
-    background: linear-gradient(135deg, #fd7e14 0%, #e8590c 100%);
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
 }
 
 .presenter {
-    background: linear-gradient(135deg, #198754 0%, #146c43 100%);
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
 }
 
 @media (max-width: 480px) {
@@ -133,7 +133,7 @@
 }
 
 .deleteIcon:hover {
-    color: #dc3545;
+    color: #dc2626;
 }
   
   .controls {

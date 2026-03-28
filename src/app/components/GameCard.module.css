@@ -78,7 +78,7 @@
   background: linear-gradient(
     90deg,
     var(--primary-color) 0%,
-    #667eea 50%,
+    #818cf8 50%,
     var(--primary-color) 100%
   );
   background-size: 200% 2px;
@@ -100,7 +100,7 @@
   background: linear-gradient(
     90deg,
     var(--primary-color) 0%,
-    #667eea 50%,
+    #818cf8 50%,
     var(--primary-color) 100%
   );
   transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -108,7 +108,7 @@
 }
 
 .gameNameLink:hover {
-  color: #667eea;
+  color: #818cf8;
   text-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
   transform: translateX(2px);
 }
@@ -125,7 +125,7 @@
 /* Focus state for accessibility */
 .gameNameLink:focus {
   outline: none;
-  color: #667eea;
+  color: #818cf8;
   text-shadow: 0 0 12px rgba(102, 126, 234, 0.4);
 }
 
@@ -140,14 +140,14 @@
 }
 
 .doubleElimCard[data-bracket="upper"] {
-  border-left: 6px solid #ff6b35 !important; /* Orange for upper bracket */
+  border-left: 6px solid #6366f1 !important; /* Indigo for upper bracket */
   border-top: 1px solid var(--card-border) !important;
   border-right: 1px solid var(--card-border) !important;  
   border-bottom: 1px solid var(--card-border) !important;
 }
 
 .doubleElimCard[data-bracket="lower"] {
-  border-left: 6px solid #ffd700 !important; /* Gold for lower bracket */
+  border-left: 6px solid #0ea5e9 !important; /* Sky for lower bracket */
   border-top: 1px solid var(--card-border) !important;
   border-right: 1px solid var(--card-border) !important;
   border-bottom: 1px solid var(--card-border) !important;
@@ -401,12 +401,12 @@
   justify-content: center;
   width: 36px;
   height: 36px;
-  background: #28a745;
+  background: #059669;
   color: white;
   border-radius: 8px;
   font-size: 0.9rem;
   font-weight: bold;
-  box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3);
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.3);
   border: none;
   cursor: default;
 }
@@ -428,8 +428,8 @@
 
 .participantUnresolved {
   opacity: 0.7;
-  border-left: 3px solid #ffa500 !important;
-  background: rgba(255, 165, 0, 0.05);
+  border-left: 3px solid #f59e0b !important;
+  background: rgba(245, 158, 11, 0.05);
 }
 
 .participantStatus {
@@ -437,13 +437,13 @@
   align-items: center;
   gap: 0.3rem;
   font-size: 0.7rem;
-  color: #ffa500;
+  color: #f59e0b;
   margin-top: 0.2rem;
   font-style: italic;
 }
 
 .unresolvedIcon {
-  color: #ffa500;
+  color: #f59e0b;
   font-size: 0.8rem;
 }
 
@@ -499,9 +499,9 @@
 
 .saveButton {
   padding: 0.4rem 0.8rem;
-  border: 1px solid #28a745;
+  border: 1px solid #059669;
   border-radius: 6px;
-  background: #28a745;
+  background: #059669;
   color: white;
   font-size: 0.8rem;
   cursor: pointer;
@@ -509,21 +509,21 @@
 }
 
 .saveButton:hover:not(:disabled) {
-  background: #218838;
-  border-color: #218838;
+  background: #047857;
+  border-color: #047857;
 }
 
 .saveButton:disabled {
-  background: #6c757d;
-  border-color: #6c757d;
+  background: #94a3b8;
+  border-color: #94a3b8;
   cursor: not-allowed;
 }
 
 .cancelButton {
   padding: 0.4rem 0.8rem;
-  border: 1px solid #6c757d;
+  border: 1px solid #64748b;
   border-radius: 6px;
-  background: #6c757d;
+  background: #64748b;
   color: white;
   font-size: 0.8rem;
   cursor: pointer;
@@ -531,8 +531,8 @@
 }
 
 .cancelButton:hover {
-  background: #545b62;
-  border-color: #545b62;
+  background: #475569;
+  border-color: #475569;
 }
 
 /* Edit Form Styles */
@@ -640,23 +640,23 @@
 }
 
 .participantWinner {
-  border-left: 4px solid #28a745 !important; /* Green for winners */
+  border-left: 4px solid #059669 !important; /* Emerald for winners */
 }
 
 .participantEliminated {
-  border-left: 4px solid #dc3545 !important; /* Red for eliminated */
+  border-left: 4px solid #dc2626 !important; /* Red for eliminated */
 }
 
 .participantFirst {
-  border-left: 4px solid #ffd700 !important; /* Gold for 1st place */
+  border-left: 4px solid #f59e0b !important; /* Amber for 1st place */
 }
 
 .participantSecond {
-  border-left: 4px solid #c0c0c0 !important; /* Silver for 2nd place */
+  border-left: 4px solid #94a3b8 !important; /* Slate for 2nd place */
 }
 
 .participantThird {
-  border-left: 4px solid #cd7f32 !important; /* Bronze for 3rd place */
+  border-left: 4px solid #b45309 !important; /* Dark amber for 3rd place */
 }
 
 .participantRank {
@@ -673,17 +673,17 @@
 }
 
 .goldTrophy {
-  color: #ffd700;
+  color: #f59e0b;
   font-size: 1rem;
 }
 
 .silverMedal {
-  color: #c0c0c0;
+  color: #94a3b8;
   font-size: 0.9rem;
 }
 
 .bronzeMedal {
-  color: #cd7f32;
+  color: #b45309;
   font-size: 0.9rem;
 }
 
@@ -816,7 +816,7 @@
 }
 
 .removeParticipantButton {
-  background: #dc3545;
+  background: #dc2626;
   color: white;
   border: none;
   border-radius: 4px;
@@ -832,11 +832,11 @@
 }
 
 .removeParticipantButton:hover {
-  background: #c82333;
+  background: #b91c1c;
 }
 
 .removeParticipantButton:active {
-  background: #bd2130;
+  background: #991b1b;
 }
 
 .addPlayerSection {

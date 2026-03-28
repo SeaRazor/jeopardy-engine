@@ -222,6 +222,38 @@
         "order": 4
       }
     ]
+  },
+  {
+    "id": 4,
+    "schemeName": "Круговой с плей-офф",
+    "description": "Групповой этап по круговой системе, затем плей-офф",
+    "participantsNum": 16,
+    "stages": [
+      {
+        "id": 1,
+        "name": "Групповой этап",
+        "order": 1,
+        "description": "Круговой турнир внутри групп. Проходят два лучших из каждой группы",
+        "topGameParticipantsNum": 4,
+        "topGameWinnersNum": 2,
+        "numberOfGroups": 2
+      },
+      {
+        "id": 2,
+        "name": "Полуфиналы",
+        "order": 2,
+        "description": "Проходят первые два места",
+        "topGameParticipantsNum": 4,
+        "topGameWinnersNum": 2
+      },
+      {
+        "id": 3,
+        "name": "Финал",
+        "order": 3,
+        "description": "Финал четырёх",
+        "isFinal": true
+      }
+    ]
   }
 
 ]

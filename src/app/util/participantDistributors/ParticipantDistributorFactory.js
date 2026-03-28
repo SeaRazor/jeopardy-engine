@@ -11,6 +11,7 @@ export class ParticipantDistributorFactory {
     this.register('Double Elimination', DoubleEliminationParticipantDistributor);
     this.register('Олимпийская', OlympicParticipantDistributor);
     this.register('Olympic', OlympicParticipantDistributor);
+    this.register('Круговой с плей-офф', OlympicParticipantDistributor);
   }
 
   // Register a new participant distributor for a schema

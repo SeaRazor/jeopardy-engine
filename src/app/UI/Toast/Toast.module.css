@@ -14,15 +14,15 @@
 }
 
 .toast.error {
-  background-color: #dc3545;
+  background-color: #dc2626;
 }
 
 .toast.success {
-  background-color: #28a745;
+  background-color: #059669;
 }
 
 .toast.info {
-  background-color: #17a2b8;
+  background-color: #0ea5e9;
 }
 
 .icon {

@@ -35,12 +35,16 @@ const calculateGamesForStage = (stage, totalParticipants) => {
 const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
   const queryClient = useQueryClient();
   const { showError, showSuccess } = useToast();
-  const [seedPools, setSeedPools] = useState([
-    { id: 1, name: 'Корзина 1', participants: [], color: 'gold' },
-    { id: 2, name: 'Корзина 2', participants: [], color: 'silver' },
-    { id: 3, name: 'Корзина 3', participants: [], color: 'bronze' },
-    { id: 4, name: 'Корзина 4', participants: [], color: 'blue' },
-  ]);
+  const poolColors = ['gold', 'silver', 'bronze', 'blue'];
+  const numberOfGroups = tournament?.schema?.stages?.find(s => s.numberOfGroups)?.numberOfGroups ?? 4;
+  const [seedPools, setSeedPools] = useState(
+    Array.from({ length: numberOfGroups }, (_, i) => ({
+      id: i + 1,
+      name: `Корзина ${i + 1}`,
+      participants: [],
+      color: poolColors[i] ?? 'blue',
+    }))
+  );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPool, setSelectedPool] = useState(null);
@@ -141,13 +145,14 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
 
   // Initialize with tournament participants
   useEffect(() => {
-    const pools = [
-      { id: 1, name: 'Корзина 1', participants: [], color: 'gold' },
-      { id: 2, name: 'Корзина 2', participants: [], color: 'silver' },
-      { id: 3, name: 'Корзина 3', participants: [], color: 'bronze' },
-      { id: 4, name: 'Корзина 4', participants: [], color: 'blue' },
-    ];
-    
+    const n = tournament?.schema?.stages?.find(s => s.numberOfGroups)?.numberOfGroups ?? 4;
+    const pools = Array.from({ length: n }, (_, i) => ({
+      id: i + 1,
+      name: `Корзина ${i + 1}`,
+      participants: [],
+      color: poolColors[i] ?? 'blue',
+    }));
+
     if (tournament?.participants?.length > 0) {
       tournament.participants.forEach(participant => {
         // Если у участника есть poolId, помещаем в соответствующую корзину
@@ -160,14 +165,14 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
         } else {
           // Fallback: распределяем по индексу (для старых данных)
           const index = tournament.participants.indexOf(participant);
-          const poolIndex = Math.floor(index / Math.ceil(tournament.participants.length / 4));
+          const poolIndex = Math.floor(index / Math.ceil(tournament.participants.length / n));
           if (pools[poolIndex]) {
             pools[poolIndex].participants.push(participant);
           }
         }
       });
     }
-    
+
     setSeedPools(pools);
     setHasUnsavedChanges(false); // Reset unsaved changes when loading from tournament
   }, [tournament]);

@@ -127,18 +127,18 @@
 }
 
 .podiumMobileEntry.place1 {
-  border-color: #ffd700;
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(230, 194, 0, 0.05));
+  border-color: #f59e0b;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
 }
 
 .podiumMobileEntry.place2 {
-  border-color: #c0c0c0;
-  background: linear-gradient(135deg, rgba(192, 192, 192, 0.1), rgba(168, 168, 168, 0.05));
+  border-color: #94a3b8;
+  background: linear-gradient(135deg, rgba(148, 163, 184, 0.1), rgba(148, 163, 184, 0.05));
 }
 
 .podiumMobileEntry.place3 {
-  border-color: #cd7f32;
-  background: linear-gradient(135deg, rgba(205, 127, 50, 0.1), rgba(184, 114, 45, 0.05));
+  border-color: #b45309;
+  background: linear-gradient(135deg, rgba(180, 83, 9, 0.1), rgba(180, 83, 9, 0.05));
 }
 
 .podiumMobilePosition {
@@ -177,19 +177,19 @@
 }
 
 .podiumPlace.first {
-  border-color: #ffd700;
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
+  border-color: #f59e0b;
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.2);
   transform: scale(1.05);
 }
 
 .podiumPlace.second {
-  border-color: #c0c0c0;
-  box-shadow: 0 6px 20px rgba(192, 192, 192, 0.2);
+  border-color: #94a3b8;
+  box-shadow: 0 6px 20px rgba(148, 163, 184, 0.2);
 }
 
 .podiumPlace.third {
-  border-color: #cd7f32;
-  box-shadow: 0 4px 15px rgba(205, 127, 50, 0.2);
+  border-color: #b45309;
+  box-shadow: 0 4px 15px rgba(180, 83, 9, 0.2);
 }
 
 .podiumIcon {
@@ -198,15 +198,15 @@
 }
 
 .goldIcon {
-  color: #ffd700;
+  color: #f59e0b;
 }
 
 .silverIcon {
-  color: #c0c0c0;
+  color: #94a3b8;
 }
 
 .bronzeIcon {
-  color: #cd7f32;
+  color: #b45309;
 }
 
 .podiumInfo h4 {
@@ -238,17 +238,17 @@
 
 .podiumItem:nth-child(1) .podiumBar {
   height: 80px; /* Second place */
-  background: linear-gradient(135deg, #c0c0c0, #a8a8a8);
+  background: linear-gradient(135deg, #94a3b8, #cbd5e1);
 }
 
 .podiumItem:nth-child(2) .podiumBar {
   height: 100px; /* First place */
-  background: linear-gradient(135deg, #ffd700, #e6c200);
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
 }
 
 .podiumItem:nth-child(3) .podiumBar {
   height: 60px; /* Third place */
-  background: linear-gradient(135deg, #cd7f32, #b8722d);
+  background: linear-gradient(135deg, #b45309, #d97706);
 }
 
 .table {
@@ -307,18 +307,18 @@
 }
 
 .firstPlace {
-  background-color: rgba(255, 215, 0, 0.1);
-  border-left: 4px solid #ffd700;
+  background-color: rgba(245, 158, 11, 0.1);
+  border-left: 4px solid #f59e0b;
 }
 
 .secondPlace {
-  background-color: rgba(192, 192, 192, 0.1);
-  border-left: 4px solid #c0c0c0;
+  background-color: rgba(148, 163, 184, 0.1);
+  border-left: 4px solid #94a3b8;
 }
 
 .thirdPlace {
-  background-color: rgba(205, 127, 50, 0.1);
-  border-left: 4px solid #cd7f32;
+  background-color: rgba(180, 83, 9, 0.1);
+  border-left: 4px solid #b45309;
 }
 
 .tableCell {

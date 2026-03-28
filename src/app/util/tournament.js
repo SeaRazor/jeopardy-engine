@@ -16,10 +16,12 @@ export const getTypeLabel = (type) => {
   // Handle integer IDs as primary format
   if (type === 1 || type === '1') return 'СИ';
   if (type === 2 || type === '2') return 'ЭК';
-  
+  if (type === 3 || type === '3') return 'БР';
+
   // Fallback for legacy string names during transition
   if (type === 'Своя игра') return 'СИ';
   if (type === 'Эрудит-квартет') return 'ЭК';
-  
+  if (type === 'Брейн-ринг') return 'БР';
+
   return '';
 };

@@ -2,6 +2,7 @@
 
 import { DoubleEliminationGameCreator } from './DoubleEliminationGameCreator.js';
 import { OlympicGameCreator } from './OlympicGameCreator.js';
+import { RoundRobinGameCreator } from './RoundRobinGameCreator.js';
 
 export class GameCreatorFactory {
   static creatorRegistry = new Map();
@@ -11,6 +12,7 @@ export class GameCreatorFactory {
     this.register('Double Elimination', DoubleEliminationGameCreator);
     this.register('Олимпийская', OlympicGameCreator);
     this.register('Olympic', OlympicGameCreator);
+    this.register('Круговой с плей-офф', RoundRobinGameCreator);
   }
 
   // Register a new game creator for a schema

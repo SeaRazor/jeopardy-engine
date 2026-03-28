@@ -60,11 +60,11 @@
 }
 
 .inputError {
-  border-color: #dc3545 !important; /* Red border for error */
+  border-color: #dc2626 !important; /* Red border for error */
 }
 
 .errorText {
-  color: #dc3545; /* Red text for error messages */
+  color: #dc2626; /* Red text for error messages */
   font-size: 0.875rem;
   margin-top: 0.25rem;
 }
@@ -117,7 +117,7 @@
 }
 
 .error {
-  color: #dc3545; /* Red for errors */
+  color: #dc2626; /* Red for errors */
   margin-top: 1rem;
   text-align: center;
 }

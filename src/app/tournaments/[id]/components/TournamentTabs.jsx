@@ -23,7 +23,7 @@ const TournamentTabs = ({ tournament, onTabChange, activeTab }) => {
       tabs.splice(1 + index, 0, {
         id: `stage-${index}`,
         label: stage.name || `Стадия ${index + 1}`,
-        icon: <span className={`${styles.stageNumber} ${styles[`stageNumber${index}`]}`}>{index + 1}</span>
+        icon: <span className={styles.stageNumber}>{String(index + 1).padStart(2, '0')}</span>
       });
     });
   }

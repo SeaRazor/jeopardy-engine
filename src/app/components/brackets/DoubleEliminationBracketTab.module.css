@@ -121,25 +121,25 @@
 
 /* Upper Bracket Styling - matches GameCard colors */
 .upperBracket {
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.05), rgba(255, 107, 53, 0.03));
-  border-left: 4px solid #ff6b35;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(99, 102, 241, 0.03));
+  border-left: 4px solid #6366f1;
 }
 
 /* Lower Bracket Styling - matches GameCard colors */
 .lowerBracket {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(255, 215, 0, 0.03));
-  border-left: 4px solid #ffd700;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.05), rgba(14, 165, 233, 0.03));
+  border-left: 4px solid #0ea5e9;
 }
 
 /* Dark mode bracket cell styling */
 [data-theme="dark"] .upperBracket {
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.08), rgba(255, 107, 53, 0.05));
-  border-left-color: #ff6b35;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(99, 102, 241, 0.05));
+  border-left-color: #6366f1;
 }
 
 [data-theme="dark"] .lowerBracket {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 215, 0, 0.05));
-  border-left-color: #ffd700;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.08), rgba(14, 165, 233, 0.05));
+  border-left-color: #0ea5e9;
 }
 
 

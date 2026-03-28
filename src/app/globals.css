@@ -19,12 +19,18 @@
   /* Input Specifics - Light Mode */
   --input-bg: #ffffff;
   --input-border: #ced4da;
-  --input-focus-shadow: rgba(0, 123, 255, 0.2);
+  --input-focus-shadow: rgba(99, 102, 241, 0.12);
 
   /* Primary Action (e.g., main buttons, active states) - Light Mode */
-  --primary-color: #007bff; /* A vibrant, modern blue */
-  --primary-hover-color: #0056b3;
+  --primary-color: #6366f1;
+  --primary-color-rgb: 99, 102, 241;
+  --primary-hover-color: #4f46e5;
   --primary-text-color: #ffffff;
+
+  /* Shadow Variables */
+  --shadow-sm: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
+  --shadow-md: 0 4px 6px rgba(15,23,42,0.07), 0 2px 4px rgba(15,23,42,0.05);
+  --shadow-lg: 0 10px 15px rgba(15,23,42,0.08), 0 4px 6px rgba(15,23,42,0.04);
 
   /* Secondary Action (e.g., clear filters button) - Light Mode */
   --secondary-button-bg: #ffffff;
@@ -35,40 +41,40 @@
   --secondary-button-hover-text: #212529;
 
   /* Status/Label Colors - Light Mode */
-  --status-planned-color: #ffc107;
-  --status-planned-bg: rgba(255, 193, 7, 0.1);
-  --status-ongoing-color: #28a745;
-  --status-ongoing-bg: rgba(40, 167, 69, 0.1);
-  --status-finished-color: #6c757d;
-  --status-finished-bg: rgba(108, 117, 125, 0.1);
+  --status-planned-color: #d97706;
+  --status-planned-bg: rgba(217, 119, 6, 0.08);
+  --status-ongoing-color: #059669;
+  --status-ongoing-bg: rgba(5, 150, 105, 0.08);
+  --status-finished-color: #64748b;
+  --status-finished-bg: rgba(100, 116, 139, 0.08);
 
   /* Type Label Colors - Light Mode */
-  --type-si-bg: #007bff; /* Same as primary for consistency */
-  --type-ek-bg: #198754; /* A nice, modern green */
+  --type-si-bg: #6366f1;
+  --type-ek-bg: #0ea5e9;
 }
 
 /* Base Palette - Dark Mode */
 html.dark {
-  --color-background: #1a1a1a; /* A deep, comfortable dark */
-  --color-foreground: #f8f9fa; /* Light, readable text */
-  --color-secondary-text: #adb5bd;
-  --color-border: #444444;
-  --color-shadow: rgba(255, 255, 255, 0.05);
-  --color-hover-bg: rgba(255, 255, 255, 0.05);
+  --color-background: #0f172a;
+  --color-foreground: #f1f5f9;
+  --color-secondary-text: #94a3b8;
+  --color-border: #334155;
+  --color-shadow: rgba(0, 0, 0, 0.25);
+  --color-hover-bg: rgba(255, 255, 255, 0.04);
 
   /* Card Specifics - Dark Mode */
-  --card-bg: #2c2c2c;
-  --card-border: #444444;
+  --card-bg: #1e293b;
+  --card-border: #334155;
 
   /* Input Specifics - Dark Mode */
-  --input-bg: #333333;
-  --input-border: #555555;
-  --input-focus-shadow: rgba(13, 110, 253, 0.3);
+  --input-bg: #1e293b;
+  --input-border: #475569;
+  --input-focus-shadow: rgba(129, 140, 248, 0.2);
 
   /* Primary Action - Dark Mode */
-  --primary-color: #0d6efd;
-  --primary-color-rgb: 13, 110, 253;
-  --primary-hover-color: #3d8bfd;
+  --primary-color: #818cf8;
+  --primary-color-rgb: 129, 140, 248;
+  --primary-hover-color: #6366f1;
   --primary-text-color: #ffffff;
 
   /* Secondary Action - Dark Mode */
@@ -80,16 +86,16 @@ html.dark {
   --secondary-button-hover-text: #f8f9fa;
 
   /* Status/Label Colors - Dark Mode */
-  --status-planned-color: #ffca2c;
-  --status-planned-bg: rgba(255, 202, 44, 0.15);
-  --status-ongoing-color: #32cd32;
-  --status-ongoing-bg: rgba(50, 205, 50, 0.15);
-  --status-finished-color: #adb5bd;
-  --status-finished-bg: rgba(173, 181, 189, 0.15);
+  --status-planned-color: #fbbf24;
+  --status-planned-bg: rgba(251, 191, 36, 0.1);
+  --status-ongoing-color: #34d399;
+  --status-ongoing-bg: rgba(52, 211, 153, 0.1);
+  --status-finished-color: #94a3b8;
+  --status-finished-bg: rgba(148, 163, 184, 0.1);
 
   /* Type Label Colors - Dark Mode */
-  --type-si-bg: #0d6efd;
-  --type-ek-bg: #20c997; /* A slightly brighter green for dark mode */
+  --type-si-bg: #818cf8;
+  --type-ek-bg: #38bdf8;
 }
 
 *, *::before, *::after {
@@ -118,6 +124,7 @@ h1 {
     font-weight: 700;
     margin-bottom: 1.5rem;
     color: var(--color-foreground);
+    letter-spacing: -0.02em;
 }
 
 .fab {
@@ -134,7 +141,7 @@ h1 {
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-md);
   cursor: pointer;
   transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
   z-index: 999;
