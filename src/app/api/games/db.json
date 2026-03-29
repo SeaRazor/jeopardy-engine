@@ -6270,7 +6270,7 @@
       },
       "completedThemes": []
     },
-    "updatedAt": "2026-03-09T16:42:22.899Z"
+    "updatedAt": "2026-03-28T16:46:27.820Z"
   },
   {
     "gameDate": "2026-03-09",
@@ -6628,5 +6628,3302 @@
     "gameNumber": 8,
     "tournamentId": 2,
     "stageId": 1
+  },
+  {
+    "gameDate": "2026-03-29",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "ztgm48v7xzadktxyb7spyo",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "dp1n31ygko8ycfl13y7dtp",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "hpuka7ww5ilejbcbtz0lhg",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "4jpqi2d1j7a4jy91lo6wl3",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "А",
+    "bracketType": "upper",
+    "bracketPosition": 1,
+    "tournamentId": 1,
+    "stageId": 1,
+    "id": 84,
+    "gameNumber": 1
+  },
+  {
+    "gameDate": "2026-03-29",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "tc463k1gptxnicjhlbz9",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "tv0hxavswblb0bhh78fhgv",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "213q2ebumnk6xcjoejfml2",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "se5nb3ka1qkrzz396ev35q",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Б",
+    "bracketType": "upper",
+    "bracketPosition": 2,
+    "tournamentId": 1,
+    "stageId": 1,
+    "id": 85,
+    "gameNumber": 2
+  },
+  {
+    "gameDate": "2026-03-29",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "cwbkvqbghl4yk9pjaow3",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "9w5e62prxpm958cso1n6a",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "j0nft2skoxcqaha8025u9g",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "uhq554w66f8acpd210ufe",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "В",
+    "bracketType": "upper",
+    "bracketPosition": 3,
+    "tournamentId": 1,
+    "stageId": 1,
+    "id": 86,
+    "gameNumber": 3
+  },
+  {
+    "gameDate": "2026-03-29",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "1kqu05spruzt1f9w6rccj",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "gshm868mjfc3rxivz3y1n3",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "kbgbbu6cl8odlecwm1lte",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "l8v4lc5bqsd98xpqve8tm7",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Г",
+    "bracketType": "upper",
+    "bracketPosition": 4,
+    "tournamentId": 1,
+    "stageId": 1,
+    "id": 87,
+    "gameNumber": 4
+  },
+  {
+    "gameDate": "2026-03-29",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "vfab0wfcvn9w43yhmq4ag",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "ulv4g3ky6x82buramzofii",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "hd116h7akvo28rb5hil66r",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "2c218w7sq157hxugueu9ty",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Д",
+    "bracketType": "upper",
+    "bracketPosition": 5,
+    "tournamentId": 1,
+    "stageId": 1,
+    "id": 88,
+    "gameNumber": 5
+  },
+  {
+    "gameDate": "2026-03-29",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "g32rybnoyfmmxhvhm1kv4",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "vaqr45n4j3ozo42mhw3fd",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "et3rdyuy78rbkektiwm68d",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "p8lrjns2xgkxbjrmj5sr08",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Е",
+    "bracketType": "upper",
+    "bracketPosition": 6,
+    "tournamentId": 1,
+    "stageId": 1,
+    "id": 89,
+    "gameNumber": 6
+  },
+  {
+    "gameDate": "2026-03-29",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "yfh4myn55c5i1f5kext3q",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "bixietw5iebv3s9uox4b0g",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "rart1uvl3jqgpu6zwpvc",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "ribea9t5rphlaqlaobek",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Ж",
+    "bracketType": "upper",
+    "bracketPosition": 7,
+    "tournamentId": 1,
+    "stageId": 1,
+    "id": 90,
+    "gameNumber": 7
+  },
+  {
+    "gameDate": "2026-03-29",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "9rrekkana350ujqm3luy7",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "ffmp3w5rvnm4id5hexf6zj",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "tqlsgoskfux0tm909aqca",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "8hy4p75idxnzzkenwhitg",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "З",
+    "bracketType": "upper",
+    "bracketPosition": 8,
+    "tournamentId": 1,
+    "stageId": 1,
+    "id": 91,
+    "gameNumber": 8
+  },
+  {
+    "gameDate": "2026-03-29",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "osz5hc4pxnmgg5etrbt9xm",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "163flh9l5kpil18mgsnv0nk",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "idd8uufbl48o6kijgq9jr",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "5drhxh3xyh7v8z3r9y9f9",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "И",
+    "bracketType": "upper",
+    "bracketPosition": 9,
+    "tournamentId": 1,
+    "stageId": 1,
+    "id": 92,
+    "gameNumber": 9
+  },
+  {
+    "gameDate": "2026-03-29",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "s3njondzdq93b596afyci",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "q566o181jgxbsa375cog",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "a3b556wy16pkxjtxmur85s",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "aqtbfhaxg8enbur9zm54",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Й",
+    "bracketType": "upper",
+    "bracketPosition": 10,
+    "tournamentId": 1,
+    "stageId": 1,
+    "id": 93,
+    "gameNumber": 10
+  },
+  {
+    "gameDate": "2026-03-29",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "qj48n33nkxpa061pymkttt",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "me1sxwx3y1lspufs7",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "354pu44fhm671pvk112hs",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "vyle0l9wll8lehto3ufx4",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "К",
+    "bracketType": "upper",
+    "bracketPosition": 11,
+    "tournamentId": 1,
+    "stageId": 1,
+    "id": 94,
+    "gameNumber": 11
+  },
+  {
+    "gameDate": "2026-03-29",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "2n8htqiwlncxzfz2huqj9",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "nmjgaz9i3xgan6a22djld",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "3nf6tmqfsw7toa4gubsp4",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "yksthoirtqi3hqvr44vpt",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Л",
+    "bracketType": "upper",
+    "bracketPosition": 12,
+    "tournamentId": 1,
+    "stageId": 1,
+    "id": 95,
+    "gameNumber": 12
+  },
+  {
+    "gameDate": "2026-03-29",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "qh1l3ut6qxunkm864njl",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "bg0lr3122xa6iy799wfac5",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "rxjigb8s3bk5e8f4wfskt",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "k754fsp2dm9pacljqeymu",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "М",
+    "bracketType": "upper",
+    "bracketPosition": 13,
+    "tournamentId": 1,
+    "stageId": 1,
+    "id": 96,
+    "gameNumber": 13
+  },
+  {
+    "gameDate": "2026-03-29",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "me2ldsg23242j1jxx",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "tqfjgx46h5eeq1fhooko3k",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "udbq5tcjbciyeoibwz7eg",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "kabym1bvlzit0zfhna4rbg",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "Н",
+    "bracketType": "upper",
+    "bracketPosition": 14,
+    "tournamentId": 1,
+    "stageId": 1,
+    "id": 97,
+    "gameNumber": 14
+  },
+  {
+    "gameDate": "2026-03-29",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "ekaxxgd6gjixk7lkdhaisc",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "5h9dbmp9s1e2hcbv6h25ig",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "6gl8rrnvdurl9k1k68ax",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "egsnm1l5wotmqiykm5bhqa",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "О",
+    "bracketType": "upper",
+    "bracketPosition": 15,
+    "tournamentId": 1,
+    "stageId": 1,
+    "id": 98,
+    "gameNumber": 15
+  },
+  {
+    "gameDate": "2026-03-29",
+    "gamePlace": "TBD",
+    "presenterId": 1,
+    "participants": [
+      {
+        "playerId": "urlu3qkr6axgty8ru37o",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "qalinv39pjqv13jgh6sr1k",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "ktwez8mw1s22yr0ta5sq1h",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": "kd0kljllygi8mn2eemj7p4",
+        "sourceReference": null,
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": true,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "tournamentType": "DoubleElimination",
+    "gameLetter": "П",
+    "bracketType": "upper",
+    "bracketPosition": 16,
+    "tournamentId": 1,
+    "stageId": 1,
+    "id": 99,
+    "gameNumber": 16
+  },
+  {
+    "gameDate": "2026-03-29T11:32:48.921Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 17,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.1.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.9.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.5.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.13.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 17,
+    "tournamentId": 1,
+    "stageId": 2,
+    "id": 100
+  },
+  {
+    "gameDate": "2026-03-29T11:32:48.935Z",
+    "gamePlace": "Арена 2",
+    "presenterId": 1,
+    "stageOrder": 18,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.2.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.10.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.6.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.14.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 2,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 18,
+    "tournamentId": 1,
+    "stageId": 2,
+    "id": 101
+  },
+  {
+    "gameDate": "2026-03-29T11:32:48.940Z",
+    "gamePlace": "Арена 3",
+    "presenterId": 1,
+    "stageOrder": 19,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.3.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.11.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.7.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.15.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 3,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 19,
+    "tournamentId": 1,
+    "stageId": 2,
+    "id": 102
+  },
+  {
+    "gameDate": "2026-03-29T11:32:48.944Z",
+    "gamePlace": "Арена 4",
+    "presenterId": 1,
+    "stageOrder": 20,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.4.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.12.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.8.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.16.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 4,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 20,
+    "tournamentId": 1,
+    "stageId": 2,
+    "id": 103
+  },
+  {
+    "gameDate": "2026-03-29T11:32:48.948Z",
+    "gamePlace": "Арена 5",
+    "presenterId": 1,
+    "stageOrder": 21,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.5.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.13.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.9.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.1.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 5,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 21,
+    "tournamentId": 1,
+    "stageId": 2,
+    "id": 104
+  },
+  {
+    "gameDate": "2026-03-29T11:32:48.952Z",
+    "gamePlace": "Арена 6",
+    "presenterId": 1,
+    "stageOrder": 22,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.6.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.14.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.10.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.2.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 6,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 22,
+    "tournamentId": 1,
+    "stageId": 2,
+    "id": 105
+  },
+  {
+    "gameDate": "2026-03-29T11:32:48.957Z",
+    "gamePlace": "Арена 7",
+    "presenterId": 1,
+    "stageOrder": 23,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.7.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.15.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.11.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.3.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 7,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 23,
+    "tournamentId": 1,
+    "stageId": 2,
+    "id": 106
+  },
+  {
+    "gameDate": "2026-03-29T11:32:48.962Z",
+    "gamePlace": "Арена 8",
+    "presenterId": 1,
+    "stageOrder": 24,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.8.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.16.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.12.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.4.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 8,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 24,
+    "tournamentId": 1,
+    "stageId": 2,
+    "id": 107
+  },
+  {
+    "gameDate": "2026-03-29T11:32:48.968Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 25,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.1.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.9.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.5.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.13.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 25,
+    "tournamentId": 1,
+    "stageId": 2,
+    "id": 108
+  },
+  {
+    "gameDate": "2026-03-29T11:32:48.973Z",
+    "gamePlace": "Арена 2",
+    "presenterId": 1,
+    "stageOrder": 26,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.2.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.10.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.6.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.14.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 2,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 26,
+    "tournamentId": 1,
+    "stageId": 2,
+    "id": 109
+  },
+  {
+    "gameDate": "2026-03-29T11:32:48.978Z",
+    "gamePlace": "Арена 3",
+    "presenterId": 1,
+    "stageOrder": 27,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.3.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.11.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.7.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.15.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 3,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 27,
+    "tournamentId": 1,
+    "stageId": 2,
+    "id": 110
+  },
+  {
+    "gameDate": "2026-03-29T11:32:48.984Z",
+    "gamePlace": "Арена 4",
+    "presenterId": 1,
+    "stageOrder": 28,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.4.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.12.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.8.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.16.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 4,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 28,
+    "tournamentId": 1,
+    "stageId": 2,
+    "id": 111
+  },
+  {
+    "gameDate": "2026-03-29T11:32:48.990Z",
+    "gamePlace": "Арена 5",
+    "presenterId": 1,
+    "stageOrder": 29,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.5.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.13.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.9.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.1.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 5,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 29,
+    "tournamentId": 1,
+    "stageId": 2,
+    "id": 112
+  },
+  {
+    "gameDate": "2026-03-29T11:32:48.997Z",
+    "gamePlace": "Арена 6",
+    "presenterId": 1,
+    "stageOrder": 30,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.6.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.14.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.10.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.2.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 6,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 30,
+    "tournamentId": 1,
+    "stageId": 2,
+    "id": 113
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.003Z",
+    "gamePlace": "Арена 7",
+    "presenterId": 1,
+    "stageOrder": 31,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.7.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.15.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.11.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.3.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 7,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 31,
+    "tournamentId": 1,
+    "stageId": 2,
+    "id": 114
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.010Z",
+    "gamePlace": "Арена 8",
+    "presenterId": 1,
+    "stageOrder": 32,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.8.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.16.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.12.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.4.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 8,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 32,
+    "tournamentId": 1,
+    "stageId": 2,
+    "id": 115
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.032Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 33,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.17.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.21.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.19.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.23.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 33,
+    "tournamentId": 1,
+    "stageId": 3,
+    "id": 116
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.038Z",
+    "gamePlace": "Арена 2",
+    "presenterId": 1,
+    "stageOrder": 34,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.18.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.22.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.20.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.24.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 2,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 34,
+    "tournamentId": 1,
+    "stageId": 3,
+    "id": 117
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.046Z",
+    "gamePlace": "Арена 3",
+    "presenterId": 1,
+    "stageOrder": 35,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.19.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.23.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.21.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.17.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 3,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 35,
+    "tournamentId": 1,
+    "stageId": 3,
+    "id": 118
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.051Z",
+    "gamePlace": "Арена 4",
+    "presenterId": 1,
+    "stageOrder": 36,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.20.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.24.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.22.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.18.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 4,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 36,
+    "tournamentId": 1,
+    "stageId": 3,
+    "id": 119
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.060Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 37,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.17.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.25.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.21.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.29.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 37,
+    "tournamentId": 1,
+    "stageId": 3,
+    "id": 120
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.067Z",
+    "gamePlace": "Арена 2",
+    "presenterId": 1,
+    "stageOrder": 38,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.18.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.26.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.22.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.30.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 2,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 38,
+    "tournamentId": 1,
+    "stageId": 3,
+    "id": 121
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.074Z",
+    "gamePlace": "Арена 3",
+    "presenterId": 1,
+    "stageOrder": 39,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.19.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.27.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.23.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.31.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 3,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 39,
+    "tournamentId": 1,
+    "stageId": 3,
+    "id": 122
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.080Z",
+    "gamePlace": "Арена 4",
+    "presenterId": 1,
+    "stageOrder": 40,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.20.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.28.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.24.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.32.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 4,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 40,
+    "tournamentId": 1,
+    "stageId": 3,
+    "id": 123
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.085Z",
+    "gamePlace": "Арена 5",
+    "presenterId": 1,
+    "stageOrder": 41,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.21.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.29.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.25.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.17.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 5,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 41,
+    "tournamentId": 1,
+    "stageId": 3,
+    "id": 124
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.091Z",
+    "gamePlace": "Арена 6",
+    "presenterId": 1,
+    "stageOrder": 42,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.22.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.30.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.26.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.18.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 6,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 42,
+    "tournamentId": 1,
+    "stageId": 3,
+    "id": 125
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.096Z",
+    "gamePlace": "Арена 7",
+    "presenterId": 1,
+    "stageOrder": 43,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.23.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.31.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.27.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.19.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 7,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 43,
+    "tournamentId": 1,
+    "stageId": 3,
+    "id": 126
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.101Z",
+    "gamePlace": "Арена 8",
+    "presenterId": 1,
+    "stageOrder": 44,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.24.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.32.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.28.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.20.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 8,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 44,
+    "tournamentId": 1,
+    "stageId": 3,
+    "id": 127
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.120Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 45,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.33.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.35.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.34.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.36.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 45,
+    "tournamentId": 1,
+    "stageId": 4,
+    "id": 128
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.128Z",
+    "gamePlace": "Арена 2",
+    "presenterId": 1,
+    "stageOrder": 46,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.34.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.36.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.35.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.33.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 2,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 46,
+    "tournamentId": 1,
+    "stageId": 4,
+    "id": 129
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.133Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 47,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.33.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.39.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.36.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.42.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 47,
+    "tournamentId": 1,
+    "stageId": 4,
+    "id": 130
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.138Z",
+    "gamePlace": "Арена 2",
+    "presenterId": 1,
+    "stageOrder": 48,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.34.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.40.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.37.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.43.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 2,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 48,
+    "tournamentId": 1,
+    "stageId": 4,
+    "id": 131
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.144Z",
+    "gamePlace": "Арена 3",
+    "presenterId": 1,
+    "stageOrder": 49,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.35.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.41.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.38.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.44.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 3,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 49,
+    "tournamentId": 1,
+    "stageId": 4,
+    "id": 132
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.149Z",
+    "gamePlace": "Арена 4",
+    "presenterId": 1,
+    "stageOrder": 50,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.36.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.42.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.39.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.33.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 4,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 50,
+    "tournamentId": 1,
+    "stageId": 4,
+    "id": 133
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.153Z",
+    "gamePlace": "Арена 5",
+    "presenterId": 1,
+    "stageOrder": 51,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.37.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.43.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.40.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.34.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 5,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 51,
+    "tournamentId": 1,
+    "stageId": 4,
+    "id": 134
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.160Z",
+    "gamePlace": "Арена 6",
+    "presenterId": 1,
+    "stageOrder": 52,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.38.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.44.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.41.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.35.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 6,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 52,
+    "tournamentId": 1,
+    "stageId": 4,
+    "id": 135
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.178Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 53,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.45.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.45.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.46.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.46.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 53,
+    "tournamentId": 1,
+    "stageId": 5,
+    "id": 136
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.182Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 54,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.45.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.49.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.47.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.51.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 54,
+    "tournamentId": 1,
+    "stageId": 5,
+    "id": 137
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.186Z",
+    "gamePlace": "Арена 2",
+    "presenterId": 1,
+    "stageOrder": 55,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.46.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.50.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.48.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.52.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 2,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 55,
+    "tournamentId": 1,
+    "stageId": 5,
+    "id": 138
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.191Z",
+    "gamePlace": "Арена 3",
+    "presenterId": 1,
+    "stageOrder": 56,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.47.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.51.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.49.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.45.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 3,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 56,
+    "tournamentId": 1,
+    "stageId": 5,
+    "id": 139
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.195Z",
+    "gamePlace": "Арена 4",
+    "presenterId": 1,
+    "stageOrder": 57,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.48.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.52.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.50.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.46.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 4,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 57,
+    "tournamentId": 1,
+    "stageId": 5,
+    "id": 140
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.207Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 58,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.53.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.53.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.53.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 58,
+    "tournamentId": 1,
+    "stageId": 6,
+    "id": 141
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.211Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 59,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.53.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.56.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.55.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.54.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 59,
+    "tournamentId": 1,
+    "stageId": 6,
+    "id": 142
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.219Z",
+    "gamePlace": "Арена 2",
+    "presenterId": 1,
+    "stageOrder": 60,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.54.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.57.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.56.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.55.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 2,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 60,
+    "tournamentId": 1,
+    "stageId": 6,
+    "id": 143
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.223Z",
+    "gamePlace": "Арена 3",
+    "presenterId": 1,
+    "stageOrder": 61,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.55.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.53.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.57.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.56.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 3,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 61,
+    "tournamentId": 1,
+    "stageId": 6,
+    "id": 144
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.239Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 62,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.58.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.60.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.59.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.58.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 62,
+    "tournamentId": 1,
+    "stageId": 7,
+    "id": 145
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.244Z",
+    "gamePlace": "Арена 2",
+    "presenterId": 1,
+    "stageOrder": 63,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.58.4",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.61.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.60.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.59.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 2,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 63,
+    "tournamentId": 1,
+    "stageId": 7,
+    "id": 146
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.257Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 64,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.62.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.62.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.63.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.63.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": true,
+        "eliminationCount": 1
+      }
+    ],
+    "bracketType": "lower",
+    "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 64,
+    "tournamentId": 1,
+    "stageId": 8,
+    "id": 147
+  },
+  {
+    "gameDate": "2026-03-29T11:32:49.276Z",
+    "gamePlace": "Арена 1",
+    "presenterId": 1,
+    "stageOrder": 65,
+    "participants": [
+      {
+        "playerId": null,
+        "sourceReference": "1.64.1",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.64.2",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      },
+      {
+        "playerId": null,
+        "sourceReference": "1.64.3",
+        "points": 0,
+        "tieBreakResult": null,
+        "resolved": false,
+        "lossBracket": false,
+        "eliminationCount": 0
+      }
+    ],
+    "bracketType": "upper",
+    "bracketPosition": 1,
+    "tournamentType": "DoubleElimination",
+    "gameNumber": 65,
+    "tournamentId": 1,
+    "stageId": 9,
+    "id": 148
   }
 ]
