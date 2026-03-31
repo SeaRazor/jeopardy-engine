@@ -6,42 +6,37 @@ import styles from './TournamentTabs.module.css';
 
 const TournamentTabs = ({ tournament, onTabChange, activeTab }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [showLeftScroll, setShowLeftScroll] = useState(false);
-  const [showRightScroll, setShowRightScroll] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
   const dropdownRef = useRef(null);
-  const tabsRef = useRef(null);
 
-  const tabs = [
+  const mainTabs = [
     { id: 'participants', label: 'Участники', icon: <FaUsers /> },
-    { id: 'bracket', label: 'Сетка', icon: <FaTrophy /> },
-    { id: 'results', label: 'Результаты', icon: <FaMedal /> },
+    { id: 'bracket',      label: 'Сетка',     icon: <FaTrophy /> },
+    { id: 'results',      label: 'Результаты', icon: <FaMedal /> },
   ];
 
-  // Add stage tabs based on tournament schema
+  const stageTabs = [];
   if (tournament?.schema?.stages) {
     tournament.schema.stages.forEach((stage, index) => {
-      tabs.splice(1 + index, 0, {
+      stageTabs.push({
         id: `stage-${index}`,
         label: stage.name || `Стадия ${index + 1}`,
-        icon: <span className={styles.stageNumber}>{String(index + 1).padStart(2, '0')}</span>
+        number: String(index + 1).padStart(2, '0'),
       });
     });
   }
 
-  const activeTabData = tabs.find(tab => tab.id === activeTab) || tabs[0];
+  const allTabs = [...mainTabs, ...stageTabs];
+  const activeTabData = allTabs.find(t => t.id === activeTab) || mainTabs[0];
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const handleTabSelect = (tabId) => {
@@ -49,107 +44,104 @@ const TournamentTabs = ({ tournament, onTabChange, activeTab }) => {
     setIsDropdownOpen(false);
   };
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  // Check scroll position and update scroll indicators
-  const checkScrollPosition = () => {
-    if (tabsRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = tabsRef.current;
-      setShowLeftScroll(scrollLeft > 0);
-      setShowRightScroll(scrollLeft < scrollWidth - clientWidth - 1);
-    }
-  };
-
-  // Initialize scroll position check
-  useEffect(() => {
-    const handleResize = () => {
-      checkScrollPosition();
-    };
-
-    checkScrollPosition();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [tabs]);
-
-  // Scroll functions
-  const scrollLeft = () => {
-    if (tabsRef.current) {
-      tabsRef.current.scrollBy({ left: -200, behavior: 'smooth' });
-    }
-  };
-
-  const scrollRight = () => {
-    if (tabsRef.current) {
-      tabsRef.current.scrollBy({ left: 200, behavior: 'smooth' });
-    }
-  };
-
   return (
-    <div className={styles.tabsContainer}>
-      {/* Desktop tabs */}
-      <div className={styles.tabsWrapper}>
-        {showLeftScroll && (
-          <button className={styles.scrollButton} onClick={scrollLeft} aria-label="Scroll left">
-            <FaChevronLeft />
-          </button>
-        )}
-        <div 
-          className={styles.tabs}
-          ref={tabsRef}
-          onScroll={checkScrollPosition}
+    <>
+      {/* Desktop sidebar */}
+      <nav className={`${styles.sidebar} ${collapsed ? styles.collapsed : ''}`}>
+        <button
+          className={styles.collapseToggle}
+          onClick={() => setCollapsed(v => !v)}
+          aria-label={collapsed ? 'Развернуть меню' : 'Свернуть меню'}
+          title={collapsed ? 'Развернуть меню' : 'Свернуть меню'}
         >
-          {tabs.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => onTabChange(tab.id)}
-              className={`${styles.tab} ${activeTab === tab.id ? styles.active : ''}`}
-            >
-              <span className={styles.icon}>{tab.icon}</span>
-              <span className={styles.label}>{tab.label}</span>
-            </button>
+          {collapsed ? <FaChevronRight /> : <FaChevronLeft />}
+        </button>
+
+        <ul className={styles.navList}>
+          {mainTabs.map(tab => (
+            <li key={tab.id}>
+              <button
+                onClick={() => onTabChange(tab.id)}
+                className={`${styles.navItem} ${activeTab === tab.id ? styles.active : ''}`}
+                title={collapsed ? tab.label : undefined}
+              >
+                <span className={styles.icon}>{tab.icon}</span>
+                {!collapsed && <span className={styles.label}>{tab.label}</span>}
+              </button>
+            </li>
           ))}
-        </div>
-        {showRightScroll && (
-          <button className={styles.scrollButton} onClick={scrollRight} aria-label="Scroll right">
-            <FaChevronRight />
-          </button>
+        </ul>
+
+        {stageTabs.length > 0 && (
+          <>
+            <div className={styles.divider}>
+              {!collapsed && <span className={styles.dividerLabel}>Стадии</span>}
+            </div>
+            <ul className={styles.navList}>
+              {stageTabs.map(tab => (
+                <li key={tab.id}>
+                  <button
+                    onClick={() => onTabChange(tab.id)}
+                    className={`${styles.navItem} ${activeTab === tab.id ? styles.active : ''}`}
+                    title={collapsed ? tab.label : undefined}
+                  >
+                    <span className={styles.stageNumber}>{tab.number}</span>
+                    {!collapsed && <span className={styles.label}>{tab.label}</span>}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </>
         )}
-      </div>
+      </nav>
 
       {/* Mobile dropdown */}
-      <div className={styles.mobileTabSelector} ref={dropdownRef}>
-        <button 
+      <div className={styles.mobileSelector} ref={dropdownRef}>
+        <button
           className={styles.activeTabButton}
-          onClick={toggleDropdown}
+          onClick={() => setIsDropdownOpen(v => !v)}
           aria-expanded={isDropdownOpen}
-          aria-haspopup="true"
         >
-          <span className={styles.icon}>{activeTabData.icon}</span>
+          <span className={styles.icon}>
+            {activeTabData.icon || <span className={styles.stageNumber}>{activeTabData.number}</span>}
+          </span>
           <span className={styles.label}>{activeTabData.label}</span>
           <span className={styles.chevron}>
             {isDropdownOpen ? <FaChevronUp /> : <FaChevronDown />}
           </span>
         </button>
-        
+
         {isDropdownOpen && (
-          <div className={styles.tabDropdown}>
-            {tabs.map(tab => (
+          <div className={styles.dropdown}>
+            {mainTabs.map(tab => (
               <button
                 key={tab.id}
                 onClick={() => handleTabSelect(tab.id)}
-                className={`${styles.dropdownTab} ${activeTab === tab.id ? styles.active : ''}`}
+                className={`${styles.dropdownItem} ${activeTab === tab.id ? styles.active : ''}`}
               >
                 <span className={styles.icon}>{tab.icon}</span>
                 <span className={styles.label}>{tab.label}</span>
-                {activeTab === tab.id && <span className={styles.checkmark}>✓</span>}
               </button>
             ))}
+            {stageTabs.length > 0 && (
+              <>
+                <div className={styles.dropdownDivider}>Стадии</div>
+                {stageTabs.map(tab => (
+                  <button
+                    key={tab.id}
+                    onClick={() => handleTabSelect(tab.id)}
+                    className={`${styles.dropdownItem} ${activeTab === tab.id ? styles.active : ''}`}
+                  >
+                    <span className={styles.stageNumber}>{tab.number}</span>
+                    <span className={styles.label}>{tab.label}</span>
+                  </button>
+                ))}
+              </>
+            )}
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

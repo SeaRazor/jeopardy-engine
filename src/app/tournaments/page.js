@@ -2,12 +2,11 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { useState, useMemo } from 'react';
-import { FaPlus } from 'react-icons/fa';
 import TournamentCard from './components/TournamentCard';
+import AddTournamentCard from './components/AddTournamentCard/AddTournamentCard';
 import TournamentFilters from './components/TournamentFilters/TournamentFilters';
 import AddTournamentForm from './components/AddTournamentForm/AddTournamentForm';
 import Modal from '../UI/Modal';
-import AdaptiveButton from '../UI/AdaptiveButton';
 import styles from './tournaments.module.css';
 import { getTournamentStatus } from '../util/tournament';
 
@@ -62,22 +61,11 @@ export default function TournamentsPage() {
         />
       </div>
       <div className={styles.grid}>
-        {filteredTournaments.length > 0 ? (
-          filteredTournaments.map((tournament) => (
-            <TournamentCard key={tournament.id} tournament={tournament} />
-          ))
-        ) : (
-          <p>Нет турниров, соответствующих фильтрам.</p>
-        )}
+        {filteredTournaments.map((tournament) => (
+          <TournamentCard key={tournament.id} tournament={tournament} />
+        ))}
+        <AddTournamentCard onClick={() => setIsFormOpen(true)} />
       </div>
-
-      <AdaptiveButton 
-        onClick={() => setIsFormOpen(true)} 
-        icon={FaPlus} 
-        title="Добавить турнир"
-        variant="primary"
-        className="fab"
-      />
 
       <Modal isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} title="Добавить турнир">
         <AddTournamentForm onClose={() => setIsFormOpen(false)} />

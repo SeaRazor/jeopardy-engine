@@ -6,19 +6,15 @@
 
 .header {
   margin-top: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.pageHeader {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
 }
 
 .breadcrumbTrail {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  margin-bottom: 0.75rem;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
   color: var(--color-secondary-text);
 }
 
@@ -26,197 +22,230 @@
   color: var(--color-secondary-text);
   text-decoration: none;
   font-weight: 500;
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-  position: relative;
+  transition: color 0.2s ease;
 }
 
 .breadcrumbLink:hover {
   color: var(--primary-color);
-  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.08);
 }
 
 .breadcrumbSeparator {
-  font-size: 0.75rem;
-  color: var(--color-border);
-  margin: 0 0.25rem;
-  opacity: 0.6;
+  font-size: 0.65rem;
+  opacity: 0.5;
 }
 
 .currentPage {
   color: var(--color-foreground);
   font-weight: 600;
-  max-width: 300px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  .header {
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .pageHeader {
-    margin-bottom: 1rem;
-  }
-  
-  .breadcrumbTrail {
-    font-size: 0.8rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .breadcrumbLink {
-    padding: 0.2rem 0.4rem;
-    font-size: 0.8rem;
-  }
-  
-  .breadcrumbSeparator {
-    font-size: 0.7rem;
-    margin: 0 0.2rem;
-  }
-  
-  .currentPage {
-    max-width: 200px;
-    font-size: 0.8rem;
-  }
-}
-
-.tournamentInfo {
-  background-color: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  padding: 1rem;
-  box-shadow: var(--shadow-md);
-}
-
-.infoHeader {
-  display: none;
-}
-
-.toggleButton {
-  display: none;
-}
-
-.titleSection {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.detailsTitle {
-  font-weight: 600;
-  color: var(--color-foreground);
-  font-size: 0.9rem;
-}
 
 .title {
   margin: 0;
-  font-size: 2rem;
-  color: var(--color-foreground);
+  font-size: 1.35rem;
   font-weight: 700;
+  color: var(--color-foreground);
+  letter-spacing: -0.02em;
+  text-align: left;
+  flex: 1;
 }
 
 .typeLabel {
-  font-size: 0.8rem;
-  font-weight: 700;
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.25rem 0.6rem;
+  border-radius: 5px;
   color: white;
   text-transform: uppercase;
-  letter-spacing: 0.025em;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  letter-spacing: 0.06em;
 }
 
-.СИ {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+.СИ { background: #f59e0b; }
+.ЭК { background: #10b981; }
+.БР { background: #f43f5e; }
+
+/* Info card container */
+.infoCard {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-.ЭК {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-}
-
-.БР {
-  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
-}
-
-.details {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-}
-
-/* На десктопе детали всегда показаны */
-@media (min-width: 769px) {
-  .details {
-    display: grid !important;
-  }
-}
-
-.detail {
-  font-size: 0.95rem;
-  color: var(--color-foreground);
+/* Info toggle button — acts as card header */
+.infoToggle {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
 }
 
-.detailHeader {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.infoToggle:hover {
+  background: var(--card-border);
+}
+
+.infoToggleChevron {
+  width: 12px;
+  height: 12px;
+  color: var(--color-secondary-text);
+  transition: transform 0.2s ease;
   flex-shrink: 0;
 }
 
-.detailIcon {
-  color: var(--primary-color);
-  font-size: 0.9rem;
-  opacity: 0.8;
+.infoToggleChevronOpen {
+  transform: rotate(180deg);
 }
 
-.detailValue {
-  text-align: right;
+/* Info strip */
+.infoStripClosed {
+  display: none;
+}
+
+.infoStripOpen {
+  display: flex;
+}
+
+.infoStrip {
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--card-border);
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.infoIconBox {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  background: rgba(99, 102, 241, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.infoIcon {
+  width: 20px;
+  height: 20px;
+  color: #6366f1;
+}
+
+.infoText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.infoLabel {
+  font-size: 0.75rem;
+  color: var(--color-secondary-text);
   font-weight: 500;
 }
 
-.schemaDescription {
-  color: var(--color-secondary-text);
-  font-weight: 400;
-  font-style: italic;
+.infoValue {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-foreground);
+  line-height: 1.2;
 }
 
-.detail strong {
-  color: var(--color-secondary-text);
-  font-weight: 600;
-  margin: 0;
+/* Status variants */
+.планируется .infoIconBox { background: var(--status-planned-bg); }
+.планируется .infoIcon    { color: var(--status-planned-color); }
+
+.идет .infoIconBox        { background: var(--status-ongoing-bg); }
+.идет .infoIcon           { color: var(--status-ongoing-color); }
+
+.закончен .infoIconBox    { background: var(--status-finished-bg); }
+.закончен .infoIcon       { color: var(--status-finished-color); }
+
+
+@media (max-width: 768px) {
+  .infoStripOpen {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .infoStrip {
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+  }
 }
 
-.status {
-  font-weight: 600;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  margin-left: 0.5rem;
+@media (max-width: 480px) {
+  .infoStripOpen {
+    grid-template-columns: 1fr;
+  }
+
+  .infoStrip {
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .infoIconBox {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+  }
+
+  .infoIcon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .infoValue {
+    font-size: 0.875rem;
+  }
 }
 
-.планируется {
-  background-color: var(--status-planned-bg);
-  color: var(--status-planned-color);
+@media (max-width: 768px) {
+  .header {
+    margin-top: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .infoStrip {
+    gap: 0.25rem;
+  }
 }
 
-.идет {
-  background-color: var(--status-ongoing-bg);
-  color: var(--status-ongoing-color);
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.15rem;
+  }
 }
 
-.закончен {
-  background-color: var(--status-finished-bg);
-  color: var(--status-finished-color);
+.body {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.tabContent {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .body {
+    flex-direction: column;
+    gap: 0;
+  }
 }
 
 .content {
@@ -249,198 +278,3 @@
   color: var(--color-foreground);
 }
 
-@media (max-width: 768px) {
-  .tournamentInfo {
-    padding: 1rem;
-    border-radius: 10px;
-  }
-  
-  .titleSection {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-  }
-  
-  .infoHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
-    padding: 0.5rem 0.75rem;
-    background-color: var(--color-background);
-    border: 1px solid var(--input-border);
-    border-radius: 6px;
-    margin-bottom: 1rem;
-  }
-  
-  .toggleButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    color: var(--primary-color);
-    font-size: 1rem;
-    cursor: pointer;
-    padding: 0.25rem;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-  }
-  
-  .toggleButton:hover {
-    background-color: var(--card-bg);
-  }
-  
-  .title {
-    font-size: 1.3rem;
-    line-height: 1.3;
-  }
-  
-  .details {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-  
-  .details.collapsed {
-    display: none;
-  }
-  
-  .details.expanded {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .detail {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 0.65rem;
-    background-color: var(--color-background);
-    border: 1px solid var(--input-border);
-    border-radius: 6px;
-    font-size: 0.85rem;
-  }
-  
-  .detailHeader {
-    gap: 0.3rem;
-  }
-  
-  .detailIcon {
-    font-size: 0.8rem;
-  }
-  
-  .detailValue {
-    text-align: right;
-    font-size: 0.85rem;
-    font-weight: 600;
-  }
-  
-  .detail strong {
-    margin-right: 0;
-    color: var(--color-secondary-text);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
-    font-weight: 700;
-  }
-  
-  .status {
-    margin-left: 0;
-    padding: 0.25rem 0.5rem;
-    border-radius: 10px;
-    font-size: 0.75rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .header {
-    margin-bottom: 0.75rem;
-  }
-  
-  .breadcrumb {
-    margin-bottom: 0.75rem;
-  }
-  
-  .backLink {
-    font-size: 0.85rem;
-    padding: 0.5rem 0;
-  }
-  
-  .tournamentInfo {
-    padding: 0.75rem;
-    border-radius: 8px;
-  }
-  
-  .titleSection {
-    margin-bottom: 0.75rem;
-    justify-content: space-between;
-  }
-  
-  .infoHeader {
-    padding: 0.4rem 0.5rem;
-    margin-bottom: 0.75rem;
-  }
-  
-  .title {
-    font-size: 1.15rem;
-    line-height: 1.2;
-  }
-  
-  .typeLabel {
-    font-size: 0.65rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 5px;
-  }
-  
-  .details {
-    gap: 0.4rem;
-  }
-  
-  .details.collapsed {
-    display: none;
-  }
-  
-  .details.expanded {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .detail {
-    padding: 0.4rem 0.5rem;
-    font-size: 0.8rem;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.3rem;
-  }
-  
-  .detailHeader {
-    align-self: flex-start;
-    gap: 0.25rem;
-  }
-  
-  .detailIcon {
-    font-size: 0.75rem;
-  }
-  
-  .detailValue {
-    text-align: left;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--color-foreground);
-  }
-  
-  .detail strong {
-    font-size: 0.7rem;
-    font-weight: 700;
-  }
-  
-  .status {
-    align-self: flex-start;
-    padding: 0.2rem 0.4rem;
-    font-size: 0.65rem;
-  }
-}

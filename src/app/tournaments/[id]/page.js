@@ -1,17 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useSearchParams, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { FaCalendarAlt, FaInfoCircle, FaSitemap, FaUsers, FaChevronDown, FaChevronUp, FaChevronRight } from 'react-icons/fa';
+import { FaCalendarAlt, FaInfoCircle, FaSitemap, FaUsers, FaChevronRight, FaTrophy, FaChevronDown } from 'react-icons/fa';
 import Link from 'next/link';
-import InfoComponent from '../../UI/InfoComponent/InfoComponent';
 import TournamentTabs from './components/TournamentTabs';
 import ParticipantsTab from './components/ParticipantsTab';
 import BracketTab from './components/BracketTab';
 import ResultsTab from './components/ResultsTab';
 import StageTab from './components/StageTab';
-import { getTournamentStatus, getTypeLabel } from '../../util/tournament';
+import { getTournamentStatus, getTypeLabel, getTypeMeta } from '../../util/tournament';
 import styles from './TournamentDetail.module.css';
 
 const fetchTournament = async (id) => {
@@ -27,6 +26,7 @@ export default function TournamentDetailPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('participants');
+  const [infoExpanded, setInfoExpanded] = useState(false);
   
   const { data: tournament, isLoading, isError } = useQuery({
     queryKey: ['tournament', id],
@@ -95,111 +95,115 @@ export default function TournamentDetailPage() {
 
   const status = getTournamentStatus(tournament.startDate, tournament.endDate);
   const typeLabel = getTypeLabel(tournament.type);
+  const typeMeta = getTypeMeta(tournament.type);
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div className={styles.pageHeader}>
-          <div className={styles.breadcrumbTrail}>
-            <Link href="/tournaments" className={styles.breadcrumbLink}>
-              Турниры
-            </Link>
-            <span className={styles.breadcrumbSeparator}>
-              <FaChevronRight />
-            </span>
-            <span className={styles.currentPage}>{tournament.name}</span>
-          </div>
+        <div className={styles.breadcrumbTrail}>
+          <Link href="/tournaments" className={styles.breadcrumbLink}>
+            Турниры
+          </Link>
+          <span className={styles.breadcrumbSeparator}><FaChevronRight /></span>
+          <span className={styles.currentPage}>{tournament.name}</span>
         </div>
-        
-        <InfoComponent 
-          title={tournament.name}
-          icon={FaInfoCircle}
-          headerContent={tournament.type && (
-            <div className={`${styles.typeLabel} ${styles[typeLabel]}`}>
-              {typeLabel}
-            </div>
-          )}
-          defaultCollapsed={true}
-          className={styles.tournamentInfo}
-        >
-          
-          <div className={styles.details}>
-            <div className={styles.detail}>
-              <div className={styles.detailHeader}>
-                <FaCalendarAlt className={styles.detailIcon} />
-                <strong>Даты:</strong>
+
+        <div className={styles.infoCard}>
+          <button
+            className={styles.infoToggle}
+            onClick={() => setInfoExpanded(v => !v)}
+            aria-expanded={infoExpanded}
+          >
+            <h1 className={styles.title}>{tournament.name}</h1>
+            <FaChevronDown className={`${styles.infoToggleChevron} ${infoExpanded ? styles.infoToggleChevronOpen : ''}`} />
+          </button>
+
+          <div className={`${styles.infoStrip} ${infoExpanded ? styles.infoStripOpen : styles.infoStripClosed}`}>
+            {typeMeta && (
+              <div className={styles.infoItem}>
+                <div className={styles.infoIconBox} style={{ background: typeMeta.colorAlpha }}>
+                  <FaTrophy className={styles.infoIcon} style={{ color: typeMeta.color }} />
+                </div>
+                <div className={styles.infoText}>
+                  <span className={styles.infoLabel}>Тип</span>
+                  <span className={styles.infoValue}>{typeMeta.name}</span>
+                </div>
               </div>
-              <div className={styles.detailValue}>
-                {new Date(tournament.startDate).toLocaleDateString('ru-RU')} - 
-                {new Date(tournament.endDate).toLocaleDateString('ru-RU')}
+            )}
+            <div className={styles.infoItem}>
+              <div className={styles.infoIconBox}>
+                <FaCalendarAlt className={styles.infoIcon} />
               </div>
-            </div>
-            <div className={styles.detail}>
-              <div className={styles.detailHeader}>
-                <FaInfoCircle className={styles.detailIcon} />
-                <strong>Статус:</strong>
-              </div>
-              <div className={styles.detailValue}>
-                <span className={`${styles.status} ${styles[status.toLowerCase()]}`}>
-                  {status}
+              <div className={styles.infoText}>
+                <span className={styles.infoLabel}>Даты</span>
+                <span className={styles.infoValue}>
+                  {new Date(tournament.startDate).toLocaleDateString('ru-RU')} — {new Date(tournament.endDate).toLocaleDateString('ru-RU')}
                 </span>
               </div>
             </div>
-            <div className={styles.detail}>
-              <div className={styles.detailHeader}>
-                <FaSitemap className={styles.detailIcon} />
-                <strong>Схема:</strong>
+            <div className={`${styles.infoItem} ${styles[status.toLowerCase()]}`}>
+              <div className={styles.infoIconBox}>
+                <FaInfoCircle className={styles.infoIcon} />
               </div>
-              <div className={styles.detailValue}>
-                {tournament.schema?.schemeName}
-                {tournament.schema?.description  && (
-                  <span className={styles.schemaDescription}> - {tournament.schema.description}</span>
-                )}
+              <div className={styles.infoText}>
+                <span className={styles.infoLabel}>Статус</span>
+                <span className={styles.infoValue}>{status}</span>
               </div>
             </div>
-            <div className={styles.detail}>
-              <div className={styles.detailHeader}>
-                <FaUsers className={styles.detailIcon} />
-                <strong>Участников:</strong>
+            <div className={styles.infoItem}>
+              <div className={styles.infoIconBox}>
+                <FaSitemap className={styles.infoIcon} />
               </div>
-              <div className={styles.detailValue}>
-                {tournament.participants?.length || 0} / {tournament.schema?.participantsNum}
+              <div className={styles.infoText}>
+                <span className={styles.infoLabel}>Схема</span>
+                <span className={styles.infoValue}>{tournament.schema?.schemeName}</span>
+              </div>
+            </div>
+            <div className={styles.infoItem}>
+              <div className={styles.infoIconBox}>
+                <FaUsers className={styles.infoIcon} />
+              </div>
+              <div className={styles.infoText}>
+                <span className={styles.infoLabel}>Участники</span>
+                <span className={styles.infoValue}>{tournament.participants?.length || 0} / {tournament.schema?.participantsNum}</span>
               </div>
             </div>
           </div>
-        </InfoComponent>
+        </div>
       </div>
 
-      <TournamentTabs 
-        tournament={tournament}
-        activeTab={activeTab}
-        onTabChange={handleTabChange}
-      />
+      <div className={styles.body}>
+        <TournamentTabs
+          tournament={tournament}
+          activeTab={activeTab}
+          onTabChange={handleTabChange}
+        />
 
-      <div >
-        {activeTab === 'participants' && (
-          <ParticipantsTab 
-            tournament={tournament}
-            onUpdateParticipants={handleUpdateParticipants}
-          />
-        )}
-        {activeTab === 'bracket' && (
-          <BracketTab tournament={tournament} />
-        )}
-        {activeTab === 'results' && (
-          <ResultsTab tournament={tournament} />
-        )}
-        {activeTab.startsWith('stage-') && (() => {
-          const stageIndex = parseInt(activeTab.replace('stage-', ''));
-          const stage = tournament?.schema?.stages?.[stageIndex];
-          return (
-            <StageTab 
-              stage={stage} 
-              stageIndex={stageIndex}
-              tournament={tournament} 
+        <div className={styles.tabContent}>
+          {activeTab === 'participants' && (
+            <ParticipantsTab
+              tournament={tournament}
+              onUpdateParticipants={handleUpdateParticipants}
             />
-          );
-        })()}
+          )}
+          {activeTab === 'bracket' && (
+            <BracketTab tournament={tournament} />
+          )}
+          {activeTab === 'results' && (
+            <ResultsTab tournament={tournament} />
+          )}
+          {activeTab.startsWith('stage-') && (() => {
+            const stageIndex = parseInt(activeTab.replace('stage-', ''));
+            const stage = tournament?.schema?.stages?.[stageIndex];
+            return (
+              <StageTab
+                stage={stage}
+                stageIndex={stageIndex}
+                tournament={tournament}
+              />
+            );
+          })()}
+        </div>
       </div>
     </div>
   );

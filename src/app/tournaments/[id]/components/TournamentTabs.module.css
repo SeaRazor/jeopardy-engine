@@ -1,341 +1,245 @@
-.tabsContainer {
-  margin-bottom: 2rem;
-  background: var(--card-bg);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  padding: 0.5rem;
-  box-shadow: 0 4px 24px var(--color-shadow);
-}
+/* ── Desktop sidebar ─────────────────────────────────────── */
 
-.tabsWrapper {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  position: relative;
-}
-
-.tabs {
-  display: flex;
-  gap: 0.75rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 0.25rem;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  flex: 1;
-}
-
-.tabs::-webkit-scrollbar {
-  display: none;
-}
-
-.tab {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.6rem 1.25rem;
-  border: 2px solid transparent;
-  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.08);
-  color: var(--color-secondary-text);
-  cursor: pointer;
-  border-radius: 20px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  white-space: nowrap;
-  font-size: 0.875rem;
-  font-weight: 600;
-  position: relative;
-  backdrop-filter: blur(10px);
+.sidebar {
+  width: 200px;
   flex-shrink: 0;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+  position: sticky;
+  top: 1rem;
+  transition: width 0.2s ease;
+  overflow: hidden;
 }
 
-.tab:hover {
-  transform: translateY(-2px);
-  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.12);
-  color: var(--color-foreground);
-  box-shadow: 0 12px 24px rgba(var(--primary-color-rgb, 0, 123, 255), 0.15);
-  border-color: rgba(var(--primary-color-rgb, 0, 123, 255), 0.2);
+.sidebar.collapsed {
+  width: 36px;
 }
 
-.tab.active {
-  background: var(--primary-color);
-  color: var(--primary-text-color);
-  border: 2px solid var(--primary-color);
-}
-
-.scrollButton {
+.collapseToggle {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: 2px solid rgba(var(--primary-color-rgb, 0, 123, 255), 0.2);
-  background: var(--card-bg);
-  color: var(--primary-color);
-  border-radius: 50%;
+  width: 100%;
+  padding: 0.375rem 0;
+  margin-bottom: 0.25rem;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--color-secondary-text);
+  font-size: 0.7rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 16px rgba(var(--primary-color-rgb, 0, 123, 255), 0.1);
-  flex-shrink: 0;
+  transition: background 0.12s ease, color 0.12s ease;
 }
 
-.scrollButton:hover {
-  transform: scale(1.1);
-  background: var(--primary-color);
-  color: var(--primary-text-color);
-  box-shadow: 0 8px 24px rgba(var(--primary-color-rgb, 0, 123, 255), 0.3);
+.collapseToggle:hover {
+  background: var(--card-border);
+  color: var(--color-foreground);
 }
 
-.scrollButton:active {
-  transform: scale(0.95);
+.navList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--color-secondary-text);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s ease, color 0.12s ease;
+  white-space: nowrap;
+}
+
+.navItem:hover {
+  background: var(--card-border);
+  color: var(--color-foreground);
+}
+
+.navItem.active {
+  background: var(--card-bg);
+  color: var(--color-foreground);
+  font-weight: 600;
+  border: 1px solid var(--card-border);
+}
+
+.collapsed .navItem {
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+
+.collapsed .navItem.active {
+  border: none;
+  background: var(--card-border);
 }
 
 .icon {
-  font-size: 1rem;
-}
-
-.stageNumber {
-  font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
   font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--primary-color);
-  letter-spacing: 0.03em;
-  line-height: 1;
   flex-shrink: 0;
-  transition: color 0.3s ease;
-}
-
-.stageNumber::after {
-  content: ' │';
-  opacity: 0.35;
-  font-weight: 300;
-  letter-spacing: 0;
-}
-
-.tab.active .stageNumber {
   color: inherit;
 }
 
-.tab.active .stageNumber::after {
-  opacity: 0.5;
+.stageNumber {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  color: var(--color-secondary-text);
+  letter-spacing: 0.04em;
+  min-width: 1.25rem;
+}
+
+.navItem.active .stageNumber {
+  color: var(--primary-color);
 }
 
 .label {
   display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-/* Mobile dropdown styles */
-.mobileTabSelector {
+/* Section divider */
+.divider {
+  margin: 0.75rem 0 0.25rem;
+  padding: 0 0.75rem;
+}
+
+.dividerLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-secondary-text);
+  opacity: 0.6;
+}
+
+.collapsed .divider {
+  padding: 0;
+  border-top: 1px solid var(--card-border);
+}
+
+/* ── Mobile dropdown ─────────────────────────────────────── */
+
+.mobileSelector {
   display: none;
   position: relative;
+  margin-bottom: 1rem;
 }
 
 .activeTabButton {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.5rem;
   width: 100%;
-  padding: 1rem;
-  border: 2px solid var(--card-border);
-  border-radius: 12px;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
   background: var(--card-bg);
   color: var(--color-foreground);
-  cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  transition: all 0.2s ease;
-  min-height: 56px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
 }
 
 .activeTabButton:hover {
   border-color: var(--primary-color);
-  background: var(--primary-color-light, rgba(var(--primary-color-rgb), 0.1));
-}
-
-.activeTabButton:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.2);
 }
 
 .activeTabButton .icon {
-  font-size: 1.25rem;
   color: var(--primary-color);
 }
 
 .activeTabButton .label {
-  flex-grow: 1;
+  flex: 1;
   text-align: left;
-  margin-left: 0.75rem;
 }
 
-.activeTabButton .chevron {
-  font-size: 1rem;
+.chevron {
+  font-size: 0.7rem;
   color: var(--color-secondary-text);
-  transition: transform 0.2s ease;
 }
 
-.activeTabButton[aria-expanded="true"] .chevron {
-  transform: rotate(180deg);
-}
-
-.tabDropdown {
+.dropdown {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 0.375rem);
   left: 0;
   right: 0;
-  z-index: 1000;
-  background: var(--card-bg);
-  border: 2px solid var(--card-border);
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-  animation: dropdownSlideIn 0.2s ease-out;
-}
-
-.dropdownTab {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 0.875rem 1rem;
-  border: none;
-  background: transparent;
-  color: var(--color-foreground);
-  cursor: pointer;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  position: relative;
-}
-
-.dropdownTab:hover {
-  background: var(--primary-color-light, rgba(var(--primary-color-rgb), 0.1));
-}
-
-.dropdownTab.active {
-  background: var(--primary-color);
-  color: var(--primary-text-color);
-}
-
-.dropdownTab .icon {
-  font-size: 1.125rem;
-  margin-right: 0.75rem;
-  flex-shrink: 0;
-}
-
-.dropdownTab .label {
-  flex-grow: 1;
-  text-align: left;
-  margin: 0;
-}
-
-.dropdownTab .checkmark {
-  font-size: 1rem;
-  font-weight: bold;
-  margin-left: 0.5rem;
-  color: var(--primary-text-color);
-}
-
-@keyframes dropdownSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Dark theme enhancements */
-html.dark .tabsContainer {
+  z-index: 100;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 0.25rem;
+  animation: dropIn 0.15s ease-out;
 }
 
-html.dark .tab {
-  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.1);
-  color: var(--color-secondary-text);
-  border: 2px solid rgba(var(--primary-color-rgb, 0, 123, 255), 0.15);
-}
-
-html.dark .tab:hover {
-  background: rgba(var(--primary-color-rgb, 0, 123, 255), 0.15);
-  border-color: rgba(var(--primary-color-rgb, 0, 123, 255), 0.3);
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
   color: var(--color-foreground);
-  box-shadow: 0 12px 24px rgba(var(--primary-color-rgb, 0, 123, 255), 0.2);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.1s ease;
 }
 
-html.dark .tab.active {
+.dropdownItem:hover {
+  background: var(--card-border);
+}
+
+.dropdownItem.active {
   background: var(--primary-color);
   color: var(--primary-text-color);
-  border: 2px solid var(--primary-color);
+  font-weight: 600;
 }
 
-html.dark .scrollButton {
-  background: var(--card-bg);
-  border: 2px solid rgba(var(--primary-color-rgb, 0, 123, 255), 0.3);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+.dropdownItem .label {
+  flex: 1;
+  text-align: left;
 }
 
-html.dark .scrollButton:hover {
-  background: var(--primary-color);
-  color: var(--primary-text-color);
-  box-shadow: 0 8px 24px rgba(var(--primary-color-rgb, 0, 123, 255), 0.4);
+.dropdownDivider {
+  padding: 0.5rem 0.75rem 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-secondary-text);
+  opacity: 0.6;
 }
 
-/* Stage number in dark theme — color inherited from primary, no extra overrides needed */
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
 
 @media (max-width: 768px) {
-  .tabsContainer {
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    background: var(--card-bg);
-    backdrop-filter: none;
-    border: 1px solid var(--card-border);
-  }
-  
-  /* Hide desktop tabs wrapper on mobile */
-  .tabsWrapper {
+  .sidebar {
     display: none;
   }
-  
-  /* Show mobile dropdown on mobile */
-  .mobileTabSelector {
-    display: block;
-  }
-}
 
-@media (max-width: 480px) {
-  .tabsContainer {
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-  }
-  
-  .activeTabButton {
-    padding: 0.875rem;
-    font-size: 0.95rem;
-    min-height: 52px;
-  }
-  
-  .activeTabButton .icon {
-    font-size: 1.125rem;
-  }
-  
-  .dropdownTab {
-    padding: 0.75rem 0.875rem;
-    font-size: 0.95rem;
-  }
-  
-  .dropdownTab .icon {
-    font-size: 1rem;
+  .mobileSelector {
+    display: block;
   }
 }

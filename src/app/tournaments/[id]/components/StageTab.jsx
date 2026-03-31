@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
-import { FaUsers, FaTrophy, FaInfoCircle, FaGamepad, FaUserSlash, FaChevronDown, FaChevronUp, FaEdit } from 'react-icons/fa';
-import InfoComponent from '../../../UI/InfoComponent/InfoComponent';
+import { FaUsers, FaTrophy, FaInfoCircle, FaGamepad, FaUserSlash, FaChevronDown, FaEdit } from 'react-icons/fa';
 import GameCard from '../../../components/GameCard';
 import { getPlayerManagementState } from '../../../util/playerManagementUtils';
 import { getStagePollingInterval, getActiveGamesCount, getCompletedGamesCount } from '../../../util/gamePollingUtils';
@@ -23,6 +22,8 @@ const fetchAllTournamentGames = async (tournamentId) => {
 };
 
 const StageTab = ({ stage, stageIndex, tournament }) => {
+  const [infoExpanded, setInfoExpanded] = useState(false);
+
   // Filtering state
   const [filters, setFilters] = useState({
     upper: true,
@@ -398,153 +399,146 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
 
   return (
     <>
-      <InfoComponent 
-        title={`Описание стадии: ${stage.description || 'Описание не указано'}`}
-        icon={FaInfoCircle}
-        defaultCollapsed={true}
-      >
-        <div className={styles.details}>
-          
-          {!stage.isFinal && (
-            <div className={styles.statsRow}>
-              <div className={styles.statCard}>
-                <div className={styles.statIcon}>
-                  <FaUsers />
-                </div>
-                <div className={styles.statContent}>
-                   <div className={styles.statLabel}>Участников</div>
-                   <div className={styles.statValue}>{totalParticipants}</div>
+      <div className={styles.infoCard}>
+        <button
+          className={styles.infoToggle}
+          onClick={() => setInfoExpanded(v => !v)}
+          aria-expanded={infoExpanded}
+        >
+          <h2 className={styles.infoTitle}>{stage.name || `Стадия ${stageIndex + 1}`}</h2>
+          <FaChevronDown className={`${styles.infoToggleChevron} ${infoExpanded ? styles.infoToggleChevronOpen : ''}`} />
+        </button>
 
+        <div className={`${styles.infoStrip} ${infoExpanded ? styles.infoStripOpen : styles.infoStripClosed}`}>
+          {stage.description && (
+            <div className={styles.infoItem}>
+              <div className={styles.infoIconBox}>
+                <FaInfoCircle className={styles.infoIcon} />
+              </div>
+              <div className={styles.infoText}>
+                <span className={styles.infoLabel}>Описание</span>
+                <span className={styles.infoValue}>{stage.description}</span>
+              </div>
+            </div>
+          )}
+
+          {!stage.isFinal && (
+            <>
+              <div className={styles.infoItem}>
+                <div className={styles.infoIconBox}>
+                  <FaUsers className={styles.infoIcon} />
+                </div>
+                <div className={styles.infoText}>
+                  <span className={styles.infoLabel}>Участников</span>
+                  <span className={styles.infoValue}>{totalParticipants}</span>
                 </div>
               </div>
 
-              <div className={`${styles.statCard} ${tournament?.schema?.schemeName === 'Double Elimination' && bracketGameCounts ? styles.complexStat : ''}`}>
-                <div className={styles.statIcon}>
-                  <FaGamepad />
+              <div className={styles.infoItem}>
+                <div className={styles.infoIconBox}>
+                  <FaGamepad className={styles.infoIcon} />
                 </div>
-                <div className={styles.statContent}>
+                <div className={styles.infoText}>
+                  <span className={styles.infoLabel}>Игр</span>
                   {tournament?.schema?.schemeName === 'Double Elimination' && bracketGameCounts ? (
-                    <>
-
-                        <div className={styles.statLabel}>Всего игр</div>
-
-
-                      <div className={styles.statValue}>{bracketGameCounts.upperGames + bracketGameCounts.lowerGames}</div>
+                    <span className={styles.infoValue}>
+                      {bracketGameCounts.upperGames + bracketGameCounts.lowerGames}
                       {(bracketGameCounts.upperGames > 0 || bracketGameCounts.lowerGames > 0) && (
-                          <div className={styles.bracketBreakdown}>
-                            {bracketGameCounts.upperGames > 0 && (
-                                <span className={styles.upperBracket}>Верхняя: {bracketGameCounts.upperGames}</span>
-                            )}
-                            {bracketGameCounts.lowerGames > 0 && (
-                                <span className={styles.lowerBracket}>Нижняя: {bracketGameCounts.lowerGames}</span>
-                            )}
-                          </div>
+                        <span className={styles.infoSub}>
+                          {bracketGameCounts.upperGames > 0 && <span className={styles.upperBracket}>В: {bracketGameCounts.upperGames}</span>}
+                          {bracketGameCounts.lowerGames > 0 && <span className={styles.lowerBracket}>Н: {bracketGameCounts.lowerGames}</span>}
+                        </span>
                       )}
-
-                    </>
+                    </span>
                   ) : (
-                    <>
-                      <div className={styles.statLabel}>Всего игр</div>
-                      <div className={styles.statValue}>
-                        {stage.topBracketGameNum || stage.topGamesNum || stage.bottomBracketGamesNum || stage.bottomGamesNum ? 
-                          (stage.topBracketGameNum || stage.topGamesNum || 0) + (stage.bottomBracketGamesNum || stage.bottomGamesNum || 0) :
-                          allGames.length
-                        }
-                      </div>
-
-                    </>
+                    <span className={styles.infoValue}>
+                      {(stage.topBracketGameNum || stage.topGamesNum || 0) + (stage.bottomBracketGamesNum || stage.bottomGamesNum || 0) || allGames.length}
+                    </span>
                   )}
                 </div>
               </div>
 
-              <div className={styles.statCard}>
-                <div className={styles.statIcon}>
-                  <FaTrophy />
+              <div className={styles.infoItem}>
+                <div className={styles.infoIconBox}>
+                  <FaTrophy className={styles.infoIcon} />
                 </div>
-                <div className={styles.statContent}>
-                  <div className={styles.statLabel}>Проходят далее</div>
-                  <div className={styles.statValue}>{totalPromoted}</div>
-
+                <div className={styles.infoText}>
+                  <span className={styles.infoLabel}>Проходят далее</span>
+                  <span className={styles.infoValue}>{totalPromoted}</span>
                 </div>
               </div>
 
               {totalNotPromoted > 0 && (
-                <div className={styles.statCard}>
-                  <div className={styles.statIcon}>
-                    <FaUserSlash />
+                <div className={styles.infoItem}>
+                  <div className={styles.infoIconBox}>
+                    <FaUserSlash className={styles.infoIcon} />
                   </div>
-                  <div className={styles.statContent}>
-                    <div className={styles.statValue}>{totalNotPromoted}</div>
-                    <div className={styles.statLabel}>Выбывают</div>
+                  <div className={styles.infoText}>
+                    <span className={styles.infoLabel}>Выбывают</span>
+                    <span className={styles.infoValue}>{totalNotPromoted}</span>
                   </div>
                 </div>
               )}
-            </div>
+            </>
           )}
-          {/* Theme Management Subsection */}
-          <div className={styles.themeManagementSection}>
-            <div className={styles.themeManagementHeader}>
-              <div className={styles.detailHeader}>
-                <FaInfoCircle className={styles.detailIcon} />
-                <strong>Темы стадии:</strong>
-              </div>
-              <div className={styles.themeManagementActions}>
-                <button 
-                  onClick={handleOpenThemeModal}
-                  className={styles.editThemesButton}
-                >
-                  <FaEdit />
-                  Редактировать все темы
-                </button>
-              </div>
+
+          <div className={styles.themesSection}>
+            <div className={styles.themesSectionHeader}>
+              <span className={styles.themesSectionLabel}>Темы стадии</span>
+              <button onClick={handleOpenThemeModal} className={styles.editThemesIconButton} title="Редактировать темы">
+                <FaEdit />
+              </button>
             </div>
-            
-            <div className={styles.themesGrid}>
+            <div className={styles.themesList}>
               {stageThemes.map((theme, index) => (
-                <div key={index} className={styles.themeItem}>
-                  <div className={styles.themeNameDisplay}>
-                    {theme.name || `Тема ${index + 1}`}
-                  </div>
+                <div key={index} className={styles.themeRow}>
+                  <span className={styles.themeRowNum}>{String(index + 1).padStart(2, '0')}</span>
+                  <span className={styles.themeRowName}>{theme.name || `Тема ${index + 1}`}</span>
+                  {theme.description && (
+                    <span className={styles.themeRowDesc}>{theme.description}</span>
+                  )}
                 </div>
               ))}
             </div>
           </div>
-
-          <ThemeEditModal
-            isOpen={isThemeModalOpen}
-            onClose={handleCloseThemeModal}
-            onSave={handleSaveThemes}
-            initialThemes={stageThemes}
-            maxThemes={stage?.numberOfThemesInGame || 6}
-            isSaving={saveThemesMutation.isPending}
-          />
         </div>
-      </InfoComponent>
+      </div>
+
+      <ThemeEditModal
+        isOpen={isThemeModalOpen}
+        onClose={handleCloseThemeModal}
+        onSave={handleSaveThemes}
+        initialThemes={stageThemes}
+        maxThemes={stage?.numberOfThemesInGame || 6}
+        isSaving={saveThemesMutation.isPending}
+      />
 
       {/* Games Section */}
       <div className={styles.gamesSection}>
         <div className={styles.gamesSectionHeader}>
-          <div className={styles.headerLeft}>
-            <h3>Бои стадии</h3>
-            <div className={styles.gamesCount}>
-              {gamesLoading ? (
-                'Загрузка...'
-              ) : (
-                `${hasActiveFilters ? `${games.length} из ${allGames.length}` : games.length} боев`
-              )}
-            </div>
+          <div className={styles.headerMeta}>
+            <span className={styles.sectionTitle}>Бои стадии</span>
+            {!gamesLoading && (
+              <span className={styles.countBadge}>{allGames.length}</span>
+            )}
+            {!gamesLoading && getActiveGamesCount(allGames) > 0 && (
+              <span className={`${styles.liveBadge} ${isFetching ? styles.liveBadgeUpdating : ''}`}>
+                <span className={styles.liveDot} />
+                {getActiveGamesCount(allGames)} live
+              </span>
+            )}
           </div>
-          
+
           <div className={styles.headerFilters}>
             {tournament?.schema?.schemeName === 'Double Elimination' && (
               <div className={styles.filterTags}>
-                <button 
+                <button
                   onClick={() => handleFilterToggle('upper')}
                   className={`${styles.filterTag} ${styles.bracketTag} ${styles.upperBracketTag} ${filters.upper ? styles.active : ''}`}
                 >
                   Верхняя
                 </button>
-                <button 
+                <button
                   onClick={() => handleFilterToggle('lower')}
                   className={`${styles.filterTag} ${styles.bracketTag} ${styles.lowerBracketTag} ${filters.lower ? styles.active : ''}`}
                 >
@@ -552,37 +546,21 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
                 </button>
               </div>
             )}
-            
             <div className={styles.filterTags}>
-              <button 
+              <button
                 onClick={() => handleFilterToggle('ongoing')}
                 className={`${styles.filterTag} ${styles.statusTag} ${styles.ongoingTag} ${filters.ongoing ? styles.active : ''}`}
               >
                 Идут
               </button>
-              <button 
+              <button
                 onClick={() => handleFilterToggle('completed')}
                 className={`${styles.filterTag} ${styles.statusTag} ${styles.completedTag} ${filters.completed ? styles.active : ''}`}
               >
                 Завершены
               </button>
             </div>
-            
-            
           </div>
-          
-          {/* Real-time Status Indicator */}
-          {getActiveGamesCount(allGames) > 0 && (
-            <div className={`${styles.liveStatus} ${isFetching ? styles.updating : ''}`}>
-              <span className={styles.liveIcon}>🔴</span>
-              <span className={styles.liveText}>
-                {isFetching ? 'Обновление...' : 'Live обновления'}
-              </span>
-              <span className={styles.liveStats}>
-                {getActiveGamesCount(allGames)} активных, {getCompletedGamesCount(allGames)} завершено
-              </span>
-            </div>
-          )}
         </div>
 
         {gamesLoading && (
