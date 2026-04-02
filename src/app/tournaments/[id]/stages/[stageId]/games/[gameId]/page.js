@@ -6,7 +6,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { FaUsers, FaMicrophone, FaTrophy, FaUserTimes, FaCheckCircle, FaChevronLeft, FaChevronRight, FaCheck, FaInfoCircle, FaChevronRight as FaBreadcrumbChevron, FaPlus, FaMinus, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import Link from 'next/link';
 import Card from '../../../../../../UI/Card/Card';
-import InfoComponent from '../../../../../../UI/InfoComponent/InfoComponent';
+import InfoCard from '../../../../../../UI/InfoCard/InfoCard';
 import ConfirmationDialog from '../../../../../../UI/ConfirmationDialog';
 import TiebreakSelectionDialog from '../../../../../../UI/TiebreakSelectionDialog';
 import AdaptiveButton from '../../../../../../UI/AdaptiveButton';
@@ -1136,66 +1136,54 @@ export default function GameDetailsPage() {
             </span>
           </div>
         </div>
-      </div>
 
-      {/* Game Information Section */}
-      <InfoComponent 
-        title="Информация о бое" 
-        icon={FaInfoCircle}
-        defaultCollapsed={false}
-      >
-        <div className={styles.gameInfoGrid}>
-          <div className={styles.gameInfoItem}>
-            <FaUsers className={styles.infoIcon} />
-            <div className={styles.infoContent}>
-              <div className={styles.infoLabel}>Игроков</div>
-              <div className={styles.infoValue}>{players.length}</div>
-            </div>
-          </div>
-          
-          {presenter && (
-            <div className={styles.gameInfoItem}>
-              <FaMicrophone className={styles.infoIcon} />
-              <div className={styles.infoContent}>
-                <div className={styles.infoLabel}>Ведущий</div>
-                <div className={styles.infoValue}>
-                  {presenter.firstName} {presenter.lastName}
+          <InfoCard
+            title={stage.isFinal ? 'Финал' : `Бой ${game.gameNumber || game.id}`}
+            defaultCollapsed={true}
+            items={[
+              { icon: FaUsers, label: 'Игроков', value: players.length },
+              presenter && { icon: FaMicrophone, label: 'Ведущий', value: `${presenter.firstName} ${presenter.lastName}` },
+              { icon: FaTrophy, label: 'Проходят', value: winners },
+              { icon: FaUserTimes, label: 'Выбывают', value: losers },
+            ].filter(Boolean)}
+          >
+            {themes.length > 0 && (
+              <div className={styles.themesSection}>
+                <span className={styles.themesSectionLabel}>Темы боя</span>
+                <div className={styles.themesList}>
+                  {themes.map((theme, index) => (
+                    <div key={theme.id || index} className={styles.themeRow}>
+                      <span className={styles.themeRowNum}>{String(index + 1).padStart(2, '0')}</span>
+                      <span className={styles.themeRowName}>{theme.name || `Тема ${index + 1}`}</span>
+                      {theme.description && (
+                        <span className={styles.themeRowDesc}>{theme.description}</span>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
-            </div>
-          )}
-          
-          <div className={styles.gameInfoItem}>
-            <FaTrophy className={styles.infoIcon} />
-            <div className={styles.infoContent}>
-              <div className={styles.infoLabel}>Проходят</div>
-              <div className={styles.infoValue}>{winners}</div>
-            </div>
-          </div>
-          
-          <div className={styles.gameInfoItem}>
-            <FaUserTimes className={styles.infoIcon} />
-            <div className={styles.infoContent}>
-              <div className={styles.infoLabel}>Выбывают</div>
-              <div className={styles.infoValue}>{losers}</div>
-            </div>
-          </div>
-        </div>
-      </InfoComponent>
-
-      {/* Real-time Status Indicator */}
-      {isGameActive(game) && (
-        <div className={`${styles.realTimeStatus} ${gameIsFetching ? styles.updating : ''}`}>
-          <div className={styles.statusIndicator}>
-            <span className={styles.liveIcon}>🔴</span>
-            <span className={styles.statusText}>
-              {gameIsFetching ? 'Обновление данных...' : 'Live обновления активны'}
-            </span>
-            {(isSavingScores || pendingScoreChanges.size > 0) && (
-              <span className={styles.saveStatus}>
-                {isSavingScores ? '💾 Сохранение...' : '⏱️ Есть несохраненные изменения'}
-              </span>
             )}
+          </InfoCard>
+      </div>
+
+      {/* Current Score Section */}
+      {players.length > 0 && (
+        <div className={styles.currentScoreSection}>
+          <div className={styles.currentScoreHeader}>Текущий счет</div>
+          <div className={styles.currentScoreGrid}>
+            {players.map((player, playerIndex) => (
+              <div key={player.playerId} className={styles.scoreCard}>
+                <span className={styles.scoreCardName}>
+                  {getPlayerName(player.playerInfo)}
+                </span>
+                <span className={`${styles.scoreCardPoints} ${player.points > 0 ? styles.scoreCardPointsPositive : player.points < 0 ? styles.scoreCardPointsNegative : styles.scoreCardPointsZero}`}>
+                  {player.points}
+                </span>
+                {player.tieBreakResult !== null && player.tieBreakResult !== undefined && player.tieBreakResult !== '' && (
+                  <span className={styles.scoreCardTiebreak}>({player.tieBreakResult})</span>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       )}
@@ -1229,15 +1217,6 @@ export default function GameDetailsPage() {
             {/* Header Row */}
             <div className={styles.gridHeader}>
               <div></div>
-              <div className={styles.scoreHeader}>
-                Счет
-                {(isSavingScores || pendingScoreChanges.size > 0) && (
-                  <span className={styles.savingIndicator}>
-                    {isSavingScores ? ' 💾' : ' ⏱️'}
-                  </span>
-                )}
-              </div>
-              
               {/* Question Headers */}
               {selectedTheme.questions.map((question) => (
                 <div key={question.id} className={styles.questionHeader}>
@@ -1259,12 +1238,6 @@ export default function GameDetailsPage() {
                     </div>
                   </div>
 
-                  <div className={styles.scoreCell} style={{ color: getPlayerColor(player.playerInfo, playerIndex) }}>
-                    {player.tieBreakResult !== null && player.tieBreakResult !== undefined && player.tieBreakResult !== "" && (
-                      <span className={styles.tieBreakResult}>({player.tieBreakResult}) </span>
-                    )}
-                    {player.points}
-                  </div>
                 </div>
 
                 {/* Question Cells */}
@@ -1300,7 +1273,11 @@ export default function GameDetailsPage() {
                           <FaMinus />
                         </button>
                         <span className={styles.questionValue}>
-                          {question.value}
+                          {question.correctAnswers?.includes(player.playerId)
+                            ? `+${question.value}`
+                            : question.incorrectAnswers?.includes(player.playerId)
+                            ? `-${question.value}`
+                            : null}
                         </span>
                         <button
                           className={`${styles.adjustButton} ${styles.plusButton}`}

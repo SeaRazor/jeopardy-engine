@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
-import { FaUsers, FaTrophy, FaInfoCircle, FaGamepad, FaUserSlash, FaChevronDown, FaEdit } from 'react-icons/fa';
+import { FaUsers, FaTrophy, FaInfoCircle, FaGamepad, FaUserSlash, FaEdit } from 'react-icons/fa';
+import InfoCard from '../../../UI/InfoCard/InfoCard';
 import GameCard from '../../../components/GameCard';
 import { getPlayerManagementState } from '../../../util/playerManagementUtils';
 import { getStagePollingInterval, getActiveGamesCount, getCompletedGamesCount } from '../../../util/gamePollingUtils';
@@ -22,7 +23,6 @@ const fetchAllTournamentGames = async (tournamentId) => {
 };
 
 const StageTab = ({ stage, stageIndex, tournament }) => {
-  const [infoExpanded, setInfoExpanded] = useState(false);
 
   // Filtering state
   const [filters, setFilters] = useState({
@@ -399,110 +399,70 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
 
   return (
     <>
-      <div className={styles.infoCard}>
-        <button
-          className={styles.infoToggle}
-          onClick={() => setInfoExpanded(v => !v)}
-          aria-expanded={infoExpanded}
-        >
-          <h2 className={styles.infoTitle}>{stage.name || `Стадия ${stageIndex + 1}`}</h2>
-          <FaChevronDown className={`${styles.infoToggleChevron} ${infoExpanded ? styles.infoToggleChevronOpen : ''}`} />
-        </button>
-
-        <div className={`${styles.infoStrip} ${infoExpanded ? styles.infoStripOpen : styles.infoStripClosed}`}>
-          {stage.description && (
-            <div className={styles.infoItem}>
-              <div className={styles.infoIconBox}>
-                <FaInfoCircle className={styles.infoIcon} />
+      <InfoCard
+        title={stage.name || `Стадия ${stageIndex + 1}`}
+        defaultCollapsed={true}
+        className={styles.stageInfoCard}
+        items={[
+          stage.description && {
+            icon: FaInfoCircle,
+            label: 'Описание',
+            value: stage.description,
+          },
+          ...(!stage.isFinal ? [
+            {
+              icon: FaUsers,
+              label: 'Участников',
+              value: totalParticipants,
+            },
+            {
+              icon: FaGamepad,
+              label: 'Игр',
+              value: tournament?.schema?.schemeName === 'Double Elimination' && bracketGameCounts
+                ? <>
+                    {bracketGameCounts.upperGames + bracketGameCounts.lowerGames}
+                    {(bracketGameCounts.upperGames > 0 || bracketGameCounts.lowerGames > 0) && (
+                      <span className={styles.infoSub}>
+                        {bracketGameCounts.upperGames > 0 && <span className={styles.upperBracket}>В: {bracketGameCounts.upperGames}</span>}
+                        {bracketGameCounts.lowerGames > 0 && <span className={styles.lowerBracket}>Н: {bracketGameCounts.lowerGames}</span>}
+                      </span>
+                    )}
+                  </>
+                : (stage.topBracketGameNum || stage.topGamesNum || 0) + (stage.bottomBracketGamesNum || stage.bottomGamesNum || 0) || allGames.length,
+            },
+            {
+              icon: FaTrophy,
+              label: 'Проходят далее',
+              value: totalPromoted,
+            },
+            totalNotPromoted > 0 && {
+              icon: FaUserSlash,
+              label: 'Выбывают',
+              value: totalNotPromoted,
+            },
+          ] : []),
+        ].filter(Boolean)}
+      >
+        <div className={styles.themesSection}>
+          <div className={styles.themesSectionHeader}>
+            <span className={styles.themesSectionLabel}>Темы стадии</span>
+            <button onClick={handleOpenThemeModal} className={styles.editThemesIconButton} title="Редактировать темы">
+              <FaEdit />
+            </button>
+          </div>
+          <div className={styles.themesList}>
+            {stageThemes.map((theme, index) => (
+              <div key={index} className={styles.themeRow}>
+                <span className={styles.themeRowNum}>{String(index + 1).padStart(2, '0')}</span>
+                <span className={styles.themeRowName}>{theme.name || `Тема ${index + 1}`}</span>
+                {theme.description && (
+                  <span className={styles.themeRowDesc}>{theme.description}</span>
+                )}
               </div>
-              <div className={styles.infoText}>
-                <span className={styles.infoLabel}>Описание</span>
-                <span className={styles.infoValue}>{stage.description}</span>
-              </div>
-            </div>
-          )}
-
-          {!stage.isFinal && (
-            <>
-              <div className={styles.infoItem}>
-                <div className={styles.infoIconBox}>
-                  <FaUsers className={styles.infoIcon} />
-                </div>
-                <div className={styles.infoText}>
-                  <span className={styles.infoLabel}>Участников</span>
-                  <span className={styles.infoValue}>{totalParticipants}</span>
-                </div>
-              </div>
-
-              <div className={styles.infoItem}>
-                <div className={styles.infoIconBox}>
-                  <FaGamepad className={styles.infoIcon} />
-                </div>
-                <div className={styles.infoText}>
-                  <span className={styles.infoLabel}>Игр</span>
-                  {tournament?.schema?.schemeName === 'Double Elimination' && bracketGameCounts ? (
-                    <span className={styles.infoValue}>
-                      {bracketGameCounts.upperGames + bracketGameCounts.lowerGames}
-                      {(bracketGameCounts.upperGames > 0 || bracketGameCounts.lowerGames > 0) && (
-                        <span className={styles.infoSub}>
-                          {bracketGameCounts.upperGames > 0 && <span className={styles.upperBracket}>В: {bracketGameCounts.upperGames}</span>}
-                          {bracketGameCounts.lowerGames > 0 && <span className={styles.lowerBracket}>Н: {bracketGameCounts.lowerGames}</span>}
-                        </span>
-                      )}
-                    </span>
-                  ) : (
-                    <span className={styles.infoValue}>
-                      {(stage.topBracketGameNum || stage.topGamesNum || 0) + (stage.bottomBracketGamesNum || stage.bottomGamesNum || 0) || allGames.length}
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              <div className={styles.infoItem}>
-                <div className={styles.infoIconBox}>
-                  <FaTrophy className={styles.infoIcon} />
-                </div>
-                <div className={styles.infoText}>
-                  <span className={styles.infoLabel}>Проходят далее</span>
-                  <span className={styles.infoValue}>{totalPromoted}</span>
-                </div>
-              </div>
-
-              {totalNotPromoted > 0 && (
-                <div className={styles.infoItem}>
-                  <div className={styles.infoIconBox}>
-                    <FaUserSlash className={styles.infoIcon} />
-                  </div>
-                  <div className={styles.infoText}>
-                    <span className={styles.infoLabel}>Выбывают</span>
-                    <span className={styles.infoValue}>{totalNotPromoted}</span>
-                  </div>
-                </div>
-              )}
-            </>
-          )}
-
-          <div className={styles.themesSection}>
-            <div className={styles.themesSectionHeader}>
-              <span className={styles.themesSectionLabel}>Темы стадии</span>
-              <button onClick={handleOpenThemeModal} className={styles.editThemesIconButton} title="Редактировать темы">
-                <FaEdit />
-              </button>
-            </div>
-            <div className={styles.themesList}>
-              {stageThemes.map((theme, index) => (
-                <div key={index} className={styles.themeRow}>
-                  <span className={styles.themeRowNum}>{String(index + 1).padStart(2, '0')}</span>
-                  <span className={styles.themeRowName}>{theme.name || `Тема ${index + 1}`}</span>
-                  {theme.description && (
-                    <span className={styles.themeRowDesc}>{theme.description}</span>
-                  )}
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
-      </div>
+      </InfoCard>
 
       <ThemeEditModal
         isOpen={isThemeModalOpen}

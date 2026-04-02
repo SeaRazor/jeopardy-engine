@@ -3,7 +3,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useSearchParams, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { FaCalendarAlt, FaInfoCircle, FaSitemap, FaUsers, FaChevronRight, FaTrophy, FaChevronDown } from 'react-icons/fa';
+import { FaCalendarAlt, FaInfoCircle, FaSitemap, FaUsers, FaChevronRight, FaTrophy } from 'react-icons/fa';
+import InfoCard from '../../UI/InfoCard/InfoCard';
 import Link from 'next/link';
 import TournamentTabs from './components/TournamentTabs';
 import ParticipantsTab from './components/ParticipantsTab';
@@ -26,7 +27,6 @@ export default function TournamentDetailPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('participants');
-  const [infoExpanded, setInfoExpanded] = useState(false);
   
   const { data: tournament, isLoading, isError } = useQuery({
     queryKey: ['tournament', id],
@@ -108,68 +108,40 @@ export default function TournamentDetailPage() {
           <span className={styles.currentPage}>{tournament.name}</span>
         </div>
 
-        <div className={styles.infoCard}>
-          <button
-            className={styles.infoToggle}
-            onClick={() => setInfoExpanded(v => !v)}
-            aria-expanded={infoExpanded}
-          >
-            <h1 className={styles.title}>{tournament.name}</h1>
-            <FaChevronDown className={`${styles.infoToggleChevron} ${infoExpanded ? styles.infoToggleChevronOpen : ''}`} />
-          </button>
-
-          <div className={`${styles.infoStrip} ${infoExpanded ? styles.infoStripOpen : styles.infoStripClosed}`}>
-            {typeMeta && (
-              <div className={styles.infoItem}>
-                <div className={styles.infoIconBox} style={{ background: typeMeta.colorAlpha }}>
-                  <FaTrophy className={styles.infoIcon} style={{ color: typeMeta.color }} />
-                </div>
-                <div className={styles.infoText}>
-                  <span className={styles.infoLabel}>Тип</span>
-                  <span className={styles.infoValue}>{typeMeta.name}</span>
-                </div>
-              </div>
-            )}
-            <div className={styles.infoItem}>
-              <div className={styles.infoIconBox}>
-                <FaCalendarAlt className={styles.infoIcon} />
-              </div>
-              <div className={styles.infoText}>
-                <span className={styles.infoLabel}>Даты</span>
-                <span className={styles.infoValue}>
-                  {new Date(tournament.startDate).toLocaleDateString('ru-RU')} — {new Date(tournament.endDate).toLocaleDateString('ru-RU')}
-                </span>
-              </div>
-            </div>
-            <div className={`${styles.infoItem} ${styles[status.toLowerCase()]}`}>
-              <div className={styles.infoIconBox}>
-                <FaInfoCircle className={styles.infoIcon} />
-              </div>
-              <div className={styles.infoText}>
-                <span className={styles.infoLabel}>Статус</span>
-                <span className={styles.infoValue}>{status}</span>
-              </div>
-            </div>
-            <div className={styles.infoItem}>
-              <div className={styles.infoIconBox}>
-                <FaSitemap className={styles.infoIcon} />
-              </div>
-              <div className={styles.infoText}>
-                <span className={styles.infoLabel}>Схема</span>
-                <span className={styles.infoValue}>{tournament.schema?.schemeName}</span>
-              </div>
-            </div>
-            <div className={styles.infoItem}>
-              <div className={styles.infoIconBox}>
-                <FaUsers className={styles.infoIcon} />
-              </div>
-              <div className={styles.infoText}>
-                <span className={styles.infoLabel}>Участники</span>
-                <span className={styles.infoValue}>{tournament.participants?.length || 0} / {tournament.schema?.participantsNum}</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <InfoCard
+          title={tournament.name}
+          defaultCollapsed={true}
+          items={[
+            typeMeta && {
+              icon: FaTrophy,
+              label: 'Тип',
+              value: typeMeta.name,
+              iconBoxStyle: { background: typeMeta.colorAlpha },
+              iconStyle: { color: typeMeta.color },
+            },
+            {
+              icon: FaCalendarAlt,
+              label: 'Даты',
+              value: `${new Date(tournament.startDate).toLocaleDateString('ru-RU')} — ${new Date(tournament.endDate).toLocaleDateString('ru-RU')}`,
+            },
+            {
+              icon: FaInfoCircle,
+              label: 'Статус',
+              value: status,
+              statusVariant: status.toLowerCase(),
+            },
+            {
+              icon: FaSitemap,
+              label: 'Схема',
+              value: tournament.schema?.schemeName,
+            },
+            {
+              icon: FaUsers,
+              label: 'Участники',
+              value: `${tournament.participants?.length || 0} / ${tournament.schema?.participantsNum}`,
+            },
+          ].filter(Boolean)}
+        />
       </div>
 
       <div className={styles.body}>

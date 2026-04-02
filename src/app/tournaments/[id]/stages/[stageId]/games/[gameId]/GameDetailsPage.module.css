@@ -75,97 +75,62 @@
 }
 
 
-/* Game Information Card */
-.gameInfoCard {
-  margin-bottom: 1.5rem;
-}
-
-.gameInfoHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1rem 0.5rem;
-  border-bottom: 1px solid var(--card-border);
-  margin-bottom: 1rem;
-}
-
-.detailInline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* Themes list inside InfoCard */
+.themesSection {
   width: 100%;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--card-border);
 }
 
-.detailHeader {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-shrink: 0;
-}
-
-.detailIcon {
-  color: var(--primary-color);
-  font-size: 0.9rem;
-  opacity: 0.8;
-}
-
-.detailValue {
-  text-align: right;
-  font-weight: 500;
+.themesSectionLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
   color: var(--color-secondary-text);
-  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
-.detailHeader strong {
-  color: var(--color-foreground);
-  font-weight: 600;
-  margin: 0;
-  font-size: 1rem;
+.themesList {
+  display: flex;
+  flex-direction: column;
 }
 
-.gameInfoGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+.themeRow {
+  display: flex;
+  align-items: baseline;
   gap: 0.75rem;
-  padding: 0 1rem 1rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--card-border);
 }
 
-.gameInfoItem {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  background: var(--accent-bg);
-  border-radius: 6px;
-  border: 1px solid var(--card-border);
+.themeRow:last-child {
+  border-bottom: none;
 }
 
-.infoIcon {
-  font-size: 1rem;
-  color: var(--primary-color);
-  flex-shrink: 0;
-}
-
-.infoContent {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  gap:  0.5rem;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.infoLabel {
-  font-size: 1rem;
-  color: var(--color-secondary-text);
-  /*margin-bottom: 0.1rem;*/
-  font-weight: 500;
-}
-
-.infoValue {
-  font-size: 0.9rem;
+.themeRowNum {
+  font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  font-size: 0.7rem;
   font-weight: 600;
+  color: var(--color-secondary-text);
+  opacity: 0.6;
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
+}
+
+.themeRowName {
+  font-size: 0.85rem;
+  font-weight: 500;
   color: var(--color-foreground);
+  line-height: 1.3;
+}
+
+.themeRowDesc {
+  font-size: 0.75rem;
+  color: var(--color-secondary-text);
+  line-height: 1.3;
 }
 
 /* Themes Info Section */
@@ -237,6 +202,82 @@
   font-size: 0.8rem;
   font-weight: 500;
   color: var(--color-foreground);
+}
+
+/* Current Score Section */
+.currentScoreSection {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.currentScoreHeader {
+  padding: 0.5rem 1.25rem;
+  border-bottom: 1px solid var(--card-border);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-secondary-text);
+  opacity: 0.7;
+  text-align: center;
+}
+
+.currentScoreGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+}
+
+.scoreCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 1rem 0.75rem;
+  border-right: 1px solid var(--card-border);
+}
+
+.scoreCard:last-child {
+  border-right: none;
+}
+
+.scoreCardName {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-foreground);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.scoreCardPoints {
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.scoreCardPointsPositive {
+  color: rgb(34, 197, 94);
+}
+
+.scoreCardPointsNegative {
+  color: rgb(239, 68, 68);
+}
+
+.scoreCardPointsZero {
+  color: var(--color-secondary-text);
+}
+
+.scoreCardTiebreak {
+  font-size: 0.7rem;
+  color: var(--color-secondary-text);
+  font-weight: 500;
 }
 
 /* Game Area Layout */
@@ -944,19 +985,18 @@
 
 .gridHeader {
   display: grid;
-  grid-template-columns: 200px 100px repeat(5, 1fr);
+  grid-template-columns: 280px repeat(5, 1fr);
   background: linear-gradient(135deg, var(--accent-bg) 0%, rgba(var(--primary-color-rgb, 59, 130, 246), 0.05) 100%);
   border-bottom: 2px solid rgba(var(--primary-color-rgb, 59, 130, 246), 0.1);
 }
 
 .gridRow {
   display: grid;
-  grid-template-columns: 200px 100px repeat(5, 1fr);
+  grid-template-columns: 280px repeat(5, 1fr);
   border-bottom: 1px solid var(--card-border);
 }
 
 .playerHeader,
-.scoreHeader,
 .questionHeader {
   padding: 1rem 0.75rem;
   font-weight: 700;
@@ -990,7 +1030,7 @@
 
 .gridRow {
   display: grid;
-  grid-template-columns: 200px 100px repeat(5, 1fr);
+  grid-template-columns: 280px repeat(5, 1fr);
   background: var(--card-bg);
   border-bottom: 1px solid rgba(0, 0, 0, 0.03);
   transition: all 0.2s ease;
@@ -1035,15 +1075,10 @@
   margin-bottom: 0;
   line-height: 1.3;
   text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
   font-size: 0.95rem;
   transition: all 0.2s ease;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   letter-spacing: 0.025em;
-  
-  /* Break names into two lines using CSS */
-  word-spacing: 100vw;
 }
 
 .playerScore {
@@ -1051,23 +1086,6 @@
   color: var(--color-secondary-text);
 }
 
-.tieBreakResult {
-  opacity: 0.8;
-  font-weight: 500;
-}
-
-.scoreCell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.25rem 1rem;
-  border-right: 1px solid rgba(0, 0, 0, 0.05);
-  background: inherit;
-  font-weight: 700;
-  font-size: 1.125rem;
-  transition: all 0.2s ease;
-  min-height: 60px;
-}
 
 .questionCell {
   display: flex;
@@ -1416,25 +1434,6 @@
     word-spacing: normal;
     color: var(--color-foreground) !important;
     -webkit-text-fill-color: var(--color-foreground) !important;
-  }
-
-  .scoreCell {
-    flex: 0 0 auto;
-    padding: 0;
-    border: none;
-    background: transparent;
-    font-size: 1rem;
-    font-weight: 700;
-    min-height: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    color: var(--color-foreground) !important;
-    -webkit-text-fill-color: var(--color-foreground) !important;
-  }
-
-  .tieBreakResult {
-    display: none;
   }
 
   /* Row 2: 5 equal question badges */
@@ -1972,10 +1971,6 @@
     font-size: 0.8rem;
   }
 
-  .scoreCell {
-    font-size: 0.9rem;
-  }
-
   .themeHeader {
     padding: 0.5rem;
   }
@@ -2176,76 +2171,7 @@
   }
 }
 
-/* Real-time Status Indicator */
-.realTimeStatus {
-  margin: 1rem 0;
-  padding: 0.75rem 1rem;
-  background: var(--accent-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.realTimeStatus.updating {
-  background: rgba(var(--primary-color-rgb, 59, 130, 246), 0.05);
-  border-color: rgba(var(--primary-color-rgb, 59, 130, 246), 0.2);
-}
-
-.statusIndicator {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.liveIcon {
-  font-size: 0.875rem;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-.statusText {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--color-primary-text);
-}
-
-.saveStatus {
-  font-size: 0.8125rem;
-  color: var(--color-secondary-text);
-  padding: 0.25rem 0.5rem;
-  background: rgba(var(--warning-color-rgb, 245, 158, 11), 0.1);
-  border-radius: 12px;
-  margin-left: auto;
-}
-
-/* Mobile adjustments for real-time status */
 @media (max-width: 767px) {
-  .realTimeStatus {
-    margin: 0.75rem 0;
-    padding: 0.5rem 0.75rem;
-    border-radius: 12px;
-    font-size: 0.875rem;
-  }
-  
-  .statusIndicator {
-    gap: 0.5rem;
-  }
-  
-  .saveStatus {
-    margin-left: 0;
-    margin-top: 0.25rem;
-    flex-basis: 100%;
-  }
-
   /* Enhanced mobile typography and spacing */
   .container {
     padding: 0.75rem;
