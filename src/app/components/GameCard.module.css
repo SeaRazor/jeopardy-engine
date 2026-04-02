@@ -397,6 +397,54 @@
   color: inherit !important;
 }
 
+/* Direct action buttons */
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.cardActionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-secondary-text);
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.cardActionButton:hover {
+  background: var(--primary-color);
+  color: var(--primary-text-color);
+  border-color: var(--primary-color);
+}
+
+.cardActionButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.cardActionButton:disabled:hover {
+  background: transparent;
+  color: var(--color-secondary-text);
+  border-color: var(--card-border);
+}
+
+.cardActionButtonFinish:hover {
+  background: #059669;
+  border-color: #059669;
+  color: white;
+}
+
 /* Game completion indicator - replaces menu button */
 .completionIndicator {
   display: flex;

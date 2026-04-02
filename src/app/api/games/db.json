@@ -5988,7 +5988,7 @@
       {
         "playerId": "t5acgd9sdwxmx3tz14qy8",
         "sourceReference": null,
-        "points": -20,
+        "points": 0,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -5997,7 +5997,7 @@
       {
         "playerId": "fqeprx62yilblyjvmlq86n",
         "sourceReference": null,
-        "points": -30,
+        "points": -10,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -6006,7 +6006,7 @@
       {
         "playerId": "7u9vnwwp3rr2qi9295od",
         "sourceReference": null,
-        "points": 20,
+        "points": 0,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -6051,15 +6051,8 @@
             {
               "id": "1-2",
               "value": 20,
-              "answered": true,
-              "answeredBy": "7u9vnwwp3rr2qi9295od",
-              "incorrectAnswers": [
-                "fqeprx62yilblyjvmlq86n",
-                "t5acgd9sdwxmx3tz14qy8"
-              ],
-              "correctAnswers": [
-                "7u9vnwwp3rr2qi9295od"
-              ]
+              "answered": false,
+              "answeredBy": null
             },
             {
               "id": "1-3",
@@ -6269,23 +6262,15 @@
       ],
       "revealedQuestions": {
         "b6tay2ukar7st43a8hz4we": [
-          "1-1",
-          "1-2"
+          "1-1"
         ],
         "fqeprx62yilblyjvmlq86n": [
-          "1-1",
-          "1-2"
-        ],
-        "t5acgd9sdwxmx3tz14qy8": [
-          "1-2"
-        ],
-        "7u9vnwwp3rr2qi9295od": [
-          "1-2"
+          "1-1"
         ]
       },
       "completedThemes": []
     },
-    "updatedAt": "2026-04-02T11:13:29.392Z"
+    "updatedAt": "2026-03-28T16:46:27.820Z"
   },
   {
     "gameDate": "2026-03-09",
@@ -6652,7 +6637,7 @@
       {
         "playerId": "ztgm48v7xzadktxyb7spyo",
         "sourceReference": null,
-        "points": 240,
+        "points": 0,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -6661,7 +6646,7 @@
       {
         "playerId": "dp1n31ygko8ycfl13y7dtp",
         "sourceReference": null,
-        "points": -30,
+        "points": 0,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -6679,7 +6664,7 @@
       {
         "playerId": "4jpqi2d1j7a4jy91lo6wl3",
         "sourceReference": null,
-        "points": 110,
+        "points": 0,
         "tieBreakResult": null,
         "resolved": true,
         "lossBracket": false,
@@ -6698,7 +6683,262 @@
     "finishedAt": "2026-03-31T17:35:19.229Z",
     "status": "completed",
     "completedAt": "2026-03-31T17:35:19.949Z",
-    "lastUpdated": "2026-03-31T17:35:19.949Z"
+    "lastUpdated": "2026-03-31T17:35:19.949Z",
+    "stageThemes": [
+      {
+        "name": "Спорт и олимпиада",
+        "description": "Вопросы о спорте, олимпийских играх и знаменитых спортсменах"
+      },
+      {
+        "name": "Мировая литература",
+        "description": "Классические произведения и известные писатели разных эпох"
+      },
+      {
+        "name": "Музыка и композиторы",
+        "description": "Музыкальная культура, известные композиторы и их произведения"
+      },
+      {
+        "name": "Экология и природа",
+        "description": "Окружающая среда, животные, растения и экологические проблемы"
+      },
+      {
+        "name": "Архитектура и дизайн",
+        "description": "Знаменитые здания, архитектурные стили и дизайнерские решения"
+      },
+      {
+        "name": "Языки и лингвистика",
+        "description": "Языкознание, история языков и особенности разных культур"
+      }
+    ],
+    "gameState": {
+      "themes": [
+        {
+          "id": 1,
+          "name": "Спорт и олимпиада",
+          "description": "Вопросы о спорте, олимпийских играх и знаменитых спортсменах",
+          "questions": [
+            {
+              "id": "1-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "1-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Мировая литература",
+          "description": "Классические произведения и известные писатели разных эпох",
+          "questions": [
+            {
+              "id": "2-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "2-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "2-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "2-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "2-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Музыка и композиторы",
+          "description": "Музыкальная культура, известные композиторы и их произведения",
+          "questions": [
+            {
+              "id": "3-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "3-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Экология и природа",
+          "description": "Окружающая среда, животные, растения и экологические проблемы",
+          "questions": [
+            {
+              "id": "4-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "4-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Архитектура и дизайн",
+          "description": "Знаменитые здания, архитектурные стили и дизайнерские решения",
+          "questions": [
+            {
+              "id": "5-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "5-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "Языки и лингвистика",
+          "description": "Языкознание, история языков и особенности разных культур",
+          "questions": [
+            {
+              "id": "6-1",
+              "value": 10,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-2",
+              "value": 20,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-3",
+              "value": 30,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-4",
+              "value": 40,
+              "answered": false,
+              "answeredBy": null
+            },
+            {
+              "id": "6-5",
+              "value": 50,
+              "answered": false,
+              "answeredBy": null
+            }
+          ]
+        }
+      ],
+      "revealedQuestions": {},
+      "completedThemes": []
+    },
+    "updatedAt": "2026-04-02T18:36:23.722Z"
   },
   {
     "gameDate": "2026-03-29",

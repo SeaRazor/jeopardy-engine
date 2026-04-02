@@ -30,7 +30,7 @@ fallback = null,
       ? condition(user, role, isAuthenticated)
       : Boolean(condition);
   } catch (error) {
-    console.error('ConditionalRender condition error:', error);
+    console.error('ConditionalRender condition error:', errorА);
     shouldShow = false;
   }
 

@@ -484,7 +484,7 @@ const StageTab = ({ stage, stageIndex, tournament }) => {
             {!gamesLoading && getActiveGamesCount(allGames) > 0 && (
               <span className={`${styles.liveBadge} ${isFetching ? styles.liveBadgeUpdating : ''}`}>
                 <span className={styles.liveDot} />
-                {getActiveGamesCount(allGames)} live
+                {getActiveGamesCount(allGames)} LIVE
               </span>
             )}
           </div>
