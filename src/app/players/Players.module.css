@@ -82,10 +82,12 @@
   
   .controls {
     display: flex;
+    align-items: center;
+    gap: 0.75rem;
     justify-content: center;
     margin-bottom: 1.5rem;
     margin-top: 1.5rem;
-    max-width: 500px;
+    max-width: 560px;
     margin-left: auto;
     margin-right: auto;
     padding: 0 1rem;
@@ -97,6 +99,142 @@
       max-width: 100%;
     }
   }
+
+/* --- View switcher ----------------------------------------- */
+.viewSwitcher {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.viewButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: transparent;
+  border: none;
+  color: var(--color-secondary-text);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.viewButton:first-child {
+  border-right: 1px solid var(--card-border);
+}
+
+.viewButton svg {
+  width: 14px;
+  height: 14px;
+}
+
+.viewButton:hover {
+  color: var(--primary-color);
+  background-color: var(--input-bg);
+}
+
+.viewButtonActive {
+  color: var(--primary-color);
+  background-color: var(--input-bg);
+}
+
+/* --- List view --------------------------------------------- */
+.list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0.5rem;
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  background: var(--card-bg);
+}
+
+.listRow {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  transition: background-color 0.15s ease;
+  border: 1px solid var(--card-border);
+}
+
+.listRow:hover {
+  background-color: var(--input-bg);
+}
+
+.listAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.listName {
+  flex: 1;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-foreground);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.listDeleteButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--card-border);
+  background: transparent;
+  color: var(--color-secondary-text);
+  cursor: pointer;
+  transition: color 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
+  flex-shrink: 0;
+}
+
+.listDeleteButton svg {
+  width: 12px;
+  height: 12px;
+}
+
+.listDeleteButton:hover {
+  color: #dc2626;
+  background-color: rgba(220, 38, 38, 0.06);
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
+@media (max-width: 768px) {
+  .list {
+    max-width: 100%;
+    margin: 0 0.5rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .list {
+    grid-template-columns: 1fr;
+    margin: 0;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}
   
   .filterInput {
     padding: 0.75rem 1rem;

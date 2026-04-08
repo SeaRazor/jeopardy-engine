@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { FaCalendarAlt, FaMapMarkerAlt, FaMicrophone, FaUsers, FaTrophy, FaMedal, FaArrowUp, FaArrowDown, FaEdit, FaCheck, FaLink, FaClock, FaExclamationTriangle } from 'react-icons/fa';
 import GameEditModal from './GameEditModal';
 import Card from '../UI/Card/Card';
@@ -243,13 +244,13 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
       <div className={styles.mobileAccordionHeader} onClick={toggleExpanded}>
         <div className={styles.accordionTitleSection}>
           <h4 className={styles.accordionTitle}>
-            <a 
-              href={`/tournaments/${currentGame.tournamentId}/stages/${currentGame.stageId}/games/${currentGame.id}`} 
+            <Link
+              href={`/tournaments/${currentGame.tournamentId}/stages/${currentGame.stageId}/games/${currentGame.id}`}
               className={styles.gameNameLink}
               onClick={(e) => e.stopPropagation()}
             >
               {isFinalStage ? 'Финал' : `Бой ${currentGame.gameNumber || currentGame.id}`}
-            </a>
+            </Link>
             {isGameActive(currentGame) && (
               <span className={`${styles.liveBadge} ${styles.active}`}>
                 <span className={styles.liveDot}></span>
@@ -301,12 +302,12 @@ export default function GameCard({ game, stage, showActions = false, onEdit, onD
       <div className={styles.desktopCardTitle}>
         <div className={styles.desktopTitleContent}>
           <h4>
-            <a 
-              href={`/tournaments/${currentGame.tournamentId}/stages/${currentGame.stageId}/games/${currentGame.id}`} 
+            <Link
+              href={`/tournaments/${currentGame.tournamentId}/stages/${currentGame.stageId}/games/${currentGame.id}`}
               className={styles.gameNameLink}
             >
               {isFinalStage ? 'Финал' : `Бой ${currentGame.gameNumber || currentGame.id}`}
-            </a>
+            </Link>
             {isGameActive(currentGame) && (
               <span className={`${styles.liveBadge} ${styles.active}`}>
                 <span className={styles.liveDot}></span>

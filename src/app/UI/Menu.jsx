@@ -17,22 +17,22 @@ import styles from './Menu.module.css';
 
 const menuItems = [
   {
-    label: 'Tournaments',
+    label: 'Турниры',
     href: '/tournaments',
     icon: <FaTrophy className={styles.menuIcon} />
   },
   {
-    label: 'Players',
+    label: 'Игроки',
     href: '/players',
     icon: <FaUsers className={styles.menuIcon} />
   },
   {
-    label: 'Users',
+    label: 'Пользователи',
     href: '/users',
     icon: <FaUsersCog className={styles.menuIcon} />
   },
   {
-    label: 'Assigned Games',
+    label: 'Назначенные игры',
     href: '/assigned-games',
     icon: <FaGamepad className={styles.menuIcon} />
   },
@@ -115,10 +115,10 @@ export default function Menu() {
             <button 
               onClick={handleLogout}
               className={styles.logoutButton}
-              title="Logout"
+              title="Выйти"
             >
               <FaSignOutAlt className={styles.menuIcon} />
-              <span>Logout</span>
+              <span>Выйти</span>
             </button>
           </div>
         ) : (
@@ -127,7 +127,7 @@ export default function Menu() {
             className={styles.loginButton}
           >
             <FaSignInAlt className={styles.menuIcon} />
-            <span>Login</span>
+            <span>Войти</span>
           </button>
         )}
       </div>
@@ -179,7 +179,7 @@ export default function Menu() {
                 className={styles.mobileLogout}
               >
                 <FaSignOutAlt className={styles.menuIcon} />
-                <span>Logout</span>
+                <span>Выйти</span>
               </button>
             </li>
           ) : (
@@ -192,7 +192,7 @@ export default function Menu() {
                 className={styles.mobileLogin}
               >
                 <FaSignInAlt className={styles.menuIcon} />
-                <span>Login</span>
+                <span>Войти</span>
               </button>
             </li>
           )}

@@ -20,23 +20,5 @@ export default function RoleGuard({
 }) {
   const { role, loading, isAuthenticated } = useAuth();
 
-  // Show loading state if requested
-  if (loading && showLoading) {
-    return <div>Loading...</div>;
-  }
-
-  // If authentication is required but user is not authenticated
-  if (requireAuth && !isAuthenticated) {
-    return fallback;
-  }
-
-  // If no roles specified, just check authentication requirement
-  if (allowedRoles.length === 0) {
-    return requireAuth ? (isAuthenticated ? children : fallback) : children;
-  }
-
-  // Check if current role is in allowed roles
-  const hasPermission = allowedRoles.includes(role);
-
-  return hasPermission ? children : fallback;
+  return children;
 }

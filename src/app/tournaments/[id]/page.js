@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { useParams, useSearchParams, useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useParams, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { FaCalendarAlt, FaInfoCircle, FaSitemap, FaUsers, FaChevronRight, FaTrophy } from 'react-icons/fa';
 import InfoCard from '../../UI/InfoCard/InfoCard';
@@ -24,42 +24,40 @@ const fetchTournament = async (id) => {
 
 export default function TournamentDetailPage() {
   const { id } = useParams();
-  const searchParams = useSearchParams();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('participants');
-  
+
   const { data: tournament, isLoading, isError } = useQuery({
     queryKey: ['tournament', id],
     queryFn: () => fetchTournament(id),
   });
 
-  // Set active tab from URL parameter
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    const tabParam = searchParams.get('tab');
-    if (tabParam) {
-      setActiveTab(tabParam);
-    }
-  }, [searchParams]);
+    const tab = new URLSearchParams(window.location.search).get('tab');
+    if (tab) setActiveTab(tab);
+
+    const onPopState = () => {
+      const t = new URLSearchParams(window.location.search).get('tab');
+      setActiveTab(t || 'participants');
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
 
   // Redirect to tournaments list if tournament not found
   useEffect(() => {
     if (isError) {
       const timer = setTimeout(() => {
         router.push('/tournaments');
-      }, 3000); // 3 second delay to show error message
-      
+      }, 3000);
+
       return () => clearTimeout(timer);
     }
   }, [isError, router]);
 
   const handleTabChange = (tabId) => {
     setActiveTab(tabId);
-    // Update URL with query parameter
-    const url = new URL(window.location);
-    url.searchParams.set('tab', tabId);
-    router.push(url.pathname + url.search, undefined, { shallow: true });
+    window.history.replaceState(null, '', `?tab=${tabId}`);
   };
 
   const handleUpdateParticipants = (participants) => {
