@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { FaPlus, FaTrash, FaRandom, FaSave, FaBroom, FaCheck, FaChevronDown, FaChevronUp, FaGamepad } from 'react-icons/fa';
+import { FaPlus, FaTrash, FaRandom, FaSave, FaBroom, FaCheck, FaChevronDown, FaChevronUp, FaGamepad, FaUsers } from 'react-icons/fa';
 import Modal from '../../../UI/Modal';
 import ConfirmationDialog from '../../../UI/ConfirmationDialog';
 import { useToast } from '../../../util/ToastContext';
@@ -750,8 +750,19 @@ const ParticipantsTab = ({ tournament, onUpdateParticipants }) => {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.info}>
-          <h3>Участники турнира</h3>
-          <p>Всего участников: {getTotalParticipants()} / {tournament?.schema?.participantsNum || 'Не указано'}</p>
+          <div className={styles.statItem}>
+            <div className={styles.statIconBox}>
+              <FaUsers className={styles.statIcon} />
+            </div>
+            <div className={styles.statText}>
+              <span className={styles.statLabel}>Участников</span>
+              <span className={styles.statValue}>
+                {getTotalParticipants()}
+                <span className={styles.statDivider}>/</span>
+                {tournament?.schema?.participantsNum ?? '—'}
+              </span>
+            </div>
+          </div>
         </div>
         <div className={styles.actions}>
           <button onClick={shufflePools} className={styles.shuffleButton} title="Перемешать">

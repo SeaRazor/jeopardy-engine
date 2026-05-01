@@ -93,6 +93,18 @@
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
 }
 
+html.dark .nameInput,
+html.dark .descriptionInput {
+  background: linear-gradient(180deg, #111827 0%, #0f141f 100%);
+  border-color: #374151;
+}
+
+html.dark .nameInput:focus,
+html.dark .descriptionInput:focus {
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+  border-color: var(--primary-color);
+}
+
 .descriptionInput {
   resize: vertical;
   min-height: 60px;
@@ -174,12 +186,14 @@
   background-color: var(--card-bg);
   color: var(--color-foreground);
   border-color: var(--color-border, #e0e0e0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .navButton:hover:not(:disabled) {
   background-color: rgba(var(--primary-color-rgb, 0, 123, 255), 0.05);
   border-color: var(--primary-color, #007bff);
   color: var(--primary-color, #007bff);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .navButton:disabled {
@@ -188,6 +202,17 @@
   background-color: #f8f9fa;
   color: #6c757d;
   border-color: #e9ecef;
+}
+
+html.dark .navButton {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
+  border-color: #374151;
+}
+
+html.dark .navButton:hover:not(:disabled) {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(180deg, #1f2937 0%, #1a2231 100%);
 }
 
 /* Save Button */

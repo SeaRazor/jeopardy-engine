@@ -112,12 +112,25 @@
 }
 
 /* Dark mode variants */
-[data-theme="dark"] .evenRow {
+html.dark .evenRow {
   background-color: var(--card-bg);
 }
 
-[data-theme="dark"] .oddRow {
+html.dark .oddRow {
   background-color: rgba(255, 255, 255, 0.025);
+}
+
+html.dark .bracketTableContainer {
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+html.dark .gameRow {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+html.dark .stageCell {
+  border-right-color: rgba(255, 255, 255, 0.06);
 }
 
 /* Table Cells */
@@ -168,20 +181,36 @@
 }
 
 /* Dark mode text improvements */
-[data-theme="dark"] .participantName {
+html.dark .participantName {
   color: var(--color-foreground);
 }
 
-[data-theme="dark"] .participantName.reference {
-  color: rgba(255, 255, 255, 0.7);
+html.dark .participantName.reference {
+  color: rgba(255, 255, 255, 0.6);
 }
 
-[data-theme="dark"] .participantScore {
+html.dark .participantScore {
   color: var(--color-foreground);
 }
 
-[data-theme="dark"] .emptyCell {
-  color: rgba(255, 255, 255, 0.5);
+html.dark .emptyCell {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+html.dark .bracketTableContainer::-webkit-scrollbar-track {
+  background: #0a0e1a;
+}
+
+html.dark .bracketTableContainer::-webkit-scrollbar-thumb {
+  background-color: #475569;
+}
+
+html.dark .bracketTableContainer::-webkit-scrollbar-thumb:hover {
+  background-color: #6366f1;
+}
+
+html.dark .bracketTableContainer {
+  scrollbar-color: #475569 #0a0e1a;
 }
 
 .participantScore {

@@ -14,189 +14,194 @@
 }
 
 .info h3 {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.75rem 0;
   font-size: 1.5rem;
   color: var(--color-foreground);
 }
 
-.info p {
-  margin: 0;
+.statItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.statIconBox {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(99, 102, 241, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.statIcon {
+  width: 15px;
+  height: 15px;
+  color: #6366f1;
+}
+
+.statText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.statLabel {
+  font-size: 0.7rem;
   color: var(--color-secondary-text);
+  font-weight: 500;
+}
+
+.statValue {
   font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-foreground);
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.statDivider {
+  color: var(--color-secondary-text);
+  font-weight: 400;
 }
 
 .actions {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
-.shuffleButton {
+/* Shared base for all action buttons */
+.shuffleButton,
+.saveButton,
+.clearButton,
+.createGamesButton,
+.drawButton {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background-color: var(--secondary-button-bg);
-  color: var(--secondary-button-text);
-  border: 1px solid var(--secondary-button-border);
-  border-radius: 8px;
-  cursor: pointer;
+  padding: 0 1rem;
+  min-height: 36px;
+  border-radius: 6px;
   font-size: 0.875rem;
-  transition: all 0.2s;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s, opacity 0.2s;
+  white-space: nowrap;
+  border: none;
 }
 
 .buttonText {
   display: inline;
 }
 
+/* Shuffle — secondary style */
+.shuffleButton {
+  background-color: var(--secondary-button-bg);
+  color: var(--secondary-button-text);
+  border: 1px solid var(--secondary-button-border);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
 .shuffleButton:hover {
   background-color: var(--secondary-button-hover-bg);
   color: var(--secondary-button-hover-text);
+  border-color: var(--secondary-button-hover-border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
+/* Save — success green */
 .saveButton {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.2s;
-  position: relative;
+  background-color: #16a34a;
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .saveButton:hover:not(:disabled) {
-  background-color: #218838;
-  transform: translateY(-1px);
+  background-color: #15803d;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3);
 }
 
 .saveButton:disabled {
-  background-color: #6c757d;
+  opacity: 0.45;
   cursor: not-allowed;
-  transform: none;
 }
 
 .saveButton.success {
-  background-color: #28a745;
   animation: successPulse 0.3s ease-in-out;
 }
 
+/* Clear — danger red */
 .clearButton {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.2s;
+  background-color: var(--secondary-button-bg);
+  color: #ef4444;
+  border: 1px solid var(--secondary-button-border);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .clearButton:hover {
-  background-color: #c82333;
-  transform: translateY(-1px);
+  background-color: rgba(239, 68, 68, 0.08);
+  border-color: #ef4444;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.12);
 }
 
+/* Create games — primary */
 .createGamesButton {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background-color: #6f42c1;
-  color: white;
-  border: 1px solid #6f42c1;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.2s;
-  pointer-events: auto;
-  position: relative;
-  z-index: 1;
+  background-color: var(--primary-color);
+  color: var(--primary-text-color);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .createGamesButton:hover:not(:disabled) {
-  background-color: #5a2d91;
-  transform: translateY(-1px);
+  background-color: var(--primary-hover-color);
+  box-shadow: 0 2px 6px rgba(var(--primary-color-rgb), 0.3);
 }
 
 .createGamesButton:disabled {
-  background-color: #6c757d;
+  opacity: 0.45;
   cursor: not-allowed;
-  transform: none;
 }
 
+/* Draw — teal accent */
 .drawButton {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background-color: #17a2b8;
-  color: white;
-  border: 1px solid #17a2b8;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.2s;
-  pointer-events: auto;
-  position: relative;
-  z-index: 1;
+  background-color: #0891b2;
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .drawButton:hover:not(:disabled) {
-  background-color: #138496;
-  transform: translateY(-1px);
+  background-color: #0e7490;
+  box-shadow: 0 2px 6px rgba(8, 145, 178, 0.3);
 }
 
 .drawButton:disabled {
-  background-color: #6c757d;
+  opacity: 0.45;
   cursor: not-allowed;
-  transform: none;
 }
 
-.drawButton.requiresSave {
-  background-color: #ffc107;
-  color: #212529;
-  border-color: #ffc107;
-}
-
-.drawButton.requiresSave:disabled {
-  background-color: #ffc107;
-  color: #212529;
-  opacity: 0.7;
-}
-
+/* Warning state — unsaved changes */
+.drawButton.requiresSave,
 .createGamesButton.requiresSave {
-  background-color: #ffc107;
-  color: #212529;
-  border-color: #ffc107;
+  background-color: #d97706;
+  color: #ffffff;
 }
 
-.createGamesButton.requiresSave:disabled {
-  background-color: #ffc107;
-  color: #212529;
-  opacity: 0.7;
+.drawButton.requiresSave:hover:not(:disabled),
+.createGamesButton.requiresSave:hover:not(:disabled) {
+  background-color: #b45309;
 }
 
+/* Games already exist state */
 .createGamesButton.gamesExist {
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: #16a34a;
 }
 
-.createGamesButton.gamesExist:disabled {
-  background-color: #28a745;
-  border-color: #28a745;
-  opacity: 0.6;
-  cursor: not-allowed;
+.createGamesButton.gamesExist:hover:not(:disabled) {
+  background-color: #15803d;
 }
 
 @keyframes successPulse {
@@ -272,6 +277,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
   margin-bottom: 1rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--card-border);
@@ -280,13 +286,16 @@
 .headerContent {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
+  min-width: 0;
+  flex: 1;
 }
 
 .headerActions {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .clickableHeader {
@@ -308,16 +317,22 @@
 
 .poolHeader h4 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--color-foreground);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .count {
-  padding: 0.25rem 0.5rem;
+  padding: 0.2rem 0.45rem;
   border-radius: 12px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   border: 1px solid transparent;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .countGold {
@@ -618,6 +633,20 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
+
+  .pool {
+    padding: 1rem;
+  }
+
+  .poolHeader h4 {
+    font-size: 0.9rem;
+  }
+
+  .addButton {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -639,20 +668,11 @@
   .drawButton {
     flex: 1;
     min-width: 44px;
-    padding: 0.5rem;
+    min-height: 44px;
+    padding: 0 0.5rem;
     justify-content: center;
   }
-  
-  .createGamesButton.requiresSave {
-    background-color: #ffc107;
-    color: #212529;
-  }
-  
-  .createGamesButton.gamesExist {
-    background-color: #28a745;
-    border-color: #28a745;
-  }
-  
+
   .buttonText {
     display: none;
   }

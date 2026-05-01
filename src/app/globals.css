@@ -55,47 +55,60 @@
 
 /* Base Palette - Dark Mode */
 html.dark {
-  --color-background: #0f172a;
-  --color-foreground: #f1f5f9;
+  --color-background: #0a0e1a;
+  --color-foreground: #e2e8f0;
   --color-secondary-text: #94a3b8;
-  --color-border: #334155;
-  --color-shadow: rgba(0, 0, 0, 0.25);
-  --color-hover-bg: rgba(255, 255, 255, 0.04);
+  --color-border: #1e293b;
+  --color-shadow: rgba(0, 0, 0, 0.4);
+  --color-hover-bg: rgba(255, 255, 255, 0.03);
 
   /* Card Specifics - Dark Mode */
-  --card-bg: #1e293b;
-  --card-border: #334155;
+  --card-bg: #111827;
+  --card-border: #1f2937;
 
   /* Input Specifics - Dark Mode */
-  --input-bg: #1e293b;
-  --input-border: #475569;
-  --input-focus-shadow: rgba(129, 140, 248, 0.2);
+  --input-bg: #111827;
+  --input-border: #374151;
+  --input-focus-shadow: rgba(99, 102, 241, 0.25);
 
   /* Primary Action - Dark Mode */
-  --primary-color: #818cf8;
-  --primary-color-rgb: 129, 140, 248;
-  --primary-hover-color: #6366f1;
+  --primary-color: #6366f1;
+  --primary-color-rgb: 99, 102, 241;
+  --primary-hover-color: #4f46e5;
   --primary-text-color: #ffffff;
 
   /* Secondary Action - Dark Mode */
-  --secondary-button-bg: #333333;
-  --secondary-button-border: #555555;
-  --secondary-button-text: #adb5bd;
-  --secondary-button-hover-bg: #444444;
-  --secondary-button-hover-border: #6c757d;
-  --secondary-button-hover-text: #f8f9fa;
+  --secondary-button-bg: #1f2937;
+  --secondary-button-border: #374151;
+  --secondary-button-text: #9ca3af;
+  --secondary-button-hover-bg: #374151;
+  --secondary-button-hover-border: #4b5563;
+  --secondary-button-hover-text: #e5e7eb;
 
   /* Status/Label Colors - Dark Mode */
-  --status-planned-color: #fbbf24;
-  --status-planned-bg: rgba(251, 191, 36, 0.1);
-  --status-ongoing-color: #34d399;
-  --status-ongoing-bg: rgba(52, 211, 153, 0.1);
-  --status-finished-color: #94a3b8;
-  --status-finished-bg: rgba(148, 163, 184, 0.1);
+  --status-planned-color: #f59e0b;
+  --status-planned-bg: rgba(245, 158, 11, 0.12);
+  --status-ongoing-color: #10b981;
+  --status-ongoing-bg: rgba(16, 185, 129, 0.12);
+  --status-finished-color: #6b7280;
+  --status-finished-bg: rgba(107, 114, 128, 0.12);
 
   /* Type Label Colors - Dark Mode */
-  --type-si-bg: #818cf8;
-  --type-ek-bg: #38bdf8;
+  --type-si-bg: #6366f1;
+  --type-ek-bg: #06b6d4;
+
+  /* Shadow Variables - Dark Mode */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.35), 0 2px 4px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4), 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark mode background gradient for extra depth */
+html.dark body {
+  background:
+    radial-gradient(ellipse at top, rgba(99, 102, 241, 0.06), transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(6, 182, 212, 0.04), transparent 50%),
+    var(--color-background);
 }
 
 *, *::before, *::after {
@@ -150,4 +163,12 @@ h1 {
 .fab:hover {
   background-color: var(--primary-hover-color);
   transform: scale(1.05);
+}
+
+html.dark .fab {
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3), 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+html.dark .fab:hover {
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
 }

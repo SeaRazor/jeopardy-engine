@@ -106,6 +106,13 @@
   background: linear-gradient(135deg, var(--card-bg) 0%, var(--color-background) 100%);
   border-radius: 16px;
   border: 1px solid var(--card-border);
+  box-shadow: 0 4px 12px var(--color-shadow);
+}
+
+html.dark .podiumDesktop {
+  background: linear-gradient(135deg, #111827 0%, #0a0e1a 100%);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .podiumMobile {
@@ -298,6 +305,10 @@
 
 .tableRow:not(:first-child):hover {
   background-color: var(--color-background);
+}
+
+html.dark .tableRow:not(:first-child):hover {
+  background-color: rgba(255, 255, 255, 0.03);
 }
 
 .tableRow:first-child {
